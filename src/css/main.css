@@ -1,0 +1,207 @@
+:root {
+  --main-color: #6255A4;
+  --main-hover: #FF9B0B;
+  --sec-color: #1f1f1f;
+  --black-color: #000;
+  --white-color: #fff;
+  --border-radius: 24px;
+  font-size: 16px;
+}
+
+@font-face {
+  font-family: "Public Sans";
+  src: url("../fonts/publicSans/PublicSans-ExtraBold.woff2") format("woff2"), url("../fonts/publicSans/PublicSans-ExtraBold.woff") format("woff"), url("../fonts/publicSans/PublicSans-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Public Sans";
+  src: url("../fonts/publicSans/PublicSans-Light.woff2") format("woff2"), url("../fonts/publicSans/PublicSans-Light.woff") format("woff"), url("../fonts/publicSans/PublicSans-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Public Sans";
+  src: url("../fonts/publicSans/PublicSans-SemiBold.woff2") format("woff2"), url("../fonts/publicSans/PublicSans-SemiBold.woff") format("woff"), url("../fonts/publicSans/PublicSans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Public Sans";
+  src: url("../fonts/publicSans/PublicSans-Medium.woff2") format("woff2"), url("../fonts/publicSans/PublicSans-Medium.woff") format("woff"), url("../fonts/publicSans/PublicSans-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Public Sans";
+  src: url("../fonts/publicSans/PublicSans-Regular.woff2") format("woff2"), url("../fonts/publicSans/PublicSans-Regular.woff") format("woff"), url("../fonts/publicSans/PublicSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Public Sans";
+  src: url("../fonts/publicSans/PublicSans-Black.woff2") format("woff2"), url("../fonts/publicSans/PublicSans-Black.woff") format("woff"), url("../fonts/publicSans/PublicSans-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Public Sans";
+  src: url("../fonts/publicSans/PublicSans-Bold.woff2") format("woff2"), url("../fonts/publicSans/PublicSans-Bold.woff") format("woff"), url("../fonts/publicSans/PublicSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Public Sans";
+  src: url("../fonts/publicSans/PublicSans-Thin.woff2") format("woff2"), url("../fonts/publicSans/PublicSans-Thin.woff") format("woff"), url("../fonts/publicSans/PublicSans-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+body {
+  font-family: "Public Sans";
+  box-sizing: border-box;
+  font-style: normal;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--main-color) #fff;
+  scroll-behavior: unset !important;
+}
+
+.overflow {
+  overflow: hidden;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+figure {
+  margin: 0;
+}
+
+img {
+  image-rendering: -webkit-optimize-contrast !important;
+  max-width: 100%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  outline: 0 !important;
+}
+
+input::-moz-placeholder {
+  color: inherit;
+}
+
+input::placeholder {
+  color: inherit;
+}
+
+a,
+a:hover,
+a:focus {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  outline: 0;
+}
+
+a,
+img,
+button,
+input,
+select {
+  transition: all 0.3s ease;
+}
+
+[role=button] {
+  cursor: pointer;
+}
+
+/*style scroll bar*/
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 1px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--white-color);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--main-hover);
+}
+
+@media only screen and (max-width: 767px) {
+  .container,
+  .container-fluid,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    max-width: 990px;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    max-width: 1000px;
+  }
+}
+.container-fluid {
+  --bs-gutter-x: 30px;
+}
+
+.container {
+  --bs-gutter-x: 30px;
+}
+
+.row {
+  --bs-gutter-x: 30px;
+}
+
+.row > * {
+  --bs-gutter-x: 30px;
+}/*# sourceMappingURL=main.css.map */
