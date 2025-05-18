@@ -2,7 +2,7 @@
 export default function Header() {
   return (
     <header>
-        header
+        أضف سكنـك
     </header>
   );
 }
