@@ -1,49 +1,5 @@
 @font-face {
   font-family: 'Lama Sans';
-  src: url('../fonts/Lama Sans/LamaSans-ExtraLightItalic.woff2') format('woff2'),
-      url('../fonts/Lama Sans/LamaSans-ExtraLightItalic.woff') format('woff');
-  font-weight: 200;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Lama Sans';
-  src: url('../fonts/Lama Sans/LamaSans-Light.woff2') format('woff2'),
-      url('../fonts/Lama Sans/LamaSans-Light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Lama Sans';
-  src: url('../fonts/Lama Sans/LamaSans-Regular.woff2') format('woff2'),
-      url('../fonts/Lama Sans/LamaSans-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Lama Sans';
-  src: url('../fonts/Lama Sans/LamaSans-MediumItalic.woff2') format('woff2'),
-      url('../fonts/Lama Sans/LamaSans-MediumItalic.woff') format('woff');
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Lama Sans';
-  src: url('../fonts/Lama Sans/LamaSans-SemiBold.woff2') format('woff2'),
-      url('../fonts/Lama Sans/LamaSans-SemiBold.woff') format('woff');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-
-@font-face {
-  font-family: 'Lama Sans';
   src: url('../fonts/Lama Sans/LamaSans-Bold.woff2') format('woff2'),
       url('../fonts/Lama Sans/LamaSans-Bold.woff') format('woff');
   font-weight: 700;
@@ -123,6 +79,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Lama Sans';
+  src: url('../fonts/Lama Sans/LamaSans-ExtraLightItalic.woff2') format('woff2'),
+      url('../fonts/Lama Sans/LamaSans-ExtraLightItalic.woff') format('woff');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'Lama Sans';
@@ -151,6 +115,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Lama Sans';
+  src: url('../fonts/Lama Sans/LamaSans-Light.woff2') format('woff2'),
+      url('../fonts/Lama Sans/LamaSans-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'Lama Sans';
@@ -233,6 +205,23 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Lama Sans';
+  src: url('../fonts/Lama Sans/LamaSans-Regular.woff2') format('woff2'),
+      url('../fonts/Lama Sans/LamaSans-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Lama Sans';
+  src: url('../fonts/Lama Sans/LamaSans-MediumItalic.woff2') format('woff2'),
+      url('../fonts/Lama Sans/LamaSans-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'Lama Sans';
@@ -266,6 +255,15 @@
   src: url('../fonts/Lama Sans/LamaSans-Medium.woff2') format('woff2'),
       url('../fonts/Lama Sans/LamaSans-Medium.woff') format('woff');
   font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Lama Sans';
+  src: url('../fonts/Lama Sans/LamaSans-SemiBold.woff2') format('woff2'),
+      url('../fonts/Lama Sans/LamaSans-SemiBold.woff') format('woff');
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }

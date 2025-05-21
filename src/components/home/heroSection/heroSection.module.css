@@ -1,0 +1,13 @@
+.title{
+  line-height: 4rem;
+}
+@media (min-width: 768px)  {
+  .title{
+    line-height: 4rem;
+  }
+}
+@media (min-width: 1280px) {
+  .title{
+    line-height: 5rem;
+  }
+}

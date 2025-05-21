@@ -7,6 +7,23 @@ const config = {
 		'./src/app/**/*.{js,ts,jsx,tsx,mdx}',
 	],
 	theme: {
+		container: {
+			center: true, // تجعل الـ container في المنتصف تلقائياً
+			padding: {
+				DEFAULT: '1rem', // padding افتراضي
+				sm: '2rem',
+				lg: '4rem',
+				xl: '5rem',
+				'2xl': '6rem',
+			},
+			screens: {
+				sm: '640px',
+				md: '768px',
+				lg: '1024px',
+				xl: '1280px',
+				'2xl': '1536px',
+			},
+		},
 		extend: {
 			container: {},
 			screens: {
@@ -23,6 +40,14 @@ const config = {
 				PaymentHead: 'linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/payment.jpeg")'
 			},
 			colors: {
+				main: {
+          blue: '#016AB5',
+          purple: '#A71755',
+          navy: '#091B3C',
+          gray: '#6F6F6F',
+        },
+        tab: '#F2F2F2',
+        body: '#F5F5F5',
 				primaryColor: '#025AB4',
 				secColor: '#1AC5BD',
 				background: 'hsl(var(--background))',
