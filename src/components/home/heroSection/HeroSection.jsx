@@ -1,3 +1,4 @@
+import FilterTabs from "../filterTabs/FilterTabs";
 import styles from "./heroSection.module.css";
 const counters = [
   {
@@ -37,6 +38,8 @@ const HeroSection = () => {
 
           </div>
         </div>
+        {/* filter  */}
+        <FilterTabs/>
 
       </div>
     </section>

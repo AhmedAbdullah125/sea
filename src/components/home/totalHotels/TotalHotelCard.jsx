@@ -1,6 +1,7 @@
 import { GoArrowUpLeft } from 'react-icons/go'
 import styles from './totalHotel.module.css'
 import { TiStarFullOutline } from 'react-icons/ti'
+import { Link } from 'react-router-dom'
 
 const TotalHotelCard = () => {
   return (
@@ -17,9 +18,9 @@ const TotalHotelCard = () => {
           </div >
         </div>
       </div>
-      <button className={`absolute bottom-2 end-2 size-14  bg-main-blue  text-white text-xs font-semibold flex items-center justify-center rounded-full`}>
+      <Link to="/" className={`absolute bottom-2 end-2 size-14  bg-main-blue  text-white  text-xs font-semibold flex items-center justify-center rounded-full border-2 border-main-blue hover:bg-white hover:text-main-blue`}>
         <GoArrowUpLeft size={20} />
-      </button>
+      </Link>
     </div>
   )
 }

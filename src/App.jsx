@@ -4,11 +4,17 @@ import { createContext } from 'react';
 import '../src/css/main.css'
 import '../src/css/fontawesome.min.css';
 import Layout from './components/Layout';
+import VisaPage from './pages/VisaPage';
+import VisaGatePage from './pages/VisaGatePage';
+import OmraaPage from './pages/OmraaPage';
 export const AppContext = createContext();
 function App() {
 	const routes = createBrowserRouter([{
 		path: '', element: <Layout></Layout>, children: [
 			{ index: true, element: <Homepage></Homepage> },
+			{ path: "visa/:country", element: <VisaPage></VisaPage> },
+			{ path: "/gate", element: <VisaGatePage></VisaGatePage> },
+			{ path: "/omraa", element: <OmraaPage></OmraaPage> },
 			// { path: '/login', element: <Login></Login> },			
 		]
 	}

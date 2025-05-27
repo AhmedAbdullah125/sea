@@ -21,8 +21,8 @@ const HotelsSection = () => {
         <div className='container flex items-center justify-between'>
           <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue '>أشهــر فنــــادق تركيـــــا.</h2>
           <div className='flex gap-2 items-center '>
-            <CarouselPrevious className="bg-[#F2F2F2]  text-main-gray hover:bg-main-blue hover:text-white   static xl:size-10  size-8 -translate-y-0" icon={<MdArrowForwardIos />} />
-            <CarouselNext className="bg-[#F2F2F2]  text-main-gray hover:bg-main-blue hover:text-white  static xl:size-10  size-8 -translate-y-0 " icon={<MdArrowBackIos />} />
+            <CarouselPrevious className="border-none bg-[#F2F2F2]  text-main-gray hover:bg-main-blue hover:text-white   static xl:size-10  size-8 -translate-y-0" icon={<MdArrowForwardIos />} />
+            <CarouselNext className="border-none bg-[#F2F2F2]  text-main-gray hover:bg-main-blue hover:text-white  static xl:size-10  size-8 -translate-y-0 " icon={<MdArrowBackIos />} />
           </div>
         </div>
         <div className="max-xl:container xl:ps-20 2xl:ps-24">

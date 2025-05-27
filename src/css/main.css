@@ -276,7 +276,7 @@ a:focus {
 }
 
 button {
-  border: none;
+  /* border: none; */
   background: none;
   outline: 0;
 }

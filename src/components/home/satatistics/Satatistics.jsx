@@ -51,7 +51,7 @@ const Satatistics = () => {
             <p className="text-main-navy text-xs xl:text-base xl:leading-[3rem]">نحن منصة رقمية حديثة تهدف إلى تبسيط تجربة حجز أماكن الإقامة حول العالم. نؤمن بأن السفر تجربة تبدأ من لحظة اختيار مكان الإقامة،<br className="hidden xl:block" /> نعتمد على صور ومقاطع فيديو حقيقية، وطرق دفع آمنة، وسياسات مرنة، لتضمن حجزك بثقة وراحة بال.</p>
           </div>
           {/* link */}
-          <a href="#" className="xl:mt-6 flex items-center gap-2 text-white text-xs bg-main-blue p-2 rounded-full w-fit ">
+          <a href="#" className="xl:mt-6 flex items-center gap-2 text-white text-xs bg-main-blue p-2 border-2 border-main-blue hover:bg-transparent hover:text-main-blue rounded-full w-fit ">
             خدمـــــــــاتنا
             <BiSolidLeftTopArrowCircle size={20} />
           </a>
