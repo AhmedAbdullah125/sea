@@ -7,6 +7,7 @@ import Layout from './components/Layout';
 import VisaPage from './pages/VisaPage';
 import VisaGatePage from './pages/VisaGatePage';
 import OmraaPage from './pages/OmraaPage';
+import Table from './pages/Table';
 export const AppContext = createContext();
 function App() {
 	const routes = createBrowserRouter([{
@@ -15,6 +16,8 @@ function App() {
 			{ path: "visa/:country", element: <VisaPage></VisaPage> },
 			{ path: "/gate", element: <VisaGatePage></VisaGatePage> },
 			{ path: "/omraa", element: <OmraaPage></OmraaPage> },
+			{ path: "/table", element: <Table></Table> },
+
 			// { path: '/login', element: <Login></Login> },			
 		]
 	}

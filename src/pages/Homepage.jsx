@@ -1,7 +1,8 @@
 
+import Footer from '../components/footer/Footer';
+import MainHeader from '../components/header/MainHeader';
 import AboutUS from '../components/home/aboutUs/AboutUS';
 import AppSection from '../components/home/appSection/AppSection';
-import Header from '../components/home/Header';
 import HeroSection from '../components/home/heroSection/HeroSection';
 import HotelsSection from '../components/home/hotelsSection/HotelsSection';
 import PakageSection from '../components/home/pakageSection/PakageSection';
@@ -12,7 +13,8 @@ export default function Homepage() {
         <div className="bodyCont">
             {/* <div className="container m-auto"> */}
             {/* <Header /> */}
-            <main className='main-home'>
+            <main className='main-home relative'>
+                <MainHeader />
                 <HeroSection />
                 <HotelsSection />
                 <PakageSection />
@@ -20,6 +22,7 @@ export default function Homepage() {
                 <AboutUS />
                 <AppSection />
                 <Satatistics/>
+                <Footer />
             </main>
             {/* </div> */}
         </div>

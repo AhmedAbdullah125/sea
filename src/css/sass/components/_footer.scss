@@ -1,0 +1,193 @@
+footer {
+    .upperfooter {
+        padding: 127px 0 65px;
+        display: flex;
+        gap: 150px;
+
+        @include max-1300 {
+            gap: 100px;
+        }
+
+        @include max-991 {
+            gap: 50px;
+            padding: 100px 0 50px;
+            flex-direction: column;
+        }
+
+        @include max-767 {
+            gap: 30px;
+            padding: 50px 0;
+        }
+
+        .logo-cont {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            width: 100%;
+            max-width: 380px;
+
+            @include max-1300 {
+                max-width: 280px;
+            }
+
+            @include max-991 {
+                margin: 0 auto;
+                max-width: 400px;
+            }
+
+            @include max-767 {
+                gap: 20px;
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+
+            p {
+                font-size: 22px;
+                font-weight: 500;
+                color: $main;
+                line-height: 40px;
+
+                @include max-991 {
+                    font-size: 16px;
+                    text-align: center;
+                }
+            }
+
+            .social-cont {
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+
+                h3 {
+                    font-size: 18px;
+                    font-weight: 800;
+                    color: $main;
+
+                    @include max-991 {
+                        text-align: center;
+                    }
+                }
+
+                .ies {
+                    display: flex;
+                    gap: 10px;
+                    width: 100%;
+                    justify-content: space-between;
+
+                    @include max-991 {
+                        gap: 5px;
+                    }
+
+                    a {
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        background-color: $sec;
+                        display: flex;
+                        align-items: center;
+                        flex-shrink: 0;
+                        justify-content: center;
+
+                        i {
+                            color: $white;
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .links-cont {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            width: 100%;
+
+            @include max-991 {
+                flex-wrap: wrap;
+                gap: 30px;
+            }
+
+            .links-group {
+                display: flex;
+                flex-direction: column;
+                gap: 45px;
+
+                .title {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+
+                    h3 {
+                        font-size: 25px;
+                        font-weight: 700;
+                        color: $sec;
+
+                        @media screen and (max-width: 1450px) {
+                            font-size: 20px;
+                        }
+                    }
+
+                    .dashh {
+                        width: 40px;
+                        height: 4px;
+                        background-color: $sec;
+                        border-radius: 3px;
+                    }
+                }
+
+                .links {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 40px;
+                    @include tr;
+
+                    @include max-991 {
+                        gap: 20px;
+                    }
+
+                    a {
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: $black;
+                        transition: all 0.3s ease-in-out;
+                        @include tr;
+
+                        @include max-1300 {
+                            font-size: 14px;
+                        }
+
+                        &:hover {
+                            color: $sec;
+                        }
+
+                        &:hover {
+                            color: $sec;
+                        }
+                        @include max-991 {
+                            font-size: 14px;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    .lowerfooter {
+        padding: 65px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid rgba(9, 27, 60, 0.08);
+
+        @include max-767 {
+            padding: 20px 0;
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
+}
