@@ -8,11 +8,15 @@ import VisaPage from './pages/VisaPage';
 import VisaGatePage from './pages/VisaGatePage';
 import OmraaPage from './pages/OmraaPage';
 import Table from './pages/Table';
+import TransportPage from './pages/TransportPage';
+import PrivteTours from './pages/PrivteTours';
 export const AppContext = createContext();
 function App() {
 	const routes = createBrowserRouter([{
 		path: '', element: <Layout></Layout>, children: [
 			{ index: true, element: <Homepage></Homepage> },
+			{ path: "/transport", element: <TransportPage></TransportPage> },
+			{ path: "/transport/privte-tours", element: <PrivteTours></PrivteTours> },
 			{ path: "visa/:country", element: <VisaPage></VisaPage> },
 			{ path: "/gate", element: <VisaGatePage></VisaGatePage> },
 			{ path: "/omraa", element: <OmraaPage></OmraaPage> },
