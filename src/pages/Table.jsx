@@ -32,7 +32,6 @@ const Table = () => {
             <HotelsTable title="أشهــر فنــــادق تركيـــــا." description={`قدم الموقع قائمة "توب عشرة" لأفضل الأنشطة والفعاليات السياحية لتسهيل اختيار المسافر لأجمل التجارب في وجهته.`} />
             <HotelsTable title="فعاليات الشهر الحالي." description={`يُقدم الموقع فعاليات الشهر الحالي ليستمتع المسافر بتجارب سياحية مميزة تشمل مهرجانات، جولات ثقافية، وعروض ترفيهية محلية حية.`} />
             <Events />
-            <Events />
             <section className="trip-things-section">
                 <div className="container">
                     <div className="section-header-cont">
