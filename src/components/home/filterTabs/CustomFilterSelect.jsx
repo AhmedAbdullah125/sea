@@ -22,7 +22,8 @@ const CustomFilterSelect = ({
   options,
   form,
   colSpan = "xl:col-span-3 md:col-span-6 col-span-12",
-  isRequired=false
+  isRequired = false,
+  bg="bg-body"
 }) => {
   return (
     <FormField
@@ -41,7 +42,7 @@ const CustomFilterSelect = ({
             <FormControl>
               <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                 <ChevronDown size={14} />
-              </div>} className="bg-body text-[#797979]  text-xs font-semibold border-none  rounded-full h-12">
+              </div>} className={` ${bg} text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
                 <SelectValue placeholder={placeholder} className="text-[#797979]" />
               </SelectTrigger>
             </FormControl>

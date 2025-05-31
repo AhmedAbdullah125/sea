@@ -36,7 +36,7 @@ const CustomInput = ({
               type={type}
               placeholder={placeholder}
               {...field}
-              className={`h-12 ${bg} text-[#797979] text-xs font-semibold border-none rounded-full placeholder:text-[#797979]`}
+              className={` h-12 ${bg} text-[#797979] text-xs font-semibold border-none rounded-full placeholder:text-[#797979]`}
               dir="rtl"
             />
           </FormControl>
