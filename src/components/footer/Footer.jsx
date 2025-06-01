@@ -35,7 +35,7 @@ const Footer = () => {
                                 <Link to="#">بــاقات حول العالم</Link>
                                 <Link to="#">حجز النقل والمواصلات</Link>
                                 <Link to="#">الـــتأشيرات</Link>
-                                <Link to="#">جدولك عليـــنا</Link>
+                                <Link to="/table">جدولك عليـــنا</Link>
                                 <Link to="#">أضف بــاقتك / سكنك</Link>
                             </div>
 
