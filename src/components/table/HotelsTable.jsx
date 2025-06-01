@@ -6,7 +6,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import img1 from '../../assets/related.png'
 import { useRef } from "react";
-const HotelsTable = ({title, description}) => {
+import { Link } from 'react-router-dom';
+const HotelsTable = ({ title, description }) => {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
     return (
@@ -53,7 +54,7 @@ const HotelsTable = ({title, description}) => {
                         {
                             Array.from({ length: 8 }).map((_, idx) => (
                                 <SwiperSlide key={idx}>
-                                    <div className="related-item-cont">
+                                    <Link to={`/event?id=${idx}`} className="related-item-cont" key={idx}>
                                         <div className="related-item">
                                             <div className="swiper ">
                                                 <Swiper
@@ -117,7 +118,7 @@ const HotelsTable = ({title, description}) => {
                                                 يبدأ من 1219 <span className="icon-saudi_riyal"></span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </SwiperSlide>
                             ))
                         }
