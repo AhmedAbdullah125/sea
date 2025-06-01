@@ -6,19 +6,19 @@ import pay2img from '../assets/pay-img/02.svg'
 import pay3img from '../assets/pay-img/03.svg'
 import pay4img from '../assets/pay-img/04.svg'
 import pay5img from '../assets/pay-img/05.svg'
-import PackageHeader from '../components/package/PackageHeader'
-import PackagePrice from '../components/package/PackagePrice'
-const Trip = () => {
+import EventHeader from '../components/event/EventHeader'
+import EventPrice from '../components/event/EventPrice'
+const Event = () => {
     const payimggs = [pay1img, pay2img, pay3img, pay4img, pay5img]
     return (
         <section>
             <Header />
             {/* Start Page Content */}
-            <PackageHeader />
+            <EventHeader />
             {/* End Page Content */}
 
             {/* package-section */}
-            <PackagePrice   />
+            <EventPrice />
             {/* pay-section */}
             <section className="package-section">
                 <div className="container">
@@ -76,4 +76,4 @@ const Trip = () => {
     )
 }
 
-export default Trip
+export default Event

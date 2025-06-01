@@ -54,7 +54,7 @@ const HotelsTable = ({ title, description }) => {
                         {
                             Array.from({ length: 8 }).map((_, idx) => (
                                 <SwiperSlide key={idx}>
-                                    <Link to={`/trip?id=${idx}`} className="related-item-cont" key={idx}>
+                                    <Link to={`/event?id=${idx}`} className="related-item-cont" key={idx}>
                                         <div className="related-item">
                                             <div className="swiper ">
                                                 <Swiper

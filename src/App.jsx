@@ -11,6 +11,7 @@ import Table from './pages/Table';
 import TransportPage from './pages/TransportPage';
 import PrivteTours from './pages/PrivteTours';
 import Trip from './pages/Trip';
+import Event from './pages/Event';
 export const AppContext = createContext();
 function App() {
 	const routes = createBrowserRouter([{
@@ -23,6 +24,7 @@ function App() {
 			{ path: "/omraa", element: <OmraaPage></OmraaPage> },
 			{ path: "/table", element: <Table></Table> },
 			{ path: "/trip", element: <Trip></Trip> },
+			{ path: "/event", element: <Event></Event> },
 
 			// { path: '/login', element: <Login></Login> },			
 		]
