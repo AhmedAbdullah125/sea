@@ -1,12 +1,6 @@
 import React from 'react'
 import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import img1 from '../assets/related.png'
 import HotelsTable from '../components/table/HotelsTable';
 import Events from '../components/table/Events';
 
