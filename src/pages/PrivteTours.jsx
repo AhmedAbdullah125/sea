@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import FilterGrid from "../components/privite-tour/FilterGrid";
 import FilterPanel from "../components/privite-tour/FilterPanel";
+import Breadcrumbs from "../components/home/BreadCrumbs";
 const PrivteTours = () => {
   // state for search params
   const [searchParams, setSearchParams] = useSearchParams();
@@ -32,6 +33,10 @@ const PrivteTours = () => {
   };
   return (
     <main className="container my-16 ">
+      {/* breadcrumb */}
+      <div className="mb-8">
+      <Breadcrumbs items={[{ label: "الرئيسية", href: "/" }, { label: "النقل و الجولات", href: "/transport" }, { label: "جولات خـــاصة", href: "/privte-tours" }]} />
+      </div>
       <FilterPanel defaultValues={filters} onFilter={updateFilters} />
       <FilterGrid/>
     </main>
