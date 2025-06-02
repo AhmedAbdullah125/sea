@@ -3,6 +3,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../../../public/home/footerLogo.svg'
 import profile from '../../../public/home/profile.svg'
+import LoginDialog from '../login/LoginDialog'
 
 const Header = () => {
     return (
@@ -28,7 +29,7 @@ const Header = () => {
                 </div>
                 <div className="account-cont">
                     <Link to="/profile" className='profile'><LazyLoadImage src={profile} alt="logo" loading='lazy' /></Link>
-                    <Link to="/register" className='register'><span>أنشئ حســـاب الان</span><i className="fa-solid fa-chevron-left"></i></Link>
+                    <LoginDialog />
                 </div>
             </div>
         </section>
