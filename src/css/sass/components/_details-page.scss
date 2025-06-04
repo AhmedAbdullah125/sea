@@ -733,6 +733,99 @@
   margin-bottom: 65px;
 }
 
+.trip-things-section {
+  .things {
+    display: flex;
+    gap: 24px;
+
+    @include max-767 {
+      flex-direction: column;
+    }
+
+    .r-side {
+      width: 100%;
+      max-width: 646px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 50px;
+      border-radius: 40px;
+      background-color: #F5F5F5;
+      height: fit-content;
+      @include max-767 {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px;
+        border-radius: 20px;
+
+      }
+
+      .lower {
+
+        align-self: flex-end;
+      }
+
+      i {
+        width: 46px;
+        height: 46px;
+        @include flexCenter;
+        border-radius: 50%;
+        background-color: $main;
+        color: $white;
+        font-size: 20px;
+      }
+    }
+
+    .l-side {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .item {
+        display: flex;
+        gap: 10px;
+        padding: 21px 35px;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 40px;
+        background-color: #F5F5F5;
+        i{
+          width: 25px;
+          height: 25px;
+          @include flexCenter;
+          border-radius: 50%;
+          background-color: $main;
+          color: $white;
+          font-size: 12px;
+        }
+        p{
+          font-size: 16px;
+        }
+      }
+    }
+
+    span {
+      color: $main;
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: block;
+
+      @include max-767 {
+        font-size: 20px;
+      }
+    }
+
+    p {
+      font-size: 22px;
+      font-weight: 500;
+      color: #6F6F6F;
+    }
+
+  }
+}
+
 .places-type {
   display: flex;
   align-items: center;
