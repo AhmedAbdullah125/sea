@@ -1,19 +1,33 @@
 import React from 'react'
-import pay1img from '../../assets/pay-img/01.svg'
-import pay2img from '../../assets/pay-img/02.svg'
-import pay3img from '../../assets/pay-img/03.svg'
-import pay4img from '../../assets/pay-img/04.svg'
-import pay5img from '../../assets/pay-img/05.svg'
+import ticketimg from '../../assets/ticket.svg'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 const AboutPlace = () => {
-    const payimggs = [pay1img, pay2img, pay3img, pay4img, pay5img]
     return (
-        <section className="package-section">
+        <section className="about-place-section">
             <div className="container">
-                <h6 className="package-head">الدفع !.</h6>
-                <h3 className="package-title">نوفـــر لك أفضــل وســـائل الدفع</h3>
-                <p className="package-text">نسهل عليك لتستمتع في رحلتك !</p>
+                <div className="about-p">
+                    <h3>نبــذة عن المــكان</h3>
+                    <p>رقم تصريح وزارة السياحة: 50005305. شقة فندقية بأجواء مريحة في شمال الرياض حي التعاون هادئ و جميل، تي في ٦٥ بوصة سامسونج نتفليكس و شاهد و جميع التطبيقات متاحة.تحتوي على ضيافة قهوة و ماء و مجهزة بجميع ادوات الاستحمام. تبعد مشي ٣ دقائق عن مجمع ريفر ووك مطاعم و كوفيهات، و دقيقتين مشي عن طريق ابو بكر، تبعد ٢٠ دقيقة عن المطار، صممت لتجد فيها راحتك. أتمنى لك إقامة سعيدة..</p>
+                </div>
+                <div className="about-grid">
+                    <div className="grid-item">
+                        <LazyLoadImage src={ticketimg} alt="logo" loading='lazy' />
+                        <h4>كود ســــي SEA</h4>
+                        <span>#100001</span>
+                    </div>
+                    <div className="grid-item">
+                        <LazyLoadImage src={ticketimg} alt="logo" loading='lazy' />
+                        <h4>كود ســــي SEA</h4>
+                        <span>#100001</span>
+                    </div>
+                    <div className="grid-item">
+                        <LazyLoadImage src={ticketimg} alt="logo" loading='lazy' />
+                        <h4>كود ســــي SEA</h4>
+                        <span>#100001</span>
+                    </div>
+                </div>
             </div>
-          
+
         </section>
 
 

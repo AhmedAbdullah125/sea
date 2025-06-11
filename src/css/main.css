@@ -2040,6 +2040,89 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   color: var(--main-hover);
 }
 
+.about-place-section .about-p {
+  margin-bottom: 40px;
+}
+.about-place-section .about-p h3 {
+  color: var(--sec-color);
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+.about-place-section .about-p p {
+  color: #4D4D4D;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 48px;
+  text-align: justify;
+}
+.about-place-section .about-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-bottom: 40px;
+}
+@media only screen and (max-width: 767px) {
+  .about-place-section .about-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+.about-place-section .about-grid .grid-item {
+  border-radius: 60px;
+  background-color: #F6F6F6;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+@media only screen and (max-width: 1025px) {
+  .about-place-section .about-grid .grid-item {
+    padding: 30px 15px;
+    border-radius: 30px;
+  }
+}
+.about-place-section .about-grid .grid-item img {
+  height: 45px;
+  width: auto;
+  max-width: 100%;
+  margin-bottom: 50px;
+}
+@media only screen and (max-width: 1025px) {
+  .about-place-section .about-grid .grid-item img {
+    margin-bottom: 20px;
+  }
+}
+.about-place-section .about-grid .grid-item h4 {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 70px;
+  color: var(--black-color);
+}
+@media only screen and (max-width: 1025px) {
+  .about-place-section .about-grid .grid-item h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+}
+.about-place-section .about-grid .grid-item span {
+  color: var(--main-hover);
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 0px;
+}
+@media only screen and (max-width: 1025px) {
+  .about-place-section .about-grid .grid-item span {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 0px;
+  }
+}
+
 footer .upperfooter {
   padding: 127px 0 65px;
   display: flex;
