@@ -7,11 +7,25 @@ import {
 } from "@/components/ui/carousel"
 import HotelCard from './HotelCard'
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
+import { useQuery } from "@tanstack/react-query";
+import { fetchFromApi } from "../../../api/utils/fetchData";
 
 const HotelsSection = () => {
+const {data, isLoading, isError}= useQuery({
+  queryKey: ['hotels'],
+  queryFn: async () => {
+    const res = await fetchFromApi("/hotels-user");
+    return res;
+  }
+})
+  if(isLoading) return <div>Loading...</div>
+  if(isError) return <div>Error</div>
+
   return (
     <section className='my-16 '>
+      {data?.data?.data?.length > 0 ?
       <Carousel
+        dir="rtl"
         opts={{
           align: "start",
           loop: true,
@@ -28,15 +42,20 @@ const HotelsSection = () => {
         <div className="max-xl:container xl:ps-20 2xl:ps-24">
 
           <CarouselContent dir="ltr" >
-            {Array.from({ length: 10 }).map((_, index) => (
+            {data?.data?.data?.map((hotel, index) => (
               <CarouselItem key={index} className="md:basis-1/3 xl:basis-1/6 ">
-                <HotelCard />
+                <HotelCard hotel={hotel } />
               </CarouselItem>
             ))}
           </CarouselContent>
         </div>
 
       </Carousel>
+      :
+      <div className='container flex items-center justify-between'>
+      <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue '>لا يوجد فنادق متاحه الان</h2>
+      </div>
+    }
 
 
 

@@ -9,17 +9,22 @@ import { TiStarFullOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import AddToFavBtn from "./AddToFavBtn";
 import HotelCardCarousel from "./HotelCardCarousel";
+import { parse } from "date-fns";
 
-const HotelCard = () => {
+const HotelCard = ({ hotel }) => {
+  const originalPrice = parseFloat(hotel?.discount);
+  const discountedPrice = parseFloat(hotel?.price);
+
+  const discountPercentage = ((originalPrice - discountedPrice) / originalPrice) * 100;
   return (
     <Card className="shadow-none border-none space-y-3" dir="rtl">
       <CardHeader className="p-0">
         {/* img slider */}
         < div className="relative overflow-hidden   rounded-[40px]" >
           {/* sale */}
-          <div div className="absolute top-5 start-5 z-10 size-10 bg-main-purple  text-white text-xs font-semibold flex items-center justify-center rounded-[15px]" > 30 %</div>
+          <div div className="absolute top-5 start-5 z-10 size-10 bg-main-purple  text-white text-xs font-semibold flex items-center justify-center rounded-[15px]" > {discountPercentage.toFixed(1)} %</div>
           {/* card image */}
-          <HotelCardCarousel  />
+          <HotelCardCarousel images={hotel?.images}  />
           {/* add to fav */}
           < AddToFavBtn postion="absolute top-5 end-5 z-10" />
         </div >
@@ -30,13 +35,13 @@ const HotelCard = () => {
           {/* rate */}
           <div div className="flex items-start gap-1 " >
             <TiStarFullOutline size={14} className="text-yellow-600" />
-            <p className="p-0 m-0 text-xs font-semibold">5.0 <span className="text-main-gray ">( 500+ )</span></p>
+            <p className="p-0 m-0 text-xs font-semibold">{parseFloat(hotel?.rating).toFixed(0)} <span className="text-main-gray ">( {hotel?.likes} )</span></p>
           </div >
           {/* details */}
-          <h3 h3 className=" font-bold line-clamp-1" > قصر تشراغان كمبنسكي إسطنبول</h3 >
-          <p className="text-main-gray text-xs line-clamp-1">3284 طريق الوطني إسطنبــول، تركيـــا...</p>
+          <h3 h3 className=" font-bold line-clamp-1" > {hotel?.title}</h3 >
+          <p className="text-main-gray text-xs line-clamp-1">{hotel?.address}</p>
           {/* price */}
-          <h4 className="font-bold text-main-blue">TRY 66.946 <span className="text-xs font-semibold text-main-purple">/ مقابل 5 ليالٍ</span>
+          <h4 className="font-bold text-main-blue">TRY {hotel?.price} <span className="text-xs font-semibold text-main-purple">/ مقابل {hotel?.rentalPeriod}</span>
           </h4>
         </div >
       </CardContent>
