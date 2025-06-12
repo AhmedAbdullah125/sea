@@ -4,6 +4,7 @@ import Header from '../components/header/Header'
 import { useSearchParams } from 'react-router-dom';
 import FilterPanel from '../components/hotels/FilterPanel';
 import HotelsGrid from '../components/hotels/HotelsGrid';
+import HotelHeader from '../components/hotel/HotelHeader';
 const Hotel = () => {
     // state for search params
     const [searchParams, setSearchParams] = useSearchParams();
@@ -37,7 +38,7 @@ const Hotel = () => {
             <Header />
             {/* Start Page Content */}
             <div className="container">
-                jjj
+                <HotelHeader    />
             </div>
 
             {/* End Page Content */}

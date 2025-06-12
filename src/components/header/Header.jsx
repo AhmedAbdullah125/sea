@@ -21,9 +21,9 @@ const Header = () => {
                     <div className="noqta"></div>
                     <NavLink to='/hotels'>فــنادق وشقــق</NavLink>
                     <div className="noqta"></div>
-                    <NavLink to='/w'>التــأشيــرات</NavLink>
+                    <NavLink to='/visa/search'>التــأشيــرات</NavLink>
                     <div className="noqta"></div>
-                    <NavLink to='/w'>النقل و المــواصلات</NavLink>
+                    <NavLink to='/transport'>النقل و المــواصلات</NavLink>
                     <div className="noqta"></div>
                     <NavLink to='/w'>المدونـة</NavLink>
                 </div>
