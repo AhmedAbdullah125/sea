@@ -19,7 +19,7 @@ const Header = () => {
                     <div className="noqta"></div>
                     <NavLink to='/table'>خدمـــاتنا</NavLink>
                     <div className="noqta"></div>
-                    <NavLink to='/w'>فــنادق وشقــق</NavLink>
+                    <NavLink to='/hotels'>فــنادق وشقــق</NavLink>
                     <div className="noqta"></div>
                     <NavLink to='/w'>التــأشيــرات</NavLink>
                     <div className="noqta"></div>

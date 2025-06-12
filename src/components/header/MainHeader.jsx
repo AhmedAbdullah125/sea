@@ -27,7 +27,7 @@ const MainHeader = () => {
                 <div className="main-links">
                     <NavLink to='/'>الرئيسية</NavLink>
                     <div className="noqta"></div>
-                    <NavLink to='/w'>فــنادق وشقــق</NavLink>
+                    <NavLink to='/hotels'>فــنادق وشقــق</NavLink>
                     <div className="noqta"></div>
                     <NavLink to='/w'>باقــات حـول العالم</NavLink>
                     <div className="noqta"></div>
