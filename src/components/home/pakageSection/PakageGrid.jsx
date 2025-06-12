@@ -1,4 +1,6 @@
+import { useQuery } from '@tanstack/react-query'
 import PakageCard from './PakageCard'
+import { postToApi } from '../../../api/utils/postData'
 const pakages = [
   "/pakages/pakage-1.png",
   "/pakages/pakage-2.png",
@@ -11,11 +13,24 @@ const pakages = [
 
 ]
 
-const PakageGrid = () => {
+const PakageGrid = ({ continentId }) => {
+  const { data, isError, isLoading } = useQuery({
+    queryKey: [`plan-contient-${continentId}`],
+    queryFn: async () => {
+      const res = await postToApi("filter-plans", {}, {
+        params: { continent: continentId },
+      });
+      return res;
+    }
+  })
+  console.log(data?.data)
   return (
-    <div className='grid grid-cols-12 xl:gap-x-4 xl:gap-y-10 gap-4'>
-      {pakages.map((item, index) => (<PakageCard key={index} imgSrc={item} />))}
-    </div>
+    <>
+      {data?.data?.data.length > 0 ?
+        <div className='grid grid-cols-12 xl:gap-x-4 xl:gap-y-10 gap-4'>
+          {data?.data?.data?.map((item, index) => (<PakageCard key={index} item={item} />))}
+        </div> : "no data"}
+    </>
   )
 }
 
