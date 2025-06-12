@@ -59,7 +59,7 @@ const HotelsGrid = () => {
                                 </div>
                             </div>
                         </div>
-                        <a href="#" className="card-content">
+                        <a href={`hotel?id=${index}`} className="card-content">
                             <div className="detail-info-item rate">
                                 <i className="fa-solid fa-star"></i>
                                 <span>5.0 <span>( 500+ )</span></span>

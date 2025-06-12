@@ -18,6 +18,7 @@ import Trip from './pages/Trip';
 import VisaGatePage from './pages/VisaGatePage';
 import VisaPage from './pages/VisaPage';
 import Hotels from './pages/Hotels';
+import Hotel from './pages/Hotel';
 
 export const AppContext = createContext();
 function App() {
@@ -34,6 +35,7 @@ function App() {
 			{ path: "/trip", element: <Trip></Trip> },
 			{ path: "/event", element: <Event></Event> },
 			{ path: "/hotels", element: <Hotels></Hotels> },
+			{ path: "/hotel", element: <Hotel></Hotel> },
 
 			// { path: '/login', element: <Login></Login> },			
 		]
