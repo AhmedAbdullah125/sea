@@ -27,13 +27,13 @@ const MainHeader = () => {
                 <div className="main-links">
                     <NavLink to='/'>الرئيسية</NavLink>
                     <div className="noqta"></div>
-                    <NavLink to='/w'>فــنادق وشقــق</NavLink>
+                    <NavLink to='/hotels'>فــنادق وشقــق</NavLink>
                     <div className="noqta"></div>
                     <NavLink to='/w'>باقــات حـول العالم</NavLink>
                     <div className="noqta"></div>
-                    <NavLink to='/w'>النقل و المــواصلات</NavLink>
+                    <NavLink to='/transport'>النقل و المــواصلات</NavLink>
                     <div className="noqta"></div>
-                    <NavLink to='/w'>التــأشيــرات</NavLink>
+                    <NavLink to='/visa/search'>التــأشيــرات</NavLink>
                     <div className="noqta"></div>
                     <NavLink to='/table'>جدولك علينا</NavLink>
                     <div className="noqta"></div>
