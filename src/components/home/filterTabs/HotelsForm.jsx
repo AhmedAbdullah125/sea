@@ -119,14 +119,8 @@ const HotelsForm = () => {
   function onSubmit(values) {
     const formattedStartDate = formatDate(values.startDate);
     const formattedEndDate = formatDate(values.endDate);
+    navigate(`/hotels?destination=${values.destination}&type=${values.type}&start=${formattedStartDate}&end=${formattedEndDate}`);
     
-    const queryParams = new URLSearchParams({
-      destination: values.destination,
-      type: values.type,
-      start: formattedStartDate,
-      end: formattedEndDate,
-    }).toString();
-    navigate(`/hotels?${queryParams}`);
   }
   return (
     <Form {...form}>
@@ -154,7 +148,7 @@ const HotelsForm = () => {
                 </FormControl>
                 <SelectContent className=" shadow border-none rounded-xl bg-white  ">
                   {data?.data?.data?.map((option) => (
-                    <SelectItem key={option?.id} value={option.id} className=" cursor-pointer focus:bg-body rounded-xl">
+                    <SelectItem key={option?.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
                       {option.name}
                     </SelectItem>
                   ))}
