@@ -11,17 +11,20 @@ import axios from 'axios';
 
 
 const Table = () => {
-  const [data, setData] = useState([]);
   const [hotels, setHotels] = useState([]);
+  const [activities, setActivities] = useState([]);
+  const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
     const getData = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/hotels`, {
-
-        });
+        const response = await axios.get(`${API_BASE_URL}/hotels`, {});
+        const response2 = await axios.get(`${API_BASE_URL}/activities`, {});
+        const response3 = await axios.get(`${API_BASE_URL}/events`, {});
         setHotels(response.data.data);
+        setActivities(response2.data.data);
+        setEvents(response3.data.data);
         setLoading(false);
       } catch (error) {
         console.error(
@@ -34,16 +37,23 @@ const Table = () => {
     };
     getData();
   }, []);
-  console.log(hotels);
+  console.log(activities);
 
   return (
     <section>
       <Header />
-      <BreadCrumb data={[{ title: "الرئيــسية", href: "/" }, { title: "جدول عليـــنا", href: "#" }, { title: "إسطنبــول", href: "#" }]} />
-      <HotelsTable data={[]} title="فعاليات الشهر الحالي." description={`يُقدم الموقع فعاليات الشهر الحالي ليستمتع المسافر بتجارب سياحية مميزة تشمل مهرجانات، جولات ثقافية، وعروض ترفيهية محلية حية.`} />
-      <HotelsTable data={hotels} title="أشهــر فنــــادق تركيـــــا." description={`قدم الموقع قائمة "توب عشرة" لأفضل الأنشطة والفعاليات السياحية لتسهيل اختيار المسافر لأجمل التجارب في وجهته.`} />
-      <Events />
-      <Things />
+      {
+        loading ?
+          <div className="">loading ....</div>
+          :
+          <>
+            <BreadCrumb data={[{ title: "الرئيــسية", href: "/" }, { title: "جدول عليـــنا", href: "#" }, { title: "إسطنبــول", href: "#" }]} />
+            <HotelsTable data={events} title="فعاليات الشهر الحالي." description={`يُقدم الموقع فعاليات الشهر الحالي ليستمتع المسافر بتجارب سياحية مميزة تشمل مهرجانات، جولات ثقافية، وعروض ترفيهية محلية حية.`} />
+            <HotelsTable data={hotels} title="أشهــر فنــــادق تركيـــــا." description={`قدم الموقع قائمة "توب عشرة" لأفضل الأنشطة والفعاليات السياحية لتسهيل اختيار المسافر لأجمل التجارب في وجهته.`} />
+            <Events data={activities} />
+            <Things />
+          </>
+      }
       <Footer />
     </section>
   )

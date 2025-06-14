@@ -55,7 +55,7 @@ const HotelsTable = ({ title, description, data }) => {
                             data.map((item, idx) => (
 
                                 <SwiperSlide key={idx}>
-                                    <Link to={`/event?id=${idx}`} className="related-item-cont" key={idx}>
+                                    <Link to={`/event?id=${item.id}`} className="related-item-cont" key={idx}>
                                         <div className="related-item">
                                             <div className="swiper ">
                                                 <Swiper
@@ -103,8 +103,8 @@ const HotelsTable = ({ title, description, data }) => {
                                                     <span>16 ينــاير 2025</span>
                                                 </div> */}
                                                 <div className="related-btn">
-                                                    <span>{item.discount}%</span>
-                                                    <button><i className="fa-regular fa-heart"></i></button>
+                                                    <span>{Number(item.discount)}%</span>
+                                                    <button><i className="fa-regular fa-heart"></i> {Number(item.rating) || 0}</button>
                                                 </div>
                                             </div>
                                             
