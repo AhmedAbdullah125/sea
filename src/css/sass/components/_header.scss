@@ -139,7 +139,7 @@
             gap: 10px;            
         }
         .logo {
-            width: 29%;
+            width: 20%;
             height: 48px;
 
             @media screen and (max-width: 1400px) {
@@ -162,7 +162,7 @@
         .main-links {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 18px;
             height: 48px;
 
             @include max-1300 {

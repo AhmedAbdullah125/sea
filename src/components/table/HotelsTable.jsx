@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 import img1 from '../../assets/related.png'
 import { useRef } from "react";
 import { Link } from 'react-router-dom';
-const HotelsTable = ({ title, description }) => {
+const HotelsTable = ({ title, description, data }) => {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
     return (
@@ -52,8 +52,8 @@ const HotelsTable = ({ title, description }) => {
                         }}
                     >
                         {
-                            Array.from({ length: 8 }).map((_, idx) => (
-                                
+                            data.map((item, idx) => (
+
                                 <SwiperSlide key={idx}>
                                     <Link to={`/event?id=${idx}`} className="related-item-cont" key={idx}>
                                         <div className="related-item">
@@ -78,10 +78,10 @@ const HotelsTable = ({ title, description }) => {
                                                 >
 
                                                     {
-                                                        Array.from({ length: 3 }).map((_, index) => (
+                                                        item?.images?.map((img, index) => (
                                                             <SwiperSlide key={index}>
                                                                 <figure>
-                                                                    <img src={img1} alt="img" />
+                                                                    <img src={img} alt="img" />
                                                                 </figure>
                                                             </SwiperSlide>
                                                         ))
@@ -98,25 +98,30 @@ const HotelsTable = ({ title, description }) => {
                                                 </Swiper>
                                             </div>
                                             <div className="related-content">
-                                                <div className="related-date">
+                                                {/* <div className="related-date">
                                                     <span>22 مايو 2025</span>
                                                     <span>16 ينــاير 2025</span>
+                                                </div> */}
+                                                <div className="related-btn">
+                                                    <span>{item.discount}%</span>
+                                                    <button><i className="fa-regular fa-heart"></i></button>
                                                 </div>
                                             </div>
+                                            
                                         </div>
                                         <div className="related-into">
                                             <div className="item-location">
                                                 <i className="fa-solid fa-location-dot"></i>
                                                 <span>
-                                                    جدة
+                                                    {item.address}
                                                     <span>( خيارات ترفيهية )</span>
                                                 </span>
                                             </div>
                                             <div className="item-period">
-                                                3 ليـــالي – رحلة نهـــاية الأسبــوع.
+                                                {item.rentalPeriod}
                                             </div>
                                             <div className="item-price">
-                                                يبدأ من 1219 <span className="icon-saudi_riyal"></span>
+                                                يبدأ من {item.price} <span className="icon-saudi_riyal"></span>
                                             </div>
                                         </div>
                                     </Link>
