@@ -12,7 +12,7 @@ const AboutPlace = ({ data }) => {
                 <div className="about-grid">
                     {
                         data.eventItems.map((item, index) => (
-                            <div className="grid-item">
+                            <div className="grid-item" key={index}>
                                 <LazyLoadImage src={ticketimg} alt="logo" loading='lazy' />
                                 <h4>{item.title}</h4>
                                 <span>{item.description}</span>
