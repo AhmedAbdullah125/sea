@@ -4,6 +4,7 @@ import { IoLogoApple, IoLogoGooglePlaystore, IoLogoWhatsapp } from "react-icons/
 import PackageForm from "./PackageForm";
 import TransportForm from "./TransportForm";
 import VisaLinks from "./VisaLinks";
+import TableForm from "./TableForm";
 
 const links = [{
   icon: (< IoLogoApple size={20} />),
@@ -26,7 +27,7 @@ const FilterTabs = () => {
   return (
     <div className="relative">
       <Tabs dir="rtl" defaultValue="hotels" className="w-full text-main-navy bg-white py-6 px-8 rounded-[40px]">
-        <TabsList className="flex items-center justify-start gap-6">
+        <TabsList className="flex items-center justify-start gap-6 flex-wrap h-fit max-md:justify-center">
           <TabsTrigger className={triggerStyle} value="hotels">فنــادق و شقق</TabsTrigger>
           <TabsTrigger className={triggerStyle} value="package">بــاقات حــول العــالم</TabsTrigger>
           <TabsTrigger className={triggerStyle} value="transport">النقل والمواصلات</TabsTrigger>
@@ -37,6 +38,7 @@ const FilterTabs = () => {
         <TabsContent value="package"><PackageForm /></TabsContent>
         <TabsContent value="transport"><TransportForm /></TabsContent>
         <TabsContent value="visa"><VisaLinks/></TabsContent>
+        <TabsContent value="table"><TableForm/></TabsContent>
       </Tabs>
       {/* social links  */}
       <div className="space-y-3 absolute bottom-0 -end-16 max-xl:hidden">

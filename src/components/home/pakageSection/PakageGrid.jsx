@@ -23,7 +23,8 @@ const PakageGrid = ({ continentId }) => {
       return res;
     }
   })
-  console.log(data?.data)
+  if(isLoading) return <div>Loading...</div>
+  if(isError) return <div>Error</div>
   return (
     <>
       {data?.data?.data.length > 0 ?
