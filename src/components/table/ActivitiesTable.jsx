@@ -7,9 +7,10 @@ import "swiper/css/pagination";
 import img1 from '../../assets/related.png'
 import { useRef } from "react";
 import { Link } from 'react-router-dom';
-const HotelsTable = ({ title, description, data }) => {
+const ActivitiesTable = ({ title, description, data }) => {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
+    console.log(data);
     return (
         <section className="related-section">
             <div className="container">
@@ -98,14 +99,11 @@ const HotelsTable = ({ title, description, data }) => {
                                                 </Swiper>
                                             </div>
                                             <div className="related-content">
-                                                {/* <div className="related-date">
-                                                    <span>22 مايو 2025</span>
-                                                    <span>16 ينــاير 2025</span>
-                                                </div> */}
-                                                <div className="related-btn">
-                                                    <span>{Number(item.discount)}%</span>
-                                                    <button><i className="fa-regular fa-heart"></i> {Number(item.rating) || 0}</button>
+                                                <div className="related-date">
+                                                    <span>{item.startDate}</span>
+                                                    <span>{item.endDate}</span>
                                                 </div>
+                                               
                                             </div>
                                             
                                         </div>
@@ -113,12 +111,12 @@ const HotelsTable = ({ title, description, data }) => {
                                             <div className="item-location">
                                                 <i className="fa-solid fa-location-dot"></i>
                                                 <span>
-                                                    {item.address}
+                                                    {item.location}
                                                     <span>( خيارات ترفيهية )</span>
                                                 </span>
                                             </div>
                                             <div className="item-period">
-                                                {item.rentalPeriod}
+                                                {item.period} ليالي
                                             </div>
                                             <div className="item-price">
                                                 يبدأ من {item.price} <span className="icon-saudi_riyal"></span>
@@ -140,4 +138,4 @@ const HotelsTable = ({ title, description, data }) => {
     )
 }
 
-export default HotelsTable
+export default ActivitiesTable

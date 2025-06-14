@@ -12,7 +12,7 @@ const counters = [
 ];
 const HeroSection = () => {
   return (
-    <section className="min-h-[110vh] bg-[url('/home/hero.png')] bg-cover bg-center bg-no-repeat flex items-end justify-center pb-10 pt-14">
+    <section className="min-h-[110vh] bg-[url('/home/hero.png')] bg-cover bg-center bg-no-repeat flex items-end justify-center pb-6 pt-20">
       <div className="container text-white space-y-8 ">
         {/* content */}
         <div className="w-full flex flex-col xl:flex-row justify-between items-end "> 

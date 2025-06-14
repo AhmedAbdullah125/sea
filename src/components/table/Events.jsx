@@ -1,101 +1,56 @@
-import React from 'react'
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import React, { useEffect, useState } from 'react'
 import img1 from '../../assets/related.png'
-import { useRef } from "react";
-const Events = ({title, description}) => {
-    const prevRef = useRef(null);
-    const nextRef = useRef(null);
+import parse from 'html-react-parser'
+const Events = ({ data }) => {
+    const [cats, setCats] = useState([]);
+    const [seletedCat, setSeletedCat] = useState(null);
+    useEffect(() => {
+        let arr = [];
+        data.forEach((item) => {
+            if (!arr.some(cat => cat.id === item.categoryId)) {
+                arr.push({ id: item.categoryId, name: item.categoryName });
+            }
+        });
+        setCats(arr);
+    }, [data]);
+    console.log(cats);
+    console.log(seletedCat);
+    
     return (
         <section className="places-section">
-                <div className="container">
-                    <div className="section-header-cont">
-                        <h2 className="section-title">الأنشطة في إسطنبـــول..</h2>
-                    </div>
-                    <div className="places-type">
-                        <span>التصفيــة والتركيــب</span>
-                        <span>الثقافة والتاريخ</span>
-                        <span>مطاعم وكافيهات</span>
-                        <span>التسوق والمــاركات</span>
-                        <span>الملهى والالعــاب</span>
-                        <span>أماكن الطبيعية</span>
-                        <span>أماكن مميزة</span>
-                        <span>الجولات والتجــارب</span>
-                        <span>جميــع الفئــات</span>
-                    </div>
-                    <div className="places-cont">
-                        <div className="places-item">
-                            <div className="places-content">
-                                <span className="place-type">مقهــى</span>
-                                <span className="places-name">إسطنبـــول</span>
-                                <span className="places-info">ســوبر مــاركت مشهور </span>
-                            </div>
-                            <figure>
-                                <img src={img1} alt="img" />
-                                <span className="places-status">متـــاح</span>
-                            </figure>
-                        </div>
-                        <div className="places-item">
-                            <div className="places-content">
-                                <span className="place-type">مقهــى</span>
-                                <span className="places-name">إسطنبـــول</span>
-                                <span className="places-info">ســوبر مــاركت مشهور </span>
-                            </div>
-                            <figure>
-                                <img src={img1} alt="img" />
-                                <span className="places-status">متـــاح</span>
-                            </figure>
-                        </div>
-                        <div className="places-item">
-                            <div className="places-content">
-                                <span className="place-type">مقهــى</span>
-                                <span className="places-name">إسطنبـــول</span>
-                                <span className="places-info">ســوبر مــاركت مشهور </span>
-                            </div>
-                            <figure>
-                                <img src={img1} alt="img" />
-                                <span className="places-status">متـــاح</span>
-                            </figure>
-                        </div>
-                        <div className="places-item">
-                            <div className="places-content">
-                                <span className="place-type">مقهــى</span>
-                                <span className="places-name">إسطنبـــول</span>
-                                <span className="places-info">ســوبر مــاركت مشهور </span>
-                            </div>
-                            <figure>
-                                <img src={img1} alt="img" />
-                                <span className="places-status">متـــاح</span>
-                            </figure>
-                        </div>
-                        <div className="places-item">
-                            <div className="places-content">
-                                <span className="place-type">مقهــى</span>
-                                <span className="places-name">إسطنبـــول</span>
-                                <span className="places-info">ســوبر مــاركت مشهور </span>
-                            </div>
-                            <figure>
-                                <img src={img1} alt="img" />
-                                <span className="places-status">متـــاح</span>
-                            </figure>
-                        </div>
-                        <div className="places-item">
-                            <div className="places-content">
-                                <span className="place-type">مقهــى</span>
-                                <span className="places-name">إسطنبـــول</span>
-                                <span className="places-info">ســوبر مــاركت مشهور </span>
-                            </div>
-                            <figure>
-                                <img src={img1} alt="img" />
-                                <span className="places-status">متـــاح</span>
-                            </figure>
-                        </div>
-                    </div>
+            <div className="container">
+                <div className="section-header-cont">
+                    <h2 className="section-title">الأنشطة في إسطنبـــول..</h2>
                 </div>
-            </section>
+                <div className="places-type">
+                    {
+                        cats.map((item, idx) =>
+                            <span key={idx} onClick={() => setSeletedCat(item.id)} className={seletedCat === item.id ? "active-cat" : ""}>{item.name}</span>
+                        )
+                    }
+                </div>
+                <div className="places-cont">
+                    {
+                        data.map((item, idx) =>
+                            seletedCat === null || item.categoryId === seletedCat ?
+                                <div className="places-item" key={idx}>
+                                    <div className="places-content">
+                                        <span className="place-type">{item.type}</span>
+                                        <span className="places-name">{item.title}</span>
+                                        <span className="places-info">{parse(item.description)}</span>
+                                    </div>
+                                    <figure>
+                                        <img src={item.image} alt="img" />
+                                        <span className="places-status">متـــاح</span>
+                                    </figure>
+                                </div>
+                                : null
+                        )
+                    }
+
+                </div>
+            </div>
+        </section>
     )
 }
 

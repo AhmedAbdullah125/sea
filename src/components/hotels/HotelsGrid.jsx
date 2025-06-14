@@ -12,7 +12,7 @@ const HotelsGrid = () => {
             {
                 Array.from({ length: 12 }).map((_, index) =>
 
-                    <div className="card-item">
+                    <div className="card-item" key={index}>
                         <div className="related-item">
                             <Swiper
                                 pagination={{ clickable: true }}
