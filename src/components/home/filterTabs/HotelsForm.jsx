@@ -7,30 +7,28 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import CustomFilterSelect from "./CustomFilterSelect"
 import CustomDatePicker from "./CustomDatePicker"
-
-
-
+import { useQuery } from "@tanstack/react-query"
+import { fetchFromApi } from "../../../api/utils/fetchData"
+import {  useNavigate } from "react-router-dom"
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from "@/components/ui/form"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { ChevronDown } from "lucide-react"
 
 
 // select
 const filterSelectFields = [
-  {
-    name: "place",
-    label: "إختــــــر الوجهـــة",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5.89567 2.2193L12.6681 4.4693C17.2206 5.9918 17.2206 8.47432 12.6681 9.98932L10.6581 10.6568L9.99067 12.6668C8.47567 17.2193 5.98567 17.2193 4.47067 12.6668L2.21317 5.9018C1.20817 2.8643 2.85817 1.2068 5.89567 2.2193ZM5.65567 6.2543L8.50567 9.11932C8.61817 9.23182 8.76067 9.28432 8.90317 9.28432C9.04567 9.28432 9.18817 9.23182 9.30067 9.11932C9.51817 8.90182 9.51817 8.54182 9.30067 8.32432L6.45067 5.4593C6.23317 5.2418 5.87317 5.2418 5.65567 5.4593C5.43817 5.6768 5.43817 6.0368 5.65567 6.2543Z" fill="#A71755" />
-      </svg>
-    ),
-    placeholder: "إدخـــال الوجهة هنــا...",
-    options: [
-      { label: "فندق الريتز كارلتون", value: "ritz_carlton" },
-      { label: "فندق الفورسيزونز", value: "four_seasons" },
-      { label: "فندق هيلتون", value: "hilton" },
-      { label: "فندق الماريوت", value: "marriott" },
-      { label: "فندق إنتركونتيننتال", value: "intercontinental" },
-    ]
-  },
   {
     name: "type",
     label: "نــــوع السكن",
@@ -77,7 +75,7 @@ const datePickers = [
 ]
 
 const formSchema = z.object({
-  place: z.string().nonempty("هذا الحقل مطلوب"),
+  destination: z.string().nonempty("هذا الحقل مطلوب"),
   type: z.string().nonempty("هذا الحقل مطلوب"),
   startDate: z.coerce.date({
     errorMap: () => ({ message: "يرجى إدخال تاريخ بداية صالح" }),
@@ -91,23 +89,82 @@ const formSchema = z.object({
     message: "يجب أن يكون تاريخ النهاية بعد أو يساوي تاريخ البداية",
   });
 const HotelsForm = () => {
-
+  const navigate=useNavigate()
+  const {data} = useQuery({
+    queryKey: ["countries"],
+    queryFn: async () => {
+      const res = await fetchFromApi("/countries");
+      return res;
+    } 
+      
+  })
   // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      place: "",
+      destination: "",
       type: "",
     },
   })
 
+  // formate date
+  function formatDate(date) {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const year = d.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
   // 2. Define a submit handler.
   function onSubmit(values) {
-    console.log(values)
+    const formattedStartDate = formatDate(values.startDate);
+    const formattedEndDate = formatDate(values.endDate);
+    
+    const queryParams = new URLSearchParams({
+      destination: values.destination,
+      type: values.type,
+      start: formattedStartDate,
+      end: formattedEndDate,
+    }).toString();
+    navigate(`/hotels?${queryParams}`);
   }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-12 gap-x-4 xl:gap-y-6 gap-y-4">
+        <FormField
+          control={form.control}
+          name={"destination"}
+          render={({ field }) => (
+            <FormItem className={"xl:col-span-3 md:col-span-6 col-span-12"}>
+              <FormLabel className="flex items-center gap-1">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5.89567 2.2193L12.6681 4.4693C17.2206 5.9918 17.2206 8.47432 12.6681 9.98932L10.6581 10.6568L9.99067 12.6668C8.47567 17.2193 5.98567 17.2193 4.47067 12.6668L2.21317 5.9018C1.20817 2.8643 2.85817 1.2068 5.89567 2.2193ZM5.65567 6.2543L8.50567 9.11932C8.61817 9.23182 8.76067 9.28432 8.90317 9.28432C9.04567 9.28432 9.18817 9.23182 9.30067 9.11932C9.51817 8.90182 9.51817 8.54182 9.30067 8.32432L6.45067 5.4593C6.23317 5.2418 5.87317 5.2418 5.65567 5.4593C5.43817 5.6768 5.43817 6.0368 5.65567 6.2543Z" fill="#A71755" />
+                </svg>
+                <p className="text-main-blue font-bold text-sm">
+                  إختــــــر الوجهـــة
+                </p>
+              </FormLabel>
+              <Select dir="rtl" onValueChange={field.onChange} value={field.value}  defaultValue={field.value} >
+                <FormControl>
+                  <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                    <ChevronDown size={14} />
+                  </div>} className={` bg-body text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
+                    <SelectValue placeholder={"إدخـــال الوجهة هنــا.."} className="text-[#797979]" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                  {data?.data?.data?.map((option) => (
+                    <SelectItem key={option?.id} value={option.id} className=" cursor-pointer focus:bg-body rounded-xl">
+                      {option.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage className="text-red-500  text-xs " />
+            </FormItem>
+          )}
+        />
+      
         {filterSelectFields.map((fieldProps, index) => (
           <CustomFilterSelect key={index} {...fieldProps} form={form} />
         ))}
