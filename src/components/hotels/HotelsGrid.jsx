@@ -4,13 +4,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import img1 from '../../assets/related.png'
-import { useRef } from "react";
-const HotelsGrid = () => {
+const HotelsGrid = ({ mainData }) => {
     return (
         <div className="grid-cont">
             {
-                Array.from({ length: 12 }).map((_, index) =>
+                mainData.map((item, index) =>
 
                     <div className="card-item" key={index}>
                         <div className="related-item">
@@ -34,10 +32,10 @@ const HotelsGrid = () => {
                             >
 
                                 {
-                                    Array.from({ length: 3 }).map((_, index) => (
+                                    item.images.map((img, index) => (
                                         <SwiperSlide key={index}>
                                             <figure>
-                                                <img src={img1} alt="img" />
+                                                <img src={img} alt="img" />
                                             </figure>
                                         </SwiperSlide>
                                     ))
@@ -54,7 +52,7 @@ const HotelsGrid = () => {
                             </Swiper>
                             <div className="related-content">
                                 <div className="related-btn">
-                                    <span>10%</span>
+                                    <span>{Number(item.discount)}</span>
                                     <button><i className="fa-regular fa-heart"></i></button>
                                 </div>
                             </div>
@@ -62,27 +60,19 @@ const HotelsGrid = () => {
                         <a href={`hotel?id=${index}`} className="card-content">
                             <div className="detail-info-item rate">
                                 <i className="fa-solid fa-star"></i>
-                                <span>5.0 <span>( 500+ )</span></span>
+                                <span>{Number(item.rating).toFixed(1)} <span>( {item.likes} )</span></span>
                             </div>
                             <div className="card-desc">
                                 <span className="card-span"
-                                ><i className="fa-solid fa-bed-front"></i> 3 غرف نوم</span
-                                >
+                                ><i className="fa-solid fa-bed-front"></i>{item.bedrooms}</span>
                                 <span className="card-span"
-                                ><i className="fa-solid fa-expand"></i>120م/2</span
-                                >
-                                <span className="card-span"
-                                ><i className="fa-solid fa-bath"></i>2 حمامات</span
-                                >
+                                ><i className="fa-solid fa-expand"></i>{item.area}</span>
+                                <span className="card-span"><i className="fa-solid fa-bath"></i>{item.bathrooms} م/2</span>
                             </div>
-                            <div className="card-item-name">
-                                شقة بصالــة انيقــة ودخـــول ذاتـــي.
-                            </div>
-                            <div className="card-place">
-                                3284 طريق الوطني إسطنبــول، تركيـــا...
-                            </div>
+                            <div className="card-item-name">{item.title} </div>
+                            <div className="card-place">{item.address}</div>
                             <div className="item-price">
-                                يبدأ من 1219 <span className="icon-saudi_riyal"></span>
+                                يبدأ من {item.price} <span className="icon-saudi_riyal"></span>
                                 <span className="period"><span>/</span> لليلة الواحــــدة</span>
                             </div>
                         </a>

@@ -1,5 +1,6 @@
+import axios from "axios";
 import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
@@ -18,6 +19,7 @@ import { BiSolidOffer } from "react-icons/bi";
 import { IoLanguage } from "react-icons/io5";
 import { AiFillDollarCircle } from "react-icons/ai";
 import { MdStarRate } from "react-icons/md";
+import { API_BASE_URL } from "../../lib/apiConfig";
 const countOptions = Array.from({ length: 10 }, (_, i) => {
   const num = (i + 1).toString();
   return { label: num, value: num };
@@ -40,20 +42,67 @@ export const filterSchema = z.object({
   type: z.string().optional(),
 });
 
-const FilterPanel = ({ defaultValues, onFilter }) => {
+const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
+  function formatDate(input) {
+    const date = new Date(input);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+  const [data, setData] = useState([])
+  const [cities, setCities] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [seletedCountry, setSelectedCountry] = useState(defaultValues.destination || null);
+  const [selectedCity, setSelectedCity] = useState(defaultValues.city || null);
+  const [selectedDate, setSelectedDate] = useState(defaultValues.start || null);
+  useEffect(() => {
+    setLoading(true);
+    const getData = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/countries`, {});
+        const response2 = await axios.get(`${API_BASE_URL}/cities`, {});
+        setData(response.data.data);
+        setCities(response2.data.data);
+        setLoading(false);
+      } catch (error) {
+        console.error(
+          'Error retrieving data:', error
+        );
+        setLoading(false);
+        throw new Error('Could not get data');
+      }
+    };
+    getData();
+  }, []);
+  useEffect(() => {
+    setLoading(true);
+    const getData = async () => {
+      try {
+        const response = await axios.post(`${API_BASE_URL}/filter-hotels?countery_id=${seletedCountry}&available_from=${formatDate(selectedDate)}&city_id=${selectedCity}`, {});
+        setMainData(response.data.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error retrieving data:', error);
+        setLoading(false);
+        throw new Error('Could not get data');
+      }
+    };
+    getData();
+  }, [seletedCountry, selectedCity, selectedDate]);
+  console.log(formatDate(selectedDate));
+
+
 
   const form = useForm({
     resolver: zodResolver(filterSchema),
-    defaultValues,
+    defaultValues: {
+      date: defaultValues.start, // or just new Date("2025-06-08") if not using ISO strings
+    },
   });
   const { watch, setValue } = form;
   const values = watch();
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      onFilter(values);
-    }, 200); // debounce
-    return () => clearTimeout(timeout);
-  }, [values, onFilter]);
+
   return (
     <Form {...form}>
       <form className="space-y-4 mb-10">
@@ -73,7 +122,7 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                 </FormLabel>
                 <Select dir="rtl"
                   defaultValue={values.destination}
-                  onValueChange={(val) => setValue("start", val)} >
+                  onValueChange={(val) => setSelectedCountry(val)} >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
@@ -82,9 +131,9 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {countries.map((option) => (
-                      <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
-                        {option.label}
+                    {data.map((option) => (
+                      <SelectItem key={option.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
+                        {option.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -106,8 +155,8 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                   </p>
                 </FormLabel>
                 <Select dir="rtl"
-                  defaultValue={values.end}
-                  onValueChange={(val) => setValue("end", val)} >
+                  defaultValue={selectedCity}
+                  onValueChange={(val) => setSelectedCity(val)} >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
@@ -116,9 +165,9 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {countries.map((option) => (
-                      <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
-                        {option.label}
+                    {cities.map((option) => (
+                      <SelectItem key={option.name} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
+                        {option.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -126,6 +175,7 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
               </FormItem>
             )}
           />
+          {/* number */}
           {/* date */}
           <FormField
             control={form.control}
@@ -164,8 +214,10 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                     <Calendar
                       mode="single"
                       selected={field.value ? new Date(field.value) : undefined}
-                      onSelect={(date) => field.onChange(date?.toISOString() ?? "")}
+                      // onChange={field.onChange}
+                      onSelect={(date) => setSelectedDate(date)}
                       className="w-full"
+                      // fromDate={new Date()} // ⬅️ This prevents selecting past dates
                     />
                   </PopoverContent>
                 </Popover>
@@ -173,7 +225,6 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
               </FormItem>
             )}
           />
-          {/* number */}
           <button type="button" className="flex-shrink-0 xl:col-span-2 col-span-12 h-12 py-0 px-9 mt-7 bg-[#A71755]  text-white hover:text-red-500  font-semibold flex items-center justify-center rounded-full">عرض النــــتائج</button>
         </div>
         <div className="grid grid-cols-10 gap-4">
@@ -257,7 +308,7 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                       className={`bg-main-navy  text-white text-xs font-semibold border-none  rounded-full h-12`}>
                       <SelectValue placeholder={
                         <div className=" text-white flex items-center gap-1">
-                          <AiFillDollarCircle  size={16} />
+                          <AiFillDollarCircle size={16} />
                           <p >السعر الإجمالي</p>
                         </div>} />
                     </SelectTrigger>
