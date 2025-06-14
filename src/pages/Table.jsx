@@ -7,6 +7,7 @@ import BreadCrumb from '../components/global/BreadCrumb';
 import Things from '../components/table/Things';
 import { API_BASE_URL } from '../lib/apiConfig';
 import axios from 'axios';
+import ActivitiesTable from '../components/table/ActivitiesTable';
 
 
 
@@ -48,7 +49,7 @@ const Table = () => {
           :
           <>
             <BreadCrumb data={[{ title: "الرئيــسية", href: "/" }, { title: "جدول عليـــنا", href: "#" }, { title: "إسطنبــول", href: "#" }]} />
-            <HotelsTable data={events} title="فعاليات الشهر الحالي." description={`يُقدم الموقع فعاليات الشهر الحالي ليستمتع المسافر بتجارب سياحية مميزة تشمل مهرجانات، جولات ثقافية، وعروض ترفيهية محلية حية.`} />
+            <ActivitiesTable data={events} title="فعاليات الشهر الحالي." description={`يُقدم الموقع فعاليات الشهر الحالي ليستمتع المسافر بتجارب سياحية مميزة تشمل مهرجانات، جولات ثقافية، وعروض ترفيهية محلية حية.`} />
             <HotelsTable data={hotels} title="أشهــر فنــــادق تركيـــــا." description={`قدم الموقع قائمة "توب عشرة" لأفضل الأنشطة والفعاليات السياحية لتسهيل اختيار المسافر لأجمل التجارب في وجهته.`} />
             <Events data={activities} />
             <Things />

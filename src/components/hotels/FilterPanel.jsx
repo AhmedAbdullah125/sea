@@ -173,6 +173,52 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name={"date"}
+            className="w-full "
+            render={({ field }) => (
+              <FormItem className={`xl:col-span-3 col-span-12  w-full flex flex-col`}>
+                <FormLabel className="flex items-center gap-1">
+                  <FaCalendarDays size={16} className="text-main-purple" />
+                  <p className="text-main-blue font-bold text-sm">
+                    موعـــد الوصول / العودة
+                  </p>
+                </FormLabel>
+                <Popover className="w-full">
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "bg-body h-12 w-full px-3  font-xs font-semibold text-main-gray  rounded-full border-none hover:bg-body  flex items-center justify-between",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>
+                        )}
+                        <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                          <ChevronDown size={14} />
+                        </div>
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value ? new Date(field.value) : undefined}
+                      onSelect={(date) => field.onChange(date?.toISOString() ?? "")}
+                      className="w-full"
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormMessage className="text-red-500  text-xs " />
+              </FormItem>
+            )}
+          />
           {/* number */}
           <button type="button" className="flex-shrink-0 xl:col-span-2 col-span-12 h-12 py-0 px-9 mt-7 bg-[#A71755]  text-white hover:text-red-500  font-semibold flex items-center justify-center rounded-full">عرض النــــتائج</button>
         </div>
