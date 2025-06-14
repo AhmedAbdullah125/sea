@@ -13,7 +13,7 @@ const Events = ({title, description}) => {
         <section className="places-section">
                 <div className="container">
                     <div className="section-header-cont">
-                        <h2 className="section-title">فعاليات الشهر الحالي.</h2>
+                        <h2 className="section-title">الأنشطة في إسطنبـــول..</h2>
                     </div>
                     <div className="places-type">
                         <span>التصفيــة والتركيــب</span>
