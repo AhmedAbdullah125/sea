@@ -17,6 +17,7 @@ const Hotels = () => {
         city: searchParams.get("city") || "",
         model: searchParams.get("model") || "",
         type: searchParams.get("type") || "",
+        destination: searchParams.get("destination") || "",
     };
     // update filters
     const updateFilters = (values) => {
@@ -30,6 +31,7 @@ const Hotels = () => {
         if (values.city) params.set("city", values.city);
         if (values.model) params.set("model", values.model);
         if (values.type) params.set("type", values.type);
+        if (values.destination) params.set("destination", values.destination);
         setSearchParams(params);
     };
     return (

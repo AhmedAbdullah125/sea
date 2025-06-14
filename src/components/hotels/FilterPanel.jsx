@@ -72,7 +72,7 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                   </p>
                 </FormLabel>
                 <Select dir="rtl"
-                  defaultValue={values.start}
+                  defaultValue={values.destination}
                   onValueChange={(val) => setValue("start", val)} >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
