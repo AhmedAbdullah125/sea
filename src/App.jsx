@@ -19,6 +19,9 @@ import VisaGatePage from './pages/VisaGatePage';
 import VisaPage from './pages/VisaPage';
 import Hotels from './pages/Hotels';
 import Hotel from './pages/Hotel';
+import { Toaster } from 'sonner';
+import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
+import UserContextProvider from './context/UserContext';
 
 export const AppContext = createContext();
 function App() {
@@ -28,8 +31,8 @@ function App() {
 			{ index: true, element: <Homepage></Homepage> },
 			{ path: "/transport", element: <TransportPage></TransportPage> },
 			{ path: "/transport/privte-tours", element: <PrivteTours></PrivteTours> },
-			{ path: "visa/:country", element: <VisaPage></VisaPage> },
-			{ path: "/gate", element: <VisaGatePage></VisaGatePage> },
+			{ path: "visa", element: <VisaPage></VisaPage> },
+			{ path: "/gate", element: <ProtectedRoute><VisaGatePage></VisaGatePage></ProtectedRoute> },
 			{ path: "/omraa", element: <OmraaPage></OmraaPage> },
 			{ path: "/table", element: <Table></Table> },
 			{ path: "/trip", element: <Trip></Trip> },
@@ -43,9 +46,12 @@ function App() {
 	])
 	return (
 		<QueryClientProvider client={queryClient}>
+			<UserContextProvider>
 			<div>
+				<Toaster richColors closeButton position='top-center' dir='rtl'/>
 				<RouterProvider router={routes}></RouterProvider>
 			</div>
+			</UserContextProvider>
 			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
 	)

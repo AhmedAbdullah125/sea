@@ -2,6 +2,7 @@ import React from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../../../public/home/seaLogo.svg'
+import LoginDialog from '../login/LoginDialog'
 
 const MainHeader = () => {
     return (
@@ -18,7 +19,8 @@ const MainHeader = () => {
                     </Link>
                 </div>
                 <div className="l-links">
-                    <NavLink to="/">انشىء حسابك الآن</NavLink>
+                    <LoginDialog  mainHeader/>
+
                     <NavLink to="/">تســـوق معنــا</NavLink>
                     <NavLink to="/">حمل التطبيـــق من هنا</NavLink>
                 </div>

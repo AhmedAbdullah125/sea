@@ -5,31 +5,38 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog";
 import { ChevronLeft } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import SendOtp from "./SendOtp";
 import VerfiyOtp from "./VerfiyOtp";
+import { userContext } from "../../context/UserContext";
 
-const LoginDialog = () => {
+const LoginDialog = ({mainHeader=false}) => {
   const [phone, setPhone] = useState("");
   const [isOtpSent, setIsOtpSent] = useState(false);
-
+  const { token, logout } = useContext(userContext);
   const handleSendOtp = (enteredPhone) => {
     setPhone(enteredPhone);
     setIsOtpSent(true);
   };
+  if (token) return (
+    <button onClick={logout} className={`w-fit text-sm font-bold text-white ${!mainHeader ? "h-12 px-4  bg-main-blue hover:bg-main-purple transation-all duration-300  flex items-center justify-center gap-4 rounded-full " : "hover:text-main-blue"}`}>
+      <p>تسجيل الخروج</p>
+    </button>
+  )
   return (
     <Dialog   >
-      <DialogTrigger className="h-12 px-4 w-fit bg-main-blue border-2 border-main-blue text-xs font-bold  text-white hover:bg-white hover:text-main-blue  flex items-center justify-center gap-4 rounded-full ">
-        <p>أنشئ حســـاب الان</p>
-        <ChevronLeft size={18} />
+      <DialogTrigger className={`w-fit text-sm font-bold text-white ${!mainHeader ?"h-12 px-4  bg-main-blue hover:bg-main-purple transation-all duration-300  flex items-center justify-center gap-4 rounded-full ":"hover:text-main-blue"}`}>
+        <p>
+          أنشئ حســـاب الان</p>
+        {mainHeader ?null: <ChevronLeft size={18} />}
       </DialogTrigger>
       <DialogContent className='bg-white !rounded-xl  max-w-[75%] xl:p-10 ' hideClose >
         <div className="grid grid-cols-12 items-center gap-6">
           <div className="xl:col-span-5  col-span-12 xl:space-y-12 space-y-6">
             <DialogClose asChild>
-              <button onClick={() => setIsOtpSent(false)} type="button" className=" size-8  bg-black border-2 border-black text-xs font-bold  text-white hover:bg-white hover:text-black  flex items-center justify-center rounded-xl ">
+              <button onClick={() => setIsOtpSent(false)} type="button" className=" size-8  bg-black  text-xs font-bold  text-white hover:bg-main-blue transation-all duration-300  flex items-center justify-center rounded-xl ">
                 <IoClose size={18} />
               </button>
             </DialogClose>

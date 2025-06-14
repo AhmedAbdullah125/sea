@@ -7,7 +7,7 @@ import {
 import { TbSquareRoundedCheckFilled } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
-const VisaCard = () => {
+const VisaCard = ({item}) => {
   return (
     <Card className="shadow-none border-none  bg-body rounded-[50px] col-span-12 md:col-span-6 xl:col-span-3 p-6">
       <CardHeader className="p-0 " >
@@ -20,7 +20,7 @@ const VisaCard = () => {
             <path fillRule="evenodd" clip-rule="evenodd" d="M57.3327 37.4677C50.1575 37.4677 50.1575 26.5297 57.3327 26.5297C57.3327 13.8565 57.3327 9.33325 31.9993 9.33325C6.66602 9.33325 6.66602 13.8565 6.66602 26.5297C13.8413 26.5297 13.8413 37.4677 6.66602 37.4677C6.66602 50.1434 6.66602 54.6666 31.9993 54.6666C57.3327 54.6666 57.3327 50.1434 57.3327 37.4677Z" stroke="#130F26" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           <p className="text-3xl font-bold text-main-blue flex items-center gap-3">
-            1100
+            {parseFloat(item?.price).toFixed(2)}
             <svg width="23" height="26" viewBox="0 0 23 26" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_324_5204)">
                 <path d="M14.315 23.0335C13.9045 23.9539 13.6332 24.9528 13.5293 26.0004L22.2148 24.1329C22.6252 23.2127 22.8963 22.2136 23.0005 21.166L14.315 23.0335Z" fill="#016AB5" />
@@ -40,30 +40,22 @@ const VisaCard = () => {
 
       </CardHeader>
       <CardContent className="p-0 ">
-        <h3 className="font-bold text-xl my-8">تأشيــرة 14 يومــاً</h3>
+        <h3 className="font-bold text-xl my-8">تأشيــرة {item?.period} يومــاً</h3>
         <ul className="space-y-4">
-          <li className="flex items-center gap-2">
+          {item?.elements.map((element, i) => (
+            
+          <li key={i} className="flex items-center gap-2">
             <TbSquareRoundedCheckFilled className="text-main-blue" />
             <p className="text-sm font-semibold">
-              سيـــاحية
+              {element}
             </p>
           </li>
-          <li className="flex items-center gap-2">
-            <TbSquareRoundedCheckFilled className="text-main-blue" />
-            <p className="text-sm font-semibold">
-              صلاحية 60 يومًا
-            </p>
-          </li>
-          <li className="flex items-center gap-2">
-            <TbSquareRoundedCheckFilled className="text-main-blue" />
-            <p className="text-sm font-semibold">
-              يتم التوصيل خلال 3-5 أيام
-            </p>
-          </li>
+          ))}
+
         </ul>
       </CardContent>
       <CardFooter className="p-0 mt-8">
-        <Link to="/gate" className="w-fit px-12 py-3 m-auto  bg-main-purple  text-white  text-xs font-semibold flex items-center justify-center rounded-full border-2 border-main-purple hover:bg-transparent hover:text-main-purple">
+        <Link to="/gate" className="w-fit px-12 py-3 m-auto  bg-main-purple  !text-white  text-xs font-semibold flex items-center justify-center rounded-full hover:bg-main-blue transation-all duration-300">
           قدم طلبك الآن
         </Link>
       </CardFooter>
