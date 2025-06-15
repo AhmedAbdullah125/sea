@@ -12,8 +12,6 @@ import ActivitiesTable from '../components/table/ActivitiesTable';
 const Event = () => {
     const [searchParams] = useSearchParams();
     const id = searchParams.get('id');
-
-    console.log(id); // should log the id from URL like ?id=123
     const [data, setData] = useState([]);
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);

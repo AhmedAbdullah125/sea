@@ -52,12 +52,12 @@ const HotelsGrid = ({ mainData }) => {
                             </Swiper>
                             <div className="related-content">
                                 <div className="related-btn">
-                                    <span>{Number(item.discount)}</span>
+                                    <span>{Number(item.discount)}%</span>
                                     <button><i className="fa-regular fa-heart"></i></button>
                                 </div>
                             </div>
                         </div>
-                        <a href={`hotel?id=${index}`} className="card-content">
+                        <a href={`hotel?id=${item.id}`} className="card-content">
                             <div className="detail-info-item rate">
                                 <i className="fa-solid fa-star"></i>
                                 <span>{Number(item.rating).toFixed(1)} <span>( {item.likes} )</span></span>
