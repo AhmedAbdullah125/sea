@@ -1,15 +1,24 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
   DialogClose,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
 import { omraa } from "../data/visa"
+import { useQuery } from "@tanstack/react-query"
+import { fetchFromApi } from "../api/utils/fetchData"
 const OmraaPage = () => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['countries'],
+    queryFn: async () => {
+      const res = await fetchFromApi("/countries");
+      return res;
+    }
+  })
+  if (isLoading) return <p>Loading...</p>
+  if (isError) return <p>Error</p>
   return (
     <main >
       {/* header */}
@@ -45,7 +54,7 @@ const OmraaPage = () => {
             </div>
           ))}
           <div className="col-span-10">
-            <Link to="/gate" className="h-12 px-6 m-auto mt-10 w-fit bg-main-purple  border-2 border-main-purple text-xs font-bold  text-white hover:bg-white hover:text-main-purple  flex items-center justify-center rounded-full ">
+            <Link to="/gate" className="h-12 px-6 m-auto mt-10 w-fit bg-main-purple   text-xs font-bold  !text-white hover:bg-main-blue transation-all duration-300  flex items-center justify-center rounded-full ">
               احصل على تأشيرتك الآن
             </Link>
           </div>
@@ -74,34 +83,37 @@ const OmraaPage = () => {
           {/* buttons */}
 
           <div className="flex items-center max-xl:justify-center gap-3 xl:mt-12 mt-6">
-            <Dialog  >
-              <DialogTrigger className="h-10 px-8 w-fit bg-main-purple border-2 border-main-purple text-xs font-bold  text-white hover:bg-white hover:text-main-purple  flex items-center justify-center rounded-full ">عرض قـــائمة البدان</DialogTrigger>
-              <DialogContent className='bg-white !rounded-xl ' >
-                
+            {data?.data?.data?.length > 0 ?
+              <Dialog  >
+                <DialogTrigger className="h-10 px-8 w-fit bg-main-purple  text-xs font-bold  text-white hover:bg-main-blue transation-all duration-300 flex items-center justify-center rounded-full ">عرض قـــائمة البدان</DialogTrigger>
+                <DialogContent className='bg-white !rounded-xl ' >
+
                   <div  >
                     <h3 className="text-sm font-bold pb-3 mb-3 border-b">
                       الدول المؤهلة للحصول على التأشيرة السيــاحية !.
                     </h3>
-                  <ul className="space-y-4">
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      
-                      <li key={index} className="text-xs space-y-3">
-                        <h2 className="text-black font-bold">تركيا</h2>
-                        <p className="text-main-gray">أشيرة إلكترونية سهلة، تصدر بسرعة، تتطلب جواز صالح.</p>
-                      </li>
-                    ))}
+                    <ul className="space-y-4">
+                      { }
+                      {data?.data?.data?.map((item, index) => (
+                        <li key={index} className="text-xs space-y-3">
+                          <h2 className="text-black font-bold">{item?.name}</h2>
+                          <p className="text-main-gray">{item?.description}</p>
+                        </li>
+                      ))}
                     </ul>
                   </div>
-                
-                <DialogClose asChild>
-                  <Button type="button" className="mt-8 h-10 px-8 w-[40%] mx-auto bg-black border-2 border-black text-xs font-bold  text-white hover:bg-white hover:text-black  flex items-center justify-center rounded-full ">
-                    إلغاء
-                  </Button>
-                </DialogClose>
-              </DialogContent>
-            </Dialog>
+
+                  <DialogClose asChild>
+                    <Button type="button" className="mt-8 h-10 px-8 w-[40%] mx-auto bg-black  text-xs font-bold  text-white hover:bg-main-blue transation-all duration-300  flex items-center justify-center rounded-full ">
+                      إلغاء
+                    </Button>
+                  </DialogClose>
+                </DialogContent>
+              </Dialog>
+              : null
+            }
             {/* gate */}
-            <Link to="/gate" className="h-10 px-8   w-fit bg-main-blue  border-2 border-main-blue text-xs font-bold  text-white hover:bg-white hover:text-main-blue  flex items-center justify-center rounded-full ">
+            <Link to="/gate" className="h-10 px-8   w-fit bg-main-blue   text-xs font-bold  !text-white hover:bg-main-purple transation-all duration-300  flex items-center justify-center rounded-full ">
               قدم طلب الان
             </Link>
           </div>

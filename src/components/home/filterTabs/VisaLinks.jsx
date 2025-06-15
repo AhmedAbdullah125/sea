@@ -53,7 +53,7 @@ const VisaLinks = () => {
 
         </div>
         {/* link */}
-        <Link to="/visa/uae" className="text-white text-sm  font-semibold bg-main-purple w-full p-3 rounded-full flex items-center justify-between border-2 border-main-purple hover:bg-white hover:text-main-purple ">احصل على تأشيرتك الآن
+        <Link to="/visa" className="text-white text-sm  font-semibold bg-main-purple w-full p-3 rounded-full flex items-center justify-between border-2 border-main-purple hover:bg-white hover:text-main-purple ">احصل على تأشيرتك الآن
           <FiArrowUpLeft size={20} />
         </Link>
 

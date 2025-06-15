@@ -1,15 +1,33 @@
+import { useQuery } from "@tanstack/react-query"
+import Footer from "../components/footer/Footer"
+import Header from "../components/header/Header"
 import VisaCard from "../components/visa/VisaCard"
+import { fetchFromApi } from "../api/utils/fetchData"
 
 const VisaPage = () => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['visa'],
+    queryFn: async () => {
+      const res = await fetchFromApi("/travel-visa");
+      return res;
+    }
+  })
+  console.log(data);
+
+
+  if (isLoading) return <p>Loading...</p>
+  if (isError) return <p>Error</p>
+
   return (
     <main>
+      <Header />
       {/* header */}
       <div className="bg-[url('/visa/bg.png')] bg-cover bg-center py-16">
         {/* content  */}
         <div className="container text-white text-center ">
           <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">تأشيرات الإمارات العربية المتحدة</h1>
           <p className="max-w-6xl xl:text-xl md:text-base text-sm m-auto font-light leading-relaxed mt-6">
-          توفر دولة الإمارات العربية المتحدة أنواعاً مختلفة من التأشيرات المصممة خصيصاً لغرض ومدة زيارتك. فيما يلي أنواع التأشيرات الأكثر طلباً من قبل المسافرين        </p>
+            توفر دولة الإمارات العربية المتحدة أنواعاً مختلفة من التأشيرات المصممة خصيصاً لغرض ومدة زيارتك. فيما يلي أنواع التأشيرات الأكثر طلباً من قبل المسافرين        </p>
         </div>
       </div>
       {/* content */}
@@ -22,11 +40,14 @@ const VisaPage = () => {
 
         </div>
         {/* grid */}
-        <div className="grid grid-cols-12 gap-4  mt-16">
-          {Array.from({ length: 12 }).map((_, index) => (<VisaCard key={index} />))}
-        </div>
+        {data?.data?.data?.length > 0 ?
+          <div className="grid grid-cols-12 gap-4  mt-16">
+            {data?.data?.data?.map((item, index) => (<VisaCard key={index} item={item} />))}
+          </div>
+          : "no data"
+        }
       </section>
-      
+      <Footer />
     </main>
   )
 }
