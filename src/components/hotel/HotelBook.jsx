@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import img1 from '../../assets/s.svg'
 import img2 from '../../assets/check.svg'
+import { userContext } from '../../context/UserContext';
 const HotelBook = ({ data }) => {
+    const { token } = useContext(userContext);
+    console.log(token);
+    
     return (
         <section className="content-section">
             <div className="container">
@@ -35,6 +39,7 @@ const HotelBook = ({ data }) => {
                             <i className="fa-solid fa-chevron-left"></i>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
