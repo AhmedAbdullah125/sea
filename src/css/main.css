@@ -2218,6 +2218,121 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   background-color: var(--main-hover);
 }
 
+.damans {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 35px;
+}
+.damans .daman {
+  padding: 15px 20px;
+  border-radius: 30px;
+  background-color: #F4F4F4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.damans .daman .r-side {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.damans .daman .r-side .img-cont {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--white-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.damans .daman .r-side .img-cont img {
+  width: 25px;
+  height: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.damans .daman .r-side .name-cont {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--main-color);
+  color: var(--white-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 800;
+  border: 2px solid var(--main-hover);
+}
+.damans .daman .r-side span {
+  color: #6F6F6F;
+  font-weight: 500;
+  font-size: 12px;
+}
+.damans .daman .r-side .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  height: 100%;
+}
+.damans .daman .r-side .info h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--main-color);
+  margin-bottom: 0;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+@media screen and (max-width: 767px) {
+  .damans .daman .r-side .info h3 {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .damans .daman .r-side .info h3 {
+    font-size: 12px;
+  }
+}
+.damans .daman .r-side .info .dets {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.damans .daman .r-side .info .dets p {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.damans .daman .r-side .info .dets p span {
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--main-color);
+  line-height: 16px;
+}
+.damans .daman .r-side .info .dets p .fa-star {
+  color: #FFBE33;
+}
+.damans .daman .r-side .info .dets p .fa-house {
+  color: var(--main-color);
+}
+.damans .daman .l-side i {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--main-color);
+  color: var(--white-color);
+  font-size: 12px;
+}
+
 footer .upperfooter {
   padding: 127px 0 65px;
   display: flex;
