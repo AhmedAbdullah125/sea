@@ -1,8 +1,12 @@
 import VisaForm from "../components/visa/VisaForm"
+import Header from "../components/header/Header"
+import Footer from "../components/footer/Footer"
 
 
 const VisaGatePage = () => {
   return (
+    <>
+      <Header />
     <main className="my-16 container">
       {/* header of section */}
       <div className="  text-center xl:space-y-8 md:space-y-6 space-y-4">
@@ -11,7 +15,9 @@ const VisaGatePage = () => {
       </div>
       {/* grid */}
       <VisaForm />
-    </main>
+      </main>
+      <Footer />
+    </>
   )
 }
 

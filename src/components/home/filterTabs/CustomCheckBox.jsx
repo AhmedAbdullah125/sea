@@ -23,7 +23,7 @@ const CustomCheckBox = ({ form, name, items, dirction = "flex  items-center xl:g
                 <FormItem className="flex items-center gap-2">
                   <FormControl>
                     <Checkbox
-                      className="border-2 rounded
+                      className="bg-body rounded
                         data-[state=checked]:bg-main-blue
                         data-[state=checked]:text-white
                         data-[state=checked]:border-main-blue"

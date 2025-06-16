@@ -40,7 +40,7 @@ const VisaCard = ({item}) => {
 
       </CardHeader>
       <CardContent className="p-0 ">
-        <h3 className="font-bold text-xl my-8">تأشيــرة {item?.period} يومــاً</h3>
+        <h3 className="font-bold text-xl my-8">{item?.period}</h3>
         <ul className="space-y-4">
           {item?.elements.map((element, i) => (
             
@@ -54,8 +54,11 @@ const VisaCard = ({item}) => {
 
         </ul>
       </CardContent>
-      <CardFooter className="p-0 mt-8">
-        <Link to="/gate" className="w-fit px-12 py-3 m-auto  bg-main-purple  !text-white  text-xs font-semibold flex items-center justify-center rounded-full hover:bg-main-blue transation-all duration-300">
+      <CardFooter className="p-0 mt-8 flex items-center gap-2">
+        <Link to={`/visa/${item?.id}`} className="w-1/2   py-3 m-auto  bg-main-blue  !text-white  text-xs font-semibold flex items-center justify-center rounded-full hover:bg-main-purple transation-all duration-300">
+          عرض التفاصيل
+        </Link>
+        <Link to="/gate" className="w-1/2   py-3 m-auto  bg-main-purple  !text-white  text-xs font-semibold flex items-center justify-center rounded-full hover:bg-main-blue transation-all duration-300">
           قدم طلبك الآن
         </Link>
       </CardFooter>

@@ -20,13 +20,13 @@ export const countries = [
 ];
 
 export const passportTypes = [
-  { label: "عادي", value: "ordinary" },
-  { label: "دبلوماسي", value: "diplomatic" },
-  { label: "خاص", value: "special" },
-  { label: "خدمة", value: "service" },
-  { label: "طارئ", value: "emergency" },
-  { label: "لاجئ", value: "refugee" },
-  { label: "سفر مؤقت", value: "temporary" }
+  { label: "عادي", value: "عادي" },
+  { label: "دبلوماسي", value: "دبلوماسي" },
+  { label: "خاص", value: "خاص" },
+  { label: "خدمة", value: "خدمة" },
+  { label: "طارئ", value: "طارئ" },
+  { label: "لاجئ", value: "لاجئ" },
+  { label: "سفر مؤقت", value: "سفر مؤقت" }
 ];
 
 export const visaTypes = [
