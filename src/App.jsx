@@ -10,7 +10,6 @@ import '../src/css/main.css';
 import Layout from './components/Layout';
 import Event from './pages/Event';
 import Homepage from './pages/Homepage';
-import OmraaPage from './pages/OmraaPage';
 import PrivteTours from './pages/PrivteTours';
 import Table from './pages/Table';
 import TransportPage from './pages/TransportPage';
@@ -22,6 +21,7 @@ import Hotel from './pages/Hotel';
 import { Toaster } from 'sonner';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import UserContextProvider from './context/UserContext';
+import SingleVisaPage from './pages/SingleVisaPage';
 
 export const AppContext = createContext();
 function App() {
@@ -32,8 +32,8 @@ function App() {
 			{ path: "/transport", element: <TransportPage></TransportPage> },
 			{ path: "/transport/privte-tours", element: <PrivteTours></PrivteTours> },
 			{ path: "visa", element: <VisaPage></VisaPage> },
+			{ path: "/visa/:id", element: <SingleVisaPage></SingleVisaPage> },
 			{ path: "/gate", element: <ProtectedRoute><VisaGatePage></VisaGatePage></ProtectedRoute> },
-			{ path: "/omraa", element: <OmraaPage></OmraaPage> },
 			{ path: "/table", element: <Table></Table> },
 			{ path: "/trip", element: <Trip></Trip> },
 			{ path: "/event", element: <Event></Event> },

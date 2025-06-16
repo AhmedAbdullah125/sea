@@ -22,55 +22,84 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { ChevronDown } from "lucide-react"
-import { countries, passportTypes, visaTypes } from "../../data/visa"
+import { passportTypes } from "../../data/visa"
 import CustomFilterSelect from "../home/filterTabs/CustomFilterSelect"
 import CustomInput from "../home/filterTabs/CustomInput"
 import { Input } from "@/components/ui/input";
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { Checkbox } from "@/components/ui/checkbox"
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import CustomDatePicker from "../home/filterTabs/CustomDatePicker";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { useQuery } from "@tanstack/react-query";
+import { fetchFromApi } from "../../api/utils/fetchData";
+import { postToApi } from "../../api/utils/postData";
+import { userContext } from "../../context/UserContext";
 
 // validation
 const formSchema = z.object({
-  type: z.string().nonempty("هذا الحقل مطلوب"),
-  country: z.string().nonempty("هذا الحقل مطلوب"),
-  passportNumber: z.string().nonempty("هذا الحقل مطلوب"),
-  passportType: z.string().nonempty("هذا الحقل مطلوب"),
-  countryFrom: z.string().nonempty("هذا الحقل مطلوب"),
-  name: z.string().nonempty("هذا الحقل مطلوب"),
+  visa_id: z.string().nonempty("هذا الحقل مطلوب"),
+  passport_country: z.string().nonempty("هذا الحقل مطلوب"),
+  passport_number: z.string().nonempty("هذا الحقل مطلوب"),
+  passport_type: z.string().nonempty("هذا الحقل مطلوب"),
+  travel_from: z.string().nonempty("هذا الحقل مطلوب"),
+  traveler_name: z.string().nonempty("هذا الحقل مطلوب"),
   email: z.string().nonempty("هذا الحقل مطلوب"),
   phone: z.string().nonempty("هذا الحقل مطلوب"),
-  picture: z.instanceof(File, { message: "هذا الحقل مطلوب" }),
-  passportPdf: z.instanceof(File, { message: "هذا الحقل مطلوب" }),
-  arrivalDate: z.coerce.date({
+  face_image: z.instanceof(File, { message: "هذا الحقل مطلوب" }),
+  passport_copy: z.instanceof(File, { message: "هذا الحقل مطلوب" }),
+  arrival_date: z.coerce.date({
     errorMap: () => ({ message: "يرجى إدخال تاريخ وصول صالح" }),
   }),
-  expiryDate: z.coerce.date({
+  passport_expiry_date: z.coerce.date({
     errorMap: () => ({ message: "يرجى إدخال تاريخ انتهاء صالح" }),
   }),
   job: z.string().nonempty("هذا الحقل مطلوب"),
-  reason: z.enum(["work", "tourism", "other"], {
+  visit_reason: z.enum(["أخرى", "سائح", "الأعمال التجارية"], {
     required_error: "هذا الحقل مطلوب",
   }),
-  treatmentType: z.enum(["fast", "normal"], {
+  processing_type: z.enum(["سريع (24 إلى 36 ساعة)", "عادي (3 إلى 4 أيام)"], {
     required_error: "هذا الحقل مطلوب",
   }),
 })
 
 const VisaForm = () => {
+  const { token }= useContext(userContext);
   // picture privwer
   const [picturePreview, setPicturePreview] = useState(null);
   const [passportPdf, setPassportPdfPreview] = useState(null);
+
+
+
+  // visa 
+  const { data:visa } = useQuery({
+    queryKey: ['visa'],
+    queryFn: async () => {
+      const res = await fetchFromApi("/travel-visa");
+      return res;
+    }
+  })
+  // visa 
+  const { data:counts } = useQuery({
+    queryKey: ['countries'],
+    queryFn: async () => {
+      const res = await fetchFromApi("/countries");
+      return res;
+    }
+  })
+  const countries = counts?.data?.data.map((item) => ({
+    label: item?.name,
+    value: String(item?.id),
+  }));
+
 
   const handlePictureChange = (e) => {
     const file = e.target.files?.[0];
     if (file) {
       const previewUrl = URL.createObjectURL(file);
       setPicturePreview(previewUrl);
-      form.setValue("picture", file);
+      form.setValue("face_image", file);
     }
   };
   const handlePassportPdf = (e) => {
@@ -78,28 +107,69 @@ const VisaForm = () => {
     if (file) {
       const previewUrl = URL.createObjectURL(file);
       setPassportPdfPreview(previewUrl);
-      form.setValue("passportPdf", file);
+      form.setValue("passport_copy", file);
     }
   };
+
+  // formate date
+  function formatDate(date) {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const year = d.getFullYear();
+    return `${day}-${month}-${year}`;
+    }
 
   // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      type: "",
-      country: "",
-      passportNumber: "",
-      passportType: "",
-      countryFrom: "",
-      name: "",
+      visa_id: "",
+      passport_country: "",
+      passport_number: "",
+      passport_type: "",
+      travel_from: "",
+      traveler_name: "",
       email: "",
       phone: "",
       job: "",
     },
   })
   // 2. Define a submit handler.
-  function onSubmit(values) {
-    console.log(values)
+  async function onSubmit(values) {
+    const formData = new FormData();
+
+    // Append all fields
+    formData.append('visa_id', values.visa_id);
+    formData.append('passport_country', values.passport_country);
+    formData.append('passport_number', values.passport_number);
+    formData.append('passport_type', values.passport_type);
+    formData.append('travel_from', values.travel_from);
+    formData.append('traveler_name', values.traveler_name);
+    formData.append('email', values.email);
+    formData.append('phone', values.phone);
+    formData.append('job', values.job);
+    formData.append('visit_reason', values.visit_reason);
+    formData.append('processing_type', values.processing_type);
+
+    // Append dates in correct format
+    formData.append('arrival_date', formatDate(values.arrival_date));
+    formData.append('passport_expiry_date', formatDate(values.passport_expiry_date));
+
+    // Append files
+    formData.append('face_image', values.face_image);
+    formData.append('passport_copy', values.passport_copy);
+    
+    const res = await postToApi("visa-booking", formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    console.log(res);
+    
+
+    // const res = await postToApi("visa-booking", finalData, { headers: { Authorization: `Bearer ${token}`} });
+    // console.log(res);
   }
   return (
     <section className="mt-16 ">
@@ -110,14 +180,14 @@ const VisaForm = () => {
             {/* type */}
             <FormField
               control={form.control}
-              name={"type"}
+              name={"visa_id"}
               render={({ field }) => {
-                const selectedVisa = visaTypes.find((option) => option.key === field.value)
+                const selectedVisa = visa?.data?.data?.find((option) => String(option?.id) === field.value)
                 return (
                   <FormItem className={`col-span-12 `}>
                     <FormLabel className="flex items-center gap-1">
                       <p className="text-main-blue font-bold text-sm">
-                        نوع تأشيـــرة دبي
+                        نوع التأشيرة
                         <span className="text-red-500">*</span>
                       </p>
                     </FormLabel>
@@ -127,20 +197,19 @@ const VisaForm = () => {
                           <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                             <ChevronDown size={14} />
                           </div>} className="h-12 bg-body text-[#797979]  text-xs font-semibold border-none  rounded-full">
-                            <SelectValue placeholder={"نوع تأشيـــرة دبي"} className="text-[#797979]" />
+                            <SelectValue placeholder={"نوع التأشيرة"} className="text-[#797979]" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                          {visaTypes.map((option) => (
-                            <SelectItem key={option.key} value={option.key} className=" cursor-pointer focus:bg-body rounded-xl">
-                              {option.value}
+                          {visa?.data?.data?.map((option) => (
+                            <SelectItem key={option?.id} value={String(option?.id)} className=" cursor-pointer focus:bg-body rounded-xl">
+                              {option?.period}
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
                       <span className="size-8 shrink-0 bg-main-navy rounded-full flex items-center justify-center text-white text-xs font-semibold">
-
-                        {selectedVisa ? `${selectedVisa.price} ` : null}
+                        {selectedVisa ? `${parseInt(selectedVisa.price)} ` : null}
                       </span>
                     </div>
                     <FormMessage className="text-red-500  text-xs " />
@@ -149,15 +218,15 @@ const VisaForm = () => {
               }}
             />
             {/* countrey */}
-            <CustomFilterSelect form={form} name={"country"} label={"بلد جواز السفر"} isRequired options={countries} placeholder="بلد جواز السفر" colSpan={"col-span-12"} />
+            <CustomFilterSelect form={form} name={"passport_country"} label={"بلد جواز السفر"} isRequired options={countries} placeholder="بلد جواز السفر" colSpan={"col-span-12"} />
             {/* passport number */}
-            <CustomInput form={form} name={"passportNumber"} label={"رقم جواز السفر"} isRequired placeholder="0000-000000" type="number" colSpan={"xl:col-span-6 col-span-12"} />
+            <CustomInput form={form} name={"passport_number"} label={"رقم جواز السفر"} isRequired placeholder="0000-000000" type="number" colSpan={"xl:col-span-6 col-span-12"} />
             {/* passport type */}
-            <CustomFilterSelect form={form} name={"passportType"} label={"نوع جواز السفر"} isRequired options={passportTypes} placeholder="اختر نوع جواز سفرك" colSpan={"xl:col-span-6 col-span-12"} />
+            <CustomFilterSelect form={form} name={"passport_type"} label={"نوع جواز السفر"} isRequired options={passportTypes} placeholder="اختر نوع جواز سفرك" colSpan={"xl:col-span-6 col-span-12"} />
             {/* countrey from */}
-            <CustomFilterSelect form={form} name={"countryFrom"} label={"أنا مسافر من"} isRequired options={countries} placeholder="اختر البلد" colSpan={"col-span-12"} />
+            <CustomFilterSelect form={form} name={"travel_from"} label={"أنا مسافر من"} isRequired options={countries} placeholder="اختر البلد" colSpan={"col-span-12"} />
             {/* name */}
-            <CustomInput form={form} name={"name"} label={"اسم المسافر"} isRequired placeholder="أكتب اسم المسافر" colSpan={" col-span-12"} />
+            <CustomInput form={form} name={"traveler_name"} label={"اسم المسافر"} isRequired placeholder="أكتب اسم المسافر" colSpan={" col-span-12"} />
             {/* email */}
             <CustomInput form={form} name={"email"} label={"عنوان البريد الإلكتروني (ستتلقى التأشيرة على هذا البريد الإلكتروني)"} isRequired placeholder="أكتب البريد الالكتروني هنا" colSpan={" col-span-12"} />
             {/* Phone Field */}
@@ -168,7 +237,7 @@ const VisaForm = () => {
                 <FormItem className="col-span-12" dir="ltr">
                   <FormLabel className="block" dir="rtl" >
                     <p className="text-main-blue font-bold text-sm">
-                      نوع تأشيـــرة دبي
+                      رقم الاتصال 
                       <span className="text-red-500">*</span>
                     </p>
                   </FormLabel>
@@ -188,7 +257,7 @@ const VisaForm = () => {
             <div className="col-span-12 max-xl:hidden">
               {/* check */}
               <div className="flex items-center gap-3  my-8">
-                <Checkbox id="terms" className="border-2 rounded
+                <Checkbox id="terms" className=" bg-body rounded
                         data-[state=checked]:bg-main-blue
                         data-[state=checked]:text-white
                         data-[state=checked]:border-main-blue" />
@@ -198,7 +267,7 @@ const VisaForm = () => {
                 >
                   بالنقر فوق <span className="font-bold">"تقديم الطلب"</span>، فإنك توافق على <span className="font-bold">الشروط والأحكام وسياسة الخصوصية</span>               </label>
               </div>
-              <Button type="submit" className="h-12  bg-main-purple w-full m-auto text-white border-2 border-main-purple hover:bg-white hover:text-main-purple rounded-full flex items-center gap-14">بحـــــث
+              <Button type="submit" className="h-12  bg-main-purple w-full m-auto text-white  hover:bg-main-blue transition-all duration-300  rounded-full flex items-center gap-14">بحـــــث
 
                 قدم طلبك الآن
               </Button>
@@ -211,7 +280,7 @@ const VisaForm = () => {
               {/* picture Field */}
               <FormField
                 control={form.control}
-                name="picture"
+                name="face_image"
                 render={({ field }) => (
                   <FormItem className="md:col-span-6 col-span-12" dir="ltr">
                     <FormLabel className="flex items-center justify-center bg-white h-60 rounded-[40px]" dir="rtl" htmlFor="picture">
@@ -245,7 +314,7 @@ const VisaForm = () => {
               {/* passportPdf Field */}
               <FormField
                 control={form.control}
-                name="passportPdf"
+                name="passport_copy"
                 render={({ field }) => (
                   <FormItem className="md:col-span-6 col-span-12" dir="ltr">
                     <FormLabel className="flex items-center justify-center bg-white h-60 rounded-[40px]" dir="rtl" htmlFor="passportPdf">
@@ -278,15 +347,15 @@ const VisaForm = () => {
                 )}
               />
               {/* arrival date  */}
-              <CustomDatePicker colSpan="col-span-12 xl:col-span-6" isRequired name="arrivalDate" label="تاريخ الوصول" form={form} placeholder="اختر تاريخ الوصول" bg="bg-white hover:bg-white" />
+              <CustomDatePicker colSpan="col-span-12 xl:col-span-6" isRequired name="arrival_date" label="تاريخ الوصول" form={form} placeholder="اختر تاريخ الوصول" bg="bg-white hover:bg-white" />
               {/* expiry date  */}
-              <CustomDatePicker colSpan="col-span-12 xl:col-span-6" isRequired name="expiryDate" label="تاريخ انتهاء صلاحية جواز السفر " form={form} placeholder="أكتب تاريخ انتهاء صلاحية جواز السفر" bg="bg-white hover:bg-white" />
+              <CustomDatePicker colSpan="col-span-12 xl:col-span-6" isRequired name="passport_expiry_date" label="تاريخ انتهاء صلاحية جواز السفر " form={form} placeholder="أكتب تاريخ انتهاء صلاحية جواز السفر" bg="bg-white hover:bg-white" />
               {/* job */}
               <CustomInput bg="bg-white" form={form} name={"job"} label={"المهنة "} isRequired placeholder="أكتب المهنة هنا" colSpan={" col-span-12"} />
               {/* reason */}
               <FormField
                 control={form.control}
-                name="reason"
+                name="visit_reason"
                 render={({ field }) => (
                   <FormItem className="space-y-1 col-span-12" dir="rtl">
                     <FormLabel>
@@ -304,11 +373,11 @@ const VisaForm = () => {
                       >
                         <FormItem className="w-1/3">
                           <FormControl>
-                            <RadioGroupItem className="hidden" value="work" />
+                            <RadioGroupItem className="hidden" value="الأعمال التجارية" />
                           </FormControl>
                           <FormLabel
                             className={`w-full rounded-full border h-10 text-xs font-semibold flex items-center justify-center
-                ${field.value === "work" ? "bg-main-purple text-white" : "bg-white text-main-gray"}
+                ${field.value === "الأعمال التجارية" ? "bg-main-purple text-white" : "bg-white text-main-gray"}
               `}
                           >
                             الأعمال التجارية
@@ -316,11 +385,11 @@ const VisaForm = () => {
                         </FormItem>
                         <FormItem className="w-1/3">
                           <FormControl>
-                            <RadioGroupItem className="hidden" value="tourism" />
+                            <RadioGroupItem className="hidden" value="سائح" />
                           </FormControl>
                           <FormLabel
                             className={`w-full rounded-full border h-10 text-xs font-semibold flex items-center justify-center
-                ${field.value === "tourism" ? "bg-main-purple text-white" : "bg-white text-main-gray"}
+                ${field.value === "سائح" ? "bg-main-purple text-white" : "bg-white text-main-gray"}
               `}
                           >
                             سائح
@@ -328,11 +397,11 @@ const VisaForm = () => {
                         </FormItem>
                         <FormItem className="w-1/3">
                           <FormControl>
-                            <RadioGroupItem className="hidden" value="other" />
+                            <RadioGroupItem className="hidden" value="أخرى" />
                           </FormControl>
                           <FormLabel
                             className={`w-full rounded-full border h-10 text-xs font-semibold flex items-center justify-center
-                ${field.value === "other" ? "bg-main-purple text-white" : "bg-white text-main-gray"}
+                ${field.value === "أخرى" ? "bg-main-purple text-white" : "bg-white text-main-gray"}
               `}
                           >
                             أخرى
@@ -348,7 +417,7 @@ const VisaForm = () => {
               {/* treatment type */}
               <FormField
                 control={form.control}
-                name="treatmentType"
+                name="processing_type"
                 render={({ field }) => (
                   <FormItem className="space-y-1 col-span-12" dir="rtl">
                     <FormLabel>
@@ -366,11 +435,11 @@ const VisaForm = () => {
                       >
                         <FormItem className="w-1/2">
                           <FormControl>
-                            <RadioGroupItem className="hidden" value="fast" />
+                            <RadioGroupItem className="hidden" value="سريع (24 إلى 36 ساعة)" />
                           </FormControl>
                           <FormLabel
                             className={`w-full rounded-full border h-10 text-xs font-semibold flex items-center justify-center
-                ${field.value === "fast" ? "bg-main-purple text-white" : "bg-white text-main-gray"}
+                ${field.value === "سريع (24 إلى 36 ساعة)" ? "bg-main-purple text-white" : "bg-white text-main-gray"}
               `}
                           >
                             سريع (24 إلى 36 ساعة)
@@ -379,11 +448,11 @@ const VisaForm = () => {
 
                         <FormItem className="w-1/2">
                           <FormControl>
-                            <RadioGroupItem className="hidden" value="normal" />
+                            <RadioGroupItem className="hidden" value="عادي (3 إلى 4 أيام)" />
                           </FormControl>
                           <FormLabel
                             className={`w-full rounded-full border h-10 text-xs font-semibold flex items-center justify-center
-                ${field.value === "normal" ? "bg-main-purple text-white" : "bg-white text-main-gray"}
+                ${field.value === "عادي (3 إلى 4 أيام)" ? "bg-main-purple text-white" : "bg-white text-main-gray"}
               `}
                           >
                             عادي (3 إلى 4 أيام)
@@ -401,8 +470,8 @@ const VisaForm = () => {
           </div>
           <div className="col-span-12 xl:hidden">
             {/* check */}
-            <div className="xl:hidden flex items-center gap-3  my-8">
-              <Checkbox id="terms" className="border-2 rounded
+            <div className="flex items-center gap-3  my-8">
+              <Checkbox id="terms" className=" bg-body rounded
                         data-[state=checked]:bg-main-blue
                         data-[state=checked]:text-white
                         data-[state=checked]:border-main-blue" />
@@ -412,7 +481,7 @@ const VisaForm = () => {
               >
                 بالنقر فوق <span className="font-bold">"تقديم الطلب"</span>، فإنك توافق على <span className="font-bold">الشروط والأحكام وسياسة الخصوصية</span>               </label>
             </div>
-            <Button type="submit" className="h-12  bg-main-purple w-full m-auto text-white border-2 border-main-purple hover:bg-white hover:text-main-purple rounded-full flex items-center gap-14">بحـــــث
+            <Button type="submit" className="h-12  bg-main-purple w-full m-auto text-white  hover:bg-main-blue transition-all duration-300  rounded-full flex items-center gap-14">بحـــــث
 
               قدم طلبك الآن
             </Button>

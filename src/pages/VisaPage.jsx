@@ -3,8 +3,13 @@ import Footer from "../components/footer/Footer"
 import Header from "../components/header/Header"
 import VisaCard from "../components/visa/VisaCard"
 import { fetchFromApi } from "../api/utils/fetchData"
+import { use } from "react"
+import { useSearchParams } from "react-router-dom"
 
 const VisaPage = () => {
+  const [searchParams] = useSearchParams();
+  const type = searchParams.get("type");
+  
   const { data, isLoading, isError } = useQuery({
     queryKey: ['visa'],
     queryFn: async () => {
@@ -12,7 +17,6 @@ const VisaPage = () => {
       return res;
     }
   })
-  console.log(data);
 
 
   if (isLoading) return <p>Loading...</p>
@@ -25,9 +29,9 @@ const VisaPage = () => {
       <div className="bg-[url('/visa/bg.png')] bg-cover bg-center py-16">
         {/* content  */}
         <div className="container text-white text-center ">
-          <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">تأشيرات الإمارات العربية المتحدة</h1>
+          <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">تأشيرات {type == "sa" ? "السعودية" :"الإمارات العربية المتحدة"} </h1>
           <p className="max-w-6xl xl:text-xl md:text-base text-sm m-auto font-light leading-relaxed mt-6">
-            توفر دولة الإمارات العربية المتحدة أنواعاً مختلفة من التأشيرات المصممة خصيصاً لغرض ومدة زيارتك. فيما يلي أنواع التأشيرات الأكثر طلباً من قبل المسافرين        </p>
+            توفر دولة {type == "sa" ? "السعودية" : "الإمارات العربية المتحدة"} أنواعاً مختلفة من التأشيرات المصممة خصيصاً لغرض ومدة زيارتك. فيما يلي أنواع التأشيرات الأكثر طلباً من قبل المسافرين        </p>
         </div>
       </div>
       {/* content */}
