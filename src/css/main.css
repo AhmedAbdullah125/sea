@@ -2333,6 +2333,31 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   font-size: 12px;
 }
 
+.midd-section {
+  display: flex;
+}
+@media screen and (max-width: 1025px) {
+  .midd-section {
+    flex-direction: column;
+  }
+}
+.midd-section .tabs {
+  width: 60%;
+}
+@media screen and (max-width: 1025px) {
+  .midd-section .tabs {
+    width: 100%;
+  }
+}
+.midd-section .payment {
+  width: 40%;
+}
+@media screen and (max-width: 1025px) {
+  .midd-section .payment {
+    width: 100%;
+  }
+}
+
 footer .upperfooter {
   padding: 127px 0 65px;
   display: flex;
