@@ -49,7 +49,7 @@ const VerfiyOtp = ({ phone }) => {
     if (res?.data?.data?.token) {
       toast.success("تم التحقق بنجاح")
       setToken(res?.data?.data?.token);
-      localStorage.setItem("token", res?.data?.data?.token);
+      sessionStorage.setItem("token", res?.data?.data?.token);
       navigate("/");
     }
     else {

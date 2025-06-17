@@ -47,7 +47,7 @@ const CustomFilterSelect = ({
               </SelectTrigger>
             </FormControl>
             <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-              {options.map((option) => (
+              {options?.map((option) => (
                 <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
                   {option.label}
                 </SelectItem>
