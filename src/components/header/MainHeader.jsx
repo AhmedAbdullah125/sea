@@ -11,7 +11,7 @@ const MainHeader = () => {
                 <div className="r-links">
                     <NavLink to="/add-house">أضف سكنـك</NavLink>
                     <NavLink to="/">أضف بــاقتك</NavLink>
-                    <NavLink to="/">بـــاقات حــول العـالم</NavLink>
+                    <NavLink to="/packages">بـــاقات حــول العـالم</NavLink>
                 </div>
                 <div className="logo">
                     <Link to="/">
