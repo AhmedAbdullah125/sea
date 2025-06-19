@@ -8,6 +8,7 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import { TiStarFullOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import FilterCuroasel from "./FilterCuroasel";
+import { FaRegEye } from "react-icons/fa";
 
 const ryial = <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g clip-path="url(#clip0_324_2525)">
@@ -22,7 +23,10 @@ const ryial = <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns=
 </svg>
 
 
-const FilterCard = () => {
+const FilterCard = ({ tour }) => {
+
+  const price = parseFloat(tour?.totalServicePrice || tour?.services_price[0]?.price)
+  const discount = parseFloat(tour?.discount)
   return (
     <Card className="shadow-none border-none space-y-4 xl:col-span-3 md:col-span-6 col-span-12" dir="rtl">
       <CardHeader className="p-0">
@@ -31,7 +35,7 @@ const FilterCard = () => {
           {/* sale */}
           <div div className="absolute top-5 end-5 z-10 px-8 py-3 bg-white/15 backdrop-blur-sm text-white text-[10px] font-semibold flex items-center justify-center rounded-full" > كيلومترات غير محدودة</div>
           {/* card image */}
-          <FilterCuroasel />
+          <FilterCuroasel images={tour?.images}  />
 
         </div >
       </CardHeader>
@@ -41,23 +45,27 @@ const FilterCard = () => {
           {/* rate */}
           <div className="flex items-start gap-1 w-fit bg-main-navy text-white py-3 px-4 rounded-full" >
             <TiStarFullOutline size={14} className="text-yellow-500" />
-            <p className="p-0 m-0 text-[10px] font-semibold">5.0 ( 500+ )</p>
+            <p className="p-0 m-0 text-[10px] font-semibold">{parseFloat(tour?.rating).toFixed(1)} ( {parseInt(tour?.total_rating)})</p>
           </div >
           {/* details */}
-          <h3 h3 className="text-4xl font-bold line-clamp-1" >Atlas 5 Auto</h3 >
+          <h3 h3 className="text-4xl font-bold line-clamp-1" >{tour?.model}</h3 >
           {/* price */}
           <div className="flex items-center justify-between" >
-            <h4 className="text-xl font-bold text-main-blue flex items-center gap-2">692.000
+            <h4 className="text-xl font-bold text-main-blue flex items-center gap-2">{parseFloat(price - discount).toFixed(2)}
               {ryial}
             </h4>
             <div className="h-8 w-10 bg-main-purple text-white text-[10px] font-semibold flex items-center justify-center rounded-full">
-              20%
+              {parseFloat((discount / price) * 100).toFixed(1)} % 
             </div>
           </div>
         </div >
       </CardContent>
-      <CardFooter className="p-0">
-        <Link to="/" className="h-12 w-full bg-main-blue  border-2 border-main-blue text-white hover:bg-white hover:text-main-blue  flex items-center justify-between rounded-full px-4">
+      <CardFooter className="p-0 flex items-center gap-2">
+        <Link to={`/tours/${tour?.id}`} className="flex-grow h-12  bg-main-purple   !text-white hover:bg-main-blue transition-all duration-300   flex items-center justify-between rounded-full px-4">
+          <p className="text-[10px] font-semibold">عرض التفاصيل</p>
+          <FaRegEye size={20} />
+        </Link>
+        <Link to="/transport" className="flex-grow h-12  bg-main-blue   !text-white hover:bg-main-purple transition-all duration-300   flex items-center justify-between rounded-full px-4">
           <p className="text-[10px] font-semibold">أحجز الآن</p>
           <IoLogoWhatsapp size={20} />
         </Link>
