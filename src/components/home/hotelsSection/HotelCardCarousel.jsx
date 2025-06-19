@@ -26,7 +26,7 @@ const HotelCardCarousel = ({images}) => {
   return (
     <div className="relative">
       <Carousel setApi={setApi} opts={{ loop: true }}>
-        <CarouselContent className=" h-60 " dir="ltr">
+        <CarouselContent className=" h-[220px] " dir="ltr">
           {images?.map((hotel, index) => (
             <CarouselItem key={index} className="basis-full h-full p-0" >
               < img src={hotel} alt="item" loading="lazy" className="w-full h-full object-cover" />

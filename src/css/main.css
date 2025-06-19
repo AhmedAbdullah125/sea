@@ -465,7 +465,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 60px;
   padding: 50px 0 0;
 }
 @media only screen and (max-width: 1025px) {
@@ -2775,4 +2775,36 @@ footer .lowerfooter {
 .book-flight:hover {
   background-color: var(--main-color);
   color: var(--white-color);
+}
+
+.acc-triger {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.acc-triger img {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.acc-triger .o-side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-between;
+  height: 100%;
+  align-items: flex-start;
+}
+.acc-triger .o-side h2 {
+  color: #091B3C;
+  font-weight: 800;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+.acc-triger .o-side span {
+  font-weight: 600;
+  font-size: 12px;
+  color: #808080;
 }/*# sourceMappingURL=main.css.map */

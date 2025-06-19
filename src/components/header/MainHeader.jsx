@@ -31,7 +31,7 @@ const MainHeader = () => {
                     <div className="noqta"></div>
                     <NavLink to='/hotels'>فــنادق وشقــق</NavLink>
                     <div className="noqta"></div>
-                    <NavLink to='/w'>باقــات حـول العالم</NavLink>
+                    <NavLink to='/packages'>باقــات حـول العالم</NavLink>
                     <div className="noqta"></div>
                     <NavLink to='/transport'>النقل و المــواصلات</NavLink>
                     <div className="noqta"></div>

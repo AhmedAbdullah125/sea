@@ -1,33 +1,40 @@
+
+/* .outcard {
+  border-radius: 80px; 
+ 
+  position: relative;
+}
+
 .card {
-  --r: 40px; 
-  --s: 30px; 
-  height: 18rem;
+  --r: 60px; 
+  --s: 20px;
+  height: 16rem;
+  width: 100%;
   position: relative;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 100%;
   border-radius: var(--r);
   
-  --_m:/calc(2*var(--r)) calc(2*var(--r)) radial-gradient(#000 70%,#0000 72%) no-repeat;
+
+  --_m:/calc(2*var(--r)) calc(2*var(--r)) radial-gradient(#000 70%,#0000 67%) no-repeat;
 }
+
 .bottomLeft {
   mask:
     calc(var(--s) + var(--r)) bottom var(--_m),
     bottom calc(var(--s) + var(--r)) left 0 var(--_m),
-    radial-gradient(var(--s) at 0 100%,#0000 99%,#000 calc(100% + 1px)) 
-     var(--r) calc(-1*var(--r)) no-repeat,
-    conic-gradient(from 180deg at calc(var(--s) + 2*var(--r)) calc(100% - var(--s) - 2*var(--r)),
-     #0000 25%,#000 0);
+    radial-gradient(var(--s) at 0 100%,#0000 98%,#000 calc(100% + 1px)) 
+      var(--r) calc(-1*var(--r)) no-repeat,
+    conic-gradient(
+      from 180deg at calc(var(--s) + 2*var(--r)) calc(100% - var(--s) - 2*var(--r)),
+      #0000 25%,#000 0
+    );
+  -webkit-mask: inherit;
+} */
+
+.inverted {
+	-webkit-mask: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20413%20343%22%3E%3Cpath%20d%3D%22M100%2C0H313A100%2C100%200%2C0%2C1%20413%2C100V243A100%2C100%200%2C0%2C1%20313%2C343H90A30%2C30%200%2C0%2C1%2060%2C313L60%2C313A30%2C30%200%2C0%2C0%2030%2C283L30%2C283A30%2C30%200%2C0%2C1%200%2C253V100A100%2C100%200%2C0%2C1%20100%2C0Z%22%20fill%3D%22%23fff%22%20%2F%3E%3C%2Fsvg%3E') no-repeat center / cover;
+    	mask: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20413%20343%22%3E%3Cpath%20d%3D%22M100%2C0H313A100%2C100%200%2C0%2C1%20413%2C100V243A100%2C100%200%2C0%2C1%20313%2C343H90A30%2C30%200%2C0%2C1%2060%2C313L60%2C313A30%2C30%200%2C0%2C0%2030%2C283L30%2C283A30%2C30%200%2C0%2C1%200%2C253V100A100%2C100%200%2C0%2C1%20100%2C0Z%22%20fill%3D%22%23fff%22%20%2F%3E%3C%2Fsvg%3E') no-repeat center / cover;
+	aspect-ratio: 59 / 49;
 }
-
-/* .btn{
-  width: 5rem;
-  height: 5rem;
-  position: absolute;
-  background: blue;
-  border: 10px solid white;
-  border-radius: 50%;
-}  */
-
-

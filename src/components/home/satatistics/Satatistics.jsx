@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query"
 import { BiSolidLeftTopArrowCircle } from "react-icons/bi"
 import { fetchFromApi } from "../../../api/utils/fetchData"
 import StatisticCard from "./StatisticCard"
+import Loader from "../../loader/Loader"
+import AlertError from "../../alerts/AlertError"
 
 const Satatistics = () => {
   const { data, isLoading, isError } = useQuery({
@@ -11,8 +13,12 @@ const Satatistics = () => {
       return res;
     }
   })
-  if (isLoading) return <div>Loading...</div>
-  if (isError) return <div>Error</div>
+  if (isLoading) return <Loader />
+  if (isError) return <div className="container my-12">
+    <AlertError>
+      هناك خطاء ما
+    </AlertError>
+  </div>
   return (
     <section className="my-16 py-16 bg-body rounded-3xl xl:rounded-[6.25rem]">
       {data?.data?.data?.images?.length > 0 ?
@@ -20,9 +26,12 @@ const Satatistics = () => {
           {/* content */}
           <div className=" w-full flex flex-col xl:flex-row items-center max-xl:gap-4 xl:items-start justify-between ">
             <div className="text-center xl:text-start xl:space-y-4 space-y-2">
-              <p className="text-xs font-bold text-main-navy">{data?.data?.data?.title}</p>
-              <h3 className="text-main-blue xl:text-5xl font-bold md:text-3xl text-xl ">{data?.data?.data?.mainTitle}</h3>
-              <p className="text-main-navy text-xs xl:text-base xl:leading-[3rem]">{data?.data?.data?.mainDescription}<br className="hidden xl:block" /> {data?.data?.data?.description}</p>
+              <p className="text-xs font-bold text-main-navy" dangerouslySetInnerHTML={{ __html: data?.data?.data?.title }}></p>
+              <h3 className="text-main-blue xl:text-5xl font-bold md:text-3xl text-xl " dangerouslySetInnerHTML={{ __html: data?.data?.data?.mainTitle }}></h3>
+              <div className="text-main-navy text-xs xl:text-base xl:leading-[3rem]">
+                <div dangerouslySetInnerHTML={{ __html: data?.data?.data?.mainDescription }} />
+                <div dangerouslySetInnerHTML={{ __html: data?.data?.data?.secondDescription }} />
+              </div>
             </div>
             {/* link */}
             <a href="#" className="xl:mt-6 flex items-center gap-2 text-white text-xs bg-main-blue p-2 border-2 border-main-blue hover:bg-transparent hover:text-main-blue rounded-full w-fit ">
@@ -37,7 +46,7 @@ const Satatistics = () => {
               return (
                 <StatisticCard
                   key={index}
-                  idx={index+1}
+                  idx={index + 1}
                   statistic={statistic}
                   isLast={isLast}
                 />

@@ -12,41 +12,41 @@ const PackagesGrid = () => {
 
     const hotels = [hotel1, hotel2, hotel3, hotel4, hotel5, hotel6, hotel7, hotel8]
     return (
-        <section class="content-section">
-            <div class="grid-cont">
+        <section className="content-section">
+            <div className="grid-cont">
 
                 {
                     hotels.map((item, index) => (
-                        <div class="trip-item" key={index}>
-                            <div class="trip-img">
+                        <div className="trip-item" key={index}>
+                            <div className="trip-img">
                                 <figure>
                                     <img src={item} alt="img" />
                                 </figure>
-                                <button class="fav-btn">
-                                    <i class="fa-regular fa-heart"></i>
+                                <button className="fav-btn">
+                                    <i className="fa-regular fa-heart"></i>
                                 </button>
                             </div>
-                            <div class="card-content">
-                                <div class="detail-flex">
-                                    <div class="detail-period">جولة لمدة 06 أيــــام</div>
-                                    <div class="detail-info-item rate">
-                                        <i class="fa-solid fa-star"></i>
+                            <a href={`package?id=${index + 1}`} className="card-content">
+                                <div className="detail-flex">
+                                    <div className="detail-period">جولة لمدة 06 أيــــام</div>
+                                    <div className="detail-info-item rate">
+                                        <i className="fa-solid fa-star"></i>
                                         <span>5.0 <span>( 500+ )</span></span>
                                     </div>
                                 </div>
-                                <div class="card-item-name">مدريــــــد - برشلـــونة</div>
-                                <div class="card-place">سارية في 22 نوفمبر 2025</div>
-                                <div class="item-price">
+                                <div className="card-item-name">مدريــــــد - برشلـــونة</div>
+                                <div className="card-place">سارية في 22 نوفمبر 2025</div>
+                                <div className="item-price">
                                     EUR 999
-                                    <span class="period"><span>/</span> للشخص الواحد</span>
+                                    <span className="period"><span>/</span> للشخص الواحد</span>
                                 </div>
-                                <div class="item-btn">
-                                    <a href="#" class="book-ancor">إحجـــز رحلتك الان</a>
-                                    <a href="#" class="book-flight"
+                                <div className="item-btn">
+                                    <a href="#" className="book-ancor">إحجـــز رحلتك الان</a>
+                                    <a href="#" className="book-flight"
                                     ><img src={plane} alt="icon"
                                         /></a>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     ))
                 }
