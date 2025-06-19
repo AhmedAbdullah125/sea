@@ -9,7 +9,7 @@ const MainHeader = () => {
         <section className='main-header-cont'>
             <div className="container upper-nav-cont">
                 <div className="r-links">
-                    <NavLink to="/">أضف سكنـك</NavLink>
+                    <NavLink to="/add-house">أضف سكنـك</NavLink>
                     <NavLink to="/">أضف بــاقتك</NavLink>
                     <NavLink to="/">بـــاقات حــول العـالم</NavLink>
                 </div>
