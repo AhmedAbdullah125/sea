@@ -6,6 +6,8 @@ import { useSearchParams } from 'react-router-dom';
 import HotelHeader from '../components/hotel/HotelHeader';
 import { API_BASE_URL } from '../lib/apiConfig';
 import HotelBook from '../components/hotel/HotelBook';
+import HotelTabs from '../components/hotel/HotelTabs';
+import HotelPayment from '../components/hotel/HotelPayment';
 const Hotel = () => {
     // state for search params
     const [searchParams] = useSearchParams();
@@ -39,6 +41,14 @@ const Hotel = () => {
                     <div>
                         <HotelHeader data={data} />
                         <HotelBook data={data} />
+                        <div className="midd-section container">
+                            <div className="tabs">
+                                <HotelTabs data={data} />
+                            </div>
+                            <div className="payment">
+                                <HotelPayment   />
+                            </div>
+                        </div>
                     </div>
                 )
             }

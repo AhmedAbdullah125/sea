@@ -621,3 +621,22 @@
     }
   }
 }
+.midd-section{
+  display: flex;
+  @media screen and (max-width: 1025px) {
+    flex-direction: column;
+    
+  }
+  .tabs{
+    width: 60%;
+    @media screen and (max-width: 1025px) {
+      width: 100%;
+    }
+  }
+  .payment{
+    width: 40%;
+    @media screen and (max-width: 1025px) {
+      width: 100%;
+    }
+  }
+}
