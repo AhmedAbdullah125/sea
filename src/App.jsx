@@ -23,6 +23,8 @@ import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import UserContextProvider from './context/UserContext';
 import SingleVisaPage from './pages/SingleVisaPage';
 import SingleTourPage from './pages/SingleTourPage';
+import AddHouse from './pages/AddHouse';
+import Packages from './pages/Packages';
 
 export const AppContext = createContext();
 function App() {
@@ -41,6 +43,8 @@ function App() {
 			{ path: "/event", element: <Event></Event> },
 			{ path: "/hotels", element: <Hotels></Hotels> },
 			{ path: "/hotel", element: <Hotel></Hotel> },
+			{ path: "/add-house", element: <AddHouse></AddHouse> },
+			{ path: "/packages", element: <Packages></Packages> },
 
 			// { path: '/login', element: <Login></Login> },			
 		]
