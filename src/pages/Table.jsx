@@ -8,6 +8,7 @@ import Things from '../components/table/Things';
 import { API_BASE_URL } from '../lib/apiConfig';
 import axios from 'axios';
 import ActivitiesTable from '../components/table/ActivitiesTable';
+import Loading from '../components/loading/Loading';
 
 
 
@@ -45,7 +46,7 @@ const Table = () => {
       <Header />
       {
         loading ?
-          <div className="">loading ....</div>
+          <Loading />
           :
           <>
             <BreadCrumb data={[{ title: "الرئيــسية", href: "/" }, { title: "جدول عليـــنا", href: "#" }, { title: "إسطنبــول", href: "#" }]} />
