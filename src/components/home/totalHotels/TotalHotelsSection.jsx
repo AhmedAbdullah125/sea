@@ -3,6 +3,9 @@ import TotalHotelCard from "./TotalHotelCard"
 import { BiSolidLeftTopArrowCircle } from "react-icons/bi";
 import { fetchFromApi } from "../../../api/utils/fetchData";
 import { Link } from "react-router-dom";
+import Loader from "../../loader/Loader";
+import AlertError from "../../alerts/AlertError";
+import AlertWarning from "../../alerts/AlertWarning";
 
 const TotalHotelsSection = () => {
   const { data, isLoading, isError } = useQuery({
@@ -12,12 +15,12 @@ const TotalHotelsSection = () => {
       return res;
     }
   })
-  if (isLoading) return <div>Loading...</div>
-  if (isError) return <div>Error</div>
+  if (isLoading) return <Loader />
+  if (isError) return <div className="container my-12"><AlertError>
+    هناك خطاء ما
+  </AlertError></div>
   return (
     <section className="my-16 xl:my-24 container  xl:space-y-12 space-y-8">
-      {data?.data?.data?.length > 0 ?
-        <>
       {/* title */}
       <div className="flex flex-col xl:flex-row items-center justify-between max-xl:space-y-8">
         <div className="text-center xl:text-start">
@@ -26,21 +29,18 @@ const TotalHotelsSection = () => {
         </div>
         <p className="text-sm font-bold text-main-navy text-center xl:text-start">+250 فندق حــــول العالم</p>
       </div>
-
-      {/* grid */}
-      <div className='grid grid-cols-12 xl:gap-x-4 xl:gap-y-10 gap-4'>
-            {data?.data?.data?.map((hotel, index) => (<TotalHotelCard key={index} hotel={hotel}/>))}
-        <div className="col-span-12">
-          <Link to="/hotels" className="w-fit flex items-center gap-4 text-white text-sm bg-main-purple p-4  border-2 border-main-purple hover:bg-white hover:text-main-purple rounded-full m-auto">
-            عرض المزيد
-            <BiSolidLeftTopArrowCircle size={20} />
-          </Link>
+      {data?.data?.data?.length > 0 ?
+        <div className='grid grid-cols-12 xl:gap-x-4 xl:gap-y-10 gap-4'>
+          {data?.data?.data?.map((hotel, index) => (<TotalHotelCard key={index} hotel={hotel} />))}
+          <div className="col-span-12">
+            <Link to="/hotels" className="w-fit flex items-center gap-4 !text-white text-sm bg-main-purple p-4   hover:bg-main-blue transation-all duration-300  rounded-full m-auto">
+              عرض المزيد
+              <BiSolidLeftTopArrowCircle size={20} />
+            </Link>
+          </div>
         </div>
-      </div>
-        </> :
-        <div className='container flex items-center justify-between'>
-          <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue '>لا يوجد فنادق متاحه الان</h2>
-        </div>
+        :
+        <AlertWarning>لا يوجد فنادق متاحه الان</AlertWarning>
       }
     </section>
   )

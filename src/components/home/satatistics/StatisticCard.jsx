@@ -3,7 +3,7 @@
 const SatisticCard = ({ statistic,idx, isLast }) => {
   return (
     <div
-      className={`overflow-hidden h-[450px] rounded-[105px] bg-red-500 bg-no-repeat bg-center bg-cover ${isLast ? ' col-span-12' : 'xl:col-span-4 md:col-span-6 col-span-12'
+      className={`overflow-hidden h-[350px] rounded-[105px] bg-red-500 bg-no-repeat bg-center bg-cover ${isLast ? ' col-span-12' : 'xl:col-span-4 md:col-span-6 col-span-12'
         }`}
       style={{ backgroundImage: `url(${statistic.image})` }}
     >
