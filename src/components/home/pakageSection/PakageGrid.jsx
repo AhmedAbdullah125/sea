@@ -1,6 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import PakageCard from './PakageCard'
 import { postToApi } from '../../../api/utils/postData'
+import AlertWarning from '../../alerts/AlertWarning'
+import Loader from '../../loader/Loader'
+import AlertError from '../../alerts/AlertError'
 const pakages = [
   "/pakages/pakage-1.png",
   "/pakages/pakage-2.png",
@@ -23,14 +26,18 @@ const PakageGrid = ({ continentId }) => {
       return res;
     }
   })
-  if(isLoading) return <div>Loading...</div>
-  if(isError) return <div>Error</div>
+  if (isLoading) return <Loader />
+  if (isError) return <div className="container my-12"><AlertError>
+    هناك خطاء ما
+  </AlertError></div>
   return (
     <>
       {data?.data?.data.length > 0 ?
         <div className='grid grid-cols-12 xl:gap-x-4 xl:gap-y-10 gap-4'>
           {data?.data?.data?.map((item, index) => (<PakageCard key={index} item={item} />))}
-        </div> : "no data"}
+        </div> :
+        <AlertWarning>لا يوجد باقات متاحه الان</AlertWarning>
+      }
     </>
   )
 }
