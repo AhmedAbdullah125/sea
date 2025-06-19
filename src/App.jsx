@@ -22,6 +22,7 @@ import { Toaster } from 'sonner';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import UserContextProvider from './context/UserContext';
 import SingleVisaPage from './pages/SingleVisaPage';
+import AddHouse from './pages/AddHouse';
 
 export const AppContext = createContext();
 function App() {
@@ -39,6 +40,7 @@ function App() {
 			{ path: "/event", element: <Event></Event> },
 			{ path: "/hotels", element: <Hotels></Hotels> },
 			{ path: "/hotel", element: <Hotel></Hotel> },
+			{ path: "/add-house", element: <AddHouse></AddHouse> },
 
 			// { path: '/login', element: <Login></Login> },			
 		]
