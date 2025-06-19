@@ -1,53 +1,68 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Form, FormControl, FormField, FormItem, FormLabel, FormMessage
-}
-  from "@/components/ui/form"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar"
+} from "@/components/ui/form";
 import {
   Popover, PopoverContent, PopoverTrigger,
-}
-  from "@/components/ui/popover"
-import { ChevronDown } from "lucide-react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect, useState } from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { countries } from "../../data/visa"
-import { cn } from "@/lib/utils"
+} from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
-import { TbPentagonFilled } from "react-icons/tb";
+import { ChevronDown } from "lucide-react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { BsFillSendFill } from "react-icons/bs";
-import { FaCalendarDays } from "react-icons/fa6";
 import { FaCar, FaUsers } from "react-icons/fa";
-import { IoLanguage } from "react-icons/io5";
-import { MdLanguage } from "react-icons/md";
+import { FaCalendarDays } from "react-icons/fa6";
 import { HiOutlineBars3CenterLeft } from "react-icons/hi2";
-const countOptions = Array.from({ length: 10 }, (_, i) => {
+import { MdLanguage } from "react-icons/md";
+import { TbPentagonFilled } from "react-icons/tb";
+import { z } from "zod";
+import {countries} from "../../data/visa";
+import { useQuery } from "@tanstack/react-query";
+import { fetchFromApi } from "../../api/utils/fetchData";
+const countOptions = Array.from({ length: 100 }, (_, i) => {
   const num = (i + 1).toString();
   return { label: num, value: num };
 });
 
 // schema
 export const filterSchema = z.object({
-  start: z.string().optional(),
-  end: z.string().optional(),
-  date: z
+  moving_point: z.string().optional(),
+  city: z.string().optional(),
+  date_and_time: z
     .string()
     .refine((val) => !val || !isNaN(Date.parse(val)), {
       message: "Invalid date",
     })
     .optional(),
-  number: z.string().optional(),
-  lang: z.string().optional(),
+  number_of_person: z.string().optional(),
   country: z.string().optional(),
-  city: z.string().optional(),
   model: z.string().optional(),
-  type: z.string().optional(),
+  car_types_id: z.string().optional(),
 });
 
 const FilterPanel = ({ defaultValues, onFilter }) => {
+  const { data } = useQuery({
+    queryKey: [`all-filters`],
+    queryFn: async () => {
+      const res = await fetchFromApi("/all-filters");
+      return res;
+    }
+  })
+
+  // countries
+  const countries = data?.data?.data?.countries?.map((item) => ({ label: item?.country, value: String(item?.id) }))
+  // cites
+  const cities = data?.data?.data?.cities?.map((item) => ({ label: item?.city, value: String(item?.id) }))
+  // moving points
+  const movingPoints = data?.data?.data?.movePoint?.map((item) => ({ label: item, value: item }))
+  // models
+  const models = data?.data?.data?.carModel?.map((item) => ({ label: item,value:item }))
+  // car types
+  const carTypes = data?.data?.data?.carType?.map((item) => ({ label: item?.name, value:item?.name }))
 
   const form = useForm({
     resolver: zodResolver(filterSchema),
@@ -65,10 +80,10 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
     <Form {...form}>
       <form className="space-y-4">
         <div className="grid grid-cols-12 gap-4">
-          {/* start */}
+          {/* moving_point */}
           <FormField
             control={form.control}
-            name={"start"}
+            name={"moving_point"}
             render={() => (
               <FormItem className="xl:col-span-3 col-span-12 ">
                 <FormLabel className="flex items-center gap-1">
@@ -78,8 +93,8 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                   </p>
                 </FormLabel>
                 <Select dir="rtl"
-                  defaultValue={values.start}
-                  onValueChange={(val) => setValue("start", val)} >
+                  defaultValue={values.moving_point}
+                  onValueChange={(val) => setValue("moving_point", val)} >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
@@ -88,7 +103,7 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {countries.map((option) => (
+                    {movingPoints?.map((option) => (
                       <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
                         {option.label}
                       </SelectItem>
@@ -98,10 +113,10 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
               </FormItem>
             )}
           />
-          {/* end */}
+          {/* city */}
           <FormField
             control={form.control}
-            name={"end"}
+            name={"city"}
             render={() => (
               <FormItem className="xl:col-span-3 col-span-12 ">
                 <FormLabel className="flex items-center gap-1">
@@ -111,17 +126,17 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                   </p>
                 </FormLabel>
                 <Select dir="rtl"
-                  defaultValue={values.end}
-                  onValueChange={(val) => setValue("end", val)} >
+                  defaultValue={values.city}
+                  onValueChange={(val) => setValue("city", val)} >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
                     </div>} className={`bg-body  text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
-                      <SelectValue placeholder={"إدخـــال نقطة الانطلاق من هنــا..."} className="text-[#797979]" />
+                      <SelectValue placeholder={"إدخـــال  مدينة الوصول من هنــا..."} className="text-[#797979]" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {countries.map((option) => (
+                    {cities?.map((option) => (
                       <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
                         {option.label}
                       </SelectItem>
@@ -131,10 +146,10 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
               </FormItem>
             )}
           />
-          {/* date */}
+          {/* date_and_time */}
           <FormField
             control={form.control}
-            name={"date"}
+            name={"date_and_time"}
             render={({ field }) => (
               <FormItem className={`xl:col-span-3 col-span-12   flex flex-col`}>
                 <FormLabel className="flex items-center gap-1">
@@ -153,8 +168,8 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                           !field.value && "text-muted-foreground"
                         )}
                       >
-                        {field.value ? (
-                          format(field.value, "PPP")
+                        {field.value && !isNaN(Date.parse(field.value)) ? (
+                          format(new Date(field.value), "PPP")
                         ) : (
                           <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>
                         )}
@@ -177,10 +192,10 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
               </FormItem>
             )}
           />
-          {/* number */}
+          { /* number_of_person */}
           <FormField
             control={form.control}
-            name={"number"}
+            name={"number_of_person"}
             render={() => (
               <FormItem className="xl:col-span-3 col-span-12 ">
                 <FormLabel className="flex items-center gap-1">
@@ -190,8 +205,8 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                   </p>
                 </FormLabel>
                 <Select dir="rtl"
-                  defaultValue={values.number}
-                  onValueChange={(val) => setValue("number", val)} >
+                  defaultValue={values.number_of_person}
+                  onValueChange={(val) => setValue("number_of_person", val)} >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
@@ -200,7 +215,7 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {countOptions.map((option) => (
+                    {countOptions?.map((option) => (
                       <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
                         {option.label}
                       </SelectItem>
@@ -211,13 +226,13 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
             )}
           />
         </div>
-        <div className="grid grid-cols-10 gap-4">
+        <div className="grid grid-cols-12 gap-4">
           {/* lang */}
-          <FormField
+          {/* <FormField
             control={form.control}
             name={"lang"}
             render={() => (
-              <FormItem className="xl:col-span-2 col-span-12">
+              <FormItem className="xl:col-span-3 col-span-12">
                 <Select dir="rtl"
                   defaultValue={values.lang}
                   onValueChange={(val) => setValue("lang", val)} >
@@ -243,13 +258,13 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                 </Select>
               </FormItem>
             )}
-          />
+          /> */}
           {/* country */}
           <FormField
             control={form.control}
             name={"country"}
             render={() => (
-              <FormItem className="xl:col-span-2 col-span-12">
+              <FormItem className="xl:col-span-4 col-span-12">
                 <Select dir="rtl"
                   defaultValue={values.country}
                   onValueChange={(val) => setValue("country", val)} >
@@ -266,7 +281,7 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {countries.map((option) => (
+                    {countries?.map((option) => (
                       <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
                         {option.label}
                       </SelectItem>
@@ -277,11 +292,11 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
             )}
           />
           {/* city */}
-          <FormField
+          {/* <FormField
             control={form.control}
             name={"city"}
             render={() => (
-              <FormItem className="xl:col-span-2 col-span-12">
+              <FormItem className="xl:col-span-4 col-span-12">
                 <Select dir="rtl"
                   defaultValue={values.city}
                   onValueChange={(val) => setValue("city", val)} >
@@ -307,13 +322,13 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                 </Select>
               </FormItem>
             )}
-          />
+          /> */}
           {/* model */}
           <FormField
             control={form.control}
             name={"model"}
             render={() => (
-              <FormItem className="xl:col-span-2 col-span-12">
+              <FormItem className="xl:col-span-4 col-span-12">
                 <Select dir="rtl"
                   defaultValue={values.model}
                   onValueChange={(val) => setValue("model", val)} >
@@ -330,7 +345,7 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {countries.map((option) => (
+                    {models?.map((option) => (
                       <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
                         {option.label}
                       </SelectItem>
@@ -343,12 +358,12 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
           {/* type */}
           <FormField
             control={form.control}
-            name={"type"}
+            name={"car_types_id"}
             render={() => (
-              <FormItem className="xl:col-span-2 col-span-12">
+              <FormItem className="xl:col-span-4 col-span-12">
                 <Select dir="rtl"
-                  defaultValue={values.type}
-                  onValueChange={(val) => setValue("type", val)} >
+                  defaultValue={values.car_types_id}
+                  onValueChange={(val) => setValue("car_types_id", val)} >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
                       <ChevronDown size={14} />
@@ -362,7 +377,7 @@ const FilterPanel = ({ defaultValues, onFilter }) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {countries.map((option) => (
+                    {carTypes?.map((option) => (
                       <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
                         {option.label}
                       </SelectItem>

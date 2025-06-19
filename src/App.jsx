@@ -22,6 +22,7 @@ import { Toaster } from 'sonner';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import UserContextProvider from './context/UserContext';
 import SingleVisaPage from './pages/SingleVisaPage';
+import SingleTourPage from './pages/SingleTourPage';
 import AddHouse from './pages/AddHouse';
 import Packages from './pages/Packages';
 
@@ -32,7 +33,8 @@ function App() {
 		path: '', element: <Layout></Layout>, children: [
 			{ index: true, element: <Homepage></Homepage> },
 			{ path: "/transport", element: <TransportPage></TransportPage> },
-			{ path: "/transport/privte-tours", element: <PrivteTours></PrivteTours> },
+			{ path: "/privite-tours", element: <PrivteTours></PrivteTours> },
+			{ path: "/tours/:id", element: <SingleTourPage></SingleTourPage> },
 			{ path: "visa", element: <VisaPage></VisaPage> },
 			{ path: "/visa/:id", element: <SingleVisaPage></SingleVisaPage> },
 			{ path: "/gate", element: <ProtectedRoute><VisaGatePage></VisaGatePage></ProtectedRoute> },

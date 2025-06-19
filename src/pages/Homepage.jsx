@@ -14,7 +14,6 @@ export default function Homepage() {
             {/* <div className="container m-auto"> */}
             {/* <Header /> */}
             <main className='main-home relative'>
-                <MainHeader />
                 <HeroSection />
                 <HotelsSection />
                 <PakageSection />

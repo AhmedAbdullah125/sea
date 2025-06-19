@@ -11,6 +11,8 @@ import Step1 from "../components/transport/Step1";
 import Step2 from "../components/transport/Step2";
 import Step3 from "../components/transport/Step3";
 import Breadcrumbs from "../components/home/BreadCrumbs";
+import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
 
 
 const ryail =
@@ -34,92 +36,96 @@ const TransportPage = () => {
   // const prevStep = () => setStep(prev => prev - 1);
 
   return (
-    <main className='container my-16'>
-      <section className='grid grid-cols-12 gap-4'>
-        {/* breadcrumb */}
-        <div className="xl:col-span-3 col-span-12 max-md:mb-8">
-          <Breadcrumbs items={[{ label: "الرئيسية", href: "/" }, { label: "النقل و الجولات", href: "/transport" }]} />
-        </div>
-        {/* steps */}
-        <div className="xl:col-span-9 col-span-12 flex items-center gap-2">
-          <div className="w-1/3 space-y-2">
-            <p className="font-bold md:text-xs text-[8px]">شروط الحجــــز </p>
-            <div className={`bg-main-purple h-[6px]  rounded-full`}></div>
+    <>
+      <Header />
+      <main className='container my-16'>
+        <section className='grid grid-cols-12 gap-4'>
+          {/* breadcrumb */}
+          <div className="xl:col-span-3 col-span-12 max-md:mb-8">
+            <Breadcrumbs items={[{ label: "الرئيسية", href: "/" }, { label: "النقل و الجولات", href: "/transport" }]} />
           </div>
-          <div className="w-1/3 space-y-2">
-            <p className="font-bold md:text-xs text-[8px]">بيـــانات الحجـــز</p>
-            <div className={`${step === 2|| step === 3 ? "bg-main-purple" : "bg-body"}  h-[6px]  rounded-full`}></div>
-          </div>
-          <div className="w-1/3 space-y-2">
-            <div className="flex items-center justify-between font-bold md:text-xs text-[8px]">
-              <p className="">إكـــمال الحجـــز</p>
-              <p className=" text-main-gray ">03 / <span className="text-black">0{step}</span> </p>
+          {/* steps */}
+          <div className="xl:col-span-9 col-span-12 flex items-center gap-2">
+            <div className="w-1/3 space-y-2">
+              <p className="font-bold md:text-xs text-[8px]">شروط الحجــــز </p>
+              <div className={`bg-main-purple h-[6px]  rounded-full`}></div>
             </div>
-            <div className={`${step === 3? "bg-main-purple" : "bg-body"}  h-[6px]  rounded-full`}></div>
+            <div className="w-1/3 space-y-2">
+              <p className="font-bold md:text-xs text-[8px]">بيـــانات الحجـــز</p>
+              <div className={`${step === 2 || step === 3 ? "bg-main-purple" : "bg-body"}  h-[6px]  rounded-full`}></div>
+            </div>
+            <div className="w-1/3 space-y-2">
+              <div className="flex items-center justify-between font-bold md:text-xs text-[8px]">
+                <p className="">إكـــمال الحجـــز</p>
+                <p className=" text-main-gray ">03 / <span className="text-black">0{step}</span> </p>
+              </div>
+              <div className={`${step === 3 ? "bg-main-purple" : "bg-body"}  h-[6px]  rounded-full`}></div>
+            </div>
           </div>
-        </div>
-        {/* transport ditals */}
-        <div className='xl:col-span-3  col-span-12 bg-body rounded-[50px] p-8 xl:min-h-[90vh] flex flex-col justify-between items-center'>
-          {/* details content */}
-          <div className="pb-8 border-b-2 w-full" >
-            <h2 className='text-main-blue text-sm font-bold '>تفاصيل عرض خدمة النقل و الجولات</h2>
-            <p className='text-main-gray text-xs mt-2'>
-              مطار باريس شارل ديغول (CDG)
-            </p>
-            <ul className="text-main-navy text-xs font-bold space-y-4 mt-10">
-              <li className="flex items-center gap-1 ">
-                <IoLocationSharp size={16} />
-                <p className="line-clamp-1">3284 طريق فهد الخالد، الرياض... 98001.</p>
-              </li>
-              <li className="flex items-center gap-1 ">
-                <FaUsers size={16} />
-                <p className="line-clamp-1">04 أشخـــاص</p>
-              </li>
-              <li className="flex items-center gap-1 ">
-                <FaCalendarAlt size={16} />
-                <p className="line-clamp-1">14 مــاي, 2025. 10:48 صـباحا</p>
-              </li>
-            </ul>
+          {/* transport ditals */}
+          <div className='xl:col-span-3  col-span-12 bg-body rounded-[50px] p-8 xl:min-h-[90vh] flex flex-col justify-between items-center'>
+            {/* details content */}
+            <div className="pb-8 border-b-2 w-full" >
+              <h2 className='text-main-blue text-sm font-bold '>تفاصيل عرض خدمة النقل و الجولات</h2>
+              <p className='text-main-gray text-xs mt-2'>
+                مطار باريس شارل ديغول (CDG)
+              </p>
+              <ul className="text-main-navy text-xs font-bold space-y-4 mt-10">
+                <li className="flex items-center gap-1 ">
+                  <IoLocationSharp size={16} />
+                  <p className="line-clamp-1">3284 طريق فهد الخالد، الرياض... 98001.</p>
+                </li>
+                <li className="flex items-center gap-1 ">
+                  <FaUsers size={16} />
+                  <p className="line-clamp-1">04 أشخـــاص</p>
+                </li>
+                <li className="flex items-center gap-1 ">
+                  <FaCalendarAlt size={16} />
+                  <p className="line-clamp-1">14 مــاي, 2025. 10:48 صـباحا</p>
+                </li>
+              </ul>
+            </div>
+            {/* price content */}
+            <Accordion type="single" collapsible defaultValue="price" className="w-full">
+              <AccordionItem value="price" className="border-none">
+                <AccordionTrigger className="text-main-blue text-xs font-semibold hover:underline-none ">تفاصيل التكلفة (بالـريـــال)</AccordionTrigger>
+                <AccordionContent className="flex flex-col gap-4 mt-6"  >
+                  <div className="text-xs font-semibold flex items-center justify-between">
+                    <p>خدمة الاستقبال:</p>
+                    <p className="text-main-blue text-sm  flex items-center gap-1">340.00
+                      <span>{ryail}</span>
+                    </p>
+                  </div>
+                  <div className="text-xs font-semibold flex items-center justify-between">
+                    <p>المجموع الفرعي:</p>
+                    <p className="text-main-blue text-sm  flex items-center gap-1">340.00
+                      <span>{ryail}</span>
+                    </p>
+                  </div>
+                  <div className="text-sm font-bold flex items-center justify-between">
+                    <p>الإجمالي:</p>
+                    <p className="text-main-blue   flex items-center gap-1"> =340.00
+                      <span>{ryail}</span>
+                    </p>
+                  </div>
+
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+
           </div>
-          {/* price content */}
-          <Accordion type="single" collapsible defaultValue="price" className="w-full">
-            <AccordionItem value="price" className="border-none">
-              <AccordionTrigger className="text-main-blue text-xs font-semibold hover:underline-none ">تفاصيل التكلفة (بالـريـــال)</AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 mt-6"  >
-                <div className="text-xs font-semibold flex items-center justify-between">
-                  <p>خدمة الاستقبال:</p>
-                  <p className="text-main-blue text-sm  flex items-center gap-1">340.00
-                    <span>{ryail}</span>
-                  </p>
-                </div>
-                <div className="text-xs font-semibold flex items-center justify-between">
-                  <p>المجموع الفرعي:</p>
-                  <p className="text-main-blue text-sm  flex items-center gap-1">340.00
-                    <span>{ryail}</span>
-                  </p>
-                </div>
-                <div className="text-sm font-bold flex items-center justify-between">
-                  <p>الإجمالي:</p>
-                  <p className="text-main-blue   flex items-center gap-1"> =340.00
-                    <span>{ryail}</span>
-                  </p>
-                </div>
+          {/* steps */}
+          <div className='xl:col-span-9  col-span-12 bg-body rounded-[50px] p-8 flex items-center justify-center'>
+            {step === 1 && <Step1 nextStep={nextStep} />}
+            {step === 2 && <Step2 nextStep={nextStep} />}
+            {step === 3 && <Step3 />}
 
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          </div>
+        </section>
 
-        </div>
-        {/* steps */}
-        <div className='xl:col-span-9  col-span-12 bg-body rounded-[50px] p-8 flex items-center justify-center'>
-          {step === 1 && <Step1 nextStep={nextStep} />}
-          {step === 2 && <Step2 nextStep={nextStep} />}
-          {step === 3 && <Step3 />}
-
-        </div>
-      </section>
-
-    </main>
+      </main>
+      <Footer />
+    </>
   )
 }
 

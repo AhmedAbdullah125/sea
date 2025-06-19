@@ -48,22 +48,22 @@ const TableForm = () => {
     }
   })
 
-    // 1. Define your form.
-    const form = useForm({
-      resolver: zodResolver(formSchema),
-      defaultValues: {
-        destination: "",
-        city: "",
-      },
-    })
-  
+  // 1. Define your form.
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      destination: "",
+      city: "",
+    },
+  })
+
   function onSubmit(values) {
     const queryParams = new URLSearchParams({
       destination: values.destination,
       city: values.city,
     }).toString();
     navigate(`/table?${queryParams}`);
-    }
+  }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-12 gap-x-4 xl:gap-y-6 gap-y-4">
@@ -135,7 +135,8 @@ const TableForm = () => {
         />
 
 
-        <Button type="submit" className=" col-span-12 bg-main-purple w-fit m-auto text-white border-2 border-main-purple hover:bg-white hover:text-main-purple rounded-full flex items-center gap-14">بحـــــث
+
+        <Button type="submit" className=" col-span-12 bg-main-purple w-fit m-auto text-white  hover:bg-main-blue transition-all duration-300  rounded-full flex items-center gap-14">بحـــــث
           <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_22_399)">
               <path d="M10.5 3.75H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />

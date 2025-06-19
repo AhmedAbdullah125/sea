@@ -9,7 +9,7 @@ import CustomFilterSelect from "./CustomFilterSelect"
 import CustomDatePicker from "./CustomDatePicker"
 import { useQuery } from "@tanstack/react-query"
 import { fetchFromApi } from "../../../api/utils/fetchData"
-import {  useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import {
   FormControl,
   FormField,
@@ -89,14 +89,14 @@ const formSchema = z.object({
     message: "يجب أن يكون تاريخ النهاية بعد أو يساوي تاريخ البداية",
   });
 const HotelsForm = () => {
-  const navigate=useNavigate()
-  const {data} = useQuery({
+  const navigate = useNavigate()
+  const { data } = useQuery({
     queryKey: ["countries"],
     queryFn: async () => {
       const res = await fetchFromApi("/countries");
       return res;
-    } 
-      
+    }
+
   })
   // 1. Define your form.
   const form = useForm({
@@ -120,7 +120,7 @@ const HotelsForm = () => {
     const formattedStartDate = formatDate(values.startDate);
     const formattedEndDate = formatDate(values.endDate);
     navigate(`/hotels?destination=${values.destination}&type=${values.type}&start=${formattedStartDate}&end=${formattedEndDate}`);
-    
+
   }
   return (
     <Form {...form}>
@@ -138,7 +138,7 @@ const HotelsForm = () => {
                   إختــــــر الوجهـــة
                 </p>
               </FormLabel>
-              <Select dir="rtl" onValueChange={field.onChange} value={field.value}  defaultValue={field.value} >
+              <Select dir="rtl" onValueChange={field.onChange} value={field.value} defaultValue={field.value} >
                 <FormControl>
                   <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                     <ChevronDown size={14} />
@@ -158,7 +158,7 @@ const HotelsForm = () => {
             </FormItem>
           )}
         />
-      
+
         {filterSelectFields.map((fieldProps, index) => (
           <CustomFilterSelect key={index} {...fieldProps} form={form} />
         ))}
@@ -178,7 +178,7 @@ const HotelsForm = () => {
         ))}
 
 
-        <Button type="submit" className=" col-span-12 bg-main-purple w-fit m-auto text-white border-2 border-main-purple hover:bg-white hover:text-main-purple rounded-full flex items-center gap-14">بحـــــث
+        <Button type="submit" className=" col-span-12 bg-main-purple w-fit m-auto text-white  hover:bg-main-blue transition-all duration-300  rounded-full flex items-center gap-14">بحـــــث
           <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_22_399)">
               <path d="M10.5 3.75H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />

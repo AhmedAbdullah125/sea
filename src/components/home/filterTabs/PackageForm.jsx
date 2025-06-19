@@ -118,7 +118,8 @@ const PackageForm = () => {
         {filterSelectFields.map((fieldProps, index) => (
           <CustomFilterSelect key={index} {...fieldProps} form={form} colSpan="col-span-12 md:col-span-6 col-span-12" />
         ))}
-        <Button type="submit" className=" col-span-12 bg-main-purple w-fit m-auto text-white border-2 border-main-purple hover:bg-white hover:text-main-purple rounded-full flex items-center gap-14">بحـــــث
+
+        <Button type="submit" className=" col-span-12 bg-main-purple w-fit m-auto text-white  hover:bg-main-blue transition-all duration-300  rounded-full flex items-center gap-14">بحـــــث
           <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_22_399)">
               <path d="M10.5 3.75H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
