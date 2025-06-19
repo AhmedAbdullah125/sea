@@ -12,9 +12,27 @@ import detail0 from '../assets/housing/det0.jpg'
 import detail1 from '../assets/housing/det1.jpg'
 import detail2 from '../assets/housing/det2.jpg'
 import detail4 from '../assets/housing/house-icon.svg'
+import axios from 'axios'
+import { API_BASE_URL } from '../lib/apiConfig';
 const AddHouse = () => {
 
-
+    const[data, setData] = useState([])
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setLoading(true);
+        const getData = async () => {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/settings`, {});
+                setData(response.data.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error retrieving data:', error);
+                setLoading(false);
+                throw new Error('Could not get data');
+            }
+        };
+        getData();
+    },[])
     return (
         <section>
             <Header />
@@ -100,7 +118,7 @@ const AddHouse = () => {
                             </div>
                         </div>
                     </div>
-                    <a href={`https://wa.me/+201068389295?text=Hello, I am interested to add my house`} className="custom-link housing-ancor"
+                    <a href={`https://wa.me/${data.whatsapp}?text=Hello, I am interested to add my house`} className="custom-link housing-ancor"
                     ><span>أسجل سكنك الان</span> <img src={detail4} alt="house" /></a>
                 </div>
             </section>
