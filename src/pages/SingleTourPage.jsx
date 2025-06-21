@@ -9,6 +9,9 @@ import { PiSealCheckFill } from 'react-icons/pi';
 import { IoIosArrowBack } from 'react-icons/io';
 import Comments from '../components/singleTour/Comments';
 import PriceForm from '../components/singleTour/PriceForm';
+import Loader from '../components/loader/Loader';
+import AlertError from '../components/alerts/AlertError';
+import { fetchFromApi } from '../api/utils/fetchData';
 const logo = <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="58" height="58" rx="29" fill="white" />
   <path fill-rule="evenodd" clip-rule="evenodd" d="M30.1177 26.2208C33.9456 24.5015 38.4963 26.0963 40.2817 29.783C42.0672 33.4688 40.411 37.8512 36.5823 39.5697C32.7544 41.2889 17.001 40.2358 17.001 40.2358C17.001 40.2358 26.2898 27.9392 30.1177 26.22V26.2208Z" fill="#6D7172" />
@@ -66,28 +69,35 @@ const advantages = [
 
 const SingleTourPage = () => {
   const { id } = useParams();
-  // const { data, isLoading, isError } = useQuery({
-  //   queryKey: [`tours-${id}`],
-  //   queryFn: async () => {
-  //     const res = await fetchFromApi(`/tours/${id}`);
-  //     return res;
-  //   }
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['singleTour', id],
+    queryFn: async () => {
+      const res = await fetchFromApi(`/transportation-tour/${id}`);
+      return res?.data?.data
+    }
+  });
 
-  // })
+
+
+  if (isLoading) return <Loader />;
+  if (isError) return <div className='container my-12'>
+    <AlertError>هناك خطاء ما</AlertError>
+  </div>;
   return (
     <>
       <Header />
+      <p>{id}</p>
       <main className="my-16 container space-y-6">
         {/* title */}
         <div className='space-y-2 '>
-          <h1 className="text-4xl font-bold line-clamp-1" >Atlas 5 Auto</h1 >
+          <h1 className="text-4xl font-bold line-clamp-1" >{data?.model}</h1 >
           {/* rate */}
           <div className="flex items-end gap-1 w-fit" >
             <TiStarFullOutline size={14} className="text-yellow-500" />
-            <p className="p-0 m-0 text-[10px] font-semibold">5 (+500) </p>
+            <p className="p-0 m-0 text-[10px] font-semibold">{data?.rating} ({data?.total_rating}) </p>
           </div >
         </div>
-        <ImagesGallery />
+        <ImagesGallery images={data?.images} />
         {/* details */}
         <div className='grid grid-cols-12 gap-2'>
           <div className='col-span-12 xl:col-span-7 space-y-4'>
@@ -112,18 +122,20 @@ const SingleTourPage = () => {
             {/* discription */}
             <div className='space-y-2 '>
               <h3 className='text-sm font-bold text-main-purple'>الوصف</h3>
-              <p className='text-xs text-main-navy  leading-loose '>رقم تصريح وزارة السياحة: 50005305. شقة فندقية بأجواء مريحة في شمال الرياض حي التعاون هادئ و جميل، تي في ٦٥ بوصة سامسونج نتفليكس و شاهد و جميع التطبيقات متاحة.تحتوي على ضيافة قهوة و ماء و مجهزة بجميع ادوات الاستحمام. تبعد مشي ٣ دقائق عن مجمع ريفر ووك مطاعم و كوفيهات، و دقيقتين مشي عن طريق ابو بكر، تبعد ٢٠ دقيقة عن المطار، صممت لتجد فيها راحتك. أتمنى لك إقامة سعيدة..</p>
+              <p className='text-xs text-main-navy  leading-loose ' dangerouslySetInnerHTML={{ __html: data?.description }}></p>
               {/* advantages */}
-              <div className='grid grid-cols-12 gap-2'>
-                {advantages.map((advantage, index) => (
-                  <div key={index} className="col-span-12 xl:col-span-6 py-12 flex items-center justify-center  rounded-[40px] bg-body">
-                    <div className="flex flex-col justify-center items-center gap-6 ">
-                      {advantage.icon}
-                      <p className="text-[10px] font-bold text-main-navy text-center">{advantage.title}</p>
+              {data?.alerts?.length > 0 &&
+                <div className='grid grid-cols-12 gap-2'>
+                  {data?.alerts?.map((item, index) => (
+                    <div key={index} className="col-span-12 xl:col-span-6 py-12 flex items-center justify-center  rounded-[40px] bg-body">
+                      <div className="flex flex-col justify-center items-center gap-6 ">
+                        <img src={item?.image} alt="alert" className="w-12 h-12" />
+                        <p className="text-[10px] font-bold text-main-navy text-center">{item?.text}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              }
 
             </div>
             {/* seprator */}
@@ -131,22 +143,22 @@ const SingleTourPage = () => {
             {/* comments */}
             <div className='space-y-2 '>
               <h3 className='text-sm font-bold text-main-purple'>تقييمات الضيـــوف</h3>
-              <Comments />
+              <Comments comments={data?.comments} id={id} />
             </div>
             {/* iframe */}
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.03104066285!2d31.196729875010096!3d30.035967318973345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145846c9306e97af%3A0x5315ebf6378470c0!2sRoute!5e0!3m2!1sen!2seg!4v1750319686961!5m2!1sen!2seg"
-                height="450"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full rounded-[40px]"
-              ></iframe>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.03104066285!2d31.196729875010096!3d30.035967318973345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145846c9306e97af%3A0x5315ebf6378470c0!2sRoute!5e0!3m2!1sen!2seg!4v1750319686961!5m2!1sen!2seg"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full rounded-[40px]"
+            ></iframe>
           </div>
           {/* form  */}
           <div className='col-span-12 xl:col-span-5 space-y-4'>
-            <PriceForm/>
+            <PriceForm />
           </div>
         </div>
 
