@@ -56,7 +56,7 @@ const Footer = () => {
 
                         </div>
                         <div className="links-group">
-                            <div className="title">
+                            <div className="title" id='contactusinfos'>
                                 <h3>اتصل بنــــــــا </h3>
                                 <div className="dashh"></div>
                             </div>

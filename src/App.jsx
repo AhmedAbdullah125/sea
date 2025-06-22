@@ -25,6 +25,7 @@ import SingleVisaPage from './pages/SingleVisaPage';
 import SingleTourPage from './pages/SingleTourPage';
 import AddHouse from './pages/AddHouse';
 import Packages from './pages/Packages';
+import Package from './pages/Package';
 
 export const AppContext = createContext();
 function App() {
@@ -45,6 +46,7 @@ function App() {
 			{ path: "/hotel", element: <Hotel></Hotel> },
 			{ path: "/add-house", element: <AddHouse></AddHouse> },
 			{ path: "/packages", element: <Packages></Packages> },
+			{ path: "/package", element: <Package></Package> },
 
 			// { path: '/login', element: <Login></Login> },			
 		]

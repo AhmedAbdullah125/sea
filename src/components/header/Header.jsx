@@ -4,8 +4,8 @@ import { Link, NavLink } from 'react-router-dom'
 import logo from '../../../public/home/footerLogo.svg'
 import profile from '../../../public/home/profile.svg'
 import LoginDialog from '../login/LoginDialog'
-
 const Header = () => {
+    
     return (
         <section className='header-cont'>
             <div className="container nav-cont">

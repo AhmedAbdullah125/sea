@@ -9,6 +9,7 @@ import EventRateForm from '../components/event/EventRateForm'
 import HotelsTable from '../components/table/HotelsTable'
 import { useSearchParams } from 'react-router-dom'
 import ActivitiesTable from '../components/table/ActivitiesTable';
+import Loading from '../components/loading/Loading';
 const Event = () => {
     const [searchParams] = useSearchParams();
     const id = searchParams.get('id');
@@ -16,8 +17,8 @@ const Event = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        setLoading(true);
         const getData = async () => {
+            setLoading(true);
             try {
                 const response = await axios.get(`${API_BASE_URL}/event/${id}`, {});
                 const response3 = await axios.get(`${API_BASE_URL}/events`, {});
@@ -44,7 +45,7 @@ const Event = () => {
             <Header />
             {
                 loading ?
-                    <p>Loading...</p>
+                    <Loading />
                     : <>
                         {/* Start Page Content */}
                         <EventHeader data={data} />

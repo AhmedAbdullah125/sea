@@ -13,7 +13,7 @@ const counters = [
 ];
 const HeroSection = () => {
   return (
-    <section className="min-h-[100vh] bg-[url('/home/hero.png')] bg-cover bg-center bg-no-repeat space-y-6 pb-6">
+    <section className="min-h-[100vh] bg-[url('/home/hero.png')] bg-cover bg-center bg-no-repeat space-y-6 pb-6 flex flex-col justify-between">
       <MainHeader />
       <div className="  flex items-end justify-center ">
       <div className="container text-white space-y-6 ">
