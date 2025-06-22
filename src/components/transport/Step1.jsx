@@ -100,7 +100,7 @@ const Step1 = ({ nextStep }) => {
       {/* next step */}
       <button
         onClick={nextStep}
-        className="block xl:w-fit w-full text-xs font-semibold px-12 py-2 bg-main-purple border-2 border-main-purple hover:bg-transparent hover:text-main-purple text-white rounded-full"
+        className="block xl:w-fit w-full text-xs font-semibold px-12 py-2 bg-main-purple  hover:bg-main-blue  text-white rounded-full transation-all duration-300"
       >
         أحجـــز الان
       </button>

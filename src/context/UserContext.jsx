@@ -5,7 +5,7 @@ export default function UserContextProvider({ children }) {
   const [token, setToken] = useState(sessionStorage.getItem("token"));
   function logout() {
     setToken(null);
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
   }
   return (
     <userContext.Provider value={{ token, setToken, logout }}>

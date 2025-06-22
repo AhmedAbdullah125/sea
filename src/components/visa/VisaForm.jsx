@@ -36,6 +36,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchFromApi } from "../../api/utils/fetchData";
 import { postToApi } from "../../api/utils/postData";
 import { userContext } from "../../context/UserContext";
+import { toast } from "sonner";
 
 // validation
 const formSchema = z.object({
@@ -47,8 +48,13 @@ const formSchema = z.object({
   traveler_name: z.string().nonempty("هذا الحقل مطلوب"),
   email: z.string().nonempty("هذا الحقل مطلوب"),
   phone: z.string().nonempty("هذا الحقل مطلوب"),
-  face_image: z.instanceof(File, { message: "هذا الحقل مطلوب" }),
-  passport_copy: z.instanceof(File, { message: "هذا الحقل مطلوب" }),
+  face_image: z.custom((val) => val instanceof File && val.size > 0, {
+    message: "يرجى رفع صورة الوجه",
+  }),
+
+  passport_copy: z.custom((val) => val instanceof File && val.size > 0, {
+    message: "يرجى رفع صورة جواز السفر",
+  }),
   arrival_date: z.coerce.date({
     errorMap: () => ({ message: "يرجى إدخال تاريخ وصول صالح" }),
   }),
@@ -99,7 +105,7 @@ const VisaForm = () => {
     if (file) {
       const previewUrl = URL.createObjectURL(file);
       setPicturePreview(previewUrl);
-      form.setValue("face_image", file);
+      form.setValue("face_image", file, { shouldValidate: true });
     }
   };
   const handlePassportPdf = (e) => {
@@ -107,18 +113,18 @@ const VisaForm = () => {
     if (file) {
       const previewUrl = URL.createObjectURL(file);
       setPassportPdfPreview(previewUrl);
-      form.setValue("passport_copy", file);
+      form.setValue("passport_copy", file, { shouldValidate: true });
     }
   };
 
   // formate date
   function formatDate(date) {
-    const d = new Date(date);
-    const day = String(d.getDate()).padStart(2, '0');
-    const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-    const year = d.getFullYear();
-    return `${day}-${month}-${year}`;
-    }
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`; // YYYY-MM-DD format
+}
 
   // 1. Define your form.
   const form = useForm({
@@ -136,40 +142,54 @@ const VisaForm = () => {
     },
   })
   // 2. Define a submit handler.
+  // In your onSubmit function, modify the file handling:
   async function onSubmit(values) {
+    // Check if files exist and are valid
+    if (!(values.face_image instanceof File) || values.face_image.size === 0) {
+      form.setError("face_image", { message: "يرجى رفع صورة الوجه" });
+      return;
+    }
+
+    if (!(values.passport_copy instanceof File) || values.passport_copy.size === 0) {
+      form.setError("passport_copy", { message: "يرجى رفع نسخة جواز السفر" });
+      return;
+    }
+
     const formData = new FormData();
 
-    // Append all fields
-    formData.append('visa_id', values.visa_id);
-    formData.append('passport_country', values.passport_country);
-    formData.append('passport_number', values.passport_number);
-    formData.append('passport_type', values.passport_type);
-    formData.append('travel_from', values.travel_from);
-    formData.append('traveler_name', values.traveler_name);
-    formData.append('email', values.email);
-    formData.append('phone', values.phone);
-    formData.append('job', values.job);
-    formData.append('visit_reason', values.visit_reason);
-    formData.append('processing_type', values.processing_type);
+    // Append all text fields
+    Object.keys(values).forEach(key => {
+      if (key !== "face_image" && key !== "passport_copy" && key !== "arrival_date" && key !== "passport_expiry_date") {
+        formData.append(key, values[key]);
+      }
+    });
 
-    // Append dates in correct format
+    // Append dates with proper formatting
     formData.append('arrival_date', formatDate(values.arrival_date));
     formData.append('passport_expiry_date', formatDate(values.passport_expiry_date));
 
-    // Append files
-    formData.append('face_image', values.face_image);
-    formData.append('passport_copy', values.passport_copy);
-    
-    const res = await postToApi("visa-booking", formData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    });
-    console.log(res);
-    
+    // Append files with explicit field names
+    formData.append('face_image', values.face_image, 'face_image.jpg');
+    formData.append('passport_copy', values.passport_copy, 'passport_copy.pdf');
 
-    // const res = await postToApi("visa-booking", finalData, { headers: { Authorization: `Bearer ${token}`} });
-    // console.log(res);
+    try {
+      const res = await postToApi("visa-booking", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data', // Explicitly set content type
+        }
+      });
+      if (res.status === 201) {
+        toast.success("تم إرسال الطلب بنجاح");
+        form.reset();
+      }
+      else {
+        toast.error("حدث خطأ في إرسال الطلب");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      // Handle error (e.g., show error message to user)
+    }
   }
   return (
     <section className="mt-16 ">
