@@ -10,12 +10,14 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { countries } from "../../data/visa"
 import CustomFilterSelect from "../home/filterTabs/CustomFilterSelect"
 import CustomInput from "../home/filterTabs/CustomInput"
+import { toast } from "sonner"
+import { userContext } from "../../context/UserContext"
 const formSchema = z.object({
   number: z.string().nonempty("هذا الحقل مطلوب"),
   payMthod: z.string().nonempty("هذا الحقل مطلوب"),
@@ -25,6 +27,7 @@ const formSchema = z.object({
   picture: z.instanceof(File, { message: "هذا الحقل مطلوب" }),
 })
 const Step2 = ({ nextStep }) => {
+  const {token}=useContext(userContext)
   // img preview
   const [picturePreview, setPicturePreview] = useState(null);
   const handlePictureChange = (e) => {
@@ -50,8 +53,14 @@ const Step2 = ({ nextStep }) => {
 
   // 2. Define a submit handler.
   function onSubmit(values) {
-    console.log(values)
-    nextStep();
+    if (!token) {
+      toast.error("يجب تسجيل الدخول اولا");
+      return
+    }
+    toast.success("تم التسجيل بنجاح");
+    setTimeout(() => {
+      nextStep();
+    }, 2000);
   }
   return (
     <Form {...form}>
@@ -138,7 +147,7 @@ const Step2 = ({ nextStep }) => {
           )}
         />
 
-        <Button type="submit" className=" col-span-12 bg-main-purple w-fit m-auto text-white text-xs font-bold border-2 border-main-purple hover:bg-white hover:text-main-purple rounded-full px-12 py-2 " >تـــأكيد الحجـــز الان</Button>
+        <Button type="submit" className=" col-span-12 bg-main-purple w-fit m-auto text-white text-xs font-bold  hover:bg-main-blue transation-all duration-300 rounded-full px-12 py-2 " >تـــأكيد الحجـــز الان</Button>
       </form>
     </Form>
   );
