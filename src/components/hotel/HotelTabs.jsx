@@ -17,7 +17,7 @@ const HotelTabs = ({ data }) => {
             </div>
             <div className="descrip">
                 {
-                    activeTab === 0 && <p>
+                    activeTab === 0 && <p className='description-text'>
                         {parse(data.description)}
                     </p>
                 }
@@ -34,7 +34,29 @@ const HotelTabs = ({ data }) => {
                     </div>
                 }
                 {
-                    activeTab === 2 && <p>comments</p>
+                    activeTab === 2 && 
+                    <div className="comments">
+                        {
+                            data.commnets.map((item, idx) => (
+                                <div className="comment">
+                                    <div className="comment-head">
+                                        {/* first letter of the name */}
+                                        <span className='first-letter'>{item?.name?.slice(0, 1)}</span>
+                                        <span>{item.name}</span>
+
+                                    </div>
+                                    <div className="comment-body">
+                                        <p>{item.comment}</p>
+                                    </div>
+                                    <div className="dets">
+                                        <span className='date'>{item.created_at}</span>
+                                        <span className='rating'> {item.rating}/5 <i className="fa-solid fa-star"></i>   </span>
+                                    </div>
+
+                                </div>
+                            ))
+                        }
+                    </div>
                 }
                 {
                     activeTab === 3 && <p>
