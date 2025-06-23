@@ -5,7 +5,11 @@ const HotelTabs = ({ data }) => {
     const [activeTab, setActiveTab] = useState(0);
     const latitude = data.latitude
     const longitude = data.longitude;
-
+    const formatter = new Intl.DateTimeFormat('ar-EG', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long'
+      });
     return (
         <section className='hotel-tabs-section'>
             <div className="controllers">
@@ -45,11 +49,9 @@ const HotelTabs = ({ data }) => {
                                         <span>{item.name}</span>
 
                                     </div>
-                                    <div className="comment-body">
-                                        <p>{item.comment}</p>
-                                    </div>
+                                    <p className="comment-body">{item.comment}</p>
                                     <div className="dets">
-                                        <span className='date'>{item.created_at}</span>
+                                        <span className='date'>{formatter.format(new Date(item.created_at))}</span>
                                         <span className='rating'> {item.rating}/5 <i className="fa-solid fa-star"></i>   </span>
                                     </div>
 

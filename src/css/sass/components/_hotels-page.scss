@@ -708,18 +708,86 @@
         }
       }
     }
-    .comments{
+
+    .comments {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
       margin-bottom: 30px;
-      .comment{
+
+      .comment {
         padding: 40px;
         border-radius: 40px;
         background-color: $main;
         display: flex;
         flex-direction: column;
         gap: 17px;
+        width: 100%;
+
+        .comment-head {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          span {
+            font-weight: 700;
+            font-size: 14px;
+            color: $white;
+
+          }
+
+          .first-letter {
+            width: 48px;
+            height: 48px;
+            @include flexCenter;
+            border-radius: 50%;
+            background-color: $white;
+            color: $main;
+            font-weight: 800;
+            font-size: 12px;
+          }
+
+        }
+
+        .comment-body {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 40px;
+          text-align: justify;
+          color: $white;
+        }
+
+      }
+    }
+
+    .dets {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      justify-content: space-between;
+
+      .date {
+        font-weight: 700;
+        font-size: 16px;
+        color: $white;
+      }
+
+      .rating {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: $white;
+        font-weight: 800;
+        font-size: 14px;
+        text-align: right;
+        line-height: 20px;
+
+        i {
+          color: #FFBE33;
+          font-size: 20px;
+
+        }
+
       }
     }
   }
