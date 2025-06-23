@@ -20,7 +20,7 @@ import { FaCalendarDays, FaCommentSms, FaLink } from "react-icons/fa6";
 import { TbPentagonFilled } from "react-icons/tb";
 import { z } from "zod";
 import { fetchFromApi } from "../../api/utils/fetchData";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 const countOptions = Array.from({ length: 100 }, (_, i) => {
   const num = (i + 1).toString();
   return { label: num, value: num };
@@ -40,18 +40,16 @@ const ryial = <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns=
 
 // schema
 export const filterSchema = z.object({
-  moving_point: z.string().optional(),
-  date_and_time: z
-    .string()
-    .refine((val) => !val || !isNaN(Date.parse(val)), {
-      message: "Invalid date",
-    })
-    .optional(),
-  number_of_person: z.string().optional(),
-  car_types_id: z.string().optional(),
+  starting_point: z.string().nonempty("هذا الحقل مطلوب"),
+  date: z.coerce.date({
+    errorMap: () => ({ message: "يرجى إدخال تاريخ انتهاء صالح" }),
+  }),
+  people_count: z.string().nonempty("هذا الحقل مطلوب"),
+  car_type: z.string().nonempty("هذا الحقل مطلوب"),
 });
 
-const PriceForm = ({ defaultValues, onFilter, price, discount }) => {
+const PriceForm = ({ price, discount, tourId }) => {
+  const navigate =useNavigate();
   const { data } = useQuery({
     queryKey: [`all-filters`],
     queryFn: async () => {
@@ -67,19 +65,28 @@ const PriceForm = ({ defaultValues, onFilter, price, discount }) => {
 
   const form = useForm({
     resolver: zodResolver(filterSchema),
-    defaultValues,
+    defaultValues: {
+      starting_point: "",
+      people_count: "",
+      car_type: "",
+    }
   });
-  const { watch, setValue } = form;
-  const values = watch();
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      onFilter(values);
-    }, 200); // debounce
-    return () => clearTimeout(timeout);
-  }, [values, onFilter]);
+  // format date
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const onSubmit = (data) => {
+    navigate(`/transport/?transport_id=${tourId}&starting_point=${data?.starting_point}&date=${formatDate(data?.date)}&people_count=${data?.people_count}&car_type=${data?.car_type}`);
+  };
+
   return (
-    <Form {...form}>
-      <form className="space-y-8 bg-body p-4 rounded-[30px]">
+    <Form {...form} >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-body p-4 rounded-[30px]">
         {/* price */}
         <div className="flex items-center justify-between">
           <div className="space-y-2">
@@ -98,18 +105,20 @@ const PriceForm = ({ defaultValues, onFilter, price, discount }) => {
           {/* Type */}
           <FormField
             control={form.control}
-            name={"car_types_id"}
-            render={() => (
-              <FormItem className="xl:col-span-6 col-span-12 ">
+            name="car_type"
+            render={({ field }) => (
+              <FormItem className="xl:col-span-6 col-span-12">
                 <FormLabel className="flex items-center gap-1">
                   <BsFillSendFill size={16} className="text-main-purple" />
                   <p className="text-main-blue font-bold text-sm">
                     نوع السيارة
                   </p>
                 </FormLabel>
-                <Select dir="rtl"
-                  defaultValue={values.car_types_id}
-                  onValueChange={(val) => setValue("car_types_id", val)} >
+                <Select
+                  dir="rtl"
+                  onValueChange={field.onChange}
+                  value={field.value}
+                >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
@@ -117,33 +126,36 @@ const PriceForm = ({ defaultValues, onFilter, price, discount }) => {
                       <SelectValue placeholder={"إدخـــال نوع السيارة هنــا..."} className="text-[#797979]" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                  <SelectContent className=" shadow border-none rounded-xl bg-white">
                     {carTypes?.map((option) => (
-                      <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
+                      <SelectItem key={option.value} value={option.value} className="cursor-pointer focus:bg-body rounded-xl">
                         {option.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                <FormMessage className="text-red-500  text-xs " />
               </FormItem>
             )}
           />
 
-          {/* moving_point */}
+          {/* starting_point */}
           <FormField
             control={form.control}
-            name={"moving_point"}
-            render={() => (
-              <FormItem className="xl:col-span-6 col-span-12 ">
+            name="starting_point"
+            render={({ field }) => (
+              <FormItem className="xl:col-span-6 col-span-12">
                 <FormLabel className="flex items-center gap-1">
                   <TbPentagonFilled size={16} className="text-main-purple" />
                   <p className="text-main-blue font-bold text-sm">
                     نقطة الانطلاق
                   </p>
                 </FormLabel>
-                <Select dir="rtl"
-                  defaultValue={values.moving_point}
-                  onValueChange={(val) => setValue("moving_point", val)} >
+                <Select
+                  dir="rtl"
+                  onValueChange={field.onChange}
+                  value={field.value}
+                >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
@@ -151,33 +163,36 @@ const PriceForm = ({ defaultValues, onFilter, price, discount }) => {
                       <SelectValue placeholder={"إدخـــال نقطة الانطلاق من هنــا..."} className="text-[#797979]" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                  <SelectContent className=" shadow border-none rounded-xl bg-white">
                     {movingPoints?.map((option) => (
-                      <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
+                      <SelectItem key={option.value} value={option.value} className="cursor-pointer focus:bg-body rounded-xl">
                         {option.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                <FormMessage className="text-red-500  text-xs " />
               </FormItem>
             )}
           />
 
-          { /* number_of_person */}
+          {/* people_count */}
           <FormField
             control={form.control}
-            name={"number_of_person"}
-            render={() => (
-              <FormItem className="xl:col-span-6 col-span-12 ">
+            name="people_count"
+            render={({ field }) => (
+              <FormItem className="xl:col-span-6 col-span-12">
                 <FormLabel className="flex items-center gap-1">
                   <FaUsers size={16} className="text-main-purple" />
                   <p className="text-main-blue font-bold text-sm">
                     عدد الأشخــــاص
                   </p>
                 </FormLabel>
-                <Select dir="rtl"
-                  defaultValue={values.number_of_person}
-                  onValueChange={(val) => setValue("number_of_person", val)} >
+                <Select
+                  dir="rtl"
+                  onValueChange={field.onChange}
+                  value={field.value}
+                >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
@@ -185,21 +200,22 @@ const PriceForm = ({ defaultValues, onFilter, price, discount }) => {
                       <SelectValue placeholder={"إدخـــال عدد الاشخــاص من هنــا.."} className="text-[#797979]" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                  <SelectContent className=" shadow border-none rounded-xl bg-white">
                     {countOptions?.map((option) => (
-                      <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
+                      <SelectItem key={option.value} value={option.value} className="cursor-pointer focus:bg-body rounded-xl">
                         {option.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                <FormMessage className="text-red-500  text-xs " />
               </FormItem>
             )}
           />
-          {/* date_and_time */}
+          {/* date */}
           <FormField
             control={form.control}
-            name={"date_and_time"}
+            name={"date"}
             render={({ field }) => (
               <FormItem className={`xl:col-span-6 col-span-12   flex flex-col`}>
                 <FormLabel className="flex items-center gap-1">
@@ -313,13 +329,13 @@ const PriceForm = ({ defaultValues, onFilter, price, discount }) => {
               <path d="M15.0625 13.3125C14.8125 14.0625 13.875 14.6875 13.0625 14.8125C12.875 14.875 12.6875 14.875 12.4375 14.875C11.9375 14.875 11.1875 14.75 9.875 14.1875C8.375 13.5625 6.875 12.25 5.6875 10.5625V10.5C5.3125 9.9375 4.625 8.875 4.625 7.75C4.625 6.375 5.3125 5.6875 5.5625 5.375C5.875 5.0625 6.3125 4.875 6.8125 4.875C6.9375 4.875 7 4.875 7.125 4.875C7.5625 4.875 7.875 5 8.1875 5.625L8.4375 6.125C8.625 6.625 8.875 7.1875 8.9375 7.25C9.125 7.625 9.125 7.9375 8.9375 8.25C8.875 8.4375 8.75 8.5625 8.625 8.6875C8.5625 8.8125 8.5 8.875 8.4375 8.875C8.375 8.9375 8.375 8.9375 8.3125 9C8.5 9.3125 8.875 9.875 9.375 10.3125C10.125 11 10.6875 11.1875 11 11.3125C11.125 11.1875 11.25 10.9375 11.4375 10.75L11.5 10.625C11.8125 10.1875 12.3125 10.0625 12.8125 10.25C13.0625 10.375 14.4375 11 14.4375 11L14.5625 11.0625C14.75 11.1875 15 11.25 15.125 11.5C15.375 12.0625 15.1875 12.875 15.0625 13.3125Z" fill="white" />
             </svg>
           </Button>
-          <Link
-            to={"/transport"}
+          <Button
+            type="submit"
             className="group h-12 px-6 text-white  bg-main-blue hover:bg-main-purple transtion-all duration-300 w-full text-xs font-bold   rounded-full flex items-center justify-between  hover:text-white  ">
             حجز عن طريق الموقع
             <FaLink
               size={20} className="text-white" />
-          </Link>
+          </Button>
         </div>
 
 

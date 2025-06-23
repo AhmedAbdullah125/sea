@@ -13,6 +13,9 @@ import Step3 from "../components/transport/Step3";
 import Breadcrumbs from "../components/home/BreadCrumbs";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
+import { useSearchParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchFromApi } from "../api/utils/fetchData";
 
 
 const ryail =
@@ -30,10 +33,28 @@ const ryail =
 
 
 const TransportPage = () => {
+  const [searchParams] = useSearchParams();
+  const tour_id = searchParams.get("transport_id");
+  const starting_point = searchParams.get("starting_point");
+  const date = searchParams.get("date");
+  const people_count = searchParams.get("people_count");
+  const car_type = searchParams.get("car_type");
+
+
   // step logic
   const [step, setStep] = useState(1);
   const nextStep = () => setStep(prev => prev + 1);
   // const prevStep = () => setStep(prev => prev - 1);
+
+  const { data } = useQuery({
+    queryKey: ['singleTour', tour_id],
+    queryFn: async () => {
+      const res = await fetchFromApi(`/transportation-tour/${tour_id}`);
+      return res?.data?.data
+    }
+  });
+  
+  
 
   return (
     <>
@@ -68,20 +89,26 @@ const TransportPage = () => {
             <div className="pb-8 border-b-2 w-full" >
               <h2 className='text-main-blue text-sm font-bold '>تفاصيل عرض خدمة النقل و الجولات</h2>
               <p className='text-main-gray text-xs mt-2'>
-                مطار باريس شارل ديغول (CDG)
+                {starting_point}
               </p>
               <ul className="text-main-navy text-xs font-bold space-y-4 mt-10">
                 <li className="flex items-center gap-1 ">
                   <IoLocationSharp size={16} />
-                  <p className="line-clamp-1">3284 طريق فهد الخالد، الرياض... 98001.</p>
+                  <p className="line-clamp-1">{starting_point}</p>
                 </li>
                 <li className="flex items-center gap-1 ">
                   <FaUsers size={16} />
-                  <p className="line-clamp-1">04 أشخـــاص</p>
+                  <p className="line-clamp-1">{people_count} أشخـــاص</p>
                 </li>
                 <li className="flex items-center gap-1 ">
                   <FaCalendarAlt size={16} />
-                  <p className="line-clamp-1">14 مــاي, 2025. 10:48 صـباحا</p>
+                  <p>
+                  {new Date(date).toLocaleString("ar-EG", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </p>
                 </li>
               </ul>
             </div>
@@ -92,19 +119,19 @@ const TransportPage = () => {
                 <AccordionContent className="flex flex-col gap-4 mt-6"  >
                   <div className="text-xs font-semibold flex items-center justify-between">
                     <p>خدمة الاستقبال:</p>
-                    <p className="text-main-blue text-sm  flex items-center gap-1">340.00
+                    <p className="text-main-blue text-sm  flex items-center gap-1">{parseFloat(data?.totalServicePrice).toFixed(2)}
                       <span>{ryail}</span>
                     </p>
                   </div>
                   <div className="text-xs font-semibold flex items-center justify-between">
                     <p>المجموع الفرعي:</p>
-                    <p className="text-main-blue text-sm  flex items-center gap-1">340.00
+                    <p className="text-main-blue text-sm  flex items-center gap-1">{parseFloat(data?.totalServicePrice).toFixed(2)}
                       <span>{ryail}</span>
                     </p>
                   </div>
                   <div className="text-sm font-bold flex items-center justify-between">
                     <p>الإجمالي:</p>
-                    <p className="text-main-blue   flex items-center gap-1"> =340.00
+                    <p className="text-main-blue   flex items-center gap-1"> ={parseFloat(data?.totalServicePrice).toFixed(2)}
                       <span>{ryail}</span>
                     </p>
                   </div>
@@ -116,8 +143,8 @@ const TransportPage = () => {
           </div>
           {/* steps */}
           <div className='xl:col-span-9  col-span-12 bg-body rounded-[50px] p-8 flex items-center justify-center'>
-            {step === 1 && <Step1 nextStep={nextStep} />}
-            {step === 2 && <Step2 nextStep={nextStep} />}
+            {step === 1 && <Step1 nextStep={nextStep} alerts={data?.alerts} />}
+            {step === 2 && <Step2 nextStep={nextStep} transportId={tour_id} />}
             {step === 3 && <Step3 />}
 
           </div>
