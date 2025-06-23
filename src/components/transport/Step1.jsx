@@ -28,11 +28,11 @@ const logo = <svg width="58" height="59" viewBox="0 0 58 59" fill="none" xmlns="
 
 
 // Step1.jsx
-const Step1 = ({ nextStep }) => {
+const Step1 = ({ nextStep, alerts }) => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full">
       {/* sea */}
-      <Link to={"/"} className="flex items-center justify-between w-full bg-white  px-3 py-2 rounded-full">
+      <Link to={"/"} className=" flex items-center justify-between w-full bg-white  px-3 py-2 rounded-full">
         {/* content */}
         <div className="flex items-center gap-2">
           {logo}
@@ -57,16 +57,19 @@ const Step1 = ({ nextStep }) => {
           تنبيــــه !.
         </p>
         {/* cards */}
-        <div className="grid grid-cols-12 gap-2  ">
-          {conditions.map((item, index) => (
-            <div key={index} className=" xl:col-span-3 md:col-span-6 col-span-12   px-6 py-10 flex flex-col justify-between items-center bg-white rounded-[50px] shadow">
-              {item.icon}
-              <p className="text-xs font-semibold text-main-navy text-center mt-6">
-                {item.lable}
-              </p>
-            </div>
-          ))}
-        </div>
+        {alerts?.length > 0 ?
+          <div className="grid grid-cols-12 gap-2  ">
+            {alerts.map((item, index) => (
+              <div key={index} className=" xl:col-span-3 md:col-span-6 col-span-12   px-6 py-10 flex flex-col justify-between items-center bg-white rounded-[50px] shadow">
+                <img src={item?.image} alt="alert" className="w-12 h-12" />
+                <p className="text-xs font-semibold text-main-navy text-center mt-6">
+                  {item?.text}
+                </p>
+              </div>
+            ))}
+          </div>
+          : null
+        }
 
       </div>
       {/* points */}
@@ -100,7 +103,7 @@ const Step1 = ({ nextStep }) => {
       {/* next step */}
       <button
         onClick={nextStep}
-        className="block xl:w-fit w-full text-xs font-semibold px-12 py-2 bg-main-purple border-2 border-main-purple hover:bg-transparent hover:text-main-purple text-white rounded-full"
+        className="block xl:w-fit w-full text-xs font-semibold px-12 py-2 bg-main-purple  hover:bg-main-blue  text-white rounded-full transation-all duration-300"
       >
         أحجـــز الان
       </button>

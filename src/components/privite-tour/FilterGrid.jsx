@@ -17,9 +17,12 @@ const FilterGrid = ({ tours, loading }) => {
             ))
           }
         </section >
-        : <AlertWarning >
-          لا يوجد نتائج
-        </AlertWarning>
+        :
+        <div className=" my-12">
+          <AlertWarning >
+            لا يوجد نتائج
+          </AlertWarning>
+        </div>
       }
     </>
   )

@@ -20,7 +20,7 @@ import { FaCalendarDays, FaCommentSms, FaLink } from "react-icons/fa6";
 import { TbPentagonFilled } from "react-icons/tb";
 import { z } from "zod";
 import { fetchFromApi } from "../../api/utils/fetchData";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 const countOptions = Array.from({ length: 100 }, (_, i) => {
   const num = (i + 1).toString();
   return { label: num, value: num };
@@ -40,18 +40,16 @@ const ryial = <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns=
 
 // schema
 export const filterSchema = z.object({
-  moving_point: z.string().optional(),
-  date_and_time: z
-    .string()
-    .refine((val) => !val || !isNaN(Date.parse(val)), {
-      message: "Invalid date",
-    })
-    .optional(),
-  number_of_person: z.string().optional(),
-  car_types_id: z.string().optional(),
+  starting_point: z.string().nonempty("هذا الحقل مطلوب"),
+  date: z.coerce.date({
+    errorMap: () => ({ message: "يرجى إدخال تاريخ انتهاء صالح" }),
+  }),
+  people_count: z.string().nonempty("هذا الحقل مطلوب"),
+  car_type: z.string().nonempty("هذا الحقل مطلوب"),
 });
 
-const PriceForm = ({ defaultValues, onFilter }) => {
+const PriceForm = ({ price, discount, tourId }) => {
+  const navigate =useNavigate();
   const { data } = useQuery({
     queryKey: [`all-filters`],
     queryFn: async () => {
@@ -60,39 +58,46 @@ const PriceForm = ({ defaultValues, onFilter }) => {
     }
   })
 
-  // countries
-  const countries = data?.data?.data?.countries?.map((item) => ({ label: item?.country, value: String(item?.id) }))
-  // moving points
+
   const movingPoints = data?.data?.data?.movePoint?.map((item) => ({ label: item, value: item }))
   // car types
   const carTypes = data?.data?.data?.carType?.map((item) => ({ label: item?.name, value: item?.name }))
 
   const form = useForm({
     resolver: zodResolver(filterSchema),
-    defaultValues,
+    defaultValues: {
+      starting_point: "",
+      people_count: "",
+      car_type: "",
+    }
   });
-  const { watch, setValue } = form;
-  const values = watch();
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      onFilter(values);
-    }, 200); // debounce
-    return () => clearTimeout(timeout);
-  }, [values, onFilter]);
+  // format date
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const onSubmit = (data) => {
+    navigate(`/transport/?transport_id=${tourId}&starting_point=${data?.starting_point}&date=${formatDate(data?.date)}&people_count=${data?.people_count}&car_type=${data?.car_type}`);
+  };
+
   return (
-    <Form {...form}>
-      <form className="space-y-8 bg-body p-4 rounded-[30px]">
+    <Form {...form} >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-body p-4 rounded-[30px]">
         {/* price */}
         <div className="flex items-center justify-between">
           <div className="space-y-2">
-            <p className=" flex items-center gap-1 text-main-blue font-bold"><del className="text-main-gray text-sm">999.00</del> 692.00 {ryial} <span className="text-main-purple font-semibold text-sm">/ لليوم الواحــــدة</span></p>
+            <p className=" flex items-center gap-1 text-main-blue font-bold"><del className="text-main-gray text-sm">{parseFloat(price).toFixed(2)}</del> {parseFloat(price - discount).toFixed(2)} {ryial} <span className="text-main-purple font-semibold text-sm">/ لليوم الواحــــدة</span></p>
             <p className="text-xs font-semibold text-main-gray">
-              إجمالي لليوم  692.00 ر.س
+              إجمالي لليوم {parseFloat(price - discount).toFixed(2)}ر.س
             </p>
           </div>
           {/* sale */}
           <div className="bg-main-purple rounded-full text-white text-xs font-bold py-3 px-4 flex items-center justify-center w-fit ">
-            خصم %20
+            خصم %{parseFloat((discount / price) * 100).toFixed(1)}
           </div>
         </div>
 
@@ -100,18 +105,20 @@ const PriceForm = ({ defaultValues, onFilter }) => {
           {/* Type */}
           <FormField
             control={form.control}
-            name={"car_types_id"}
-            render={() => (
-              <FormItem className="xl:col-span-6 col-span-12 ">
+            name="car_type"
+            render={({ field }) => (
+              <FormItem className="xl:col-span-6 col-span-12">
                 <FormLabel className="flex items-center gap-1">
                   <BsFillSendFill size={16} className="text-main-purple" />
                   <p className="text-main-blue font-bold text-sm">
                     نوع السيارة
                   </p>
                 </FormLabel>
-                <Select dir="rtl"
-                  defaultValue={values.car_types_id}
-                  onValueChange={(val) => setValue("car_types_id", val)} >
+                <Select
+                  dir="rtl"
+                  onValueChange={field.onChange}
+                  value={field.value}
+                >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
@@ -119,33 +126,36 @@ const PriceForm = ({ defaultValues, onFilter }) => {
                       <SelectValue placeholder={"إدخـــال نوع السيارة هنــا..."} className="text-[#797979]" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                  <SelectContent className=" shadow border-none rounded-xl bg-white">
                     {carTypes?.map((option) => (
-                      <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
+                      <SelectItem key={option.value} value={option.value} className="cursor-pointer focus:bg-body rounded-xl">
                         {option.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                <FormMessage className="text-red-500  text-xs " />
               </FormItem>
             )}
           />
 
-          {/* moving_point */}
+          {/* starting_point */}
           <FormField
             control={form.control}
-            name={"moving_point"}
-            render={() => (
-              <FormItem className="xl:col-span-6 col-span-12 ">
+            name="starting_point"
+            render={({ field }) => (
+              <FormItem className="xl:col-span-6 col-span-12">
                 <FormLabel className="flex items-center gap-1">
                   <TbPentagonFilled size={16} className="text-main-purple" />
                   <p className="text-main-blue font-bold text-sm">
                     نقطة الانطلاق
                   </p>
                 </FormLabel>
-                <Select dir="rtl"
-                  defaultValue={values.moving_point}
-                  onValueChange={(val) => setValue("moving_point", val)} >
+                <Select
+                  dir="rtl"
+                  onValueChange={field.onChange}
+                  value={field.value}
+                >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
@@ -153,33 +163,36 @@ const PriceForm = ({ defaultValues, onFilter }) => {
                       <SelectValue placeholder={"إدخـــال نقطة الانطلاق من هنــا..."} className="text-[#797979]" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                  <SelectContent className=" shadow border-none rounded-xl bg-white">
                     {movingPoints?.map((option) => (
-                      <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
+                      <SelectItem key={option.value} value={option.value} className="cursor-pointer focus:bg-body rounded-xl">
                         {option.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                <FormMessage className="text-red-500  text-xs " />
               </FormItem>
             )}
           />
 
-          { /* number_of_person */}
+          {/* people_count */}
           <FormField
             control={form.control}
-            name={"number_of_person"}
-            render={() => (
-              <FormItem className="xl:col-span-6 col-span-12 ">
+            name="people_count"
+            render={({ field }) => (
+              <FormItem className="xl:col-span-6 col-span-12">
                 <FormLabel className="flex items-center gap-1">
                   <FaUsers size={16} className="text-main-purple" />
                   <p className="text-main-blue font-bold text-sm">
                     عدد الأشخــــاص
                   </p>
                 </FormLabel>
-                <Select dir="rtl"
-                  defaultValue={values.number_of_person}
-                  onValueChange={(val) => setValue("number_of_person", val)} >
+                <Select
+                  dir="rtl"
+                  onValueChange={field.onChange}
+                  value={field.value}
+                >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
@@ -187,21 +200,22 @@ const PriceForm = ({ defaultValues, onFilter }) => {
                       <SelectValue placeholder={"إدخـــال عدد الاشخــاص من هنــا.."} className="text-[#797979]" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                  <SelectContent className=" shadow border-none rounded-xl bg-white">
                     {countOptions?.map((option) => (
-                      <SelectItem key={option.value} value={option.value} className=" cursor-pointer focus:bg-body rounded-xl">
+                      <SelectItem key={option.value} value={option.value} className="cursor-pointer focus:bg-body rounded-xl">
                         {option.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                <FormMessage className="text-red-500  text-xs " />
               </FormItem>
             )}
           />
-          {/* date_and_time */}
+          {/* date */}
           <FormField
             control={form.control}
-            name={"date_and_time"}
+            name={"date"}
             render={({ field }) => (
               <FormItem className={`xl:col-span-6 col-span-12   flex flex-col`}>
                 <FormLabel className="flex items-center gap-1">
@@ -248,7 +262,7 @@ const PriceForm = ({ defaultValues, onFilter }) => {
         </div>
         {/* price icon */}
         <div className="bg-main-blue p-4 rounded-full flex items-center justify-between text-white text-xs font-bold ">
-          <p>التكلفة 350$</p>
+          <p>التكلفة {parseFloat(price - discount).toFixed(2)}ر.س</p>
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7.6875 7.5225C7.6875 7.9275 7.8 7.9875 8.055 8.0775L8.4375 8.2125V6.9375H8.2125C7.9275 6.9375 7.6875 7.2 7.6875 7.5225Z" fill="white" />
             <path d="M9.5625 11.0631H9.7875C10.08 11.0631 10.3125 10.8006 10.3125 10.4781C10.3125 10.0731 10.2 10.0131 9.945 9.92309L9.5625 9.78809V11.0631Z" fill="white" />
@@ -258,31 +272,41 @@ const PriceForm = ({ defaultValues, onFilter }) => {
 
         </div>
         {/* arc */}
-        <svg className="w-full" height="13" viewBox="0 0 619 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M224.333 6.00002C224.333 7.47278 225.527 8.66669 227 8.66669C228.473 8.66669 229.667 7.47278 229.667 6.00002C229.667 4.52726 228.473 3.33335 227 3.33335C225.527 3.33335 224.333 4.52726 224.333 6.00002ZM227 6.00002L227 5.50002L4.37114e-08 5.5L0 6L-4.37114e-08 6.5L227 6.50002L227 6.00002Z" fill="url(#paint0_linear_324_4155)" />
-          <path d="M251.405 11.352C250.861 11.352 250.357 11.216 249.893 10.944C249.437 10.68 249.073 10.316 248.801 9.852C248.537 9.396 248.405 8.896 248.405 8.352V6.492H249.437V8.352C249.437 8.712 249.525 9.04 249.701 9.336C249.877 9.64 250.113 9.88 250.409 10.056C250.713 10.232 251.045 10.32 251.405 10.32H253.697C253.817 10.32 253.917 10.276 253.997 10.188C254.085 10.108 254.129 10.008 254.129 9.888V0.636L255.161 0.648V10.068C255.161 10.42 255.033 10.72 254.777 10.968C254.529 11.224 254.229 11.352 253.877 11.352H251.405ZM258.886 9C258.574 9 258.282 8.924 258.01 8.772C257.746 8.612 257.534 8.4 257.374 8.136C257.222 7.864 257.146 7.568 257.146 7.248V0.599999H258.178V7.248C258.178 7.448 258.246 7.62 258.382 7.764C258.526 7.9 258.698 7.968 258.898 7.968H259.45V9H258.886ZM259.324 9C259.18 9 259.056 8.948 258.952 8.844C258.848 8.74 258.796 8.62 258.796 8.484C258.796 8.34 258.848 8.22 258.952 8.124C259.056 8.02 259.18 7.968 259.324 7.968H261.124C261.348 7.968 261.532 7.896 261.676 7.752C261.828 7.6 261.904 7.416 261.904 7.2V3.408H262.924V7.2C262.924 7.52 262.844 7.82 262.684 8.1C262.524 8.372 262.304 8.592 262.024 8.76C261.752 8.92 261.452 9 261.124 9H259.324ZM260.38 10.2C260.564 10.2 260.72 10.264 260.848 10.392C260.976 10.52 261.04 10.672 261.04 10.848C261.04 11.032 260.976 11.188 260.848 11.316C260.72 11.444 260.564 11.508 260.38 11.508C260.204 11.508 260.048 11.444 259.912 11.316C259.784 11.188 259.72 11.032 259.72 10.848C259.72 10.672 259.784 10.52 259.912 10.392C260.04 10.264 260.196 10.2 260.38 10.2ZM262.252 10.2C262.436 10.2 262.592 10.264 262.72 10.392C262.856 10.52 262.924 10.672 262.924 10.848C262.924 11.032 262.856 11.188 262.72 11.316C262.592 11.444 262.436 11.508 262.252 11.508C262.076 11.508 261.924 11.44 261.796 11.304C261.668 11.176 261.604 11.024 261.604 10.848C261.604 10.672 261.668 10.52 261.796 10.392C261.924 10.264 262.076 10.2 262.252 10.2ZM266.552 8.88C266.552 9.776 266.308 10.472 265.82 10.968C265.332 11.464 264.692 11.748 263.9 11.82L263.528 10.836C264.192 10.756 264.692 10.572 265.028 10.284C265.364 9.996 265.532 9.528 265.532 8.88V3.408H266.552V8.88ZM273.8 3.312C274.4 3.312 274.932 3.432 275.396 3.672C275.868 3.904 276.236 4.236 276.5 4.668C276.764 5.1 276.896 5.608 276.896 6.192C276.896 6.792 276.764 7.316 276.5 7.764C276.236 8.204 275.864 8.544 275.384 8.784C274.912 9.016 274.372 9.132 273.764 9.132C273.156 9.132 272.616 9.016 272.144 8.784C271.672 8.544 271.3 8.204 271.028 7.764C270.764 7.316 270.632 6.792 270.632 6.192C270.632 5.752 270.708 5.332 270.86 4.932C271.012 4.524 271.288 3.992 271.688 3.336L273.416 0.599999H274.688L272.672 3.612C273 3.412 273.376 3.312 273.8 3.312ZM273.764 8.22C274.364 8.22 274.848 8.04 275.216 7.68C275.584 7.32 275.768 6.832 275.768 6.216C275.768 5.6 275.584 5.112 275.216 4.752C274.856 4.384 274.38 4.2 273.788 4.2C273.18 4.2 272.692 4.384 272.324 4.752C271.956 5.112 271.772 5.6 271.772 6.216C271.772 6.832 271.952 7.32 272.312 7.68C272.68 8.04 273.164 8.22 273.764 8.22ZM280.781 6.252C280.181 6.252 279.645 6.136 279.173 5.904C278.701 5.672 278.333 5.34 278.069 4.908C277.805 4.476 277.673 3.968 277.673 3.384C277.673 2.784 277.805 2.264 278.069 1.824C278.341 1.376 278.713 1.036 279.185 0.804C279.657 0.563999 280.197 0.443999 280.805 0.443999C281.413 0.443999 281.953 0.563999 282.425 0.804C282.905 1.036 283.277 1.376 283.541 1.824C283.805 2.264 283.937 2.784 283.937 3.384C283.937 3.808 283.861 4.236 283.709 4.668C283.565 5.1 283.293 5.62 282.893 6.228L281.021 8.976H279.749L281.897 5.952C281.601 6.152 281.229 6.252 280.781 6.252ZM280.805 1.344C280.205 1.344 279.721 1.528 279.353 1.896C278.993 2.256 278.813 2.744 278.813 3.36C278.813 3.968 278.993 4.456 279.353 4.824C279.721 5.184 280.197 5.364 280.781 5.364C281.389 5.364 281.877 5.184 282.245 4.824C282.621 4.464 282.809 3.976 282.809 3.36C282.809 2.744 282.625 2.256 282.257 1.896C281.889 1.528 281.405 1.344 280.805 1.344ZM284.977 9V8.16L288.253 5.1C288.749 4.636 289.101 4.236 289.309 3.9C289.517 3.556 289.621 3.22 289.621 2.892C289.621 2.452 289.477 2.108 289.189 1.86C288.909 1.604 288.537 1.476 288.073 1.476C287.601 1.476 287.173 1.616 286.789 1.896C286.413 2.168 286.105 2.58 285.865 3.132L284.953 2.616C285.233 1.912 285.645 1.376 286.189 1.008C286.733 0.631999 287.357 0.443999 288.061 0.443999C288.589 0.443999 289.057 0.547999 289.465 0.756C289.881 0.955999 290.201 1.24 290.425 1.608C290.657 1.968 290.773 2.376 290.773 2.832C290.773 3.28 290.653 3.716 290.413 4.14C290.181 4.556 289.805 5.012 289.285 5.508L286.657 7.956H290.905V9H284.977ZM292.555 8.28C292.555 8.088 292.615 7.936 292.735 7.824C292.855 7.712 293.023 7.656 293.239 7.656C293.431 7.656 293.583 7.716 293.695 7.836C293.807 7.956 293.863 8.124 293.863 8.34C293.863 8.532 293.799 8.688 293.671 8.808C293.551 8.92 293.383 8.976 293.167 8.976C292.983 8.976 292.835 8.916 292.723 8.796C292.611 8.668 292.555 8.496 292.555 8.28ZM298.258 9.156C297.594 9.156 297.006 8.976 296.494 8.616C295.99 8.248 295.598 7.736 295.318 7.08C295.038 6.416 294.898 5.656 294.898 4.8C294.898 3.936 295.038 3.176 295.318 2.52C295.598 1.856 295.99 1.344 296.494 0.983999C297.006 0.623999 297.594 0.443999 298.258 0.443999C298.922 0.443999 299.506 0.623999 300.01 0.983999C300.522 1.344 300.918 1.856 301.198 2.52C301.478 3.176 301.618 3.936 301.618 4.8C301.618 5.656 301.478 6.416 301.198 7.08C300.918 7.736 300.522 8.248 300.01 8.616C299.506 8.976 298.922 9.156 298.258 9.156ZM298.258 8.112C298.69 8.112 299.07 7.976 299.398 7.704C299.734 7.424 299.99 7.036 300.166 6.54C300.35 6.036 300.442 5.456 300.442 4.8C300.442 4.144 300.35 3.564 300.166 3.06C299.99 2.556 299.734 2.168 299.398 1.896C299.07 1.616 298.69 1.476 298.258 1.476C297.826 1.476 297.442 1.616 297.106 1.896C296.778 2.168 296.522 2.556 296.338 3.06C296.154 3.564 296.062 4.144 296.062 4.8C296.062 5.456 296.154 6.036 296.338 6.54C296.522 7.036 296.778 7.424 297.106 7.704C297.442 7.976 297.826 8.112 298.258 8.112ZM306.626 9.156C305.962 9.156 305.374 8.976 304.862 8.616C304.358 8.248 303.966 7.736 303.686 7.08C303.406 6.416 303.266 5.656 303.266 4.8C303.266 3.936 303.406 3.176 303.686 2.52C303.966 1.856 304.358 1.344 304.862 0.983999C305.374 0.623999 305.962 0.443999 306.626 0.443999C307.29 0.443999 307.874 0.623999 308.378 0.983999C308.89 1.344 309.286 1.856 309.566 2.52C309.846 3.176 309.986 3.936 309.986 4.8C309.986 5.656 309.846 6.416 309.566 7.08C309.286 7.736 308.89 8.248 308.378 8.616C307.874 8.976 307.29 9.156 306.626 9.156ZM306.626 8.112C307.058 8.112 307.438 7.976 307.766 7.704C308.102 7.424 308.358 7.036 308.534 6.54C308.718 6.036 308.81 5.456 308.81 4.8C308.81 4.144 308.718 3.564 308.534 3.06C308.358 2.556 308.102 2.168 307.766 1.896C307.438 1.616 307.058 1.476 306.626 1.476C306.194 1.476 305.81 1.616 305.474 1.896C305.146 2.168 304.89 2.556 304.706 3.06C304.522 3.564 304.43 4.144 304.43 4.8C304.43 5.456 304.522 6.036 304.706 6.54C304.89 7.036 305.146 7.424 305.474 7.704C305.81 7.976 306.194 8.112 306.626 8.112ZM317.565 3.348C317.741 3.348 317.893 3.412 318.021 3.54C318.157 3.668 318.225 3.82 318.225 3.996C318.225 4.18 318.161 4.336 318.033 4.464C317.905 4.592 317.749 4.656 317.565 4.656C317.381 4.656 317.225 4.592 317.097 4.464C316.969 4.336 316.905 4.18 316.905 3.996C316.905 3.82 316.969 3.668 317.097 3.54C317.233 3.412 317.389 3.348 317.565 3.348ZM317.217 11.328C316.673 11.328 316.173 11.192 315.717 10.92C315.261 10.656 314.897 10.296 314.625 9.84C314.361 9.384 314.229 8.884 314.229 8.34V6.504H315.249V8.34C315.249 8.692 315.337 9.02 315.513 9.324C315.689 9.628 315.925 9.868 316.221 10.044C316.525 10.22 316.857 10.308 317.217 10.308H319.521C319.633 10.308 319.725 10.268 319.797 10.188C319.877 10.116 319.917 10.028 319.917 9.924V3.528H320.937V10.428C320.937 10.676 320.849 10.888 320.673 11.064C320.497 11.24 320.285 11.328 320.037 11.328H317.217ZM328.276 0.636V7.248C328.276 7.568 328.196 7.864 328.036 8.136C327.884 8.4 327.672 8.612 327.4 8.772C327.136 8.924 326.848 9 326.536 9H322.42V7.968H324.268V2.532H325.288L325.3 7.968H326.524C326.724 7.968 326.896 7.9 327.04 7.764C327.184 7.62 327.256 7.448 327.256 7.248V0.636H328.276ZM323.716 0.564C323.756 0.54 323.796 0.528 323.836 0.528C323.908 0.528 323.968 0.552 324.016 0.599999C324.136 0.728 324.296 0.824 324.496 0.887999C324.696 0.944 324.9 0.972 325.108 0.972C325.228 0.972 325.388 0.944 325.588 0.887999C325.796 0.824 325.972 0.756 326.116 0.684L326.344 1.212C326.176 1.308 325.968 1.392 325.72 1.464C325.472 1.536 325.268 1.572 325.108 1.572C324.652 1.572 324.248 1.428 323.896 1.14C323.848 1.1 323.792 1.1 323.728 1.14L323.26 1.464L322.948 1.104L323.716 0.564ZM330.26 0.599999H331.292V9H330.26V0.599999ZM338.051 9C337.691 9 337.387 9.124 337.139 9.372C336.891 9.628 336.767 9.936 336.767 10.296C336.767 10.648 336.891 10.948 337.139 11.196C337.387 11.452 337.691 11.58 338.051 11.58H340.967V12.612H338.051C337.627 12.612 337.235 12.508 336.875 12.3C336.523 12.092 336.243 11.812 336.035 11.46C335.827 11.108 335.723 10.72 335.723 10.296C335.723 9.848 335.815 9.452 335.999 9.108C336.191 8.764 336.439 8.496 336.743 8.304C337.055 8.112 337.383 8.008 337.727 7.992L338.183 7.98L336.923 5.016L337.247 4.068C337.663 3.82 338.091 3.632 338.531 3.504C338.979 3.368 339.411 3.3 339.827 3.3C340.067 3.3 340.299 3.324 340.523 3.372C341.067 3.476 341.515 3.744 341.867 4.176C342.219 4.6 342.395 5.084 342.395 5.628C342.395 6.036 342.287 6.468 342.071 6.924C341.855 7.38 341.535 7.728 341.111 7.968H343.235V9H338.051ZM339.311 7.908C339.823 7.836 340.231 7.656 340.535 7.368C340.839 7.072 341.051 6.76 341.171 6.432C341.299 6.104 341.363 5.832 341.363 5.616C341.363 5.32 341.263 5.056 341.062 4.824C340.871 4.592 340.627 4.444 340.331 4.38C340.195 4.348 340.039 4.332 339.863 4.332C339.351 4.332 338.779 4.476 338.146 4.764L338.051 5.1L339.311 7.908ZM346.583 0.972C346.767 0.972 346.923 1.036 347.051 1.164C347.187 1.292 347.255 1.444 347.255 1.62C347.255 1.804 347.187 1.96 347.051 2.088C346.923 2.216 346.767 2.28 346.583 2.28C346.407 2.28 346.255 2.216 346.127 2.088C345.999 1.96 345.935 1.804 345.935 1.62C345.935 1.444 345.999 1.292 346.127 1.164C346.255 1.036 346.407 0.972 346.583 0.972ZM349.067 8.196C349.067 8.42 348.987 8.612 348.827 8.772C348.675 8.924 348.487 9 348.263 9H342.935V7.968H344.627C344.379 7.792 344.183 7.56 344.039 7.272C343.895 6.984 343.823 6.672 343.823 6.336V5.904C343.823 5.432 343.943 5.004 344.183 4.62C344.423 4.228 344.743 3.92 345.143 3.696C345.551 3.472 345.991 3.36 346.463 3.36H349.067V8.196ZM346.475 4.332C346.179 4.332 345.903 4.408 345.647 4.56C345.399 4.704 345.199 4.904 345.047 5.16C344.903 5.408 344.831 5.68 344.831 5.976V6.372C344.839 6.66 344.915 6.928 345.059 7.176C345.211 7.416 345.411 7.608 345.659 7.752C345.915 7.896 346.187 7.968 346.475 7.968H347.855C347.903 7.968 347.947 7.952 347.987 7.92C348.027 7.88 348.047 7.832 348.047 7.776V4.332H346.475ZM357.244 7.968C357.388 7.968 357.508 8.02 357.604 8.124C357.708 8.228 357.76 8.352 357.76 8.496C357.76 8.632 357.712 8.752 357.616 8.856C357.52 8.952 357.396 9 357.244 9H356.968C356.6 9 356.252 8.932 355.924 8.796C355.596 8.652 355.312 8.452 355.072 8.196L355.024 8.268C354.832 8.492 354.596 8.672 354.316 8.808C354.044 8.936 353.764 9 353.476 9H350.416V7.968H353.476C353.628 7.968 353.764 7.936 353.884 7.872C354.012 7.808 354.116 7.728 354.196 7.632C354.34 7.448 354.412 7.256 354.412 7.056C354.412 6.984 354.4 6.908 354.376 6.828L353.476 3.36L354.448 3.096L355.42 6.744C355.5 7.112 355.684 7.408 355.972 7.632C356.26 7.856 356.592 7.968 356.968 7.968H357.244ZM358.399 1.92C358.583 1.92 358.739 1.984 358.867 2.112C359.003 2.24 359.071 2.392 359.071 2.568C359.071 2.752 359.003 2.908 358.867 3.036C358.739 3.164 358.583 3.228 358.399 3.228C358.223 3.228 358.071 3.164 357.943 3.036C357.815 2.908 357.751 2.752 357.751 2.568C357.751 2.392 357.815 2.24 357.943 2.112C358.071 1.984 358.223 1.92 358.399 1.92ZM360.235 1.92C360.419 1.92 360.575 1.984 360.703 2.112C360.839 2.24 360.907 2.392 360.907 2.568C360.907 2.752 360.839 2.908 360.703 3.036C360.575 3.164 360.419 3.228 360.235 3.228C360.059 3.228 359.907 3.164 359.779 3.036C359.651 2.908 359.587 2.752 359.587 2.568C359.587 2.392 359.651 2.24 359.779 2.112C359.907 1.984 360.059 1.92 360.235 1.92ZM361.459 7.968C361.603 7.968 361.723 8.016 361.819 8.112C361.923 8.208 361.975 8.328 361.975 8.472C361.975 8.624 361.923 8.752 361.819 8.856C361.715 8.952 361.591 9 361.447 9H360.883C360.587 9 360.311 8.932 360.055 8.796C359.799 8.66 359.587 8.48 359.419 8.256C359.259 8.48 359.055 8.66 358.807 8.796C358.559 8.932 358.291 9 358.003 9H357.211C357.059 9 356.935 8.952 356.839 8.856C356.735 8.76 356.683 8.636 356.683 8.484C356.683 8.332 356.735 8.208 356.839 8.112C356.935 8.016 357.059 7.968 357.211 7.968H357.895C358.151 7.968 358.371 7.876 358.555 7.692C358.747 7.5 358.843 7.272 358.843 7.008V4.5H359.875V7.02C359.891 7.284 359.995 7.508 360.187 7.692C360.387 7.876 360.619 7.968 360.883 7.968H361.459ZM371.222 6.732C371.222 7.148 371.118 7.532 370.91 7.884C370.702 8.228 370.418 8.5 370.058 8.7C369.706 8.9 369.322 9 368.906 9C368.498 9 368.142 8.912 367.838 8.736C367.534 8.56 367.294 8.324 367.118 8.028C366.902 8.34 366.638 8.58 366.326 8.748C366.014 8.916 365.658 9 365.258 9C364.93 9 364.626 8.928 364.346 8.784C364.074 8.64 363.842 8.444 363.65 8.196C363.53 8.436 363.35 8.632 363.11 8.784C362.87 8.928 362.606 9 362.318 9H361.394C361.258 9 361.142 8.952 361.046 8.856C360.942 8.752 360.89 8.628 360.89 8.484C360.89 8.348 360.942 8.232 361.046 8.136C361.142 8.032 361.258 7.98 361.394 7.98H362.318C362.518 7.98 362.686 7.912 362.822 7.776C362.958 7.64 363.026 7.472 363.026 7.272V4.536H364.046V6.768C364.046 7.112 364.166 7.4 364.406 7.632C364.646 7.864 364.946 7.98 365.306 7.98C365.69 7.98 366.006 7.86 366.254 7.62C366.502 7.38 366.622 7.084 366.614 6.732V4.536H367.634V6.768C367.634 7.112 367.754 7.4 367.994 7.632C368.234 7.856 368.538 7.968 368.906 7.968C369.282 7.968 369.59 7.852 369.83 7.62C370.078 7.38 370.202 7.084 370.202 6.732V3.396H371.222V6.732Z" fill="#A71755" />
-          <path d="M389.333 6C389.333 7.47276 390.527 8.66667 392 8.66667C393.473 8.66667 394.667 7.47276 394.667 6C394.667 4.52724 393.473 3.33333 392 3.33333C390.527 3.33333 389.333 4.52724 389.333 6ZM619 6.00002L619 5.50002L392 5.5L392 6L392 6.5L619 6.50002L619 6.00002Z" fill="url(#paint1_linear_324_4155)" />
-          <defs>
-            <linearGradient id="paint0_linear_324_4155" x1="-4.37114e-08" y1="6.5" x2="227" y2="6.50002" gradientUnits="userSpaceOnUse">
-              <stop stop-color="white" />
-              <stop offset="1" />
-            </linearGradient>
-            <linearGradient id="paint1_linear_324_4155" x1="392" y1="6.5" x2="619" y2="6.50002" gradientUnits="userSpaceOnUse">
-              <stop />
-              <stop offset="1" stop-color="white" />
-            </linearGradient>
-          </defs>
-        </svg>
+        <div className="flex items-center gap-2">
+          <svg width="180" height="6" viewBox="0 0 230 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.333333 3C0.333333 4.47276 1.52724 5.66667 3 5.66667C4.47276 5.66667 5.66667 4.47276 5.66667 3C5.66667 1.52724 4.47276 0.333333 3 0.333333C1.52724 0.333333 0.333333 1.52724 0.333333 3ZM230 3.00002L230 2.50002L3 2.5L3 3L3 3.5L230 3.50002L230 3.00002Z" fill="url(#paint0_linear_324_4159)" />
+            <defs>
+              <linearGradient id="paint0_linear_324_4159" x1="3" y1="3.5" x2="230" y2="3.50002" gradientUnits="userSpaceOnUse">
+                <stop />
+                <stop offset="1" stop-color="white" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <p className="flex-grow text-[10px] text-main-purple font-semibold text-center" >
+
+            ستدفع الآن {parseFloat(price - discount).toFixed(2)} ريال
+          </p>
+          <svg width="180" height="6" viewBox="0 0 230 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M224.333 3.00002C224.333 4.47278 225.527 5.66669 227 5.66669C228.473 5.66669 229.667 4.47278 229.667 3.00002C229.667 1.52726 228.473 0.333353 227 0.333353C225.527 0.333353 224.333 1.52726 224.333 3.00002ZM227 3.00002L227 2.50002L4.37114e-08 2.5L0 3L-4.37114e-08 3.5L227 3.50002L227 3.00002Z" fill="url(#paint0_linear_324_4156)" />
+            <defs>
+              <linearGradient id="paint0_linear_324_4156" x1="-4.37114e-08" y1="3.5" x2="227" y2="3.50002" gradientUnits="userSpaceOnUse">
+                <stop stop-color="white" />
+                <stop offset="1" />
+              </linearGradient>
+            </defs>
+          </svg>
+
+        </div>
         {/* ditails */}
         <div className="bg-white p-6 rounded-[30px]">
           <ul className="space-y-7">
             <li className="text-xs font-bold flex items-center justify-between">
-              <p className="text-main-blue">ليلة واحدة × 579 ريال</p>
-              <p>579 ريال</p>
+              <p className="text-main-blue">ليلة واحدة × {parseFloat(price - discount).toFixed(2)} ريال</p>
+              <p>{parseFloat(price - discount).toFixed(2)} ريال</p>
             </li>
             <li className="text-xs font-bold flex items-center justify-between">
               <p className="text-main-blue">خصم من العروض</p>
-              <p>-144.75 ريال</p>
+              <p>-00.00 ريال</p>
             </li>
             <li className="text-xs font-bold flex items-center justify-between">
               <p className="text-main-blue">رسوم الخدمة</p>
@@ -291,7 +315,7 @@ const PriceForm = ({ defaultValues, onFilter }) => {
             <li className="h-[1px] bg-body"></li>
             <li className="text-xs font-bold flex items-center justify-between">
               <p className="text-main-blue">الإجمالي</p>
-              <p>482.01 ريال</p>
+              <p>{(parseFloat(price - discount) + 47.76).toFixed(2)} ريال</p>
             </li>
           </ul>
         </div>
@@ -305,13 +329,13 @@ const PriceForm = ({ defaultValues, onFilter }) => {
               <path d="M15.0625 13.3125C14.8125 14.0625 13.875 14.6875 13.0625 14.8125C12.875 14.875 12.6875 14.875 12.4375 14.875C11.9375 14.875 11.1875 14.75 9.875 14.1875C8.375 13.5625 6.875 12.25 5.6875 10.5625V10.5C5.3125 9.9375 4.625 8.875 4.625 7.75C4.625 6.375 5.3125 5.6875 5.5625 5.375C5.875 5.0625 6.3125 4.875 6.8125 4.875C6.9375 4.875 7 4.875 7.125 4.875C7.5625 4.875 7.875 5 8.1875 5.625L8.4375 6.125C8.625 6.625 8.875 7.1875 8.9375 7.25C9.125 7.625 9.125 7.9375 8.9375 8.25C8.875 8.4375 8.75 8.5625 8.625 8.6875C8.5625 8.8125 8.5 8.875 8.4375 8.875C8.375 8.9375 8.375 8.9375 8.3125 9C8.5 9.3125 8.875 9.875 9.375 10.3125C10.125 11 10.6875 11.1875 11 11.3125C11.125 11.1875 11.25 10.9375 11.4375 10.75L11.5 10.625C11.8125 10.1875 12.3125 10.0625 12.8125 10.25C13.0625 10.375 14.4375 11 14.4375 11L14.5625 11.0625C14.75 11.1875 15 11.25 15.125 11.5C15.375 12.0625 15.1875 12.875 15.0625 13.3125Z" fill="white" />
             </svg>
           </Button>
-          <Link
-            to={"/transport"}
+          <Button
+            type="submit"
             className="group h-12 px-6 text-white  bg-main-blue hover:bg-main-purple transtion-all duration-300 w-full text-xs font-bold   rounded-full flex items-center justify-between  hover:text-white  ">
             حجز عن طريق الموقع
             <FaLink
               size={20} className="text-white" />
-          </Link>
+          </Button>
         </div>
 
 
