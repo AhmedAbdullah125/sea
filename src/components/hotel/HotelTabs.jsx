@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import parse from 'html-react-parser';
+import EventRateForm from '../event/EventRateForm';
 
 const HotelTabs = ({ data }) => {
     const [activeTab, setActiveTab] = useState(0);
@@ -39,6 +40,7 @@ const HotelTabs = ({ data }) => {
                 }
                 {
                     activeTab === 2 && 
+                    <>
                     <div className="comments">
                         {
                             data.commnets.map((item, idx) => (
@@ -59,6 +61,8 @@ const HotelTabs = ({ data }) => {
                             ))
                         }
                     </div>
+                        <EventRateForm />
+                    </>
                 }
                 {
                     activeTab === 3 && <p>
