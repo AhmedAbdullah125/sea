@@ -5,6 +5,7 @@ import VisaCard from "../components/visa/VisaCard"
 import { fetchFromApi } from "../api/utils/fetchData"
 import { use } from "react"
 import { useSearchParams } from "react-router-dom"
+import Loading from "../components/loading/Loading"
 
 const VisaPage = () => {
   const [searchParams] = useSearchParams();
@@ -19,7 +20,7 @@ const VisaPage = () => {
   })
 
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <Loading  />
   if (isError) return <p>Error</p>
 
   return (
