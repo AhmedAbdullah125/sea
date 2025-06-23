@@ -2331,6 +2331,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
 
 .midd-section {
   display: flex;
+  gap: 40px;
 }
 @media screen and (max-width: 1025px) {
   .midd-section {
@@ -2338,7 +2339,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   }
 }
 .midd-section .tabs {
-  width: 60%;
+  width: calc(60% - 20px);
 }
 @media screen and (max-width: 1025px) {
   .midd-section .tabs {
@@ -2346,7 +2347,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   }
 }
 .midd-section .payment {
-  width: 40%;
+  width: calc(40% - 20px);
 }
 @media screen and (max-width: 1025px) {
   .midd-section .payment {

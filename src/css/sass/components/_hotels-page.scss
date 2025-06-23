@@ -570,12 +570,14 @@
           display: flex;
           gap: 20px;
           align-items: center;
+
           @media screen and (max-width: 767px) {
             font-size: 14px;
           }
+
           @media screen and (max-width: 500px) {
             font-size: 12px;
-            
+
           }
         }
 
@@ -595,10 +597,12 @@
               color: $main;
               line-height: 16px;
             }
-            .fa-star{
+
+            .fa-star {
               color: #FFBE33;
             }
-            .fa-house{
+
+            .fa-house {
               color: $main;
             }
           }
@@ -621,20 +625,28 @@
     }
   }
 }
-.midd-section{
+
+.midd-section {
   display: flex;
+  gap: 40px;
+
   @media screen and (max-width: 1025px) {
     flex-direction: column;
-    
+
   }
-  .tabs{
-    width: 60%;
+
+  .tabs {
+    width: calc(60% - 20px);
+
     @media screen and (max-width: 1025px) {
       width: 100%;
     }
+
   }
-  .payment{
-    width: 40%;
+
+  .payment {
+    width: calc(40% - 20px);
+
     @media screen and (max-width: 1025px) {
       width: 100%;
     }
