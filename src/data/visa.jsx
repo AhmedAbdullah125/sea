@@ -87,3 +87,14 @@ export const omraa = [
   },
 
 ]
+
+export const payment = [
+  {
+    value: "online",
+    label:"الدفع اونلاين",
+  },
+  {
+    value: "cash",
+    label:"الدفع كاش",
+  },
+]

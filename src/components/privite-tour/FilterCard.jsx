@@ -60,14 +60,10 @@ const FilterCard = ({ tour }) => {
           </div>
         </div >
       </CardContent>
-      <CardFooter className="p-0 flex items-center gap-2">
-        <Link to={`/tours/${tour?.id}`} className="flex-grow h-12  bg-main-purple   !text-white hover:bg-main-blue transition-all duration-300   flex items-center justify-between rounded-full px-4">
+      <CardFooter className="p-0 ">
+        <Link to={`/tours/${tour?.id}`} className="w-full h-12  bg-main-purple   !text-white hover:bg-main-blue transition-all duration-300   flex items-center justify-between rounded-full px-4">
           <p className="text-[10px] font-semibold">عرض التفاصيل</p>
           <FaRegEye size={20} />
-        </Link>
-        <Link to="/transport" className="flex-grow h-12  bg-main-blue   !text-white hover:bg-main-purple transition-all duration-300   flex items-center justify-between rounded-full px-4">
-          <p className="text-[10px] font-semibold">أحجز الآن</p>
-          <IoLogoWhatsapp size={20} />
         </Link>
       </CardFooter>
     </Card>

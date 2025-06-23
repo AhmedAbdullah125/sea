@@ -13,66 +13,97 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { countries } from "../../data/visa"
+import { payment } from "../../data/visa"
 import CustomFilterSelect from "../home/filterTabs/CustomFilterSelect"
 import CustomInput from "../home/filterTabs/CustomInput"
 import { toast } from "sonner"
 import { userContext } from "../../context/UserContext"
+import { postToApi } from "../../api/utils/postData"
 const formSchema = z.object({
-  number: z.string().nonempty("هذا الحقل مطلوب"),
-  payMthod: z.string().nonempty("هذا الحقل مطلوب"),
-  name: z.string().nonempty("هذا الحقل مطلوب"),
-  surname: z.string().nonempty("هذا الحقل مطلوب"),
+  flight_number: z.string().nonempty("هذا الحقل مطلوب"),
+  payment_type: z.string().nonempty("هذا الحقل مطلوب"),
+  first_name: z.string().nonempty("هذا الحقل مطلوب"),
+  last_name: z.string().nonempty("هذا الحقل مطلوب"),
   notes: z.string().nonempty("هذا الحقل مطلوب"),
-  picture: z.instanceof(File, { message: "هذا الحقل مطلوب" }),
+  image: z.any().refine((file) => file instanceof File && file.size > 0, { message: "يرجى رفع صورة التذكــرة" }),
 })
-const Step2 = ({ nextStep }) => {
-  const {token}=useContext(userContext)
+const Step2 = ({ nextStep, transportId }) => {
+  const { token } = useContext(userContext)
   // img preview
   const [picturePreview, setPicturePreview] = useState(null);
-  const handlePictureChange = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const previewUrl = URL.createObjectURL(file);
-      setPicturePreview(previewUrl);
-      form.setValue("picture", file);
-    }
-  };
 
   // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      number: "",
-      payMthod: "",
-      name: "",
-      surname: "",
+      flight_number: "",
+      payment_type: "",
+      first_name: "",
+      last_name: "",
       notes: "",
+      image: undefined,
     },
-  })
+  });
 
+  const handlePictureChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+      setPicturePreview(previewUrl);
+      form.setValue("image", file, { shouldValidate: true });
+      form.trigger("image");
+    } else {
+      form.setValue("image", undefined, { shouldValidate: true });
+    }
+  };
   // 2. Define a submit handler.
-  function onSubmit(values) {
+  async function onSubmit(values) {
     if (!token) {
       toast.error("يجب تسجيل الدخول اولا");
-      return
+      return;
     }
-    toast.success("تم التسجيل بنجاح");
-    setTimeout(() => {
-      nextStep();
-    }, 2000);
+
+    try {
+      // Create FormData for multipart upload
+      const formData = new FormData();
+      formData.append("flight_number", values.flight_number);
+      formData.append("payment_type", values.payment_type);
+      formData.append("first_name", values.first_name);
+      formData.append("last_name", values.last_name);
+      formData.append("notes", values.notes);
+      formData.append("image", values.image);
+      formData.append("transportation_id", transportId);
+
+      const res = await postToApi('/booking', formData, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        }
+      });
+
+      if (res.status === 201) {
+        toast.success("تم الحجز بنجاح");
+        setTimeout(() => {
+          nextStep();
+        }, 2000);
+      } else {
+        toast.error("حدث خطأ أثناء الحجز");
+      }
+    } catch (error) {
+      toast.error("حدث خطأ أثناء الحجز");
+    }
   }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-12 gap-5 w-full ">
-        {/* number */}
-        <CustomInput bg="bg-white" name="number" type="text" label="رقـــم الرحلــة" placeholder="إدخـــال رقــم الرحلة هنــا..." form={form} colSpan=" md:col-span-6 col-span-12" />
-        {/* payMthod */}
-        <CustomFilterSelect bg="bg-white" placeholder="إدخـــال طريقة السداد هنــا..." form={form} name="payMthod" label="طريــقة السداد" options={countries} colSpan=" md:col-span-6 col-span-12" />
-        {/* name */}
-        <CustomInput bg="bg-white" name="name" type="text" label="الاســـم" placeholder="إدخـــال الاسم هنـــا..." form={form} colSpan=" md:col-span-6 col-span-12" />
-        {/* surname */}
-        <CustomInput bg="bg-white" name="surname" type="text" label="اللقب" placeholder="إدخـــال اللقب هنـــا..." form={form} colSpan=" md:col-span-6 col-span-12" />
+        {/* flight_number */}
+        <CustomInput bg="bg-white" name="flight_number" type="text" label="رقـــم الرحلــة" placeholder="إدخـــال رقــم الرحلة هنــا..." form={form} colSpan=" md:col-span-6 col-span-12" />
+        {/* payment_type */}
+        <CustomFilterSelect bg="bg-white" placeholder="إدخـــال طريقة السداد هنــا..." form={form} name="payment_type" label="طريــقة السداد" options={payment} colSpan=" md:col-span-6 col-span-12" />
+        {/* first_name */}
+        <CustomInput bg="bg-white" name="first_name" type="text" label="الاســـم" placeholder="إدخـــال الاسم هنـــا..." form={form} colSpan=" md:col-span-6 col-span-12" />
+        {/* last_name */}
+        <CustomInput bg="bg-white" name="last_name" type="text" label="اللقب" placeholder="إدخـــال اللقب هنـــا..." form={form} colSpan=" md:col-span-6 col-span-12" />
         {/* notes */}
         <FormField
           control={form.control}
@@ -99,7 +130,7 @@ const Step2 = ({ nextStep }) => {
         {/* picture */}
         <FormField
           control={form.control}
-          name="picture"
+          name="image"
           render={({ field }) => (
             <FormItem className=" col-span-12" dir="ltr">
               <FormLabel className="flex items-center justify-center bg-white  rounded-3xl h-auto p-6" dir="rtl" htmlFor="picture">
