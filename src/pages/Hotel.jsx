@@ -1,4 +1,4 @@
-import React , { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
@@ -8,6 +8,7 @@ import { API_BASE_URL } from '../lib/apiConfig';
 import HotelBook from '../components/hotel/HotelBook';
 import HotelTabs from '../components/hotel/HotelTabs';
 import HotelPayment from '../components/hotel/HotelPayment';
+import Loading from '../components/loading/Loading';
 const Hotel = () => {
     // state for search params
     const [searchParams] = useSearchParams();
@@ -22,9 +23,9 @@ const Hotel = () => {
                 setData(response.data.data);
                 setLoading(false);
             } catch (error) {
-                console.error( 'Error retrieving data:',error);
+                console.error('Error retrieving data:', error);
                 setLoading(false);
-                throw new Error( 'Could not get data');
+                throw new Error('Could not get data');
             }
         };
         getData();
@@ -36,7 +37,7 @@ const Hotel = () => {
             {/* Start Page Content */}
             {
                 loading ? (
-                    <div>Loading...</div>
+                    <Loading />
                 ) : (
                     <div>
                         <HotelHeader data={data} />
@@ -46,7 +47,7 @@ const Hotel = () => {
                                 <HotelTabs data={data} />
                             </div>
                             <div className="payment">
-                                <HotelPayment   />
+                                <HotelPayment />
                             </div>
                         </div>
                     </div>

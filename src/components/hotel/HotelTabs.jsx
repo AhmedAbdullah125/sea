@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import parse from 'html-react-parser';
+import EventRateForm from '../event/EventRateForm';
 
 const HotelTabs = ({ data }) => {
     const [activeTab, setActiveTab] = useState(0);
     const latitude = data.latitude
     const longitude = data.longitude;
-
+    const formatter = new Intl.DateTimeFormat('ar-EG', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long'
+      });
     return (
         <section className='hotel-tabs-section'>
             <div className="controllers">
@@ -17,7 +22,7 @@ const HotelTabs = ({ data }) => {
             </div>
             <div className="descrip">
                 {
-                    activeTab === 0 && <p>
+                    activeTab === 0 && <p className='description-text'>
                         {parse(data.description)}
                     </p>
                 }
@@ -34,7 +39,30 @@ const HotelTabs = ({ data }) => {
                     </div>
                 }
                 {
-                    activeTab === 2 && <p>comments</p>
+                    activeTab === 2 && 
+                    <>
+                    <div className="comments">
+                        {
+                            data.commnets.map((item, idx) => (
+                                <div className="comment">
+                                    <div className="comment-head">
+                                        {/* first letter of the name */}
+                                        <span className='first-letter'>{item?.name?.slice(0, 1)}</span>
+                                        <span>{item.name}</span>
+
+                                    </div>
+                                    <p className="comment-body">{item.comment}</p>
+                                    <div className="dets">
+                                        <span className='date'>{formatter.format(new Date(item.created_at))}</span>
+                                        <span className='rating'> {item.rating}/5 <i className="fa-solid fa-star"></i>   </span>
+                                    </div>
+
+                                </div>
+                            ))
+                        }
+                    </div>
+                        <EventRateForm />
+                    </>
                 }
                 {
                     activeTab === 3 && <p>

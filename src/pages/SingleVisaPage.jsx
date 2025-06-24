@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query"
 import { fetchFromApi } from "../api/utils/fetchData"
 import Header from "../components/header/Header"
 import Footer from "../components/footer/Footer"
+import Loading from "../components/loading/Loading"
 const SingleVisaPage = () => {
   const { id } = useParams();
   const { data, isLoading, isError } = useQuery({
@@ -23,7 +24,7 @@ const SingleVisaPage = () => {
   const visa = data?.data?.data
   console.log(data?.data?.data);
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <Loading />
   if (isError) return <p>Error</p>
   return (
     <>

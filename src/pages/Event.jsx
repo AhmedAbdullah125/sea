@@ -50,7 +50,9 @@ const Event = () => {
                         {/* Start Page Content */}
                         <EventHeader data={data} />
                         <AboutPlace data={data} />
+                        <div className="container">
                         <EventRateForm data={data} />
+                        </div>
                         <ActivitiesTable data={events} title="إكتشــف المزيــد." description={'يُقدم الموقع فعاليات الشهر الحالي ليستمتع المسافر بتجارب سياحية مميزة تشمل مهرجانات، جولات ثقافية، وعروض ترفيهية محلية حية.'} />
                         {/* End Page Content */}
                     </>
