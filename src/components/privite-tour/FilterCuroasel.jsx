@@ -6,15 +6,20 @@ import {
   CarouselNext,
   CarouselPrevious
 } from "@/components/ui/carousel"
+import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md"
 
 const hotels = ["/hotels/hotel-2.png", "/hotels/hotel-1.png", "/hotels/hotel-2.png", "/hotels/hotel-3.png", "/hotels/hotel-4.png"]
 
 
-const FilterCuroasel = ({images}) => {
+const FilterCuroasel = ({ images }) => {
   const [api, setApi] = useState()
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
 
+  useEffect(() => {
+    console.log({ images });
+
+  }, [])
   useEffect(() => {
     if (!api) {
       return
@@ -35,19 +40,22 @@ const FilterCuroasel = ({images}) => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="bg-red-500" />
-        <CarouselNext className="bg-red-500" />
+        <div className="  flex items-start justify-between px-4 absolute w-full bottom-3">
+          <CarouselNext className="bg-white/15 backdrop-blur-md !text-white  size-8 static flex items-center justify-center rounded-full  " icon={<MdArrowForwardIos className="w-2 h-2" />} />
+          {/* Dots Navigation */}
+          <div className=" flex justify-center gap-1 ">
+            {Array.from({ length: count }).map((_, index) => (
+              <div
+                key={index}
+                className={`cursor-pointer rounded-full transition-all duration-300 ${index === current ? "bg-white h-1 w-3" : "size-1 bg-white/50"
+                  }`}
+              />
+            ))}
+          </div>
+          <CarouselPrevious className="bg-white/15 backdrop-blur-md !text-white  size-8 static flex items-center justify-center rounded-full  " icon={<MdArrowBackIos className="w-2 h-2" />} />
+        </div>
       </Carousel>
-      {/* Dots Navigation */}
-      <div className="absolute bottom-5 w-full flex justify-center gap-1 ">
-        {Array.from({ length: count }).map((_, index) => (
-          <div
-            key={index}
-            className={`cursor-pointer rounded-full transition-all duration-300 ${index === current ? "bg-white h-1 w-3" : "size-1 bg-white/50"
-              }`}
-          />
-        ))}
-      </div>
+ 
     </div>
   )
 }

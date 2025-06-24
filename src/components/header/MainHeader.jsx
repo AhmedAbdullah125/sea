@@ -60,7 +60,7 @@ const MainHeader = () => {
                     <div className="noqta"></div>
                     <NavLink to='/privite-tours'>النقل و المــواصلات</NavLink>
                     <div className="noqta"></div>
-                    <NavLink to='/visa/search'>التــأشيــرات</NavLink>
+                    <NavLink to='/visa'>التــأشيــرات</NavLink>
                     <div className="noqta"></div>
                     <NavLink to='/table'>جدولك علينا</NavLink>
                     <div className="noqta"></div>

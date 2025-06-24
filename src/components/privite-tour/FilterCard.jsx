@@ -31,7 +31,7 @@ const FilterCard = ({ tour }) => {
     <Card className="shadow-none border-none space-y-4 xl:col-span-3 md:col-span-6 col-span-12" dir="rtl">
       <CardHeader className="p-0">
         {/* img slider */}
-        < div className="relative overflow-hidden   rounded-[40px]" >
+        < div className="relative overflow-hidden   rounded-[50px]" >
           {/* sale */}
           <div div className="absolute top-5 end-5 z-10 px-8 py-3 bg-white/15 backdrop-blur-sm text-white text-[10px] font-semibold flex items-center justify-center rounded-full" > كيلومترات غير محدودة</div>
           {/* card image */}
