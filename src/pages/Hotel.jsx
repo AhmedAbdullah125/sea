@@ -47,7 +47,7 @@ const Hotel = () => {
                                 <HotelTabs data={data} />
                             </div>
                             <div className="payment">
-                                <HotelPayment />
+                                <HotelPayment  data={data} />
                             </div>
                         </div>
                     </div>

@@ -2475,6 +2475,11 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   color: #FFBE33;
   font-size: 20px;
 }
+.midd-section .tabs .map-cont {
+  border-radius: 40px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
 .midd-section .payment {
   width: calc(40% - 20px);
 }
@@ -2482,6 +2487,70 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   .midd-section .payment {
     width: 100%;
   }
+}
+
+.hotel-payment-section {
+  border-radius: 40px;
+  background-color: #F5F5F5;
+  padding: 40px;
+}
+@media screen and (max-width: 767px) {
+  .hotel-payment-section {
+    padding: 20px;
+    border-radius: 20px;
+  }
+}
+.hotel-payment-section .price-discount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.hotel-payment-section .price-discount .r-side {
+  min-height: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+.hotel-payment-section .price-discount .r-side .price-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hotel-payment-section .price-discount .r-side .old-price {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 100%;
+  text-decoration: line-through;
+  color: #808080;
+}
+.hotel-payment-section .price-discount .r-side .new-price {
+  color: var(--main-hover);
+  font-weight: 600;
+  font-size: 18px;
+}
+.hotel-payment-section .price-discount .r-side .rs-t {
+  color: var(--sec-color);
+  font-weight: 800;
+  font-size: 14px;
+}
+.hotel-payment-section .price-discount .r-side .total-price {
+  color: #797979;
+  font-weight: 500;
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.hotel-payment-section .price-discount .l-side .discount {
+  background-color: var(--sec-color);
+  color: var(--white-color);
+  font-weight: 800;
+  font-size: 12px;
+  padding: 0 15px;
+  border-radius: 50px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 footer .upperfooter {
