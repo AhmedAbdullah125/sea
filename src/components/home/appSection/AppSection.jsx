@@ -41,7 +41,7 @@ const AppSection = () => {
           </div>
           {/* iphone */}
           <div className='xl:w-1/2 w-0 self-end'>
-            <img src="/public/app/iphone.png" alt="iphone" loading='lazy' className='w-full h-full object-contain' />
+            <img src="/app/iphone.png" alt="iphone" loading='lazy' className='w-full h-full object-contain' />
           </div>
         </div>
 
