@@ -23,6 +23,13 @@
         @include max-767 {
             gap: 5px;
         }
+        .bars-dropdown{
+            display: none;
+
+            @media screen and (max-width: 1025px) {
+                display: block;
+            }
+        }
 
         .r-links,
         .l-links {
@@ -30,6 +37,10 @@
             align-items: center;
             gap: 40px;
 
+            @media screen and (max-width: 1025px) {
+                display: none;
+                
+            }
             @include max-1300 {
                 gap: 20px;
             }
@@ -68,6 +79,10 @@
             gap: 24px;
             margin: 0 auto;
             width: fit-content;
+            @media screen and (max-width: 1025px) {
+                display: none;
+                
+            }
 
             @include max-1300 {
                 gap: 16px;

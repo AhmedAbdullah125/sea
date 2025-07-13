@@ -26,7 +26,7 @@ const AboutUS = () => {
     <section className='my-16 py-16 bg-body rounded-3xl xl:rounded-[6.25rem]'>
       {data?.data?.data?.items?.length > 0 ?
 
-        <div className='container flex flex-col max-xl:gap-4 xl:flex-row items-center justify-between'>
+        <div className='container flex flex-col max-xl:gap-4 xl:flex-row items-center justify-between' id='whySee'>
           {/* content */}
           <div className='xl:w-1/3 w-full '>
             <div className='xl:max-w-[80%]'>

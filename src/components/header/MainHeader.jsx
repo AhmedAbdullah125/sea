@@ -1,9 +1,10 @@
-import React , { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../../../public/home/seaLogo.svg'
 import LoginDialog from '../login/LoginDialog'
-
+import { Button } from "@/components/ui/button"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
 import axios from 'axios'
 import { API_BASE_URL } from '../../lib/apiConfig'
 
@@ -43,11 +44,59 @@ const MainHeader = () => {
                     </Link>
                 </div>
                 <div className="l-links">
-                    <LoginDialog  mainHeader/>
-
+                    <LoginDialog mainHeader />
                     <NavLink to="/packages">تســـوق معنــا</NavLink>
                     <a href="#contactusinfos">حمل التطبيـــق من هنا</a>
                 </div>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="outline" className="bars-dropdown">
+                            <i className='fa-bars fa-solid text-white text-xl'></i>
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56 bg-[#016AB5] rounded-2xl" align="start">
+                        <DropdownMenuGroup>
+                            <DropdownMenuItem>
+                                <NavLink className="w-full text-white" to="/add-house">أضف سكنـك</NavLink>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <NavLink className="w-full text-white" to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>أضف بــاقتك</NavLink>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <NavLink className="w-full text-white" to="/packages">بـــاقات حــول العـالم</NavLink>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <NavLink className="w-full text-white" to="/packages">تســـوق معنــا</NavLink>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <a className="w-full text-white" href="#contactusinfos">حمل التطبيـــق من هنا</a>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <LoginDialog mainHeader />
+                            </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>
+                            <NavLink className="w-full text-white" to='/hotels'>فــنادق وشقــق</NavLink>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <NavLink className="w-full text-white" to='/packages'>باقــات حـول العالم</NavLink>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <NavLink className="w-full text-white" to='/privite-tours'>النقل و المــواصلات</NavLink>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <NavLink className="w-full text-white" to='/visa'>التــأشيــرات</NavLink>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <NavLink className="w-full text-white" to='/table'>جدولك علينا</NavLink>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <NavLink className="w-full text-white" to='/w'>المدونـة</NavLink>
+                        </DropdownMenuItem>
+
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
             <div className="container lower-nav-cont">
                 <div className="main-links">
