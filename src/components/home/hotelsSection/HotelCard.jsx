@@ -46,7 +46,7 @@ const HotelCard = ({ hotel }) => {
         </div >
       </CardContent>
       <CardFooter className="p-0">
-        <Link to="/" className="size-12 bg-main-navy   !text-white hover:bg-main-purple transition-all duration-300  flex items-center justify-center rounded-full">
+        <Link to={`/hotel?id=${hotel?.id}`} className="size-12 bg-main-navy   !text-white hover:bg-main-purple transition-all duration-300  flex items-center justify-center rounded-full">
           <GoArrowUpLeft size={20} />
         </Link>
       </CardFooter>

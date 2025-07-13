@@ -33,6 +33,7 @@ const PrivteTours = () => {
     return `${year}-${month}-${day}`;
   };
 
+
   // update filters
   const updateFilters = (values) => {
     const params = new URLSearchParams();
@@ -67,7 +68,9 @@ const PrivteTours = () => {
   useEffect(() => {
     fetchTours();
   }, [searchParams]);
-
+  const resetFilters = () => {
+    setSearchParams({});
+  };
   return (
     <>
     <Header/>
@@ -76,7 +79,7 @@ const PrivteTours = () => {
       <div className="mb-8">
       <Breadcrumbs items={[{ label: "الرئيسية", href: "/" }, { label: "النقل و الجولات", href: "/transport" }, { label: "جولات خـــاصة", href: "/privte-tours" }]} />
       </div>
-      <FilterPanel defaultValues={filters} onFilter={updateFilters} />
+      <FilterPanel defaultValues={filters} onFilter={updateFilters} onReset={resetFilters} />
       <FilterGrid tours={tours} loading={loading} />
       </main>
       <Footer/>

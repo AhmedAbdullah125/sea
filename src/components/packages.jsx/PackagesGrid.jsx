@@ -11,6 +11,25 @@ import hotel8 from '../../assets/hotels/8.png'
 const PackagesGrid = () => {
 
     const hotels = [hotel1, hotel2, hotel3, hotel4, hotel5, hotel6, hotel7, hotel8]
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setLoading(true);
+        const getData = async () => {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/settings`, {});
+                setData(response.data.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error retrieving data:', error);
+                setLoading(false);
+                throw new Error('Could not get data');
+            }
+        };
+        getData();
+    }, [])
+    console.log(data);
+    
     return (
         <section className="content-section">
             <div className="grid-cont">
@@ -41,7 +60,7 @@ const PackagesGrid = () => {
                                     <span className="period"><span>/</span> للشخص الواحد</span>
                                 </div>
                                 <div className="item-btn">
-                                    <a href="#" className="book-ancor">إحجـــز رحلتك الان</a>
+                                    <a href={`https://wa.me/${data.whatsapp}?text= مناقشتكم لإضافه لحجز الباقه `} className="book-ancor">إحجـــز رحلتك الان</a>
                                     <a href="#" className="book-flight"
                                     ><img src={plane} alt="icon"
                                         /></a>

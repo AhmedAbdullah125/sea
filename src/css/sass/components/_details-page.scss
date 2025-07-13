@@ -714,8 +714,8 @@
 }
 
 .filter-btn {
-  position: absolute;
-  top: 80px;
+  position: fixed;
+  top: 400px;
   left: 50%;
   transform: translateX(-50%);
   font-weight: 700;

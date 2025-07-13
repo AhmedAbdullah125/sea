@@ -5,7 +5,6 @@ import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
 import { useSearchParams } from 'react-router-dom';
 import FilterPanel from '../components/hotels/FilterPanel';
-import HotelsGrid from '../components/hotels/HotelsGrid';
 import PackagesGrid from '../components/packages.jsx/PackagesGrid';
 const Hotels = () => {
     // state for search params

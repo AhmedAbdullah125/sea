@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import img1 from '../../assets/related.png'
+
 import { useRef } from "react";
 import { Link } from 'react-router-dom';
 const ActivitiesTable = ({ title, description, data }) => {
@@ -102,9 +102,9 @@ const ActivitiesTable = ({ title, description, data }) => {
                                                     <span>{item.startDate}</span>
                                                     <span>{item.endDate}</span>
                                                 </div>
-                                               
+
                                             </div>
-                                            
+
                                         </div>
                                         <div className="related-into">
                                             <div className="item-location">
@@ -129,9 +129,7 @@ const ActivitiesTable = ({ title, description, data }) => {
                     </Swiper>
 
                 </div>
-                <button className="filter-btn">
-                    تصفيــة وترتيــب<i className="fa-solid fa-arrow-down-arrow-up"></i>
-                </button>
+                
             </div>
         </section>
     )

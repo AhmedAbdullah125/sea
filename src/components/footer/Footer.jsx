@@ -79,9 +79,9 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="lowerfooter">
-                    <Link to="#">الشروط و الأحكام</Link>
+                    <Link to="/terms">الشروط و الأحكام</Link>
                     <p >جميع الحقوق محفوظة لشركة ســـي - SEA</p>
-                    <Link to="#">سياسة الشركة</Link>
+                    <Link to="/privacy">سياسة الشركة</Link>
                 </div>
             </div>
         </footer>
