@@ -81,10 +81,6 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
     };
     getData();
   }, []);
-  console.log(filters);
-  console.log(data);
-  
-
   useEffect(() => {
     setLoading(true);
     const getData = async () => {
@@ -100,7 +96,6 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
     };
     getData();
   }, [seletedCountry, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer]);
-  console.log(formatDate(selectedDate));
   const form = useForm({
     resolver: zodResolver(filterSchema),
     defaultValues: {
@@ -344,7 +339,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                     <FormItem className="xl:col-span-2 col-span-12">
                       <Select dir="rtl"
                         defaultValue={values.type}
-                        onValueChange={(val) => setValue("rating", val)} >
+                        onValueChange={(val) => setSelectedRate( val)} >
                         <FormControl>
                           <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
                             <ChevronDown size={14} />

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
 const HotelPayment = ({ data }) => {
-    console.log(data);
-
     return (
         <section className='hotel-payment-section'>
             <div className="price-discount">

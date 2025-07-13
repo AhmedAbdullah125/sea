@@ -53,9 +53,7 @@ const PrivteTours = () => {
       const hasFilters = Object.values(filters).some((val) => val);
       const endpoint = hasFilters ? "/transportation-tours-filter" : "/transportation-tours";
     if (!hasFilters) {
-      const res = await fetchFromApi(endpoint);
-      console.log(res.data);
-      
+      const res = await fetchFromApi(endpoint);      
       if(res.status === 200) setTours(res?.data);
       setLoading(false);
     }

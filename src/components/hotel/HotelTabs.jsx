@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import parse from 'html-react-parser';
-import EventRateForm from '../event/EventRateForm';
+import HotelRateForm from './HotelRateForm';
 
 const HotelTabs = ({ data }) => {
     const [activeTab, setActiveTab] = useState(0);
     const latitude = data.latitude
     const longitude = data.longitude;
+    const [comment, setComment] = useState("");
+    const [rate, setRate] = useState(null);
     const formatter = new Intl.DateTimeFormat('ar-EG', {
         weekday: 'long',
         day: 'numeric',
         month: 'long'
-    });
+    });    
     return (
         <section className='hotel-tabs-section'>
             <div className="controllers">
@@ -60,7 +62,7 @@ const HotelTabs = ({ data }) => {
                                 ))
                             }
                         </div>
-                        <EventRateForm />
+                        <HotelRateForm comment={comment} rate={rate} setComment={setComment} data={data} setRate={setRate} />
                     </>
                 }
                 {

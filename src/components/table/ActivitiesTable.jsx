@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 const ActivitiesTable = ({ title, description, data }) => {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
-    console.log(data);
     return (
         <section className="related-section">
             <div className="container">

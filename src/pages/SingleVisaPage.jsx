@@ -22,8 +22,6 @@ const SingleVisaPage = () => {
     }
   })
   const visa = data?.data?.data
-  console.log(data?.data?.data);
-
   if (isLoading) return <Loading />
   if (isError) return <p>Error</p>
   return (

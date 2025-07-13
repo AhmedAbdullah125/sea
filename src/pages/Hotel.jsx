@@ -30,7 +30,6 @@ const Hotel = () => {
         };
         getData();
     }, []);
-    console.log(data);
     return (
         <section>
             <Header />

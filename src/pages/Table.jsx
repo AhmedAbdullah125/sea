@@ -39,7 +39,6 @@ const Table = () => {
     };
     getData();
   }, []);
-  console.log(activities);
 
   return (
     <section>
