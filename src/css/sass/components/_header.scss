@@ -1,3 +1,10 @@
+.bars-dropdown{
+    display: none;
+
+    @media screen and (max-width: 1025px) {
+        display: block;
+    }
+}
 .main-header-cont {
     width: 100%;
     display: flex;
@@ -22,13 +29,6 @@
 
         @include max-767 {
             gap: 5px;
-        }
-        .bars-dropdown{
-            display: none;
-
-            @media screen and (max-width: 1025px) {
-                display: block;
-            }
         }
 
         .r-links,
@@ -189,6 +189,10 @@
             align-items: center;
             gap: 18px;
             height: 48px;
+            @media screen and (max-width: 1025px) {
+                display: none;
+                
+            }
 
             @include max-1300 {
                 order: 3;
