@@ -29,7 +29,6 @@ const MainHeader = () => {
         };
         getData();
     }, [])
-    console.log(data);
     return (
         <section className='main-header-cont'>
             <div className="container upper-nav-cont">
