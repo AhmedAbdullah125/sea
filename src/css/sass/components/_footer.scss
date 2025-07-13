@@ -1,6 +1,6 @@
 footer {
     .upperfooter {
-        padding: 127px 0 65px;
+        padding: 37px 0 25px;
         display: flex;
         gap: 150px;
 
@@ -142,7 +142,7 @@ footer {
                 .links {
                     display: flex;
                     flex-direction: column;
-                    gap: 40px;
+                    gap: 20px;
                     @include tr;
 
                     @include max-991 {
@@ -178,7 +178,7 @@ footer {
     }
 
     .lowerfooter {
-        padding: 65px 0;
+        padding: 25px 0;
         display: flex;
         justify-content: space-between;
         align-items: center;

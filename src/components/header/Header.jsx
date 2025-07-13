@@ -1,13 +1,22 @@
-import React from 'react'
+import React , { useState, useEffect } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../../../public/home/footerLogo.svg'
 import profile from '../../../public/home/profile.svg'
 import LoginDialog from '../login/LoginDialog'
 const Header = () => {
-    
+    const [isFixed, setIsFixed] = useState(false);
+
+    useEffect(() => {
+      const handleScroll = () => {
+        setIsFixed(window.scrollY > 100);
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
     return (
-        <section className='header-cont'>
+        <section className={`header-cont ${isFixed ? 'fixed-navbar' : ''}`}>
             <div className="container nav-cont">
                 <div className="logo">
                     <Link to="/">
