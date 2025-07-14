@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import plane from '../../assets/housing/plane-icon.svg'
-import hotel1 from '../../assets/hotels/1.png'
-import hotel2 from '../../assets/hotels/2.png'
-import hotel3 from '../../assets/hotels/3.png'
-import hotel4 from '../../assets/hotels/4.png'
-import hotel5 from '../../assets/hotels/5.png'
-import hotel6 from '../../assets/hotels/6.png'
-import hotel7 from '../../assets/hotels/7.png'
-import hotel8 from '../../assets/hotels/8.png'
+import { toast } from 'sonner';
 const PackagesGrid = ({ mainData }) => {
     console.log(mainData);
-    
-    const hotels = [hotel1, hotel2, hotel3, hotel4, hotel5, hotel6, hotel7, hotel8]
     const [data, setData] = useState([])
+    const [lovedPlans, setLovedPlans] = useState(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : [])
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem('lovedPlans')) {
+                setLovedPlans(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : []);
+            }
+            else {
+                localStorage.setItem('lovedPlans', []);
+            }
+        }
+    }, [data])
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         setLoading(true);
@@ -33,13 +35,13 @@ const PackagesGrid = ({ mainData }) => {
     function formatArabicDate(dateStr) {
         const date = new Date(dateStr);
         const formatter = new Intl.DateTimeFormat('ar-EG', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
         });
         return formatter.format(date);
-      }
-    
+    }
+
     return (
         <section className="content-section">
             <div className="grid-cont">
@@ -51,8 +53,21 @@ const PackagesGrid = ({ mainData }) => {
                                 <figure>
                                     <img src={item.thumbnail} alt="img" />
                                 </figure>
-                                <button className="fav-btn">
-                                    <i className="fa-regular fa-heart"></i>
+                                <button className="fav-btn" onClick={() => {
+                                    if (lovedPlans.includes(item.id)) {
+                                        setLovedPlans(lovedPlans.filter(id => id !== item.id))
+                                        localStorage.setItem('lovedPlans', JSON.stringify(lovedPlans.filter(id => id !== item.id)))
+                                        toast.success('تم حذف الوحدة من المفضلة')
+                                    }
+                                    else {
+                                        setLovedPlans([...lovedPlans, item.id])
+                                        localStorage.setItem('lovedPlans', JSON.stringify([...lovedPlans, item.id]))
+                                        toast.success('تم اضافة الوحدة الي المفضلة')
+                                    }
+                                        
+                                }}
+                                >
+                                    <i className={` fa-heart ${lovedPlans.includes(item.id) ? 'fa-solid text-[#a71755]' : 'fa-regular'}`}></i>
                                 </button>
                             </div>
                             <a href={`package?id=${item.id}`} className="card-content">
@@ -66,15 +81,13 @@ const PackagesGrid = ({ mainData }) => {
                                 <div className="card-item-name">{item.title}</div>
                                 <div className="card-place">سارية في {formatArabicDate(item.arrivalTime)}</div>
                                 <div className="item-price">
-                                     {item.cost}
+                                    {item.cost}
                                     <span className='icon-saudi_riyal'></span>
                                     <span className="period"><span>/</span> للشخص الواحد</span>
                                 </div>
                                 <div className="item-btn">
-                                    <a href={`https://wa.me/${data.whatsapp}?text= مناقشتكم لإضافه لحجز الباقه `} className="book-ancor">إحجـــز رحلتك الان</a>
-                                    <a href="#" className="book-flight"
-                                    ><img src={plane} alt="icon"
-                                        /></a>
+                                    <a href={`https://wa.me/${data.whatsapp}?text= مناقشتكم لإضافه لحجز الباقة ${item.title} `} className="book-ancor">إحجـــز رحلتك الان</a>
+                                    <a href={`https://wa.me/${data.whatsapp}?text= مناقشتكم لإضافه لحجز الباقة ${item.title} `} className="book-flight"><img src={plane} alt="icon" /></a>
                                 </div>
                             </a>
                         </div>

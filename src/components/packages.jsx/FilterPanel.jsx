@@ -298,7 +298,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                           {Array.from({ length: 50 }, (_, index) => index + 1).map((option) => (
 
                             option ?
-                              <SelectItem key={option} value={option * 100} className=" cursor-pointer focus:bg-body rounded-xl">
+                              <SelectItem key={option} value={String(option * 100)} className=" cursor-pointer focus:bg-body rounded-xl">
                                 {option * 100}
                               </SelectItem> : null
 
