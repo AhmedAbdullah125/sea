@@ -46,7 +46,7 @@ const HotelsSection = () => {
           </div>
           <div className="max-xl:container xl:ps-20 2xl:ps-24">
 
-            <CarouselContent dir="ltr" >
+            <CarouselContent  >
               {data?.data?.data?.map((hotel, index) => (
                 <CarouselItem key={index} className="md:basis-1/3 xl:basis-1/6 ">
                   <HotelCard hotel={hotel} />

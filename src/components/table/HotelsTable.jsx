@@ -132,9 +132,6 @@ const HotelsTable = ({ title, description, data }) => {
                     </Swiper>
 
                 </div>
-                <button className="filter-btn">
-                    تصفيــة وترتيــب<i className="fa-solid fa-arrow-down-arrow-up"></i>
-                </button>
             </div>
         </section>
     )

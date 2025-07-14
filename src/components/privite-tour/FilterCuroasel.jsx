@@ -17,10 +17,6 @@ const FilterCuroasel = ({ images }) => {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
-    console.log({ images });
-
-  }, [])
-  useEffect(() => {
     if (!api) {
       return
     }

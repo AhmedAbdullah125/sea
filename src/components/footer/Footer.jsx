@@ -31,12 +31,12 @@ const Footer = () => {
                                 <div className="dashh"></div>
                             </div>
                             <div className="links">
-                                <Link to="#">فنــــادق وشقق فندقية</Link>
-                                <Link to="#">بــاقات حول العالم</Link>
-                                <Link to="#">حجز النقل والمواصلات</Link>
-                                <Link to="#">الـــتأشيرات</Link>
+                                <Link to="/hotels">فنــــادق وشقق فندقية</Link>
+                                <Link to="/packages">بــاقات حول العالم</Link>
+                                <Link to="/transport">حجز النقل والمواصلات</Link>
+                                <Link to="/visa">الـــتأشيرات</Link>
                                 <Link to="/table">جدولك عليـــنا</Link>
-                                <Link to="#">أضف بــاقتك / سكنك</Link>
+                                <Link to="/add-house">أضف بــاقتك / سكنك</Link>
                             </div>
 
                         </div>
@@ -46,12 +46,12 @@ const Footer = () => {
                                 <div className="dashh"></div>
                             </div>
                             <div className="links">
-                                <Link to="#">بروفايل الشركة</Link>
+                                <Link to="/#about">بروفايل الشركة</Link>
                                 <Link to="#">أعمالنا</Link>
                                 <Link to="#">من نحــــن ؟</Link>
-                                <Link to="#">المدونة</Link>
+                                <Link to="blogs">المدونة</Link>
                                 <Link to="#">تســـوق معنــا</Link>
-                                <Link to="#">لماذا سي !</Link>
+                                <Link to="/#whySee">لماذا سي !</Link>
                             </div>
 
                         </div>
@@ -79,9 +79,9 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="lowerfooter">
-                    <Link to="#">الشروط و الأحكام</Link>
+                    <Link to="/terms">الشروط و الأحكام</Link>
                     <p >جميع الحقوق محفوظة لشركة ســـي - SEA</p>
-                    <Link to="#">سياسة الشركة</Link>
+                    <Link to="/privacy">سياسة الشركة</Link>
                 </div>
             </div>
         </footer>

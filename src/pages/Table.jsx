@@ -9,7 +9,18 @@ import { API_BASE_URL } from '../lib/apiConfig';
 import axios from 'axios';
 import ActivitiesTable from '../components/table/ActivitiesTable';
 import Loading from '../components/loading/Loading';
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
 
 
 const Table = () => {
@@ -39,7 +50,6 @@ const Table = () => {
     };
     getData();
   }, []);
-  console.log(activities);
 
   return (
     <section>
@@ -49,6 +59,27 @@ const Table = () => {
           <Loading />
           :
           <>
+          <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                        <button className="filter-btn">
+                            تصفيــة وترتيــب<i className="fa-solid fa-arrow-down-arrow-up"></i>
+                        </button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                This action cannot be undone. This will permanently delete your
+                                account and remove your data from our servers.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction>Continue</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+
             <BreadCrumb data={[{ title: "الرئيــسية", href: "/" }, { title: "جدول عليـــنا", href: "#" }, { title: "إسطنبــول", href: "#" }]} />
             <ActivitiesTable data={events} title="فعاليات الشهر الحالي." description={`يُقدم الموقع فعاليات الشهر الحالي ليستمتع المسافر بتجارب سياحية مميزة تشمل مهرجانات، جولات ثقافية، وعروض ترفيهية محلية حية.`} />
             <HotelsTable data={hotels} title="أشهــر فنــــادق تركيـــــا." description={`قدم الموقع قائمة "توب عشرة" لأفضل الأنشطة والفعاليات السياحية لتسهيل اختيار المسافر لأجمل التجارب في وجهته.`} />

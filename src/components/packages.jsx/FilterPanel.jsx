@@ -4,7 +4,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
-import { FaArrowsLeftRight } from "react-icons/fa6";
+import { LuBadgeDollarSign } from "react-icons/lu";
 import { ChevronDown } from "lucide-react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect, useState } from "react"
@@ -55,22 +55,26 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
   const [filters, setFilters] = useState([]);
   const [cities, setCities] = useState([])
   const [loading, setLoading] = useState(true);
+  const [continents, setContinents] = useState([])
   const [seletedCountry, setSelectedCountry] = useState(defaultValues.destination || '');
-  const [selectedFlat, setSelectedFlat] = useState(defaultValues.flat || '');
   const [selectedCity, setSelectedCity] = useState(defaultValues.city || '');
   const [seletedNeighborhood, setSelectedNeighborhood] = useState(defaultValues.neighborhood || '');
+  const [guests, setGuests] = useState(defaultValues.guest || '');
   const [seletedRate, setSelectedRate] = useState(defaultValues.rate || '');
   const [selectedOffer, setSelectedOffer] = useState(defaultValues.offer || '');
   const [selectedDate, setSelectedDate] = useState(defaultValues.start || '');
+  const [selectedContinents, setSelectedContinents] = useState(defaultValues.continent || '');
+  const [minPrice, setMinPrice] = useState(defaultValues.min_price || '');
+  const [maxPrice, setMaxPrice] = useState(defaultValues.max_price || '');
   useEffect(() => {
     setLoading(true);
     const getData = async () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/countries`, {});
-        const response2 = await axios.get(`${API_BASE_URL}/cities`, {});
+        const response2 = await axios.get(`${API_BASE_URL}/continents`, {});
         const response3 = await axios.get(`${API_BASE_URL}/all-filters`, {});
         setData(response.data.data);
-        setCities(response2.data.data);
+        setContinents(response2.data.data);
         setFilters(response3.data.data);
         setLoading(false);
       } catch (error) {
@@ -85,7 +89,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
     setLoading(true);
     const getData = async () => {
       try {
-        const response = await axios.post(`${API_BASE_URL}/filter-hotels?countery_id=${seletedCountry}&available_from=${formatDate(selectedDate)}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`, {});
+        const response = await axios.post(`${API_BASE_URL}/filter-plans?country=${seletedCountry}&continent=${selectedContinents}&arrival_time=${formatDate(selectedDate)}&number_of_person=${guests}&min_price=${minPrice}&max_price=${maxPrice}`, {});
         setMainData(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -95,7 +99,9 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
       }
     };
     getData();
-  }, [seletedCountry, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer]);
+  }, [seletedCountry, selectedContinents, selectedDate, guests, minPrice, maxPrice]);
+  console.log(seletedCountry);
+
   const form = useForm({
     resolver: zodResolver(filterSchema),
     defaultValues: {
@@ -112,6 +118,40 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
           <Form {...form}>
             <form className="space-y-4 mb-10">
               <div className="flex gap-4">
+                {/* end */}
+                <FormField
+                  className="w-full "
+                  control={form.control}
+                  name={"end"}
+                  render={() => (
+                    <FormItem className="xl:col-span-3 col-span-12 w-full ">
+                      <FormLabel className="flex items-center gap-1">
+                        <BsFillSendFill size={16} className="text-main-purple" />
+                        <p className="text-main-blue font-bold text-sm">
+                          إختــــــر القــــارة
+                        </p>
+                      </FormLabel>
+                      <Select dir="rtl"
+                        defaultValue={selectedCity}
+                        onValueChange={(val) => setSelectedContinents(val)} >
+                        <FormControl>
+                          <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                            <ChevronDown size={14} />
+                          </div>} className={`bg-body  text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
+                            <SelectValue placeholder={"إدخـــال نقطة الانطلاق من هنــا..."} className="text-[#797979]" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                          {continents.map((option) => (
+                            <SelectItem key={option.name} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
+                              {option.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormItem>
+                  )}
+                />
                 {/* start */}
                 <FormField
                   control={form.control}
@@ -146,40 +186,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                     </FormItem>
                   )}
                 />
-                {/* end */}
-                <FormField
-                  className="w-full "
-                  control={form.control}
-                  name={"end"}
-                  render={() => (
-                    <FormItem className="xl:col-span-3 col-span-12 w-full ">
-                      <FormLabel className="flex items-center gap-1">
-                        <BsFillSendFill size={16} className="text-main-purple" />
-                        <p className="text-main-blue font-bold text-sm">
-                          إختــــــر المديــنة
-                        </p>
-                      </FormLabel>
-                      <Select dir="rtl"
-                        defaultValue={selectedCity}
-                        onValueChange={(val) => setSelectedCity(val)} >
-                        <FormControl>
-                          <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
-                            <ChevronDown size={14} />
-                          </div>} className={`bg-body  text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
-                            <SelectValue placeholder={"إدخـــال نقطة الانطلاق من هنــا..."} className="text-[#797979]" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                          {cities.map((option) => (
-                            <SelectItem key={option.name} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
-                              {option.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormItem>
-                  )}
-                />
+
                 {/* number */}
                 {/* date */}
                 <FormField
@@ -241,7 +248,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                     <FormItem className="xl:col-span-2 col-span-12">
                       <Select dir="rtl"
                         defaultValue={values.lang}
-                        onValueChange={(val) => setSelectedFlat(val)} >
+                        onValueChange={(val) => setGuests(val)} >
                         <FormControl>
                           <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
                             <ChevronDown size={14} />
@@ -250,30 +257,31 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                             <SelectValue placeholder={
                               <div className=" text-white flex items-center gap-1">
                                 <IoLanguage size={16} />
-                                <p >شقة</p>
+                                <p >عدد الــــزوار</p>
                               </div>} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                          {filters?.flats?.map((option) => (
+                          {Array.from({ length: 50 }, (_, index) => index + 1).map((option) => (
                             <SelectItem key={option} value={option} className=" cursor-pointer focus:bg-body rounded-xl">
                               {option}
                             </SelectItem>
-                          ))}
+                          ))
+                          }
                         </SelectContent>
                       </Select>
                     </FormItem>
                   )}
                 />
-                {/* country */}
+                {/* min price */}
                 <FormField
                   control={form.control}
-                  name={"country"}
+                  name={"min_price"}
                   render={() => (
                     <FormItem className="xl:col-span-2 col-span-12">
                       <Select dir="rtl"
                         defaultValue={values.country}
-                        onValueChange={(val) => setSelectedNeighborhood(val)} >
+                        onValueChange={(val) => setMinPrice(val)} >
                         <FormControl>
                           <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
                             <ChevronDown size={14} />
@@ -281,16 +289,51 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                             className={`bg-main-navy  text-white text-xs font-semibold border-none  rounded-full h-12`}>
                             <SelectValue placeholder={
                               <div className=" text-white flex items-center gap-1">
-                                <FaArrowsLeftRight size={16} />
-                                <p >الحي</p>
+                                <LuBadgeDollarSign size={16} />
+                                <p >الاقل سعـــرا</p>
                               </div>} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                          {filters?.neighborhood?.map((option) => (
+                          {Array.from({ length: 50 }, (_, index) => index + 1).map((option) => (
+
                             option ?
-                              <SelectItem key={option} value={option} className=" cursor-pointer focus:bg-body rounded-xl">
-                                {option}
+                              <SelectItem key={option} value={String(option * 100)} className=" cursor-pointer focus:bg-body rounded-xl">
+                                {option * 100}
+                              </SelectItem> : null
+
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={"max_price"}
+                  render={() => (
+                    <FormItem className="xl:col-span-2 col-span-12">
+                      <Select dir="rtl"
+                        defaultValue={values.country}
+                        onValueChange={(val) => setMaxPrice(val)} >
+                        <FormControl>
+                          <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
+                            <ChevronDown size={14} />
+                          </div>}
+                            className={`bg-main-navy  text-white text-xs font-semibold border-none  rounded-full h-12`}>
+                            <SelectValue placeholder={
+                              <div className=" text-white flex items-center gap-1">
+                                <LuBadgeDollarSign size={16} />
+                                <p >الاعلي سعـــرا</p>
+                              </div>} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                          {Array.from({ length: 50 }, (_, index) => index + 1).map((option) => (
+
+                            option ?
+                              <SelectItem key={option} value={String(option * 100)} className=" cursor-pointer focus:bg-body rounded-xl">
+                                {option * 100}
                               </SelectItem> : null
 
                           ))}
@@ -332,37 +375,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                   )}
                 /> */}
                 {/* tating */}
-                <FormField
-                  control={form.control}
-                  name={"rating"}
-                  render={() => (
-                    <FormItem className="xl:col-span-2 col-span-12">
-                      <Select dir="rtl"
-                        defaultValue={values.type}
-                        onValueChange={(val) => setSelectedRate( val)} >
-                        <FormControl>
-                          <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
-                            <ChevronDown size={14} />
-                          </div>}
-                            className={`bg-main-navy  text-white text-xs font-semibold border-none  rounded-full h-12`}>
-                            <SelectValue placeholder={
-                              <div className=" text-white flex items-center gap-1">
-                                <MdStarRate size={16} />
-                                <p >التقييم</p>
-                              </div>} />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                          {filters?.rating?.map((option) => (
-                            <SelectItem key={option} value={option.toString()} className=" cursor-pointer focus:bg-body rounded-xl">
-                              {option}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormItem>
-                  )}
-                />
+
               </div>
 
             </form>

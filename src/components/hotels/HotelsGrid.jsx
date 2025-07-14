@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { toast } from 'sonner';
 const HotelsGrid = ({ mainData }) => {
+    const [lovedHotels, setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [])
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem('lovedHotels')) {
+                setLovedHotels(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : []);
+            }
+            else {
+                localStorage.setItem('lovedHotels', []);
+            }
+        }
+    }, [mainData])
     return (
         <div className="grid-cont">
             {
@@ -53,7 +65,20 @@ const HotelsGrid = ({ mainData }) => {
                             <div className="related-content">
                                 <div className="related-btn">
                                     <span>{Number(item.discount)}%</span>
-                                    <button><i className="fa-regular fa-heart"></i></button>
+                                    <button
+                                        onClick={() => {
+                                            if (lovedHotels.includes(item.id)) {
+                                                setLovedHotels(lovedHotels.filter(id => id !== item.id))
+                                                localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== item.id)))
+                                                toast.success('تم حذف الوحدة من المفضلة')
+                                            }
+                                            else {
+                                                setLovedHotels([...lovedHotels, item.id])
+                                                localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, item.id]))
+                                                toast.success('تم اضافة الوحدة الي المفضلة')
+                                            }
+                                        }}
+                                    ><i className={`fa-heart ${lovedHotels.includes(item.id) ? 'fa-solid text-[#A71755]' : 'fa-regular '}`}></i></button>
                                 </div>
                             </div>
                         </div>

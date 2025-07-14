@@ -1,50 +1,93 @@
 import React, { useState, useEffect } from 'react'
 import plane from '../../assets/housing/plane-icon.svg'
-import hotel1 from '../../assets/hotels/1.png'
-import hotel2 from '../../assets/hotels/2.png'
-import hotel3 from '../../assets/hotels/3.png'
-import hotel4 from '../../assets/hotels/4.png'
-import hotel5 from '../../assets/hotels/5.png'
-import hotel6 from '../../assets/hotels/6.png'
-import hotel7 from '../../assets/hotels/7.png'
-import hotel8 from '../../assets/hotels/8.png'
-const PackagesGrid = () => {
+import { toast } from 'sonner';
+const PackagesGrid = ({ mainData }) => {
+    console.log(mainData);
+    const [data, setData] = useState([])
+    const [lovedPlans, setLovedPlans] = useState(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : [])
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem('lovedPlans')) {
+                setLovedPlans(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : []);
+            }
+            else {
+                localStorage.setItem('lovedPlans', []);
+            }
+        }
+    }, [data])
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setLoading(true);
+        const getData = async () => {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/settings`, {});
+                setData(response.data.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error retrieving data:', error);
+                setLoading(false);
+                throw new Error('Could not get data');
+            }
+        };
+        getData();
+    }, [])
+    console.log(data);
+    function formatArabicDate(dateStr) {
+        const date = new Date(dateStr);
+        const formatter = new Intl.DateTimeFormat('ar-EG', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+        });
+        return formatter.format(date);
+    }
 
-    const hotels = [hotel1, hotel2, hotel3, hotel4, hotel5, hotel6, hotel7, hotel8]
     return (
         <section className="content-section">
             <div className="grid-cont">
 
                 {
-                    hotels.map((item, index) => (
+                    mainData.map((item, index) => (
                         <div className="trip-item" key={index}>
                             <div className="trip-img">
                                 <figure>
-                                    <img src={item} alt="img" />
+                                    <img src={item.thumbnail} alt="img" />
                                 </figure>
-                                <button className="fav-btn">
-                                    <i className="fa-regular fa-heart"></i>
+                                <button className="fav-btn" onClick={() => {
+                                    if (lovedPlans.includes(item.id)) {
+                                        setLovedPlans(lovedPlans.filter(id => id !== item.id))
+                                        localStorage.setItem('lovedPlans', JSON.stringify(lovedPlans.filter(id => id !== item.id)))
+                                        toast.success('تم حذف الوحدة من المفضلة')
+                                    }
+                                    else {
+                                        setLovedPlans([...lovedPlans, item.id])
+                                        localStorage.setItem('lovedPlans', JSON.stringify([...lovedPlans, item.id]))
+                                        toast.success('تم اضافة الوحدة الي المفضلة')
+                                    }
+                                        
+                                }}
+                                >
+                                    <i className={` fa-heart ${lovedPlans.includes(item.id) ? 'fa-solid text-[#a71755]' : 'fa-regular'}`}></i>
                                 </button>
                             </div>
-                            <a href={`package?id=${index + 1}`} className="card-content">
+                            <a href={`package?slug=${item.slug}`} className="card-content">
                                 <div className="detail-flex">
-                                    <div className="detail-period">جولة لمدة 06 أيــــام</div>
+                                    <div className="detail-period">جولة لمدة {item.durationDays} أيــــام</div>
                                     <div className="detail-info-item rate">
                                         <i className="fa-solid fa-star"></i>
-                                        <span>5.0 <span>( 500+ )</span></span>
+                                        <span>{Number(item.rating).toFixed(1)} <span>( {item.reviewsCount} )</span></span>
                                     </div>
                                 </div>
-                                <div className="card-item-name">مدريــــــد - برشلـــونة</div>
-                                <div className="card-place">سارية في 22 نوفمبر 2025</div>
+                                <div className="card-item-name">{item.title}</div>
+                                <div className="card-place">سارية في {formatArabicDate(item.arrivalTime)}</div>
                                 <div className="item-price">
-                                    EUR 999
+                                    {item.cost}
+                                    <span className='icon-saudi_riyal'></span>
                                     <span className="period"><span>/</span> للشخص الواحد</span>
                                 </div>
                                 <div className="item-btn">
-                                    <a href="#" className="book-ancor">إحجـــز رحلتك الان</a>
-                                    <a href="#" className="book-flight"
-                                    ><img src={plane} alt="icon"
-                                        /></a>
+                                    <a href={`https://wa.me/${data.whatsapp}?text= مناقشتكم لإضافه لحجز الباقة ${item.title} `} className="book-ancor">إحجـــز رحلتك الان</a>
+                                    <a href={`https://wa.me/${data.whatsapp}?text= مناقشتكم لإضافه لحجز الباقة ${item.title} `} className="book-flight"><img src={plane} alt="icon" /></a>
                                 </div>
                             </a>
                         </div>

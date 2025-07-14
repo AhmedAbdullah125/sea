@@ -790,6 +790,12 @@
 
       }
     }
+
+    .map-cont {
+      border-radius: 40px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
   }
 
   .payment {
@@ -797,6 +803,79 @@
 
     @media screen and (max-width: 1025px) {
       width: 100%;
+    }
+  }
+}
+
+.hotel-payment-section {
+  border-radius: 40px;
+  background-color: #F5F5F5;
+  padding: 40px;
+
+  @media screen and (max-width: 767px) {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .price-discount {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .r-side {
+      min-height: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+
+      .price-details {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .old-price {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 100%;
+        text-decoration: line-through;
+        color: #808080;
+      }
+
+      .new-price {
+        color: $hover;
+        font-weight: 600;
+        font-size: 18px;
+      }
+
+      .rs-t {
+        color: $sec;
+        font-weight: 800;
+        font-size: 14px;
+
+      }
+      .total-price{
+        color: #797979;
+        font-weight: 500;
+        font-size: 12px;
+        margin-bottom: 0;
+
+      }
+    }
+    .l-side{
+      .discount{
+        background-color: $sec;
+        color: $white;
+        font-weight: 800;
+        font-size: 12px;
+        padding: 0 15px;
+        border-radius: 50px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
 }

@@ -17,6 +17,8 @@ const Hotel = () => {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         setLoading(true);
+        //scroll to the top of page 
+        window.scrollTo(0, 0);
         const getData = async () => {
             try {
                 const response = await axios.get(`${API_BASE_URL}/hotel/${id}`, {});
@@ -30,7 +32,6 @@ const Hotel = () => {
         };
         getData();
     }, []);
-    console.log(data);
     return (
         <section>
             <Header />
@@ -47,13 +48,12 @@ const Hotel = () => {
                                 <HotelTabs data={data} />
                             </div>
                             <div className="payment">
-                                <HotelPayment />
+                                <HotelPayment  data={data} />
                             </div>
                         </div>
                     </div>
                 )
             }
-
             {/* End Page Content */}
             <Footer />
         </section>

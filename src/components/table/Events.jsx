@@ -13,8 +13,6 @@ const Events = ({ data }) => {
         });
         setCats(arr);
     }, [data]);
-    console.log(cats);
-    console.log(seletedCat);
     
     return (
         <section className="places-section">

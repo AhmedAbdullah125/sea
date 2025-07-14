@@ -37,9 +37,6 @@ const Event = () => {
         };
         getData();
     }, []);
-    console.log(data);
-
-
     return (
         <section>
             <Header />
