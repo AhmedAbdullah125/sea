@@ -70,7 +70,7 @@ const PackagesGrid = ({ mainData }) => {
                                     <i className={` fa-heart ${lovedPlans.includes(item.id) ? 'fa-solid text-[#a71755]' : 'fa-regular'}`}></i>
                                 </button>
                             </div>
-                            <a href={`package?id=${item.id}`} className="card-content">
+                            <a href={`package?slug=${item.slug}`} className="card-content">
                                 <div className="detail-flex">
                                     <div className="detail-period">جولة لمدة {item.durationDays} أيــــام</div>
                                     <div className="detail-info-item rate">
