@@ -26,6 +26,8 @@ import SingleTourPage from './pages/SingleTourPage';
 import AddHouse from './pages/AddHouse';
 import Packages from './pages/Packages';
 import Package from './pages/Package';
+import Profile from './pages/Profile';
+import AccountLayout from './pages/AccountLayout';
 
 export const AppContext = createContext();
 function App() {
@@ -47,6 +49,14 @@ function App() {
 			{ path: "/add-house", element: <AddHouse></AddHouse> },
 			{ path: "/packages", element: <Packages></Packages> },
 			{ path: "/package", element: <Package></Package> },
+			{
+				path: "account", element: <AccountLayout />,
+				children: [
+					{ path: "profile", element: <Profile /> },
+					// { path: "orders", element: <Orders /> },
+					// { path: "logout", element: <Logout /> }
+				]
+			}
 
 			// { path: '/login', element: <Login></Login> },			
 		]
@@ -55,10 +65,10 @@ function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<UserContextProvider>
-			<div>
-				<Toaster richColors closeButton position='top-center' dir='rtl'/>
-				<RouterProvider router={routes}></RouterProvider>
-			</div>
+				<div>
+					<Toaster richColors closeButton position='top-center' dir='rtl' />
+					<RouterProvider router={routes}></RouterProvider>
+				</div>
 			</UserContextProvider>
 			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>

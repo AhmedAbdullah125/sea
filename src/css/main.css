@@ -3221,4 +3221,37 @@ footer .lowerfooter {
     stroke-width: 20;
     stroke-dashoffset: -440;
   }
+}
+.accout-aside {
+  width: 230px;
+}
+.accout-aside ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.accout-aside ul a {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 18px 20px;
+  background-color: #F5F5F5;
+  border-radius: 30px;
+  color: var(--main-color);
+  transition: all 0.3s ease-in-out;
+}
+.accout-aside ul a:hover {
+  background-color: var(--main-hover);
+  color: var(--white-color);
+}
+.accout-aside ul .active {
+  background-color: var(--main-hover);
+  color: var(--white-color);
+}
+
+.layout-cont {
+  display: flex;
+  gap: 25px;
 }/*# sourceMappingURL=main.css.map */

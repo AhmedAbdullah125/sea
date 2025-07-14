@@ -1,0 +1,33 @@
+.accout-aside{
+    width: 230px;
+    ul{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        a{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 18px 20px;
+            background-color: #F5F5F5;
+            border-radius: 30px;
+            color: $main;
+            transition: all 0.3s ease-in-out;
+            &:hover{
+                background-color: $hover;
+                color: $white;
+            }
+        }
+        .active{
+            background-color: $hover;
+            color: $white;
+        }
+    }
+
+}
+.layout-cont{
+    display: flex;
+    gap: 25px;
+}
