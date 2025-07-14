@@ -4,8 +4,8 @@ import { API_BASE_URL } from '../lib/apiConfig';
 import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
 import { useSearchParams } from 'react-router-dom';
-import FilterPanel from '../components/hotels/FilterPanel';
 import PackagesGrid from '../components/packages.jsx/PackagesGrid';
+import FilterPanel from '../components/packages.jsx/FilterPanel';
 const Hotels = () => {
     // state for search params
     const [searchParams, setSearchParams] = useSearchParams();

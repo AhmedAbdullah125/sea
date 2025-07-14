@@ -8,8 +8,9 @@ import hotel5 from '../../assets/hotels/5.png'
 import hotel6 from '../../assets/hotels/6.png'
 import hotel7 from '../../assets/hotels/7.png'
 import hotel8 from '../../assets/hotels/8.png'
-const PackagesGrid = () => {
-
+const PackagesGrid = ({ mainData }) => {
+    console.log(mainData);
+    
     const hotels = [hotel1, hotel2, hotel3, hotel4, hotel5, hotel6, hotel7, hotel8]
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true);
@@ -29,34 +30,44 @@ const PackagesGrid = () => {
         getData();
     }, [])
     console.log(data);
+    function formatArabicDate(dateStr) {
+        const date = new Date(dateStr);
+        const formatter = new Intl.DateTimeFormat('ar-EG', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        });
+        return formatter.format(date);
+      }
     
     return (
         <section className="content-section">
             <div className="grid-cont">
 
                 {
-                    hotels.map((item, index) => (
+                    mainData.map((item, index) => (
                         <div className="trip-item" key={index}>
                             <div className="trip-img">
                                 <figure>
-                                    <img src={item} alt="img" />
+                                    <img src={item.thumbnail} alt="img" />
                                 </figure>
                                 <button className="fav-btn">
                                     <i className="fa-regular fa-heart"></i>
                                 </button>
                             </div>
-                            <a href={`package?id=${index + 1}`} className="card-content">
+                            <a href={`package?id=${item.id}`} className="card-content">
                                 <div className="detail-flex">
-                                    <div className="detail-period">جولة لمدة 06 أيــــام</div>
+                                    <div className="detail-period">جولة لمدة {item.durationDays} أيــــام</div>
                                     <div className="detail-info-item rate">
                                         <i className="fa-solid fa-star"></i>
-                                        <span>5.0 <span>( 500+ )</span></span>
+                                        <span>{Number(item.rating).toFixed(1)} <span>( {item.reviewsCount} )</span></span>
                                     </div>
                                 </div>
-                                <div className="card-item-name">مدريــــــد - برشلـــونة</div>
-                                <div className="card-place">سارية في 22 نوفمبر 2025</div>
+                                <div className="card-item-name">{item.title}</div>
+                                <div className="card-place">سارية في {formatArabicDate(item.arrivalTime)}</div>
                                 <div className="item-price">
-                                    EUR 999
+                                     {item.cost}
+                                    <span className='icon-saudi_riyal'></span>
                                     <span className="period"><span>/</span> للشخص الواحد</span>
                                 </div>
                                 <div className="item-btn">
