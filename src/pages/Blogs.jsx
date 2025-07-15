@@ -5,7 +5,7 @@ import BreadCrumb from '../components/global/BreadCrumb'
 import Newsletter from '../components/blogs/Newsletter'
 import BlogsSection from '../components/blogs/BlogsSection'
 
-const BlogsPage = () => {
+const Blogs = () => {
   return (
     <>
       <Header />
@@ -33,4 +33,4 @@ const BlogsPage = () => {
   )
 }
 
-export default BlogsPage
+export default Blogs
