@@ -4,7 +4,6 @@ import img2 from '../../assets/check.svg'
 import { userContext } from '../../context/UserContext';
 const HotelBook = ({ data }) => {
     const { token } = useContext(userContext);
-    console.log(token);
     
     return (
         <section className="content-section">

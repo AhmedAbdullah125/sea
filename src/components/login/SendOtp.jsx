@@ -1,17 +1,9 @@
 import { Button } from "@/components/ui/button"
-import {
-  Form
-} from "@/components/ui/form"
+import { Form } from "@/components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from "@/components/ui/form"
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import PhoneInput from 'react-phone-number-input'
 import { FaCommentSms } from "react-icons/fa6";
 import { toast } from "sonner"
@@ -22,10 +14,8 @@ import { postToApi } from "../../api/utils/postData"
 const formSchema = z.object({
   mobile: z.string().nonempty("هذا الحقل مطلوب"),
 })
-
-
 const SendOtp = ({ handleSendOtp }) => {
-  const [submitMethod, setSubmitMethod] = useState("whatsapp") 
+  const [submitMethod, setSubmitMethod] = useState("whatsapp")
   // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -41,7 +31,7 @@ const SendOtp = ({ handleSendOtp }) => {
       type_service: submitMethod
     }
     const res = await postToApi("/send-otp", final);
-    if(res.status === 200) {
+    if (res.status === 200) {
       toast.success("تم ارسال الكود بنجاح")
       handleSendOtp(values.mobile)
     } else {
@@ -69,7 +59,7 @@ const SendOtp = ({ handleSendOtp }) => {
               <FormItem className="col-span-12" dir="ltr">
                 <FormLabel className="block" dir="rtl" >
                   <p className="text-main-blue font-bold text-sm">
-                    رقم هاتفك الجوال 
+                    رقم هاتفك الجوال
                     <span className="text-red-500">*</span>
                   </p>
                 </FormLabel>
@@ -101,7 +91,7 @@ const SendOtp = ({ handleSendOtp }) => {
           <Button
             onClick={() => setSubmitMethod("sms")}
             type="submit" className="group h-12 px-6  bg-main-blue hover:bg-main-purple transtion-all duration-300 w-full text-xs font-bold   rounded-full flex items-center justify-between  hover:text-white  ">
-          إعادة إرسال بواسطة SMS 
+            إعادة إرسال بواسطة SMS
             <FaCommentSms size={20} className="text-white" />
           </Button>
         </div>
