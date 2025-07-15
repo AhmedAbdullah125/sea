@@ -14,6 +14,7 @@ import { parse } from "date-fns";
 const HotelCard = ({ hotel }) => {
   const originalPrice = parseFloat(hotel?.discount);
   const discountedPrice = parseFloat(hotel?.price);
+console.log(hotel);
 
   const discountPercentage = ((originalPrice - discountedPrice) / originalPrice) * 100;
   return (
@@ -22,7 +23,7 @@ const HotelCard = ({ hotel }) => {
         {/* img slider */}
         < div className="relative overflow-hidden   rounded-[40px]" >
           {/* sale */}
-          <div div className="absolute top-5 start-5 z-10 size-10 bg-main-purple  text-white text-xs font-semibold flex items-center justify-center rounded-[15px]" > {discountPercentage.toFixed(1)} %</div>
+          <div div className="absolute top-5 start-5 z-10 size-10 bg-main-purple  text-white text-xs font-semibold flex items-center justify-center rounded-[15px]" > {Number(hotel?.discount).toFixed(1)} %</div>
           {/* card image */}
           <HotelCardCarousel images={hotel?.images}  />
           {/* add to fav */}

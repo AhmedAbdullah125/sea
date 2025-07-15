@@ -147,10 +147,10 @@ const Step2 = ({ nextStep, transportId }) => {
                       <div className=" border size-14 rounded-full flex items-center justify-center">
                         <svg width="69" height="70" viewBox="0 0 69 70" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <rect y="0.5" width="69" height="69" rx="34.5" fill="black" />
-                          <path d="M31.5 34V40L33.5 38" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                          <path d="M31.5 40L29.5 38" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                          <path d="M44.5 33V38C44.5 43 42.5 45 37.5 45H31.5C26.5 45 24.5 43 24.5 38V32C24.5 27 26.5 25 31.5 25H36.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                          <path d="M44.5 33H40.5C37.5 33 36.5 32 36.5 29V25L44.5 33Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                          <path d="M31.5 34V40L33.5 38" stroke="white" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                          <path d="M31.5 40L29.5 38" stroke="white" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                          <path d="M44.5 33V38C44.5 43 42.5 45 37.5 45H31.5C26.5 45 24.5 43 24.5 38V32C24.5 27 26.5 25 31.5 25H36.5" stroke="white" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                          <path d="M44.5 33H40.5C37.5 33 36.5 32 36.5 29V25L44.5 33Z" stroke="white" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
 
                       </div>

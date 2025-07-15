@@ -139,10 +139,10 @@ const TableForm = () => {
         <Button type="submit" className=" col-span-12 bg-main-purple w-fit m-auto text-white  hover:bg-main-blue transition-all duration-300  rounded-full flex items-center gap-14">بحـــــث
           <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_22_399)">
-              <path d="M10.5 3.75H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M10.5 6H12.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M15.75 8.625C15.75 12.5625 12.5625 15.75 8.625 15.75C4.6875 15.75 1.5 12.5625 1.5 8.625C1.5 4.6875 4.6875 1.5 8.625 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M16.5 16.5L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M10.5 3.75H15" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M10.5 6H12.75" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M15.75 8.625C15.75 12.5625 12.5625 15.75 8.625 15.75C4.6875 15.75 1.5 12.5625 1.5 8.625C1.5 4.6875 4.6875 1.5 8.625 1.5" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M16.5 16.5L15 15" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
             </g>
             <defs>
               <clipPath id="clip0_22_399">
