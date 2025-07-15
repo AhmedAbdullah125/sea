@@ -37,7 +37,7 @@ const Header = () => {
                     <div className="noqta"></div>
                     <NavLink to='/privite-tours'>النقل و المــواصلات</NavLink>
                     <div className="noqta"></div>
-                    <NavLink to='/w'>المدونـة</NavLink>
+                    <NavLink to='/blogs'>المدونـة</NavLink>
                 </div>
                 <div className="account-cont">
                     <Link to="/profile" className='profile'><LazyLoadImage src={profile} alt="logo" loading='lazy' /></Link>
@@ -64,7 +64,7 @@ const Header = () => {
                                 <NavLink className="w-full text-white" to="/privite-tours">النقل و المــواصلات</NavLink>
                             </DropdownMenuItem>
                             <DropdownMenuItem>
-                                <NavLink className="w-full text-white" to="/w">المدونـة</NavLink>
+                                <NavLink className="w-full text-white" to="/blogs">المدونـة</NavLink>
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                     </DropdownMenuContent>

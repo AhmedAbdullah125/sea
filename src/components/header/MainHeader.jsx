@@ -92,7 +92,7 @@ const MainHeader = () => {
                             <NavLink className="w-full text-white" to='/table'>جدولك علينا</NavLink>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                            <NavLink className="w-full text-white" to='/w'>المدونـة</NavLink>
+                            <NavLink className="w-full text-white" to='/blogs'>المدونـة</NavLink>
                         </DropdownMenuItem>
 
                     </DropdownMenuContent>
@@ -112,7 +112,7 @@ const MainHeader = () => {
                     <div className="noqta"></div>
                     <NavLink to='/table'>جدولك علينا</NavLink>
                     <div className="noqta"></div>
-                    <NavLink to='/w'>المدونـة</NavLink>
+                    <NavLink to='/blogs'>المدونـة</NavLink>
                 </div>
             </div>
         </section>
