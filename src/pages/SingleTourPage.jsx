@@ -127,9 +127,9 @@ const SingleTourPage = () => {
               {data?.alerts?.length > 0 &&
                 <div className='grid grid-cols-12 gap-2'>
                   {data?.alerts?.map((item, index) => (
-                    <div key={index} className="col-span-12 xl:col-span-6 py-12 flex items-center justify-center  rounded-[40px] bg-body">
-                      <div className="flex flex-col justify-center items-center gap-6 ">
-                        <img src={item?.image} alt="alert" className="w-12 h-12" />
+                    <div key={index} className="col-span-12 xl:col-span-6 pb-12 flex items-center justify-center overflow-hidden rounded-[40px] bg-body">
+                      <div className="w-full">
+                        <img src={item?.image} alt="alert" className="w-full aspect-[3/1] object-cover mb-6" />
                         <p className="text-[10px] font-bold text-main-navy text-center">{item?.text}</p>
                       </div>
                     </div>

@@ -1,15 +1,9 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { GoArrowUpLeft } from "react-icons/go";
 import { TiStarFullOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import AddToFavBtn from "./AddToFavBtn";
 import HotelCardCarousel from "./HotelCardCarousel";
-import { parse } from "date-fns";
 
 const HotelCard = ({ hotel }) => {
   return (
@@ -20,7 +14,7 @@ const HotelCard = ({ hotel }) => {
           {/* sale */}
           <div div className="absolute top-5 start-5 z-10 size-10 bg-main-purple  text-white text-xs font-semibold flex items-center justify-center rounded-[15px]" > {Number(hotel?.discount).toFixed(1)} %</div>
           {/* card image */}
-          <HotelCardCarousel images={hotel?.images}  />
+          <HotelCardCarousel images={hotel?.images} />
           {/* add to fav */}
           < AddToFavBtn postion="absolute top-5 end-5 z-10" />
         </div >

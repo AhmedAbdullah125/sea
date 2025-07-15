@@ -1,13 +1,7 @@
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useNavigate } from 'react-router-dom';
 import { Textarea } from "@/components/ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useContext, useState } from "react"
@@ -31,7 +25,7 @@ const Step2 = ({ nextStep, transportId }) => {
   const { token } = useContext(userContext)
   // img preview
   const [picturePreview, setPicturePreview] = useState(null);
-
+  const navigate = useNavigate();
   // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -60,6 +54,8 @@ const Step2 = ({ nextStep, transportId }) => {
   async function onSubmit(values) {
     if (!token) {
       toast.error("يجب تسجيل الدخول اولا");
+      //redirect to /login
+      navigate('/login');
       return;
     }
 

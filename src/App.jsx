@@ -33,6 +33,7 @@ import Profile from './pages/Profile';
 import AccountLayout from './pages/AccountLayout';
 import Favourates from './pages/Favourates';
 import Reservations from './pages/Reservations';
+import Login from './pages/Login';
 
 
 export const AppContext = createContext();
@@ -55,7 +56,7 @@ function App() {
 			{ path: "/add-house", element: <AddHouse></AddHouse> },
 			{ path: "/packages", element: <Packages></Packages> },
 			{ path: "/package", element: <Package></Package> },
-
+			{ path: "/login", element: <Login></Login> },
 			{ path: "/blogs", element: <BlogsPage></BlogsPage> },
 			{ path: "/blogs/:slug", element: <SingleBlogPage></SingleBlogPage> },
 
