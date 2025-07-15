@@ -1,10 +1,12 @@
-.accout-aside{
+.accout-aside {
     width: 230px;
-    ul{
+
+    ul {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        a{
+
+        a {
             width: 100%;
             display: flex;
             align-items: center;
@@ -15,19 +17,100 @@
             border-radius: 30px;
             color: $main;
             transition: all 0.3s ease-in-out;
-            &:hover{
+
+            &:hover {
                 background-color: $hover;
                 color: $white;
             }
         }
-        .active{
+
+        .active {
             background-color: $hover;
             color: $white;
         }
     }
 
 }
-.layout-cont{
+
+.layout-cont {
     display: flex;
     gap: 25px;
+}
+
+.profile-form-ccont {
+    border-radius: 40px;
+    background-color: #F5F5F5;
+    padding: 40px;
+
+    @media screen and (max-width: 767px) {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    h3 {
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 20px;
+        color: $main;
+        margin-bottom: 15px;
+    }
+
+    p{
+        font-weight: 500;
+        font-size: 14px;
+        color: #0D1214;
+        margin-bottom: 35px;
+    }
+    .form-image{
+        display: flex;
+        gap: 25px;
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 23px;
+            @media screen and (max-width: 767px) {
+                display: flex;
+                flex-direction: column;
+            }
+            .form-btn-cont{
+                //2 spaces of grid
+                grid-column: span 2;
+                background-color: $black;
+                height: 58px;
+                padding: 0 20px;
+                display: flex;
+                align-items: center;
+                color: $white;
+                border-radius: 30px;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease-in-out;
+                &:hover{
+                    background-color: $hover;
+                }
+                @media screen and (max-width: 767px) {
+                    grid-column: span 1;
+                }
+            }
+            p{
+                font-weight: 800;
+                font-size: 12px;
+                margin-bottom: 20px;
+            }
+            input{
+                border:1px solid rgba(0, 0, 0, 0.1);
+                height: 58px;
+                border-radius: 30px;
+                background-color: $white;
+            }
+            .PhoneInputCountry{
+                border:1px solid rgba(0, 0, 0, 0.1);
+                background-color: $white;
+                width: 70px;
+                height: 58px;
+                flex-shrink: 0;
+            }
+        }
+    }
+
 }
