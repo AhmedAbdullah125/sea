@@ -2,6 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const BlogCard = ({ blog }) => {
+  const formatDateArabic = (isoDate) => {
+    if (!isoDate) return '';
+    const date = new Date(isoDate);
+    return date.toLocaleDateString('ar-EG-u-nu-latn', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  };
   return (
     <Link to={`/blogs/${blog?.slug}`} className='bg-body rounded-[40px] py-6 px-4 flex flex-col xl:flex-row items-center gap-4'>
       <div className='xl:w-[350px]  bg-white h-[190px] rounded-[60px] overflow-hidden'>
@@ -18,11 +27,11 @@ const BlogCard = ({ blog }) => {
             <p className='text-main-purple font-bold'>{blog?.authorName || "موقع sea"}</p>
           </div>
           {
-            blog?.timePublish ? <>
+            blog?.createdAt ? <>
               <div className='size-1 bg-[#D9D9D9] rounded-full'></div>
               <span >فــي نشــرة أهــا!</span>
               <div className='size-1 bg-[#D9D9D9] rounded-full'></div>
-              <span>{blog?.timePublish }</span>
+              <span>{formatDateArabic(blog?.createdAt)}</span>
             </>
               : null
           }
