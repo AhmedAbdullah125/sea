@@ -35,10 +35,10 @@ const logo = <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="
 const advantages = [
   {
     icon: <svg width="64" height="59" viewBox="0 0 64 59" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M27.1985 29.4999C34.5622 29.4999 40.5318 23.5304 40.5318 16.1666C40.5318 8.8028 34.5622 2.83325 27.1985 2.83325C19.8348 2.83325 13.8652 8.8028 13.8652 16.1666C13.8652 23.5304 19.8348 29.4999 27.1985 29.4999Z" stroke="#091B3C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M2.66699 56.1667C4.18801 50.9219 7.32819 46.2923 11.6387 42.9397C15.9492 39.5872 21.2093 37.6832 26.667 37.5C37.6537 37.5 47.0137 45.26 50.667 56.1667" stroke="#091B3C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M47.5216 9.34009C49.5528 10.3815 51.1965 12.0471 52.2109 14.0921C53.2253 16.137 53.557 18.4533 53.157 20.7008C52.757 22.9482 51.6466 25.0079 49.989 26.5775C48.3317 28.1469 46.2141 29.1431 43.9482 29.4199" stroke="#091B3C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M46.1875 36.3535C49.7448 37.2599 53.0078 39.0687 55.6611 41.6055C58.3147 44.1421 60.2686 47.3204 61.3342 50.8332" stroke="#091B3C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M27.1985 29.4999C34.5622 29.4999 40.5318 23.5304 40.5318 16.1666C40.5318 8.8028 34.5622 2.83325 27.1985 2.83325C19.8348 2.83325 13.8652 8.8028 13.8652 16.1666C13.8652 23.5304 19.8348 29.4999 27.1985 29.4999Z" stroke="#091B3C" strokeWidth="4" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M2.66699 56.1667C4.18801 50.9219 7.32819 46.2923 11.6387 42.9397C15.9492 39.5872 21.2093 37.6832 26.667 37.5C37.6537 37.5 47.0137 45.26 50.667 56.1667" stroke="#091B3C" strokeWidth="4" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M47.5216 9.34009C49.5528 10.3815 51.1965 12.0471 52.2109 14.0921C53.2253 16.137 53.557 18.4533 53.157 20.7008C52.757 22.9482 51.6466 25.0079 49.989 26.5775C48.3317 28.1469 46.2141 29.1431 43.9482 29.4199" stroke="#091B3C" strokeWidth="4" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M46.1875 36.3535C49.7448 37.2599 53.0078 39.0687 55.6611 41.6055C58.3147 44.1421 60.2686 47.3204 61.3342 50.8332" stroke="#091B3C" strokeWidth="4" stroke-linecap="round" stroke-linejoin="round" />
     </svg>,
     title: "04 أشخــــاص",
   },
@@ -127,9 +127,9 @@ const SingleTourPage = () => {
               {data?.alerts?.length > 0 &&
                 <div className='grid grid-cols-12 gap-2'>
                   {data?.alerts?.map((item, index) => (
-                    <div key={index} className="col-span-12 xl:col-span-6 py-12 flex items-center justify-center  rounded-[40px] bg-body">
-                      <div className="flex flex-col justify-center items-center gap-6 ">
-                        <img src={item?.image} alt="alert" className="w-12 h-12" />
+                    <div key={index} className="col-span-12 xl:col-span-6 pb-12 flex items-center justify-center overflow-hidden rounded-[40px] bg-body">
+                      <div className="w-full">
+                        <img src={item?.image} alt="alert" className="w-full aspect-[3/1] object-cover mb-6" />
                         <p className="text-[10px] font-bold text-main-navy text-center">{item?.text}</p>
                       </div>
                     </div>
@@ -158,7 +158,7 @@ const SingleTourPage = () => {
           </div>
           {/* form  */}
           <div className='col-span-12 xl:col-span-5 space-y-4'>
-            <PriceForm tourId={data?.id}  price={data?.totalServicePrice} discount={data?.discount} />
+            <PriceForm tourId={data?.id}  price={data?.totalServicePrice} discount={data?.discount} tour={data} />
           </div>
         </div>
 

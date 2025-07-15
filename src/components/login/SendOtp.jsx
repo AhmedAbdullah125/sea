@@ -1,17 +1,9 @@
 import { Button } from "@/components/ui/button"
-import {
-  Form
-} from "@/components/ui/form"
+import { Form } from "@/components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from "@/components/ui/form"
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import PhoneInput from 'react-phone-number-input'
 import { FaCommentSms } from "react-icons/fa6";
 import { toast } from "sonner"
@@ -22,10 +14,8 @@ import { postToApi } from "../../api/utils/postData"
 const formSchema = z.object({
   mobile: z.string().nonempty("هذا الحقل مطلوب"),
 })
-
-
 const SendOtp = ({ handleSendOtp }) => {
-  const [submitMethod, setSubmitMethod] = useState("whatsapp") 
+  const [submitMethod, setSubmitMethod] = useState("whatsapp")
   // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -41,7 +31,7 @@ const SendOtp = ({ handleSendOtp }) => {
       type_service: submitMethod
     }
     const res = await postToApi("/send-otp", final);
-    if(res.status === 200) {
+    if (res.status === 200) {
       toast.success("تم ارسال الكود بنجاح")
       handleSendOtp(values.mobile)
     } else {
@@ -69,7 +59,7 @@ const SendOtp = ({ handleSendOtp }) => {
               <FormItem className="col-span-12" dir="ltr">
                 <FormLabel className="block" dir="rtl" >
                   <p className="text-main-blue font-bold text-sm">
-                    رقم هاتفك الجوال 
+                    رقم هاتفك الجوال
                     <span className="text-red-500">*</span>
                   </p>
                 </FormLabel>
@@ -98,12 +88,12 @@ const SendOtp = ({ handleSendOtp }) => {
               <path d="M15.0625 13.3125C14.8125 14.0625 13.875 14.6875 13.0625 14.8125C12.875 14.875 12.6875 14.875 12.4375 14.875C11.9375 14.875 11.1875 14.75 9.875 14.1875C8.375 13.5625 6.875 12.25 5.6875 10.5625V10.5C5.3125 9.9375 4.625 8.875 4.625 7.75C4.625 6.375 5.3125 5.6875 5.5625 5.375C5.875 5.0625 6.3125 4.875 6.8125 4.875C6.9375 4.875 7 4.875 7.125 4.875C7.5625 4.875 7.875 5 8.1875 5.625L8.4375 6.125C8.625 6.625 8.875 7.1875 8.9375 7.25C9.125 7.625 9.125 7.9375 8.9375 8.25C8.875 8.4375 8.75 8.5625 8.625 8.6875C8.5625 8.8125 8.5 8.875 8.4375 8.875C8.375 8.9375 8.375 8.9375 8.3125 9C8.5 9.3125 8.875 9.875 9.375 10.3125C10.125 11 10.6875 11.1875 11 11.3125C11.125 11.1875 11.25 10.9375 11.4375 10.75L11.5 10.625C11.8125 10.1875 12.3125 10.0625 12.8125 10.25C13.0625 10.375 14.4375 11 14.4375 11L14.5625 11.0625C14.75 11.1875 15 11.25 15.125 11.5C15.375 12.0625 15.1875 12.875 15.0625 13.3125Z" fill="white" />
             </svg>
           </Button>
-          <Button
+          {/* <Button
             onClick={() => setSubmitMethod("sms")}
             type="submit" className="group h-12 px-6  bg-main-blue hover:bg-main-purple transtion-all duration-300 w-full text-xs font-bold   rounded-full flex items-center justify-between  hover:text-white  ">
-          إعادة إرسال بواسطة SMS 
+            إعادة إرسال بواسطة SMS
             <FaCommentSms size={20} className="text-white" />
-          </Button>
+          </Button> */}
         </div>
 
       </form>

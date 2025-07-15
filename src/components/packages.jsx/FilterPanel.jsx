@@ -100,7 +100,6 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
     };
     getData();
   }, [seletedCountry, selectedContinents, selectedDate, guests, minPrice, maxPrice]);
-  console.log(seletedCountry);
 
   const form = useForm({
     resolver: zodResolver(filterSchema),

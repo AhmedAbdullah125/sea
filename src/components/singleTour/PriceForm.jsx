@@ -48,7 +48,7 @@ export const filterSchema = z.object({
   car_type: z.string().nonempty("هذا الحقل مطلوب"),
 });
 
-const PriceForm = ({ price, discount, tourId }) => {
+const PriceForm = ({ price, discount, tourId,tour }) => {
   const navigate =useNavigate();
   const { data } = useQuery({
     queryKey: [`all-filters`],
@@ -58,6 +58,7 @@ const PriceForm = ({ price, discount, tourId }) => {
     }
   })
 
+console.log(tour);
 
   const movingPoints = data?.data?.data?.movePoint?.map((item) => ({ label: item, value: item }))
   // car types
@@ -97,7 +98,7 @@ const PriceForm = ({ price, discount, tourId }) => {
           </div>
           {/* sale */}
           <div className="bg-main-purple rounded-full text-white text-xs font-bold py-3 px-4 flex items-center justify-center w-fit ">
-            خصم %{parseFloat((discount / price) * 100).toFixed(1)}
+            خصم %{Number(tour.discount).toFixed(1)}
           </div>
         </div>
 
