@@ -42,7 +42,6 @@ const Hotels = () => {
         };
         getData();
     }, []);
-    console.log(data);
 
     return (
         <section>

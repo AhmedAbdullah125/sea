@@ -23,13 +23,13 @@ export default function AccountLayout() {
                         <nav>
                             <ul style={{ listStyle: 'none', padding: 0 }}>
                                 <li><NavLink to="profile"><span>الملف الشخصي</span> <FaUserAlt /></NavLink></li>
-                                <li><NavLink to="orders"><span>حجــوزاتي</span> <HiOutlineBars3BottomRight /></NavLink></li>
+                                <li><NavLink to="reservations"><span>حجــوزاتي</span> <HiOutlineBars3BottomRight /></NavLink></li>
                                 <li><NavLink to="favorites"><span>مفضلتي</span> <BsBagHeartFill /></NavLink></li>
                                 <li><NavLink to="logout">Log Out <RiLogoutCircleRLine /></NavLink></li>
                             </ul>
                         </nav>
                     </aside>
-                    <main style={{ flexGrow: 1, padding: '20px' }}>
+                    <main style={{ flexGrow: 1, }}>
                         <Outlet />
                     </main>
                 </div>

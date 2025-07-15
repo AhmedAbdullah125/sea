@@ -1,16 +1,21 @@
 import { API_BASE_URL } from '@/lib/apiConfig';
 import axios from 'axios';
 import { toast } from 'sonner';
-export const updateProfile = async (data, countryIso, setLoading, lang, router) => {
+export const updateProfile = async (data, setLoading) => {
+    console.log(data);
+    
     setLoading(true); // Set loading state
     const formData = new FormData();
-    formData.append('name', data.fullName);
-    formData.append('phone', data.phone);
-    formData.append('phone_country', countryIso);
-    const url = `${API_BASE_URL}/user/profile`; // API endpoint
+    formData.append('name', data.firstName);
+    formData.append('last_name', data.lastName);
+    formData.append('image', data.image);
+    formData.append('mobile', data.mobile);
+    formData.append('email', data.email);
+
+    const url = `${API_BASE_URL}/update-profile`; // API endpoint
     try {
         const response = await axios.post(url, formData, {
-            headers: { Authorization: `Bearer ${localStorage.getItem('token')}`, 'x-localization': lang, },
+            headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
         });
         setLoading(false); // Reset loading state
 

@@ -1,6 +1,8 @@
 .accout-aside {
     width: 230px;
-
+    @media screen and (max-width: 767px) {
+        width: 100%;
+    }
     ul {
         display: flex;
         flex-direction: column;
@@ -35,6 +37,9 @@
 .layout-cont {
     display: flex;
     gap: 25px;
+    @media screen and (max-width: 767px) {
+        flex-direction: column;
+    }
 }
 
 .profile-form-ccont {
@@ -55,24 +60,118 @@
         margin-bottom: 15px;
     }
 
-    p{
+    p {
         font-weight: 500;
         font-size: 14px;
         color: #0D1214;
         margin-bottom: 35px;
     }
-    .form-image{
-        display: flex;
-        gap: 25px;
+
+    .form-image {
         form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 23px;
+            display: flex;
+            gap: 25px;
+            @media screen and (max-width: 1025px) {
+                flex-direction: column;
+            }
+            .r-side {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 23px;
+                @media screen and (max-width: 1400px) {
+                    grid-template-columns: 1fr;
+                }
+                @media screen and (max-width: 1025px) {
+                    width: 100%;
+                    order:2
+                }
+            }
+
+            .l-side {
+                width: 100%;
+                @media screen and (max-width: 1025px) {
+                    width: 100%;
+                    order: 1;
+                    
+                }
+                label {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    border-radius: 40px;
+                    overflow: hidden;
+                    background-color: $white;
+                    align-items: center;
+                    justify-content: center;
+
+                    .triger {
+                        padding: 12px;
+
+                        .img-icon-cont {
+
+                            display: flex;
+                            width: 100%;
+                            height: 100%;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+
+                            .img-cont {
+                                width: 100px;
+                                height: 100px;
+                                background-color: #F5F5F5;
+                                border-radius: 50%;
+                                overflow: hidden;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                margin-bottom: 30px;
+
+                                img {
+                                    width: 22px;
+                                    height: 22px;
+                                    object-fit: contain;
+                                }
+
+                            }
+
+                            span {
+                                color: $main;
+                                font-weight: 800;
+                                font-size: 14px;
+                                margin-bottom: 12px;
+                            }
+
+                            p {
+                                color: #595959;
+                                font-weight: 500;
+                                font-size: 12px;
+                                margin-bottom: 0;
+                            }
+                        }
+
+                        .selected-img {
+                            width: 100px;
+                            height: 100px;
+                            background-color: #F5F5F5;
+                            border-radius: 50%;
+                            overflow: hidden;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            object-fit: cover;
+                        }
+                    }
+                }
+            }
+
             @media screen and (max-width: 767px) {
                 display: flex;
                 flex-direction: column;
             }
-            .form-btn-cont{
+
+            .form-btn-cont {
                 //2 spaces of grid
                 grid-column: span 2;
                 background-color: $black;
@@ -85,26 +184,31 @@
                 justify-content: center;
                 cursor: pointer;
                 transition: all 0.3s ease-in-out;
-                &:hover{
+
+                &:hover {
                     background-color: $hover;
                 }
-                @media screen and (max-width: 767px) {
+
+                @media screen and (max-width: 1400px) {
                     grid-column: span 1;
                 }
             }
-            p{
+
+            p {
                 font-weight: 800;
                 font-size: 12px;
                 margin-bottom: 20px;
             }
-            input{
-                border:1px solid rgba(0, 0, 0, 0.1);
+
+            input {
+                border: 1px solid rgba(0, 0, 0, 0.1);
                 height: 58px;
                 border-radius: 30px;
                 background-color: $white;
             }
-            .PhoneInputCountry{
-                border:1px solid rgba(0, 0, 0, 0.1);
+
+            .PhoneInputCountry {
+                border: 1px solid rgba(0, 0, 0, 0.1);
                 background-color: $white;
                 width: 70px;
                 height: 58px;

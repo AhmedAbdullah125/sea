@@ -28,6 +28,8 @@ import Packages from './pages/Packages';
 import Package from './pages/Package';
 import Profile from './pages/Profile';
 import AccountLayout from './pages/AccountLayout';
+import Favourates from './pages/Favourates';
+import Reservations from './pages/Reservations';
 
 export const AppContext = createContext();
 function App() {
@@ -53,7 +55,8 @@ function App() {
 				path: "account", element: <AccountLayout />,
 				children: [
 					{ path: "profile", element: <Profile /> },
-					// { path: "orders", element: <Orders /> },
+					{ path: "favorites", element: <Favourates /> },
+					{ path: "reservations", element: <Reservations /> },
 					// { path: "logout", element: <Logout /> }
 				]
 			}
