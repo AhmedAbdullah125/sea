@@ -26,10 +26,14 @@ import SingleTourPage from './pages/SingleTourPage';
 import AddHouse from './pages/AddHouse';
 import Packages from './pages/Packages';
 import Package from './pages/Package';
+
+import BlogsPage from './pages/blogs';
+import SingleBlogPage from './pages/SingleBlog';
 import Profile from './pages/Profile';
 import AccountLayout from './pages/AccountLayout';
 import Favourates from './pages/Favourates';
 import Reservations from './pages/Reservations';
+
 
 export const AppContext = createContext();
 function App() {
@@ -51,6 +55,10 @@ function App() {
 			{ path: "/add-house", element: <AddHouse></AddHouse> },
 			{ path: "/packages", element: <Packages></Packages> },
 			{ path: "/package", element: <Package></Package> },
+
+			{ path: "/blogs", element: <BlogsPage></BlogsPage> },
+			{ path: "/blogs/:slug", element: <SingleBlogPage></SingleBlogPage> },
+
 			{
 				path: "account", element: <AccountLayout />,
 				children: [
@@ -60,6 +68,7 @@ function App() {
 					// { path: "logout", element: <Logout /> }
 				]
 			}
+
 
 			// { path: '/login', element: <Login></Login> },			
 		]
