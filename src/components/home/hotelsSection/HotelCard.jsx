@@ -12,11 +12,6 @@ import HotelCardCarousel from "./HotelCardCarousel";
 import { parse } from "date-fns";
 
 const HotelCard = ({ hotel }) => {
-  const originalPrice = parseFloat(hotel?.discount);
-  const discountedPrice = parseFloat(hotel?.price);
-console.log(hotel);
-
-  const discountPercentage = ((originalPrice - discountedPrice) / originalPrice) * 100;
   return (
     <Card className="shadow-none border-none space-y-2" dir="rtl">
       <CardHeader className="p-0">
