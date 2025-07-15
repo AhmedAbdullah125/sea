@@ -3,7 +3,7 @@ import BlogCard from './BlogCard'
 import { fetchFromApi } from '../../api/utils/fetchData';
 import Loader from '../loader/Loader';
 import AlertWarning from '../alerts/AlertWarning';
-const BlogsSection = ({title}) => {
+const BlogsSection = ({ title }) => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['blogs'],
     queryFn: async () => {
@@ -15,7 +15,9 @@ const BlogsSection = ({title}) => {
 
   return (
     <section className='space-y-12'>
-      <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue max-xl:text-center'>{title}</h2>
+      {title &&
+        <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue max-xl:text-center'>{title}</h2>
+      }
       {data?.data?.data?.length == 0 ?
         <AlertWarning >
           لا يوجد مقالات متاحه الآن

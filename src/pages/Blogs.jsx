@@ -24,7 +24,7 @@ const BlogsPage = () => {
           <div className='hidden xl:block size-16 rounded-[20px] bg-body/10 absolute -bottom-2 -end-2'></div>
         </div>
         {/* newsletter */}
-        {/* <Newsletter /> */}
+        <Newsletter />
         {/* blogs */}
         <BlogsSection title={"المقالات الجديـــــــــــده ."}/>
       </main>

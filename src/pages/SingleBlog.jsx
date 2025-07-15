@@ -5,6 +5,7 @@ import Breadcrumbs from '../components/home/BreadCrumbs'
 import { useQuery } from '@tanstack/react-query'
 import { fetchFromApi } from '../api/utils/fetchData'
 import BlogsSection from '../components/blogs/BlogsSection'
+import NewsletterBody from '../components/blogs/NewsletterBody'
 
 const SingleBlogPage = () => {
   const { slug } = useParams()
@@ -17,7 +18,15 @@ const SingleBlogPage = () => {
       }
     }
   )
-
+  const formatDateArabic = (isoDate) => {
+    if (!isoDate) return '';
+    const date = new Date(isoDate);
+    return date.toLocaleDateString('ar-EG-u-nu-latn', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  };
   return (
     <>
       <Header />
@@ -30,11 +39,11 @@ const SingleBlogPage = () => {
               <p className='text-main-purple font-bold'>{blog?.authorName || "موقع sea"}</p>
             </div>
             {
-              blog?.timePublish ? <>
+              blog?.createdAt ? <>
                 <div className='size-1 bg-[#D9D9D9] rounded-full'></div>
                 <span >فــي نشــرة أهــا!</span>
                 <div className='size-1 bg-[#D9D9D9] rounded-full'></div>
-                <span>{blog?.timePublish}</span>
+                <span>{formatDateArabic(blog?.createdAt)}</span>
               </>
                 : null
             }
@@ -46,6 +55,7 @@ const SingleBlogPage = () => {
         </div>
         <h3 className='font-bold xl:text-3xl md:text-2xl text-xl text-main-blue'>{blog?.title}</h3>
         <div className='leading-[3]' dangerouslySetInnerHTML={{ __html: blog?.description }} ></div>
+        <NewsletterBody />
         <BlogsSection title={"المــزيد من المقــالات ."} />
       </main>
       <Footer />
