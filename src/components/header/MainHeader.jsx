@@ -57,6 +57,9 @@ const MainHeader = () => {
                     <DropdownMenuContent className="w-56 bg-[#016AB5] rounded-2xl" align="start">
                         <DropdownMenuGroup>
                             <DropdownMenuItem>
+                                <LoginDialog mainHeader />
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
                                 <NavLink className="w-full text-white" to="/add-house">أضف سكنـك</NavLink>
                             </DropdownMenuItem>
                             <DropdownMenuItem>
@@ -70,9 +73,6 @@ const MainHeader = () => {
                             </DropdownMenuItem>
                             <DropdownMenuItem>
                                 <a className="w-full text-white" href="#contactusinfos">حمل التطبيـــق من هنا</a>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <LoginDialog mainHeader />
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
