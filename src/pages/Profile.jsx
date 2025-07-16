@@ -105,7 +105,6 @@ export default function EditPage() {
         };
         getCountries();
     }, []);
-    console.log(profile);
 
     return (
         <div className="account-content">

@@ -34,7 +34,7 @@ import Favourates from './pages/Favourates';
 import Reservations from './pages/Reservations';
 import Login from './pages/Login';
 import SingleNewsletter from './pages/SingleNewsletter';
-import Blogs from './pages/Blogs';
+import Blogs from './pages/blogs';
 
 export const AppContext = createContext();
 function App() {
@@ -59,7 +59,7 @@ function App() {
 			{ path: "/login", element: <Login></Login> },
 			{ path: "/blogs", element: <Blogs></Blogs> },
 			{ path: "/blogs/:slug", element: <SingleBlogPage></SingleBlogPage> },
-			{ path: "/newsletter/:id", element: <SingleNewsletter></SingleNewsletter> },
+			{ path: "/newsletter/:slug", element: <SingleNewsletter></SingleNewsletter> },
 
 			{
 				path: "account", element: <AccountLayout />,
