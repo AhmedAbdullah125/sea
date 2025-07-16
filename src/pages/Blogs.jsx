@@ -4,8 +4,17 @@ import Footer from '../components/footer/Footer'
 import BreadCrumb from '../components/global/BreadCrumb'
 import Newsletter from '../components/blogs/Newsletter'
 import BlogsSection from '../components/blogs/BlogsSection'
+import { useQuery } from '@tanstack/react-query'
+import { fetchFromApi } from '../api/utils/fetchData'
 
 const Blogs = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['blogs'],
+    queryFn: async () => {
+      const res = await fetchFromApi("/blogs");
+      return res;
+    }
+  })
   return (
     <>
       <Header />
@@ -26,7 +35,7 @@ const Blogs = () => {
         {/* newsletter */}
         <Newsletter />
         {/* blogs */}
-        <BlogsSection title={"المقالات الجديـــــــــــده ."}/>
+        <BlogsSection data={data}  isLoading={isLoading}  title={"المقالات الجديـــــــــــده ."}/>
       </main>
       <Footer />
     </>

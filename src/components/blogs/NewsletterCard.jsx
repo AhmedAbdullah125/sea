@@ -13,7 +13,7 @@ import { MdArrowBackIosNew } from "react-icons/md";
 
 import { GoArrowUpLeft } from "react-icons/go";
 import { Link } from "react-router-dom";
-const NewsletterCard = ({ bgColor }) => {
+const NewsletterCard = ({ bgColor, item }) => {
   return (
     <div className='space-y-4 h-[220px] rounded-[65px] p-10 flex  flex-col justify-between' style={{ backgroundColor: `${bgColor}` }}>
       <Dialog >
@@ -30,8 +30,8 @@ const NewsletterCard = ({ bgColor }) => {
                   </Button>
                 </DialogClose>
                 <div className="size-[100px] rounded-[30px] flex items-end p-4" style={{ backgroundColor: `${bgColor}` }}>
-                  <h3 className=' font-bold text-[8px] text-right'>
-                    الأكثــر قــــــــــــــراءة.
+                  <h3 className=' font-bold  text-[8px] text-right'>
+                    {item?.title}
                   </h3>
                 </div>
                 <div className="text-right">
@@ -39,7 +39,7 @@ const NewsletterCard = ({ bgColor }) => {
                   <p className="text-xs text-main-blue">المقال الأكثر قراءةً خلال الأسبوع</p>
                 </div>
               </div>
-              <Link to={"/newsletter/1"} className=" h-12 px-8   bg-main-purple  text-xs font-bold  text-white hover:bg-main-blue hover:text-white transation-all duration-300  flex items-center justify-center gap-2 rounded-full ">
+              <Link to={`/newsletter/${item?.slug}`} className=" h-12 px-8   bg-main-purple  text-xs font-bold  text-white hover:bg-main-blue hover:text-white transation-all duration-300  flex items-center justify-center gap-2 rounded-full ">
                 تـــابعنا الان
                 <MdArrowBackIosNew size={20} />
               </Link>
@@ -47,8 +47,8 @@ const NewsletterCard = ({ bgColor }) => {
           </DialogHeader>
         </DialogContent>
       </Dialog>
-      <h3 className='xl:text-xl font-bold'>
-        الأكثــر قــــــــــــــراءة.
+      <h3 className='xl:text-2xl font-bold'>
+        {item?.title}
       </h3>
     </div>
   )
