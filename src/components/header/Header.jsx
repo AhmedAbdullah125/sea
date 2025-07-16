@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../../../public/home/footerLogo.svg'
-import profile from '../../../public/home/profile.svg'
+import profileImage from '../../../public/home/profile.svg'
 import LoginDialog from '../login/LoginDialog'
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
+import axios from 'axios'
+import { API_BASE_URL } from '../../lib/apiConfig'
 
 const Header = () => {
     const [isFixed, setIsFixed] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [profile, setProfile] = useState({});
 
     useEffect(() => {
         const handleScroll = () => {
@@ -17,6 +21,24 @@ const Header = () => {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        setLoading(true);
+        //scroll to the top of page 
+        window.scrollTo(0, 0);
+        const getData = async () => {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/user/profile`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
+                setProfile(response.data.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error retrieving data:', error);
+                setLoading(false);
+                throw new Error('Could not get data');
+            }
+        };
+        getData();
     }, []);
     return (
         <section className={`header-cont ${isFixed ? 'fixed-navbar' : ''}`}>
@@ -40,7 +62,14 @@ const Header = () => {
                     <NavLink to='/blogs'>المدونـة</NavLink>
                 </div>
                 <div className="account-cont">
-                    <Link to="/profile" className='profile'><LazyLoadImage src={profile} alt="logo" loading='lazy' /></Link>
+                    {
+                        loading ?
+                            <Link to="/account/profile" className='profile'>
+                                <LazyLoadImage src={profileImage} alt="logo" loading='lazy' className='w-[18px]' />
+                            </Link>
+                            :
+                            null
+                    }
                     <LoginDialog />
                 </div>
                 <DropdownMenu>

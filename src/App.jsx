@@ -27,7 +27,6 @@ import AddHouse from './pages/AddHouse';
 import Packages from './pages/Packages';
 import Package from './pages/Package';
 
-import BlogsPage from './pages/blogs';
 import SingleBlogPage from './pages/SingleBlog';
 import Profile from './pages/Profile';
 import AccountLayout from './pages/AccountLayout';
@@ -35,7 +34,7 @@ import Favourates from './pages/Favourates';
 import Reservations from './pages/Reservations';
 import Login from './pages/Login';
 import SingleNewsletter from './pages/SingleNewsletter';
-
+import Blogs from './pages/Blogs';
 
 export const AppContext = createContext();
 function App() {
@@ -58,7 +57,7 @@ function App() {
 			{ path: "/packages", element: <Packages></Packages> },
 			{ path: "/package", element: <Package></Package> },
 			{ path: "/login", element: <Login></Login> },
-			{ path: "/blogs", element: <BlogsPage></BlogsPage> },
+			{ path: "/blogs", element: <Blogs></Blogs> },
 			{ path: "/blogs/:slug", element: <SingleBlogPage></SingleBlogPage> },
 			{ path: "/newsletter/:id", element: <SingleNewsletter></SingleNewsletter> },
 

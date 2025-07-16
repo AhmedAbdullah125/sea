@@ -752,6 +752,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   align-items: center;
   justify-content: center;
   border-radius: 32px;
+  overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
 .header-cont .nav-cont .account-cont a:hover {
@@ -760,10 +761,6 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
 .header-cont .nav-cont .account-cont .profile {
   width: 48px;
   background-color: #F1F1F1;
-}
-.header-cont .nav-cont .account-cont .profile img {
-  width: 18px;
-  height: auto;
 }
 .header-cont .nav-cont .account-cont .register {
   padding: 0 18px;
@@ -787,6 +784,10 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   .header-cont .nav-cont .account-cont .register i {
     display: none;
   }
+}
+
+.header-profileImage:hover {
+  border: 2px solid var(--sec-color);
 }
 
 .detail-title {

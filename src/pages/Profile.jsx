@@ -15,10 +15,11 @@ import Loading from '../components/loading/Loading';
 import { updateProfile } from './updateProfileData';
 import imgIcon from '../../public/profile/ddd.svg';
 export default function EditPage() {
-    const [data, setData] = useState({});
+    const [profile, setProfile] = useState({});
     const [loading, setLoading] = useState(false);
     const [countryData, setCountryData] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [imageFile, setImageFile] = useState(null);
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
@@ -33,12 +34,8 @@ export default function EditPage() {
         window.scrollTo(0, 0);
         const getData = async () => {
             try {
-                const response = await axios.get(`${API_BASE_URL}/user/profile`, {
-                    headers: {
-                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-                    }
-                });
-                setData(response.data.data);
+                const response = await axios.get(`${API_BASE_URL}/user/profile`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
+                setProfile(response.data.data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error retrieving data:', error);
@@ -58,14 +55,14 @@ export default function EditPage() {
     const form = useForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            fullName: data?.name || '',
-            lastName: data?.lastName || '',
-            email: data?.email || '',
-            mobile: data?.mobile || '',
+            fullName: profile?.name || '',
+            lastName: profile?.lastName || '',
+            email: profile?.email || '',
+            mobile: profile?.mobile || '',
         },
     });
     function onSubmit(data) {
-        if (!selectedImage) {
+        if (!selectedImage && !profile.image) {
             toast('Please select a profile image.', { style: { borderColor: "#dc3545", boxShadow: '0px 0px 10px rgba(220, 53, 69, .5)', }, });
             document.getElementById('triger').style.border = '1px solid red';
             return
@@ -75,7 +72,7 @@ export default function EditPage() {
             lastName: data.lastName,
             email: data.email,
             mobile: data.mobile,
-            image: selectedImage
+            image: selectedImage ? imageFile : ""
         }
         handleUpdateProfile(newData);
     }
@@ -84,14 +81,14 @@ export default function EditPage() {
     };
     //setting default values of from 
     useEffect(() => {
-        form.setValue('firstName', data?.name || '');
-        form.setValue('lastName', data?.lastName || '');
-        form.setValue('email', data?.email || '');
-        form.setValue('mobile', `+${data?.mobile}` || '');
-        if(selectedImage){
+        form.setValue('firstName', profile?.name || '');
+        form.setValue('lastName', profile?.lastName || '');
+        form.setValue('email', profile?.email || '');
+        form.setValue('mobile', `+${Number(profile?.mobile)}` || '');
+        if (selectedImage) {
             document.getElementById('triger').style.border = 'none';
         }
-    }, [data, setSelectedImage]);
+    }, [profile, setSelectedImage]);
     useEffect(() => {
         setLoading(true)
         const getCountries = async () => {
@@ -108,15 +105,15 @@ export default function EditPage() {
         };
         getCountries();
     }, []);
-    console.log(data);
+    console.log(profile);
 
     return (
         <div className="account-content">
             {
-                loading || !data ? <Loading /> :
+                loading || !profile ? <Loading /> :
                     <div className="profile-form-ccont">
                         <h3>معلومات الملف الشخصي</h3>
-                        <p>لايمكنك تعديل معلومات الملف الشخصي باستثناء البريد الالكتروني.</p>
+                        <p>يمكنك تعديل معلومات الملف الشخصي باستثناء الرقم الجوال.</p>
                         <div className="form-image">
                             <Form {...form}>
                                 <form onSubmit={form.handleSubmit(onSubmit)} encType="multipart/form-data" className="form-group">
@@ -189,6 +186,7 @@ export default function EditPage() {
                                                                 onChange={field.onChange}
                                                                 defaultCountry="SA"
                                                                 className="custom-phone-input"
+                                                                disabled
                                                             />
                                                         </FormControl>
                                                         <FormMessage className="text-red-500  text-xs text-end" />
@@ -208,8 +206,8 @@ export default function EditPage() {
                                                         <img src={selectedImage} alt="profile" width={200} height={200} className='selected-img' /> :
                                                         //getting the first letter of the name
                                                         // <p>{data.name.charAt(0).toUpperCase()}</p>
-                                                        data?.image ?
-                                                            <img src={data?.image} alt="profile" width={200} height={200} /> :
+                                                        profile?.image ?
+                                                            <img src={profile?.image} alt="profile" width={200} height={200} /> :
                                                             <div className="img-icon-cont">
                                                                 <div className="img-cont">
                                                                     <img src={imgIcon} alt='icon' />

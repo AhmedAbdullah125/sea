@@ -31,7 +31,7 @@ const HotelCard = ({ hotel }) => {
           <h3 h3 className=" font-bold line-clamp-1" > {hotel?.title}</h3 >
           <p className="text-main-gray text-xs line-clamp-1">{hotel?.address}</p>
           {/* price */}
-          <h4 className="font-bold text-main-blue">TRY {hotel?.price} <span className="text-xs font-semibold text-main-purple">/ مقابل {hotel?.rentalPeriod}</span>
+          <h4 className="font-bold text-main-blue">TRY {hotel?.price} <span className="text-xs font-semibold text-main-purple">/ مقابل {hotel?.rentalPeriod} ليالي</span>
           </h4>
         </div >
       </CardContent>

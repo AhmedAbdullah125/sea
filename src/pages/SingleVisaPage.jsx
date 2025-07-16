@@ -65,7 +65,7 @@ const SingleVisaPage = () => {
                 </div>
               ))}
               </div>
-              <Link to="/gate" className="h-12 px-6 m-auto mt-10 w-fit bg-main-purple   text-xs font-bold  !text-white hover:bg-main-blue transation-all duration-300  flex items-center justify-center rounded-full ">
+              <Link to={"/gate"} className="h-12 px-6 m-auto mt-10 w-fit bg-main-purple   text-xs font-bold  !text-white hover:bg-main-blue transation-all duration-300  flex items-center justify-center rounded-full ">
                 احصل على تأشيرتك الآن
               </Link>
             </div>
@@ -93,7 +93,7 @@ const SingleVisaPage = () => {
               <div className="flex items-center max-xl:justify-center gap-3 xl:mt-12 mt-6">
 
                 <Dialog  >
-                  <DialogTrigger className="h-10 px-8 w-fit bg-main-purple  text-xs font-bold  text-white hover:bg-main-blue transation-all duration-300 flex items-center justify-center rounded-full ">عرض قـــائمة البدان</DialogTrigger>
+                  <DialogTrigger className="h-10 px-8 w-fit bg-main-purple  text-xs font-bold  text-white hover:bg-main-blue transation-all duration-300 flex items-center justify-center rounded-full ">عرض قـــائمة البلدان</DialogTrigger>
                   <DialogContent className='bg-white !rounded-xl ' >
 
                     <div  >
