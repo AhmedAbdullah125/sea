@@ -60,7 +60,7 @@ function App() {
 			{ path: "/login", element: <Login></Login> },
 			{ path: "/blogs", element: <Blogs></Blogs> },
 			{ path: "/blogs/:slug", element: <SingleBlogPage></SingleBlogPage> },
-			{ path: "/newsletter/:id", element: <SingleNewsletter></SingleNewsletter> },
+			{ path: "/newsletter/:slug", element: <SingleNewsletter></SingleNewsletter> },
 
 			{
 				path: "account", element: <AccountLayout />,

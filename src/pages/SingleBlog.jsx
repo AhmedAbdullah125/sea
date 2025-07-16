@@ -18,6 +18,14 @@ const SingleBlogPage = () => {
       }
     }
   )
+
+    const { data, isLoading:isLoadingSingle } = useQuery({
+      queryKey: ['blogs'],
+      queryFn: async () => {
+        const res = await fetchFromApi("/blogs");
+        return res;
+      }
+    })
   const formatDateArabic = (isoDate) => {
     if (!isoDate) return '';
     const date = new Date(isoDate);
@@ -55,8 +63,7 @@ const SingleBlogPage = () => {
         </div>
         <h3 className='font-bold xl:text-3xl md:text-2xl text-xl text-main-blue'>{blog?.title}</h3>
         <div className='leading-[3]' dangerouslySetInnerHTML={{ __html: blog?.description }} ></div>
-        <NewsletterBody />
-        <BlogsSection title={"المــزيد من المقــالات ."} />
+        <BlogsSection title={"المــزيد من المقــالات ."}  data={data} isLoading={isLoadingSingle} />
       </main>
       <Footer />
     </>
