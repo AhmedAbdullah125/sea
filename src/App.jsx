@@ -35,6 +35,7 @@ import Reservations from './pages/Reservations';
 import Login from './pages/Login';
 import SingleNewsletter from './pages/SingleNewsletter';
 import Blogs from './pages/Blogs';
+import Logout from './pages/Logout';
 
 export const AppContext = createContext();
 function App() {
@@ -67,7 +68,7 @@ function App() {
 					{ path: "profile", element: <Profile /> },
 					{ path: "favorites", element: <Favourates /> },
 					{ path: "reservations", element: <Reservations /> },
-					// { path: "logout", element: <Logout /> }
+					{ path: "logout", element: <Logout /> }
 				]
 			}
 

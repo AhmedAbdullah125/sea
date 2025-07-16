@@ -11,7 +11,12 @@ export default function Reservations() {
     useEffect(() => {
         setLoading(true);
         //scroll to the top of page 
+
         window.scrollTo(0, 0);
+        if (!sessionStorage.getItem('token')) {
+            toast.error('لم يتم تسجيل الدخول')
+            window.location.href = '/login';
+        }
         const getData = async () => {
             try {
                 const response = await axios.get(`${API_BASE_URL}/bookings/booking-travel-visa`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });

@@ -84,7 +84,7 @@ export default function EditPage() {
         form.setValue('firstName', profile?.name || '');
         form.setValue('lastName', profile?.lastName || '');
         form.setValue('email', profile?.email || '');
-        form.setValue('mobile', `+${Number(profile?.mobile)}` || '');
+        form.setValue('mobile', `${Number(profile?.mobile)}` || '');
         if (selectedImage) {
             document.getElementById('triger').style.border = 'none';
         }
@@ -194,9 +194,9 @@ export default function EditPage() {
                                                 )}
                                             />
                                         </div>
-                                        <div className="form-btn-cont">
-                                            <Button className="form-btn" type="submit">حفظ</Button>
-                                        </div>
+                                        <Button className="form-btn-cont" type="submit">
+                                            <sapan className="form-btn">حفظ</sapan>
+                                        </Button>
                                     </div>
                                     <div className="l-side">
                                         <label htmlFor="IDImage" className='profile-img-lable' id='triger'>

@@ -3451,5 +3451,19 @@ footer .lowerfooter {
   font-size: 14px;
   font-weight: 500;
   color: #0D1214;
-  margin-bottom: 0;
+}
+.reservation-cont .related-grid-cont-favourates {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media screen and (max-width: 1220px) {
+  .reservation-cont .related-grid-cont-favourates {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 1025px) {
+  .reservation-cont .related-grid-cont-favourates {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }/*# sourceMappingURL=main.css.map */

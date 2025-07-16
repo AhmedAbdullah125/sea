@@ -11,6 +11,7 @@ import { userContext } from "../../context/UserContext";
 import axios from 'axios'
 import { API_BASE_URL } from '../../lib/apiConfig'
 import { Link } from "react-router-dom";
+import profileImage from '../../../public/home/profile.svg'
 
 const LoginDialog = ({ mainHeader = false }) => {
   const [phone, setPhone] = useState("");

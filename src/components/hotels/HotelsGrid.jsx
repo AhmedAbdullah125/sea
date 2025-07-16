@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { toast } from 'sonner';
+import { toggleFavourates } from '../../pages/toggleFavourates';
 const HotelsGrid = ({ mainData }) => {
     const [lovedHotels, setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [])
     useEffect(() => {
@@ -17,6 +18,7 @@ const HotelsGrid = ({ mainData }) => {
             }
         }
     }, [mainData])
+
     return (
         <div className="grid-cont">
             {
@@ -27,10 +29,7 @@ const HotelsGrid = ({ mainData }) => {
                             <Swiper
                                 pagination={{ clickable: true }}
                                 spaceBetween={0}
-                                navigation={{
-                                    nextEl: `#swiper-btn-next1a`,
-                                    prevEl: `#swiper-btn-prev1a`,
-                                }}
+                                navigation={{ nextEl: `#swiper-btn-next1a`, prevEl: `#swiper-btn-prev1a`, }}
                                 slidesPerView={1}
                                 autoplay={true}
                                 loop={true}
@@ -66,18 +65,28 @@ const HotelsGrid = ({ mainData }) => {
                                 <div className="related-btn">
                                     <span>{Number(item.discount)}%</span>
                                     <button
-                                        onClick={() => {
-                                            if (lovedHotels.includes(item.id)) {
-                                                setLovedHotels(lovedHotels.filter(id => id !== item.id))
-                                                localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== item.id)))
-                                                toast.success('تم حذف الوحدة من المفضلة')
+                                       
+                                        onClick={
+                                            () => {
+                                                if (sessionStorage.getItem('token')) {
+                                                    if (lovedHotels.includes(item.id)) {
+                                                        setLovedHotels(lovedHotels.filter(id => id !== item.id))
+                                                        localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== item.id)))
+                                                        toast.success('تم حذف الوحدة من المفضلة')
+                                                    }
+                                                    else {
+                                                        setLovedHotels([...lovedHotels, item.id])
+                                                        localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, item.id]))
+                                                        toast.success('تم اضافة الوحدة الي المفضلة')
+                                                    }
+                                                    toggleFavourates(item.id, 'Hotel');
+                                                }
+                                                else {
+                                                    toast.error('يجب تسجيل الدخول اولا')
+                                                    window.location.href = '/login'
+                                                }
                                             }
-                                            else {
-                                                setLovedHotels([...lovedHotels, item.id])
-                                                localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, item.id]))
-                                                toast.success('تم اضافة الوحدة الي المفضلة')
-                                            }
-                                        }}
+                                        }
                                     ><i className={`fa-heart ${lovedHotels.includes(item.id) ? 'fa-solid text-[#A71755]' : 'fa-regular '}`}></i></button>
                                 </div>
                             </div>
