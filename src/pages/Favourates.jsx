@@ -28,9 +28,6 @@ export default function Favourates() {
         getData();
     }, []);
     console.log(data);
-
-
-
     return (
         <div className="reservation-cont">
             {
@@ -47,44 +44,46 @@ export default function Favourates() {
                             <div className="related-grid-cont-favourates">
                                 {
                                     data.map((item, index) =>
+                                        item?.type =="Hotel"?
                                         <div className="card-item" key={index}>
                                             <div className="related-item">
 
                                                 <figure>
-                                                    <img src={item?.thumbnail ? item?.thumbnail : item?.images[0]} alt="img" />
+                                                    <img src={ item?.item.images[0]} alt="img" />
                                                 </figure>
 
                                                 {
-                                                    item?.discount ?
+                                                    item?.item.discount ?
                                                         <div className="related-content">
                                                             <div className="related-btn">
-                                                                <span>{Number(item.discount)}%</span>
+                                                                <span>{Number(item.item.discount)}%</span>
                                                             </div>
                                                         </div>
                                                         :null
                                               }
                                             </div>
-                                            <a href={`hotel?id=${item.id}`} className="card-content">
+                                            <a href={`hotel?id=${item.item.id}`} className="card-content">
                                                 <div className="detail-info-item rate">
                                                     <i className="fa-solid fa-star"></i>
-                                                    <span>{Number(item.rating).toFixed(1)} <span>( {item.likes} )</span></span>
+                                                    <span>{Number(item.item.rating).toFixed(1)} <span>( {item.item.likes} )</span></span>
                                                 </div>
                                                 {
-                                                    item.bedrooms&&
+                                                    item.item.bedrooms&&
                                                 <div className="card-desc">
-                                                    <span className="card-span"><i className="fa-solid fa-bed-front"></i>{item.bedrooms}</span>
-                                                    <span className="card-span"><i className="fa-solid fa-expand"></i>{item.area}</span>
-                                                    <span className="card-span"><i className="fa-solid fa-bath"></i>{item.bathrooms} م/2</span>
+                                                    <span className="card-span"><i className="fa-solid fa-bed-front"></i>{item.item.bedrooms}</span>
+                                                    <span className="card-span"><i className="fa-solid fa-expand"></i>{item.item.area}</span>
+                                                    <span className="card-span"><i className="fa-solid fa-bath"></i>{item.item.bathrooms} م/2</span>
                                                 </div>
                                                 }
-                                                <div className="card-item-name">{item.title} </div>
-                                                <div className="card-place">{item.address}</div>
+                                                <div className="card-item-name">{item.item.title} </div>
+                                                <div className="card-place">{item.item.address}</div>
                                                 <div className="item-price">
-                                                    يبدأ من {item.price} <span className="icon-saudi_riyal"></span>
+                                                    يبدأ من {item.item.price} <span className="icon-saudi_riyal"></span>
                                                     <span className="period"><span>/</span> لليلة الواحــــدة</span>
                                                 </div>
                                             </a>
                                         </div>
+                                        :null
                                     )
                                 }
                             </div>

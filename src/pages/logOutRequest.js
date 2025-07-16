@@ -7,7 +7,7 @@ import axios from 'axios';
  * @param {object} router - Next.js router object for navigation.
  * @param {function} toast - Toast function for notifications.
  */
-export const logOut = async (API_BASE_URL, setLoading, navigate, toast) => {
+export const logOutRequest = async (API_BASE_URL, setLoading, navigate, toast) => {
 console.log("here ana ")
     setLoading(true); // Set loading state
     const url = `${API_BASE_URL}/logout`; // API endpoint

@@ -26,7 +26,7 @@ import SingleTourPage from './pages/SingleTourPage';
 import AddHouse from './pages/AddHouse';
 import Packages from './pages/Packages';
 import Package from './pages/Package';
-
+import Logout from './pages/Logout';
 import SingleBlogPage from './pages/SingleBlog';
 import Profile from './pages/Profile';
 import AccountLayout from './pages/AccountLayout';
@@ -35,7 +35,6 @@ import Reservations from './pages/Reservations';
 import Login from './pages/Login';
 import SingleNewsletter from './pages/SingleNewsletter';
 import Blogs from './pages/Blogs';
-import Logout from './pages/Logout';
 
 export const AppContext = createContext();
 function App() {

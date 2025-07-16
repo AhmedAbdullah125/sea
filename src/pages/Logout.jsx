@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { logOut } from './logout';
+import { logOutRequest } from './logOutRequest';
 import { API_BASE_URL } from '../lib/apiConfig';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ export default function Logout() {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false);
     const handleLogout = () => {
-        logOut(API_BASE_URL, setLoading, navigate, toast);
+        logOutRequest(API_BASE_URL, setLoading, navigate, toast);
     };
     return (
         <div className="reservation-cont flex items-center justify-center" >
