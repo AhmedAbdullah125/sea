@@ -34,7 +34,7 @@ const AboutUS = () => {
               <div className=' text-center xl:text-start space-y-2 '>
                 <h2 className='text-xs font-bold text-main-navy' dangerouslySetInnerHTML={{ __html: data?.data?.data?.title }}></h2>
 
-                <h3 className='text-main-blue max-md:text-nowrap font-bold xl:text-5xl md:text-3xl text-xl xl:leading-relaxed' dangerouslySetInnerHTML={{ __html: data?.data?.data?.mainDescription }}>
+                <h3 className='text-main-blue max-md:text-nowrap font-bold xl:text-3xl md:text-3xl text-xl xl:leading-relaxed' dangerouslySetInnerHTML={{ __html: data?.data?.data?.mainDescription }}>
                 </h3>
                 <p className='text-main-navy text-xs' dangerouslySetInnerHTML={{ __html: data?.data?.data?.mainTitle }}></p>
               </div>

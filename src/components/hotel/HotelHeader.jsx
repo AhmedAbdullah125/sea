@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import imgicon1 from '../../assets/imgIcon-1.svg'
 import imgicon2 from '../../assets/imgIcon-2.svg'
 import { toast } from 'sonner'
+import { toggleFavourates } from '../../pages/toggleFavourates'
 const HotelHeader = ({ data }) => {
     const [selectedImg, setselectedImg] = useState(data.images[0])
     const [lovedHotels ,setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [] )
@@ -38,7 +39,7 @@ const HotelHeader = ({ data }) => {
 
                         <div className="detail-info-item">
                             <i className="fa-solid fa-users"></i>
-                            <span>مخصص لعوائل وعزاب</span>
+                            <span>{data.advantages[0]}</span>
                         </div>
                     </div>
                     <div className="detail-info-btn">
@@ -51,18 +52,27 @@ const HotelHeader = ({ data }) => {
                         </button>
                         {/* make button adding id of hotel to localstorage if it not exist and remove it if it exist */}
                         <button className="add-btn"
-                        onClick={() => {
-                            if (lovedHotels.includes(data.id)) {
-                                setLovedHotels(lovedHotels.filter(id => id !== data.id))
-                                localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== data.id)))
-                                toast.success('تم حذف الوحدة من المفضلة')
+                        onClick={
+                            () => {
+                                if (sessionStorage.getItem('token')) {
+                                    if (lovedHotels.includes(data.id)) {
+                                        setLovedHotels(lovedHotels.filter(id => id !== data.id))
+                                        localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== data.id)))
+                                        toast.success('تم حذف الوحدة من المفضلة')
+                                    }
+                                    else {
+                                        setLovedHotels([...lovedHotels, data.id])
+                                        localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, data.id]))
+                                        toast.success('تم اضافة الوحدة الي المفضلة')
+                                    }
+                                    toggleFavourates(data.id, 'Hotel');
+                                }
+                                else {
+                                    toast.error('يجب تسجيل الدخول اولا')
+                                    window.location.href = '/login'
+                                }
                             }
-                            else {
-                                setLovedHotels([...lovedHotels, data.id])
-                                localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, data.id]))
-                                toast.success('تم اضافة الوحدة الي المفضلة')
-                            }
-                        }}
+                        }
                         ><i className={`fa-heart ${lovedHotels.includes(data.id) ? 'fa-solid text-[#A71755]' : 'fa-regular'}`}></i></button>
                     </div>
                 </div>

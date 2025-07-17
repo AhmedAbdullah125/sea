@@ -15,6 +15,7 @@ const Hotel = () => {
     const id = searchParams.get('id');
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [trigger, setTrigger] = useState(false);
     useEffect(() => {
         setLoading(true);
         //scroll to the top of page 
@@ -31,9 +32,9 @@ const Hotel = () => {
             }
         };
         getData();
-    }, []);
+    }, [trigger]);
     console.log(data)
-    
+
     return (
         <section>
             <Header />
@@ -47,7 +48,7 @@ const Hotel = () => {
                         <HotelBook data={data} />
                         <div className="midd-section container">
                             <div className="tabs">
-                                <HotelTabs data={data} />
+                                <HotelTabs data={data} trigger={trigger} setTrigger={setTrigger} />
                             </div>
                             <div className="payment">
                                 <HotelPayment  data={data} />
