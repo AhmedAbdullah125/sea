@@ -8,7 +8,6 @@ import { toast } from 'sonner'
 const EventHeader = ({data}) => {
     const [searchParams] = useSearchParams();
     const id = searchParams.get('id');
-    console.log(id)
     const [selectedImg,setselectedImg] = useState(data.images[0])
     const [lovedEvents ,setLovedEvents] = useState(localStorage.getItem('lovedEvents') ? JSON.parse(localStorage.getItem('lovedEvents')) : [] )
     useEffect(() => {

@@ -28,9 +28,6 @@ const GeneralPage = ({ title }) => {
         };
         getData();
     }, []);
-    console.log(data);
-    console.log(title);
-
     return (
         <div className="container">
             <Breadcrumbs items={[{ label: "الرئيسية", href: "/" }, { label: title == "terms_and_conditions" ? "الشروط والاحكام" : "سياسة الخصوصية", href: title == "terms_and_conditions" ? "/terms" : "privacy" }]} />

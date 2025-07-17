@@ -24,8 +24,6 @@ const VisaCard = ({ item }) => {
     getData();
   }, [])
 
-  console.log(data)
-  console.log(item)
   return (
     <Card className="shadow-none border-none  bg-body rounded-[50px] col-span-12 md:col-span-6 xl:col-span-3 p-6">
       <CardHeader className="p-0 " >

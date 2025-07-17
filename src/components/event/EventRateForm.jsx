@@ -25,8 +25,6 @@ const EventRateForm = ({id}) => {
             id,
         };
         handleAddComment(payload);
-        // console.log(payload);
-          // reset form fields
           setComment('');
           setRate(0);
     }

@@ -3,7 +3,6 @@ import plane from '../../assets/housing/plane-icon.svg'
 import { toast } from 'sonner';
 import { toggleFavourates } from '../../pages/toggleFavourates';
 const PackagesGrid = ({ mainData }) => {
-    console.log(mainData);
     const [data, setData] = useState([])
     const [lovedPlans, setLovedPlans] = useState(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : [])
     useEffect(() => {

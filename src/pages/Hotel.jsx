@@ -33,7 +33,6 @@ const Hotel = () => {
         };
         getData();
     }, [trigger]);
-    console.log(data)
 
     return (
         <section>

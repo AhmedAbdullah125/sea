@@ -8,7 +8,6 @@ import axios from 'axios';
  * @param {function} toast - Toast function for notifications.
  */
 export const logOutRequest = async (API_BASE_URL, setLoading, navigate, toast) => {
-console.log("here ana ")
     setLoading(true); // Set loading state
     const url = `${API_BASE_URL}/logout`; // API endpoint
 

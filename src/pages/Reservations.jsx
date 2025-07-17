@@ -34,11 +34,6 @@ export default function Reservations() {
         };
         getData();
     }, []);
-    console.log(hotels);
-    console.log(data);
-    console.log(transport);
-
-
 
     return (
         <div className="reservation-cont">

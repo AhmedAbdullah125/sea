@@ -3,8 +3,6 @@ import { toast } from 'sonner';
 
 export const addEventComment = async (API_BASE_URL, payload, setLoading) => {
     //getting token from session storage
-console.log(payload.id);
-
     setLoading(true); // Set loading state
     const url = `${API_BASE_URL}/event-comment`; // API endpoint   
     try {

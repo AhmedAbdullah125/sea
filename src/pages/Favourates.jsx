@@ -27,7 +27,6 @@ export default function Favourates() {
         };
         getData();
     }, []);
-    console.log(data);
     function formatArabicDate(dateStr) {
         const date = new Date(dateStr);
         const formatter = new Intl.DateTimeFormat('ar-EG', {
