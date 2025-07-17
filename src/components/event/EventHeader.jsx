@@ -3,9 +3,12 @@ import img1 from '../../assets/detail.jpg'
 import imgicon1 from '../../assets/imgIcon-1.svg'
 import imgicon2 from '../../assets/imgIcon-2.svg'
 import { toggleFavourates } from '../../pages/toggleFavourates'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 const EventHeader = ({data}) => {
+    const [searchParams] = useSearchParams();
+    const id = searchParams.get('id');
+    console.log(id)
     const [selectedImg,setselectedImg] = useState(data.images[0])
     const [lovedEvents ,setLovedEvents] = useState(localStorage.getItem('lovedEvents') ? JSON.parse(localStorage.getItem('lovedEvents')) : [] )
     useEffect(() => {
@@ -51,17 +54,17 @@ const EventHeader = ({data}) => {
                         onClick={
                             () => {
                                 if (sessionStorage.getItem('token')) {
-                                    if (lovedEvents.includes(data.id)) {
-                                        setLovedEvents(lovedEvents.filter(id => id !== data.id))
-                                        localStorage.setItem('lovedEvents', JSON.stringify(lovedEvents.filter(id => id !== data.id)))
+                                    if (lovedEvents.includes(Number(id))) {
+                                        setLovedEvents(lovedEvents.filter(id => id !== Number(id)))
+                                        localStorage.setItem('lovedEvents', JSON.stringify(lovedEvents.filter(id => id !== Number(id))))
                                         toast.success('تم حذف الوحدة من المفضلة')
                                     }
                                     else {
-                                        setLovedEvents([...lovedEvents, data.id])
-                                        localStorage.setItem('lovedEvents', JSON.stringify([...lovedEvents, data.id]))
+                                        setLovedEvents([...lovedEvents, Number(id)])
+                                        localStorage.setItem('lovedEvents', JSON.stringify([...lovedEvents, Number(id)]))
                                         toast.success('تم اضافة الوحدة الي المفضلة')
                                     }
-                                    toggleFavourates(data.id, 'Event');
+                                    toggleFavourates(Number(id), 'Event');
                                 }
                                 else {
                                     toast.error('يجب تسجيل الدخول اولا')
@@ -69,7 +72,7 @@ const EventHeader = ({data}) => {
                                 }
                             }
                         }
-                        ><i className={`fa-heart ${lovedEvents.includes(data.id) ? 'fa-solid text-[#A71755]' : 'fa-regular'}`}></i></button>
+                        ><i className={`fa-heart ${lovedEvents.includes(Number(id)) ? 'fa-solid text-[#A71755]' : 'fa-regular'}`}></i></button>
                     </div>
                 </div>
                 <div className="detail-cont">

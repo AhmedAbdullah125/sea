@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 
 export const toggleFavourates = async (productId, type) => {
     // setLoading(true); // Set loading state
+    console.log(productId, type);
     const formData = new FormData();
     formData.append('wishable_id', productId);
     formData.append('wishable_type', type);
