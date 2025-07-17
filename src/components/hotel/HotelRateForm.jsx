@@ -24,6 +24,9 @@ const HotelRateForm = ({ comment, rate, setComment, data, setRate, trigger, setT
             data,
         };
         handleAddComment(payload);
+        // reset form fields
+        setComment('');
+        setRate(0);
     }
     const handleAddComment = async (payload) => {
         await addComment(API_BASE_URL, payload, setLoading, trigger, setTrigger, setActiveTab);

@@ -16,7 +16,6 @@ const Event = () => {
     const [data, setData] = useState([]);
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
-    console.log(data);
     useEffect(() => {
         const getData = async () => {
             setLoading(true);

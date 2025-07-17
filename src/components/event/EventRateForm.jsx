@@ -26,6 +26,9 @@ const EventRateForm = ({id}) => {
         };
         handleAddComment(payload);
         // console.log(payload);
+          // reset form fields
+          setComment('');
+          setRate(0);
     }
     const handleAddComment = async (payload) => {
         await addEventComment(API_BASE_URL, payload, setLoading, );

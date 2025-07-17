@@ -12,6 +12,8 @@ import { fetchFromApi } from "../api/utils/fetchData"
 import Header from "../components/header/Header"
 import Footer from "../components/footer/Footer"
 import Loading from "../components/loading/Loading"
+import bgappImae from "../../public/app/bg-app.svg" 
+import victorsvg from "../../public/app/app-victor.svg" 
 const SingleVisaPage = () => {
   const { id } = useParams();
   const { data, isLoading, isError } = useQuery({
@@ -74,7 +76,7 @@ const SingleVisaPage = () => {
           {/*  */}
 
           <section className='my-16 container flex items-center justify-between xl:gap-16 relative'>
-            <img src="/public/app/bg-app.svg" alt="bg" loading='lazy' className='absolute top-0 start-0 size-[25rem] ' />
+            <img src={bgappImae} alt="bg" loading='lazy' className='absolute top-0 start-0 size-[25rem] ' />
 
 
             {/* content */}
@@ -128,8 +130,8 @@ const SingleVisaPage = () => {
 
             </div>
             {/* img */}
-            <div className='xl:w-1/2 w-0 xl:h-screen rounded-[80px] overflow-hidden'>
-              <img src={visa?.image} alt="iphone" loading='lazy' className='w-full h-full object-cover' />
+            <div className='xl:w-1/2 w-0 xl:h-screen rounded-[80px] overflow-hidden max-h-96'>
+              <img src={visa?.image} alt="iphone" loading='lazy' className='w-full h-full object-cover'  />
             </div>
           </section>
         </main>
