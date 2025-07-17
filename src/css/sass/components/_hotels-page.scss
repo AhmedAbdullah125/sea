@@ -651,7 +651,9 @@
       align-items: center;
       gap: 10px;
       margin-bottom: 30px;
-
+      @media screen and (max-width: 767px) {
+        flex-wrap: wrap;
+      }
       span {
         width: 100%;
         height: 58px;
@@ -825,7 +827,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    flex-wrap: wrap;
     .r-side {
       min-height: 48px;
       display: flex;
@@ -836,6 +838,7 @@
       .price-details {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         gap: 8px;
       }
 
