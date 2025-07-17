@@ -9,7 +9,10 @@ const EventRateForm = ({id}) => {
     const [comment, setComment] = useState('');
     function handleSubmit(e) {
         e.preventDefault(); // ✅ Prevent page reload
-
+        if(!sessionStorage.getItem('token')){
+            toast.error('يرجى تسجيل الدخول قبل الحفظ');
+            return
+        }
         if (rate === 0) {
             toast.error('يرجى تحديد التقييم قبل الحفظ');
             return;
