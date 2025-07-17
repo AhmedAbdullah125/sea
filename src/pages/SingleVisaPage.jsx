@@ -58,9 +58,9 @@ const SingleVisaPage = () => {
               {visa?.steps?.map((item, index) => (
                 <div
                   key={index}
-                  className="w-[250px] px-14 py-10 flex flex-col justify-between items-center bg-body rounded-[50px] shadow"
+                  className="w-[250px] px-0 pb-10 overflow-hidden flex flex-col justify-between items-center bg-body rounded-[50px] shadow"
                 >
-                  <img src={item.image} alt="icon" loading="lazy" className="w-12 h-12" />
+                  <img src={item.image} alt="icon" loading="lazy" className="w-full aspect-[3/2] object-cover" />
                   <p className="text-xs font-semibold text-main-navy text-center mt-4">
                     {item.text}
                   </p>

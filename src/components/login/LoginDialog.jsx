@@ -64,7 +64,7 @@ const LoginDialog = ({ mainHeader = false }) => {
           أنشئ حســـاب الان</p>
         {mainHeader ? null : <ChevronLeft size={18} />}
       </DialogTrigger>
-      <DialogContent className='bg-white !rounded-xl  max-w-[75%] xl:p-10 ' hideClose >
+      <DialogContent className='bg-white !rounded-xl  max-w-[90%] xl:p-10 ' hideClose >
         <div className="grid grid-cols-12 items-center gap-6">
           <div className="xl:col-span-5  col-span-12 xl:space-y-12 space-y-6">
             <DialogClose asChild>
