@@ -54,9 +54,9 @@ const AboutUS = () => {
             <div className='xl:max-w-[80%]'>
 
               <div className=' text-center xl:text-start space-y-3 '>
-                <div className=' font-bold text-main-navy' dangerouslySetInnerHTML={{ __html: doubleDecode(data?.data?.data?.mainTitle) }}></div>
+                <div className=' font-bold text-main-navy' >لمــــاذا نحن !.</div>
 
-                <div className='text-main-blue max-md:text-nowrap font-bold xl:text-2xl text-xl xl:leading-relaxed'
+                <div className='text-main-blue max-md:text-nowrap max-w-[300px] font-bold xl:text-4xl text-2xl xl:leading-relaxed text-center xl:text-start m-auto xl:m-0'
                   dangerouslySetInnerHTML={{ __html: doubleDecode(data?.data?.data?.mainDescription) }}>
                 </div>
 

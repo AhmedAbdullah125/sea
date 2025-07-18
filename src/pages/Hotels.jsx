@@ -7,6 +7,8 @@ import { useSearchParams } from 'react-router-dom';
 import FilterPanel from '../components/hotels/FilterPanel';
 import HotelsGrid from '../components/hotels/HotelsGrid';
 import Loading from '../components/loading/Loading';
+import { ChevronDown } from "lucide-react"
+
 const Hotels = () => {
     // state for search params
     const [searchParams, setSearchParams] = useSearchParams();

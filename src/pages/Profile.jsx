@@ -13,13 +13,17 @@ import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import Loading from '../components/loading/Loading';
 import { updateProfile } from './updateProfileData';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ChevronDown } from "lucide-react"
+
 import imgIcon from '../../public/profile/ddd.svg';
 export default function EditPage() {
     const [profile, setProfile] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [countryData, setCountryData] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
     const [imageFile, setImageFile] = useState(null);
+    const [selectedCountry, setSelectedCountry] = useState(null);
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
@@ -33,9 +37,13 @@ export default function EditPage() {
         //scroll to the top of page 
         window.scrollTo(0, 0);
         const getData = async () => {
+            setLoading(true);
             try {
                 const response = await axios.get(`${API_BASE_URL}/user/profile`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
+                const response2 = await axios.get(API_BASE_URL + `/countries`, {});
                 setProfile(response.data.data);
+                let data = response2.data.data;
+                setCountryData(data)
                 setLoading(false);
             } catch (error) {
                 console.error('Error retrieving data:', error);
@@ -45,12 +53,14 @@ export default function EditPage() {
         };
         getData();
     }, []);
+    console.log(profile);
 
     const FormSchema = z.object({
         firstName: z.string().min(2, { message: 'name must be at least 2 characters.', }),
         lastName: z.string().min(2, { message: 'name must be at least 2 characters.', }),
         email: z.string().email({ message: 'Invalid email address.' }),
         mobile: z.string().min(8, { message: 'Phone number must be 8 characters.', }).regex(/^\+?\d+$/, { message: 'Phone number must start with a plus sign and contain only digits.', }),
+        country : z.string().min(1, { message: 'country must be at least 2 characters.', }),
     });
     const form = useForm({
         resolver: zodResolver(FormSchema),
@@ -59,6 +69,7 @@ export default function EditPage() {
             lastName: profile?.lastName || '',
             email: profile?.email || '',
             mobile: profile?.mobile || '',
+            country: profile?.countryId || '',
         },
     });
     function onSubmit(data) {
@@ -72,6 +83,7 @@ export default function EditPage() {
             lastName: data.lastName,
             email: data.email,
             mobile: data.mobile,
+            countryId: data.country,
             image: selectedImage ? imageFile : ""
         }
         handleUpdateProfile(newData);
@@ -85,31 +97,19 @@ export default function EditPage() {
         form.setValue('lastName', profile?.lastName || '');
         form.setValue('email', profile?.email || '');
         form.setValue('mobile', `${Number(profile?.mobile)}` || '');
+        form.setValue('country', profile?.countryId || '');
+
         if (selectedImage) {
             document.getElementById('triger').style.border = 'none';
         }
     }, [profile, setSelectedImage]);
-    useEffect(() => {
-        setLoading(true)
-        const getCountries = async () => {
-            try {
-                const response = await axios.get(API_BASE_URL + `/countries`, {});
-                let data = response.data.data;
-                setCountryData(data)
-                setLoading(false)
-            } catch (error) {
-                console.error('Error retrieving data:', error);
-                throw new Error('Could not get data');
-                setLoading(false)
-            }
-        };
-        getCountries();
-    }, []);
+
+    console.log(profile);
 
     return (
         <div className="account-content">
             {
-                loading || !profile ? <Loading /> :
+                loading || !profile  || !countryData? <Loading /> :
                     <div className="profile-form-ccont">
                         <h3>معلومات الملف الشخصي</h3>
                         <p>يمكنك تعديل معلومات الملف الشخصي باستثناء الرقم الجوال.</p>
@@ -193,6 +193,40 @@ export default function EditPage() {
                                                 )}
                                             />
                                         </div>
+                                        {/* start */}
+                                        <FormField
+                                            control={form.control}
+                                            name={"country"}
+                                            className="w-full "
+                                            render={() => (
+                                                <FormItem className="w-full">
+                                                    <FormLabel className="block" dir="rtl" >
+                                                            <p className="text-main-blue font-bold text-sm">
+                                                                الدولـــة
+                                                                <span className="text-red-500">*</span>
+                                                            </p>
+                                                        </FormLabel>
+                                                    <Select dir="rtl"
+                                                        defaultValue={""}
+                                                        onValueChange={(val) => setSelectedCountry(val)} >
+                                                        <FormControl>
+                                                            <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                                                                <ChevronDown size={14} />
+                                                            </div>} className={`bg-white  text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
+                                                                <SelectValue placeholder={"اختر الدولة"} className="text-[#797979]" />
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                                                            {countryData.map((option) => (
+                                                                <SelectItem key={option.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
+                                                                    {option.name}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                </FormItem>
+                                            )}
+                                        />
                                         <Button className="form-btn-cont" type="submit">
                                             <sapan className="form-btn">حفظ</sapan>
                                         </Button>
