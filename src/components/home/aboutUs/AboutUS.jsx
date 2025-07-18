@@ -60,7 +60,7 @@ const AboutUS = () => {
                   dangerouslySetInnerHTML={{ __html: doubleDecode(data?.data?.data?.mainDescription) }}>
                 </div>
 
-                <div className='text-main-navy ' dangerouslySetInnerHTML={{ __html: doubleDecode(data?.data?.data?.title) }}></div>
+                <div className='text-main-navy ' dangerouslySetInnerHTML={{ __html: doubleDecode(data?.data?.data?.mainTitle) }}></div>
               </div>
               <div className=" mt-4 flex items-center max-xl:justify-center  gap-2 w-full">
                 <a href={`https://wa.me/${whatsapp?.whatsapp}`} target='_blank' className="h-8  rounded-full   bg-main-purple !text-white e hover:bg-main-blue transation-all duration-300  text-xs font-semibold px-6 flex items-center justify-center">إحجـــز رحلتك الان</a>

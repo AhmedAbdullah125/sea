@@ -10,7 +10,7 @@ const TotalHotelCard = ({ hotel }) => {
         <div className="w-full h-full bg-black/30 flex flex-col justify-between" >
           {/* content */}
           <div className='flex flex-col gap-3 text-white  h-full p-8'>
-            <h3 h3 className="  font-bold text-3xl leading-relaxed" > {hotel?.title}</h3 >
+            <h3 h3 className="  font-bold text-2xl leading-relaxed" > {hotel?.title}</h3 >
             <p className=" text-xs line-clamp-1">{hotel?.address}</p>
             {/* rate */}
             <div div className="flex items-start gap-1 " >
