@@ -2617,7 +2617,6 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   font-size: 12px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  margin-bottom: 30px;
 }
 .hotel-payment-section .offerLink:hover {
   background-color: var(--main-color);

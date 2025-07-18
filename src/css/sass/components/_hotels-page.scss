@@ -907,7 +907,7 @@
     font-size: 12px;
     cursor: pointer;
     @include tr;
-    margin-bottom: 30px;
+    // margin-bottom: 30px;
 
     &:hover {
       background-color: $main;
