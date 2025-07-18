@@ -1,13 +1,25 @@
 import { FaGooglePlay } from "react-icons/fa";
 import { GrApple } from "react-icons/gr";
+import { motion } from 'framer-motion'
+
 const AppSection = () => {
   return (
-    <section className='my-16  container'>
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className='my-16  container'>
       <div className='overflow-hidden  bg-[url("/public/app/mobile.jpg")] bg-center bg-cover bg-no-repeat rounded-[105px] bg-main-blue/45'>
         <div className=" flex items-center justify-between bg-main-blue/45">
 
           {/* content */}
-          <div className='xl:w-1/2 w-full container !text-white xl:py-20 py-16'>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 ,delay:0.5}}
+            className='xl:w-1/2 w-full container !text-white xl:py-20 py-16'>
             <div className='xl:space-y-6 space-y-4 text-center xl:text-start'>
               <p className='text-xs  font-bold'>التطبيق</p>
               <h3 className='xl:text-5xl text-3xl font-bold '>تطبيق ســـي / SEA</h3>
@@ -38,15 +50,20 @@ const AppSection = () => {
 
 
             </div>
-          </div>
+          </motion.div>
           {/* iphone */}
-          <div className='xl:w-1/2 w-0 self-end'>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className='xl:w-1/2 w-0 self-end'>
             <img src="/app/iphone.png" alt="iphone" loading='lazy' className='w-full h-full object-contain' />
-          </div>
+          </motion.div>
         </div>
 
       </div>
-    </section>
+    </motion.section>
   )
 }
 

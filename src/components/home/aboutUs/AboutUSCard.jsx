@@ -9,9 +9,9 @@ import {
 
 const AboutUSCard = ({feature}) => {
   return (
-    <Card className="shadow-none border-none flex flex-col justify-center bg-white py-12 px-8 rounded-[105px] col-span-12 md:col-span-6 space-y-7 xl:min-h-[400px]">
+    <Card className="shadow-none border-none flex flex-col justify-center bg-white py-12 px-8 rounded-[90px]  space-y-4 h-fit">
       <CardHeader className="p-0">
-        <img src={feature?.icon} alt="icon" loading="lazy" width={60} height={60} className="rounded-full" />
+        <img src={feature?.icon} alt="icon" loading="lazy" width={60} height={60} className="rounded-full size-16" />
       </CardHeader>
       <CardContent className="p-0 py-4 w-fit relative before:w-8 before:h-[5px] before:bg-main-blue before:rounded-full before:absolute before:start-0 before:bottom-0">
         <img src="/aboutUs/about-victor.svg" alt="icon" loading="lazy" className="absolute -top-3 -end-4"/>

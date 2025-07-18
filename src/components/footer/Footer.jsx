@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { API_BASE_URL } from '../../lib/apiConfig'
 import Loading from '../loading/Loading'
+import { motion } from "framer-motion";
 const Footer = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -27,7 +28,12 @@ const Footer = () => {
         getData();
     }, []);
     return (
-        <footer className='footer'>
+        <motion.footer
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className='footer'>
             {
                 loading ? <Loading /> :
                     <div className="container">
@@ -107,7 +113,7 @@ const Footer = () => {
                         </div>
                     </div>
             }
-        </footer>
+        </motion.footer>
     )
 }
 export default Footer

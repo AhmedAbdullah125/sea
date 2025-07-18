@@ -12,6 +12,7 @@ import { fetchFromApi } from "../../../api/utils/fetchData";
 import Loader from "../../loader/Loader"
 import AlertError from "../../alerts/AlertError"
 import AlertWarning from "../../alerts/AlertWarning"
+import { motion } from "framer-motion";
 const HotelsSection = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['hotels'],
@@ -27,12 +28,17 @@ const HotelsSection = () => {
 
   return (
 
-    <section className='my-16 '>
+    <motion.section
+      className='my-16'
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       {data?.data?.data?.length > 0 ?
         <Carousel
           dir="rtl"
           opts={{
-            align: "end",
+            align: "center",
             loop: true,
           }}
           className="w-full space-y-8  "
@@ -46,10 +52,17 @@ const HotelsSection = () => {
           </div>
           <div className="max-xl:container xl:ps-20 2xl:ps-24">
 
-            <CarouselContent  >
+            <CarouselContent className=""  >
               {data?.data?.data?.map((hotel, index) => (
                 <CarouselItem key={index} className="md:basis-1/3 xl:basis-1/6 ">
-                  <HotelCard hotel={hotel} />
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <HotelCard hotel={hotel} />
+                  </motion.div>
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -64,7 +77,7 @@ const HotelsSection = () => {
 
 
 
-    </section>
+    </motion.section>
   )
 }
 

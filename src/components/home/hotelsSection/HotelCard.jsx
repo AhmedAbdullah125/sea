@@ -7,7 +7,7 @@ import HotelCardCarousel from "./HotelCardCarousel";
 
 const HotelCard = ({ hotel }) => {
   return (
-    <Card className="shadow-none border-none space-y-2" dir="rtl">
+    <Card className="shadow-none border-none space-y-2 " dir="rtl">
       <CardHeader className="p-0">
         {/* img slider */}
         < div className="relative overflow-hidden   rounded-[40px]" >
@@ -16,7 +16,7 @@ const HotelCard = ({ hotel }) => {
           {/* card image */}
           <HotelCardCarousel images={hotel?.images} />
           {/* add to fav */}
-          < AddToFavBtn postion="absolute top-5 end-5 z-10" />
+          < AddToFavBtn id={hotel?.id} type="Hotel" postion="absolute top-5 end-5 z-10" />
         </div >
       </CardHeader>
       <CardContent className=" p-0">
@@ -31,7 +31,7 @@ const HotelCard = ({ hotel }) => {
           <h3 h3 className=" font-bold line-clamp-1" > {hotel?.title}</h3 >
           <p className="text-main-gray text-xs line-clamp-1">{hotel?.address}</p>
           {/* price */}
-          <h4 className="font-bold text-main-blue">TRY {hotel?.price} <span className="text-xs font-semibold text-main-purple">/ مقابل {hotel?.rentalPeriod} ليالي</span>
+          <h4 className="font-bold text-main-blue h-14">{Number(hotel?.price).toFixed(2)} {hotel?.currencyName} <span className="text-xs font-semibold text-main-purple">/ مقابل {hotel?.rentalPeriod} ليالي</span>
           </h4>
         </div >
       </CardContent>

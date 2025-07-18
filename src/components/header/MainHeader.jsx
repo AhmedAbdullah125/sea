@@ -8,9 +8,11 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import axios from 'axios'
 import { API_BASE_URL } from '../../lib/apiConfig'
 import Loading from '../loading/Loading'
+import { motion } from "framer-motion";
 const MainHeader = () => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true);
+    const [scrolled, setScrolled] = useState(false);
     useEffect(() => {
         setLoading(true);
         const getData = async () => {
@@ -26,8 +28,25 @@ const MainHeader = () => {
         };
         getData();
     }, [])
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
     return (
-        <section className='main-header-cont'>
+        <motion.section
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay:  0.5 }}
+            className={`main-header-cont lg:fixed top-0 left-0 right-0 z-[9999] gap-7 py-5 transition-colors duration-300 ${scrolled ? 'bg-black/70 !gap-5' : 'bg-transparent'}`}>
             {
                 loading ? <Loading /> :
                     <>
@@ -116,7 +135,7 @@ const MainHeader = () => {
                         </div>
                     </>
             }
-        </section>
+        </motion.section>
     )
 }
 export default MainHeader

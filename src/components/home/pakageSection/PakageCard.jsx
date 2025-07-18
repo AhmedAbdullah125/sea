@@ -14,7 +14,7 @@ const PakageCard = ({item}) => {
       <CardHeader className="p-0 ">
         <div className=" relative overflow-hidden h-56 rounded-[40px]">
           {/* add to fav */}
-          < AddToFavBtn postion="absolute top-5 end-5 z-10" />
+          < AddToFavBtn id={item?.id} type="Plan" postion="absolute top-5 end-5 z-10" />
           < img src={item?.thumbnail} alt="item" loading="lazy" className="w-full h-full object-cover" />
         </div>
       </CardHeader>
@@ -33,15 +33,15 @@ const PakageCard = ({item}) => {
         <h3 h3 className=" font-bold line-clamp-1" > {item?.title }</h3 >
         <p className="text-main-gray text-xs line-clamp-1">سارية في 22 نوفمبر 2025</p>
         {/* price */}
-        <h4 className="font-bold text-main-blue">EUR {item?.cost} <span className="text-xs font-semibold text-main-purple">/ للشخص الواحد</span>
+        <h4 className="font-bold text-main-blue"> {Number(item?.cost).toFixed(2)} <span className="text-xs font-semibold text-main-purple">/ للشخص الواحد</span>
         </h4>
 
 
       </CardContent>
       <CardFooter className="p-0">
         <div className="flex items-center justify-between gap-2 w-full">
-          <Link to={`/package/${item?.id}`} className="h-10 flex-grow  rounded-full   bg-main-purple !text-white  hover:bg-main-blue transition-all duration-300 text-xs font-semibold flex items-center justify-center ">إحجـــز رحلتك الان</Link>
-          <Link to={`/package/${item?.id}`} className="group size-10 bg-main-purple  hover:bg-main-blue transition-all duration-300 rounded-full flex items-center justify-center">
+          <Link to={`/package/${item?.slug}`} className="h-10 flex-grow  rounded-full   bg-main-purple !text-white  hover:bg-main-blue transition-all duration-300 text-xs font-semibold flex items-center justify-center ">إحجـــز رحلتك الان</Link>
+          <Link to={`/package/${item?.slug}`} className="group size-10 bg-main-purple  hover:bg-main-blue transition-all duration-300 rounded-full flex items-center justify-center">
             <svg
               className="text-white "
               width="20"

@@ -4,7 +4,8 @@ import { fetchFromApi } from "../../../api/utils/fetchData"
 import StatisticCard from "./StatisticCard"
 import Loader from "../../loader/Loader"
 import AlertError from "../../alerts/AlertError"
-
+import { Link } from "react-router-dom"
+import { motion } from "framer-motion"
 const Satatistics = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['about-us'],
@@ -20,24 +21,49 @@ const Satatistics = () => {
     </AlertError>
   </div>
   return (
-    <section className="my-16 py-16 bg-body rounded-3xl xl:rounded-[6.25rem]">
+    <motion.section
+    initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="my-16 py-16 bg-body rounded-3xl xl:rounded-[6.25rem]">
       {data?.data?.data?.images?.length > 0 ?
         <div className="container">
           {/* content */}
           <div className=" w-full flex flex-col xl:flex-row items-center max-xl:gap-4 xl:items-start justify-between ">
             <div className="text-center xl:text-start xl:space-y-4 space-y-2">
-              <p className="text-xs font-bold text-main-navy" dangerouslySetInnerHTML={{ __html: data?.data?.data?.title }}></p>
-              <h3 className="text-main-blue xl:text-5xl font-bold md:text-3xl text-xl " dangerouslySetInnerHTML={{ __html: data?.data?.data?.mainTitle }}></h3>
-              <div className="text-main-navy text-xs xl:text-base xl:leading-[3rem]">
-                <div dangerouslySetInnerHTML={{ __html: data?.data?.data?.mainDescription }} />
-                <div dangerouslySetInnerHTML={{ __html: data?.data?.data?.secondDescription }} />
-              </div>
+              <motion.p
+              initial={{ opacity: 0, y: -30,x:-30 }}
+                whileInView={{
+                  opacity: 1, y: 0, x: 0
+                }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, }}
+                className="text-xs font-bold text-main-navy" dangerouslySetInnerHTML={{ __html: data?.data?.data?.mainTitle }}></motion.p>
+              <motion.h3
+                initial={{ opacity: 0, y: -30, x: -30 }}
+                whileInView={{
+                  opacity: 1, y: 0, x: 0
+                }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="text-main-blue xl:text-3xl font-bold md:text-2xl text-xl " dangerouslySetInnerHTML={{ __html: data?.data?.data?.mainDescription }}></motion.h3>
+              <motion.div
+                initial={{ opacity: 0, y: -30, x: -30 }}
+                whileInView={{
+                  opacity: 1, y: 0, x: 0
+                }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5,delay:0.4 }}
+                className="text-main-navy text-xs xl:text-base xl:leading-[3rem]">
+                <div dangerouslySetInnerHTML={{ __html: data?.data?.data?.title}} />
+              </motion.div>
             </div>
             {/* link */}
-            <a href="#" className="xl:mt-6 flex items-center gap-2 text-white text-xs bg-main-blue p-2 border-2 border-main-blue hover:bg-transparent hover:text-main-blue rounded-full w-fit ">
+            <Link to="/table" className="xl:mt-6 flex items-center gap-2 text-white text-xs bg-main-blue p-2 border-2 border-main-blue hover:bg-transparent hover:text-main-blue rounded-full w-fit ">
               خدمـــــــــاتنا
               <BiSolidLeftTopArrowCircle size={20} />
-            </a>
+            </Link>
           </div>
           {/* statistics */}
           <div className="grid grid-cols-12 gap-2 ">
@@ -54,7 +80,7 @@ const Satatistics = () => {
             })}
           </div>
         </div> : ""}
-    </section>
+    </motion.section>
   )
 }
 
