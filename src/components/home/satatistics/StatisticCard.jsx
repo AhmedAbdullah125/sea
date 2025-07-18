@@ -42,7 +42,7 @@ const SatisticCard = ({ statistic, idx, isLast }) => {
       <AnimatePresence>
         {showOverlay && (
           <motion.div
-            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/80 flex items-center justify-center z-[999999]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

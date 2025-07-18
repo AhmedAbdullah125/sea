@@ -9,14 +9,14 @@ const PakageGrid = ({ data }) => {
   }
 
   return (
-    <div className='grid grid-cols-12 xl:gap-x-4 xl:gap-y-10 gap-4'>
+    <div className='grid grid-cols-10 xl:gap-x-4 xl:gap-y-10 gap-4'>
       {data.map((item, index) => (
         <motion.div
           key={index}
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
-          className="col-span-12 md:col-span-6 xl:col-span-3"
+          className="col-span-10 md:col-span-5 xl:col-span-2"
         >
           <PakageCard item={item} />
         </motion.div>

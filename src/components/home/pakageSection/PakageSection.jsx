@@ -96,9 +96,8 @@ const PakageSection = () => {
       return res?.data?.data
     }
   })
-
   useEffect(() => {
-    const fetchPackages = async () => {
+  const fetchPackages = async () => {
       if (!continentsData) return
 
       const results = await Promise.all(

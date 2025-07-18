@@ -6,6 +6,7 @@ import Loader from "../../loader/Loader"
 import AlertError from "../../alerts/AlertError"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
+import { decode } from "html-entities"
 const Satatistics = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['about-us'],
@@ -20,6 +21,10 @@ const Satatistics = () => {
       هناك خطاء ما
     </AlertError>
   </div>
+    function doubleDecode(text) {
+      if (!text) return ''
+      return decode(decode(text))
+    }
   return (
     <motion.section
     initial={{ opacity: 0, y: 30 }}
@@ -30,7 +35,7 @@ const Satatistics = () => {
       {data?.data?.data?.images?.length > 0 ?
         <div className="container">
           {/* content */}
-          <div className=" w-full flex flex-col xl:flex-row items-center max-xl:gap-4 xl:items-start justify-between ">
+          <div className=" w-full flex flex-col xl:flex-row items-center max-xl:gap-4 xl:items-start justify-between mb-6">
             <div className="text-center xl:text-start xl:space-y-4 space-y-2">
               <motion.p
               initial={{ opacity: 0, y: -30,x:-30 }}
@@ -39,7 +44,7 @@ const Satatistics = () => {
                 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, }}
-                className="text-xs font-bold text-main-navy" dangerouslySetInnerHTML={{ __html: data?.data?.data?.mainTitle }}></motion.p>
+                className=" font-bold text-main-navy" dangerouslySetInnerHTML={{ __html:doubleDecode( data?.data?.data?.mainTitle) }}></motion.p>
               <motion.h3
                 initial={{ opacity: 0, y: -30, x: -30 }}
                 whileInView={{
@@ -47,7 +52,7 @@ const Satatistics = () => {
                 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-main-blue xl:text-3xl font-bold md:text-2xl text-xl " dangerouslySetInnerHTML={{ __html: data?.data?.data?.mainDescription }}></motion.h3>
+                className="text-main-blue xl:text-3xl font-bold md:text-2xl text-xl " dangerouslySetInnerHTML={{ __html:doubleDecode( data?.data?.data?.mainDescription) }}></motion.h3>
               <motion.div
                 initial={{ opacity: 0, y: -30, x: -30 }}
                 whileInView={{
@@ -55,8 +60,8 @@ const Satatistics = () => {
                 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5,delay:0.4 }}
-                className="text-main-navy text-xs xl:text-base xl:leading-[3rem]">
-                <div dangerouslySetInnerHTML={{ __html: data?.data?.data?.title}} />
+                className="text-main-navy  xl:text-base ">
+                <div dangerouslySetInnerHTML={{ __html: doubleDecode(data?.data?.data?.title)}} />
               </motion.div>
             </div>
             {/* link */}

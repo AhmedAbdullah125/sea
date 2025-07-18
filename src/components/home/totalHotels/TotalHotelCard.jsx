@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const TotalHotelCard = ({ hotel }) => {
   return (
-    <div className=" relative">
+    <div className={` relative w-full`}>
       <div className={`${styles.inverted} bg-no-repeat bg-center bg-cover rounded-[40px] overflow-hidden`} style={{ backgroundImage: `url(${hotel?.images[0]}) ` }}>
         <div className="w-full h-full bg-black/30 flex flex-col justify-between" >
           {/* content */}
@@ -21,7 +21,7 @@ const TotalHotelCard = ({ hotel }) => {
         </div>
       </div>
 
-      <Link to={`/hotels?id=${hotel?.id}`} className={`absolute bottom-0 end-0 size-10  bg-main-blue  !text-white  text-xs font-semibold flex items-center justify-center rounded-full  hover:bg-main-purple transition-all duration-300`}>
+      <Link to={`/hotel?id=${hotel?.id}`} className={`absolute bottom-0 end-0 size-10  bg-main-blue  !text-white  text-xs font-semibold flex items-center justify-center rounded-full  hover:bg-main-purple transition-all duration-300`}>
         <GoArrowUpLeft size={20} />
       </Link>
     </div>

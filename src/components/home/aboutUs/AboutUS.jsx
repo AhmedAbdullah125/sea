@@ -6,7 +6,7 @@ import Loader from '../../loader/Loader'
 import AlertError from '../../alerts/AlertError'
 import AlertWarning from '../../alerts/AlertWarning'
 import { motion } from 'framer-motion'
-
+import { decode } from 'html-entities'
 
 const AboutUS = () => {
   const { data, isLoading, isError } = useQuery({
@@ -23,7 +23,6 @@ const AboutUS = () => {
       return res?.data?.data;
     }
   })
-  console.log(whatsapp);
 
   if (isLoading) return <Loader />
   if (isError) return <div className='container my-12'>
@@ -31,6 +30,11 @@ const AboutUS = () => {
       هناك خطاء ما
     </AlertError>
   </div>
+  function doubleDecode(text) {
+    if (!text) return ''
+    return decode(decode(text))
+  }
+  
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -46,17 +50,19 @@ const AboutUS = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className='xl:w-1/3 w-full '>
+            className='xl:w-2/5 w-full '>
             <div className='xl:max-w-[80%]'>
 
-              <div className=' text-center xl:text-start space-y-2 '>
-                <h2 className='text-xs font-bold text-main-navy' dangerouslySetInnerHTML={{ __html: data?.data?.data?.mainTitle }}></h2>
+              <div className=' text-center xl:text-start space-y-3 '>
+                <div className=' font-bold text-main-navy' dangerouslySetInnerHTML={{ __html: doubleDecode(data?.data?.data?.mainTitle) }}></div>
 
-                <h3 className='text-main-blue max-md:text-nowrap font-bold xl:text-3xl md:text-3xl text-xl xl:leading-relaxed' dangerouslySetInnerHTML={{ __html: data?.data?.data?.mainDescription }}>
-                </h3>
-                <p className='text-main-navy text-xs' dangerouslySetInnerHTML={{ __html: data?.data?.data?.title }}></p>
+                <div className='text-main-blue max-md:text-nowrap font-bold xl:text-2xl text-xl xl:leading-relaxed'
+                  dangerouslySetInnerHTML={{ __html: doubleDecode(data?.data?.data?.mainDescription) }}>
+                </div>
+
+                <div className='text-main-navy ' dangerouslySetInnerHTML={{ __html: doubleDecode(data?.data?.data?.title) }}></div>
               </div>
-              <div className="xl:mt-32 mt-2 flex items-center max-xl:justify-center  gap-2 w-full">
+              <div className=" mt-4 flex items-center max-xl:justify-center  gap-2 w-full">
                 <a href={`https://wa.me/${whatsapp?.whatsapp}`} target='_blank' className="h-8  rounded-full   bg-main-purple !text-white e hover:bg-main-blue transation-all duration-300  text-xs font-semibold px-6 flex items-center justify-center">إحجـــز رحلتك الان</a>
                 <a href={`https://wa.me/${whatsapp?.whatsapp2}`} target='_blank' className="group size-8 bg-main-purple e hover:bg-main-blue transation-all duration-300  rounded-full flex items-center justify-center">
                   <svg
@@ -74,7 +80,7 @@ const AboutUS = () => {
             </div>
           </motion.div>
           {/* grid */}
-          <div className='xl:w-2/3 w-full grid grid-cols-12 gap-4 '>
+          <div className='xl:w-3/5 w-full grid grid-cols-12 gap-4 '>
             {data?.data?.data?.items?.map((feature, index) => (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: -20, x: -20 }}

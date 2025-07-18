@@ -36,10 +36,11 @@ const HotelsSection = () => {
     >
       {data?.data?.data?.length > 0 ?
         <Carousel
-          dir="rtl"
           opts={{
-            align: "center",
             loop: true,
+            direction: "rtl",
+            align: "center",
+
           }}
           className="w-full space-y-8  "
         >
@@ -54,7 +55,7 @@ const HotelsSection = () => {
 
             <CarouselContent className=""  >
               {data?.data?.data?.map((hotel, index) => (
-                <CarouselItem key={index} className="md:basis-1/3 xl:basis-1/6 ">
+                <CarouselItem key={index} className="md:basis-1/3 xl:basis-1/5 ">
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
