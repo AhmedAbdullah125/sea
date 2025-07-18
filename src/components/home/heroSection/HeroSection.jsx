@@ -6,7 +6,7 @@ import FilterTabs from "../filterTabs/FilterTabs";
 import styles from "./heroSection.module.css";
 import Loading from "../../loading/Loading";
 import { NumberTicker } from "@/components/magicui/number-ticker";
-
+import { motion } from "framer-motion";
 const counters = [
   {
     number: "10k",
@@ -39,11 +39,21 @@ const HeroSection = () => {
   }, []);
   console.log(data)
   return (
-    <section className="min-h-[100vh] bg-[url('/home/hero.png')] bg-cover bg-center bg-no-repeat space-y-6 pb-6 flex flex-col justify-between">
+    <motion.section
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="min-h-[100vh] bg-[url('/home/hero.png')] bg-cover bg-center bg-no-repeat space-y-6 pb-6 flex flex-col justify-end">
       <MainHeader />
       {
         loading ? <Loading /> :
-          <div className="  flex items-end justify-center ">
+          <motion.div
+            initial={{ opacity: 0 ,y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="  flex items-end justify-center ">
             <div className="container text-white space-y-6 ">
               {/* content */}
               <div className="w-full flex flex-col xl:flex-row justify-between items-end ">
@@ -75,10 +85,10 @@ const HeroSection = () => {
               <FilterTabs data={data} />
 
             </div>
-          </div>
+          </motion.div>
       }
 
-    </section>
+    </motion.section>
   )
 }
 
