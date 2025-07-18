@@ -38,7 +38,7 @@ export const filterSchema = z.object({
   type: z.string().optional(),
 });
 
-const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
+const FilterPanel = ({ defaultValues, onFilter, setMainData,setLoading }) => {
   function formatDate(input) {
     const date = new Date(input);
     const year = date.getFullYear();
@@ -46,7 +46,6 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-  const [loading, setLoading] = useState(true);
   const [seletedCountry, setSelectedCountry] = useState(defaultValues.destination || '');
   const [selectedFlat, setSelectedFlat] = useState(defaultValues.flat || '');
   const [selectedCity, setSelectedCity] = useState(defaultValues.city || '');
@@ -125,9 +124,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
   }
   
   return (
-    <>
-      {
-        loading && !data ? <Loading /> :
+    
           <Form {...form}>
             <form className="space-y-4 mb-10">
               <div className="flex gap-4">
@@ -386,8 +383,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
 
             </form>
           </Form>
-      }
-    </>
+     
   )
 }
 
