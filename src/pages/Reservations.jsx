@@ -19,9 +19,9 @@ export default function Reservations() {
         }
         const getData = async () => {
             try {
-                const response = await axios.get(`${API_BASE_URL}/bookings/booking-travel-visa`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
-                const response2 = await axios.get(`${API_BASE_URL}/bookings/transport`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
                 const response3 = await axios.get(`${API_BASE_URL}/bookings/hotel`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
+                const response2 = await axios.get(`${API_BASE_URL}/bookings/transport`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
+                const response = await axios.get(`${API_BASE_URL}/bookings/booking-travel-visa`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
                 setData(response.data.data);
                 setTransport(response2.data.data);
                 setHotels(response3.data.data);
