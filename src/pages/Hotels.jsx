@@ -25,6 +25,7 @@ const Hotels = () => {
         if (values.destination) params.set("destination", values.destination);
         setSearchParams(params);
     };
+    console.log(mainData)
     return (
         <section>
             <Header />

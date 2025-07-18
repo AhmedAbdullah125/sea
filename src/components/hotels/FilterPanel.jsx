@@ -80,7 +80,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
     setLoading(true);
     const getData = async () => {
       try {
-        const response = await axios.post(`${API_BASE_URL}-hotels?countery_id=${seletedCountry}&available_from=${formatDate(selectedDate)}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`, {});
+        const response = await axios.post(`${API_BASE_URL}/filter-hotels?countery_id=${seletedCountry}&available_from=${formatDate(selectedDate)}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`, {});
         setMainData(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -118,13 +118,12 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
   
   const { watch, setValue } = form;
   const values = watch();
-  console.log(defaultValues.destination);
-  console.log(data);
   const t ={
     "flat" :"شقة",
     "room":"غرفة",
     "hotel":"فندق"
   }
+  
   return (
     <>
       {
