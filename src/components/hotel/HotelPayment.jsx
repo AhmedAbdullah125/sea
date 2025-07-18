@@ -51,6 +51,7 @@ const HotelPayment = ({ data }) => {
     const [loading, setLoading] = useState(true);
     const [days, setDays] = useState(0);
     const [displayPrice, setDisplayPrice] = useState(false);
+
     useEffect(() => {
         setLoading(true);
         const getData = async () => {
@@ -139,7 +140,17 @@ const HotelPayment = ({ data }) => {
                                             </FormControl>
                                         </PopoverTrigger>
                                         <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
-                                            <Calendar mode="single" selected={field.value} onSelect={field.onChange} className="w-full" />
+                                            <Calendar
+                                                mode="single"
+                                                selected={field.value}
+                                                onSelect={field.onChange}
+                                                className="w-full"
+                                                disabled={(date) => {
+                                                    const from = new Date(data.availableFrom);
+                                                    const to = new Date(data.availableTo);
+                                                    return date < from || date > to;
+                                                }}
+                                            />
                                         </PopoverContent>
                                     </Popover>
                                     <FormMessage className="text-red-500 text-xs" />
@@ -158,7 +169,7 @@ const HotelPayment = ({ data }) => {
                                         <p className="text-main-blue font-bold text-sm">تـــاريخ المغادرة</p>
                                     </FormLabel>
                                     <Popover>
-                                        <PopoverTrigger asChild>
+                                        <PopoverTrigger asChild disabled={!arrivalDate}>
                                             <FormControl>
                                                 <Button variant="outline" className={cn("bg-white h-12 w-full px-3 font-xs font-semibold text-main-gray rounded-full border-none hover:bg-body flex items-center justify-between", !field.value && "text-muted-foreground")}>
                                                     {field.value ? format(field.value, "PPP") : <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>}
@@ -167,7 +178,19 @@ const HotelPayment = ({ data }) => {
                                             </FormControl>
                                         </PopoverTrigger>
                                         <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
-                                            <Calendar mode="single" selected={field.value} onSelect={field.onChange} className="w-full" />
+                                            <Calendar
+                                                mode="single"
+                                                selected={field.value}
+                                                onSelect={field.onChange}
+                                                className="w-full"
+                                                disabled={(date) => {
+                                                    if (!arrivalDate) return true; // Disable all if no arrival date selected
+                                                    const from = new Date(arrivalDate);
+                                                    const to = new Date(data.availableTo);
+                                                    return date < from || date > to;
+                                                }}
+                                            />
+
                                         </PopoverContent>
                                     </Popover>
                                     <FormMessage className="text-red-500 text-xs" />
