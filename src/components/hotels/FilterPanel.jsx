@@ -94,16 +94,41 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
   const form = useForm({
     resolver: zodResolver(filterSchema),
     defaultValues: {
-      date: defaultValues.start, // or just new Date("2025-06-08") if not using ISO strings
+      start: defaultValues.destination || '',
+      end: defaultValues.city || '',
+      date: defaultValues.start || '',
+      lang: defaultValues.flat || '',
+      country: defaultValues.neighborhood || '',
+      rating: defaultValues.rate || '',
+      model: defaultValues.offer || '',
     },
   });
+
+  useEffect(() => {
+    if (defaultValues) {
+      form.setValue("start", defaultValues.destination || '');
+      form.setValue("end", defaultValues.city || '');
+      form.setValue("date", defaultValues.start || '');
+      form.setValue("lang", defaultValues.flat || '');
+      form.setValue("country", defaultValues.neighborhood || '');
+      form.setValue("rating", defaultValues.rate || '');
+      form.setValue("model", defaultValues.offer || '');
+    }
+  }, [defaultValues]);
+  
   const { watch, setValue } = form;
   const values = watch();
-
+  console.log(defaultValues.destination);
+  console.log(data);
+  const t ={
+    "flat" :"شقة",
+    "room":"غرفة",
+    "hotel":"فندق"
+  }
   return (
     <>
       {
-        loading ? <Loading /> :
+        loading && !data ? <Loading /> :
           <Form {...form}>
             <form className="space-y-4 mb-10">
               <div className="flex gap-4">
@@ -121,7 +146,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                         </p>
                       </FormLabel>
                       <Select dir="rtl"
-                        defaultValue={values.destination}
+                        defaultValue={String(values.destination)}
                         onValueChange={(val) => setSelectedCountry(val)} >
                         <FormControl>
                           <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
@@ -252,7 +277,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                         <SelectContent className=" shadow border-none rounded-xl bg-white  ">
                           {filters?.flats?.map((option) => (
                             <SelectItem key={option} value={option} className=" cursor-pointer focus:bg-body rounded-xl">
-                              {option}
+                              {t[option]}
                             </SelectItem>
                           ))}
                         </SelectContent>
