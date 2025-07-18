@@ -15,7 +15,7 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { API_BASE_URL } from "../../lib/apiConfig";
 import axios from "axios";
-import { bookHotel } from "./BookHotel";
+import { bookHotel } from "./bookHotelF";
 import { toast } from "sonner";
 
 export const filterSchema = z.object({
