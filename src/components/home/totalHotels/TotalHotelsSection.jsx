@@ -16,6 +16,7 @@ const TotalHotelsSection = () => {
       return res;
     }
   })
+  console.log(data)
   if (isLoading) return <Loader />
   if (isError) return <div className="container my-12"><AlertError>
     هناك خطاء ما
@@ -32,7 +33,7 @@ const TotalHotelsSection = () => {
           <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue '>أشهر الفنادق حول العالم !.</h2>
           <p className="text-xs font-light text-main-navy mt-4">تتوزع أشهر الفنادق عالميًا لتمنحك تجارب إقامة لا تُنسى. تتميز هذه الفنادق بالفخامة، الخدمة الراقية...</p>
         </div>
-        <p className="text-sm font-bold text-main-navy text-center xl:text-start">+250 فندق حــــول العالم</p>
+        <p className="text-sm font-bold text-main-navy text-center xl:text-start">+{data?.data?.pagination?.total} فندق حــــول العالم</p>
       </motion.div>
       {data?.data?.data?.length > 0 ?
         <div className='grid grid-cols-12 xl:gap-x-4 xl:gap-y-10 gap-4'>

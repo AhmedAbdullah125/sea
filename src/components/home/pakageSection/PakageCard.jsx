@@ -9,6 +9,7 @@ import { TiStarFullOutline } from "react-icons/ti"
 import { Link } from "react-router-dom"
 
 const PakageCard = ({item}) => {
+  console.log(item);
   return (
     <Card className="shadow-none border-none col-span-12 md:col-span-6 xl:col-span-3 space-y-3">
       <CardHeader className="p-0 ">
@@ -31,9 +32,9 @@ const PakageCard = ({item}) => {
         </div>
         {/* details */}
         <h3 h3 className=" font-bold line-clamp-1" > {item?.title }</h3 >
-        <p className="text-main-gray text-xs line-clamp-1">سارية في 22 نوفمبر 2025</p>
+        <p className="text-main-gray text-xs line-clamp-1">سارية في {item?.startDate} </p>
         {/* price */}
-        <h4 className="font-bold text-main-blue"> {Number(item?.cost).toFixed(2)} <span className="text-xs font-semibold text-main-purple">/ للشخص الواحد</span>
+        <h4 className="font-bold text-main-blue"> {Number(item?.cost).toFixed(2)} <span className="text-xs font-semibold text-main-purple">{item?.currencyName}/ للشخص الواحد</span>
         </h4>
 
 
