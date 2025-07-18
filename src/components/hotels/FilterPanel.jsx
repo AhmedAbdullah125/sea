@@ -122,6 +122,22 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData,setLoading }) => {
     "room":"غرفة",
     "hotel":"فندق"
   }
+  function clearFilter() {
+    setValue("start", "");
+    setValue("end", "");
+    setValue("date", "");
+    setValue("lang", "");
+    setValue("country", "");
+    setValue("rating", "");
+    setValue("model", "");
+    setSelectedCountry('');
+    setSelectedFlat('');
+    setSelectedCity('');
+    setSelectedNeighborhood('');
+    setSelectedRate('');
+    setSelectedOffer('');
+    setSelectedDate('');
+  }
   
   return (
     
@@ -142,7 +158,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData,setLoading }) => {
                         </p>
                       </FormLabel>
                       <Select dir="rtl"
-                        defaultValue={String(values.destination)}
+                        defaultValue={String(values.destination||"")}
                         onValueChange={(val) => setSelectedCountry(val)} >
                         <FormControl>
                           <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
@@ -246,7 +262,10 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData,setLoading }) => {
                     </FormItem>
                   )}
                 />
-                <button type="button" className="flex-shrink-0 xl:col-span-2 col-span-12 h-12 py-0 px-9 mt-7 bg-[#A71755]  text-white hover:text-red-500  font-semibold flex items-center justify-center rounded-full">عرض النــــتائج</button>
+                <button 
+                className="flex-shrink-0 xl:col-span-2 col-span-12 h-12 py-0 px-9 mt-7 bg-[#A71755]  text-white hover:text-red-500  font-semibold flex items-center justify-center rounded-full"
+                onClick={clearFilter}
+                >مسح الفلترة</button>
               </div>
               <div className="grid grid-cols-6 gap-4">
                 {/* lang */}

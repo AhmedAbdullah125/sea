@@ -9,7 +9,7 @@ import {
 
 const AboutUSCard = ({feature}) => {
   return (
-    <Card className="shadow-none border-none flex flex-col justify-center bg-white p-8 rounded-[90px]  space-y-2 h-fit">
+    <Card className="shadow-none border-none flex flex-col justify-center bg-white p-8 rounded-[90px] h-full  space-y-2">
       <CardHeader className="p-0">
         <img src={feature?.icon} alt="icon" loading="lazy" width={60} height={60} className="rounded-full size-16" />
       </CardHeader>

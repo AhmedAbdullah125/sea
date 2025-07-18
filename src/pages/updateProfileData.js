@@ -9,6 +9,7 @@ export const updateProfile = async (data, setLoading) => {
     formData.append('image', data.image);
     formData.append('mobile', data.mobile);
     formData.append('email', data.email);
+    formData.append('country_id', data.countryId);
 
     const url = `${API_BASE_URL}/update-profile`; // API endpoint
     try {
