@@ -40,43 +40,31 @@ export default function Reservations() {
                         <p>يمكنك متابعة كل حجوزاتك من هنا</p>
                     </div> :
                         <div className="no-reservation">
-                            <h2>المفضلة</h2>
-                            <p className="mb-3">يمكنك متابعة كل العناصر المفضلة من هنا</p>
+                            <h2>الحجوزات </h2>
+                        <p className="mb-3">يمكنك متابعة كل حجوزاتك من هنا</p>
                             <div className="related-grid-cont-favourates">
                                 {
                                     data.hotels.map((item, index) =>
 
-                                        <div className="card-item" key={index}>
-                                            <div className="related-item">
+                                        <a href={`/hotel?id=${item.hotel_id}`} className="card-content">
+                                            <div className="card-item" key={index}>
+                                                <div className="related-item mb-4">
 
-                                                {/* <figure>
-                                                    <img src={item?.item?.images[0]} alt="img" />
-                                                </figure> */}
+                                                    <figure>
+                                                        <img src={item?.images[0]} alt="img" />
+                                                    </figure>
 
-                                                {
-                                                    item?.discount ?
-                                                        <div className="related-content">
-                                                            <div className="related-btn">
-                                                                <span>{Number(item.discount)}%</span>
-                                                            </div>
+
+                                                    <div className="related-content">
+                                                        <div className="related-btn">
+                                                            <span>{item.is_paid ? 'مدفوعة' : 'غير مدفوعة'}</span>
                                                         </div>
-                                                        : null
-                                                }
+                                                    </div>
+                                                </div>
+                                                <h2>{item.hotelName} </h2>
+
                                             </div>
-                                            <a href={`/hotel?id=${item.id}`} className="card-content">
-                                                <div className="detail-info-item rate">
-                                                    <i className="fa-solid fa-star"></i>
-                                                    <span>{Number(item.rating).toFixed(1)} <span>( {item.likes} )</span></span>
-                                                </div>
-                                              
-                                                <div className="card-item-name">{item.title} </div>
-                                                <div className="card-place">{item.address}</div>
-                                                <div className="item-price">
-                                                    يبدأ من {item.price} <span className="icon-saudi_riyal"></span>
-                                                    <span className="period"><span>/</span> لليلة الواحــــدة</span>
-                                                </div>
-                                            </a>
-                                        </div>
+                                        </a>
 
 
                                     )
