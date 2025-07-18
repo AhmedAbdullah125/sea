@@ -27,7 +27,6 @@ const TotalHotelsSection = () => {
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
         className="flex flex-col xl:flex-row items-center justify-between max-xl:space-y-8">
         <div className="text-center xl:text-start">
           <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue '>أشهر الفنادق حول العالم !.</h2>

@@ -46,7 +46,7 @@ const MainHeader = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay:  0.5 }}
-            className={`main-header-cont  lg:fixed top-0 left-0 right-0 z-[9999] gap-7 py-5 transition-colors duration-300 ${scrolled ? 'bg-black/70 !gap-5' : 'bg-transparent'}`}>
+            className={`main-header-cont  lg:fixed top-0 left-0 right-0 z-[9999] gap-7 py-5 transition-colors duration-500 ${scrolled ? 'bg-main-navy ' : 'bg-transparent'}`}>
             {
                 loading ? <Loading /> :
                     <>
@@ -116,7 +116,7 @@ const MainHeader = () => {
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         </div>
-                        <div className="container lower-nav-cont">
+                        <div className={`container lower-nav-cont transition-all duration-500 ${scrolled ? 'hidden' : ''}`}>
                             <div className="main-links">
                                 <NavLink to='/'>الرئيسية</NavLink>
                                 <div className="noqta"></div>
