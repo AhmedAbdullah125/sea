@@ -26,7 +26,9 @@ export const bookHotel = async (data, setLoading,id) => {
         if (response.status === 200 || response.status === 201) {
             const message = response.data?.message || 'Profile updated successfully';
             toast.success(message, );
-            // window.location.reload();
+            console.log("ssss");
+            window.location.href = '/paymentMaintenance';
+
         } else {
             const unexpectedMessage = response.data?.message || 'Unexpected response';
             toast(unexpectedMessage, { style: { borderColor: "#dc3545", boxShadow: '0px 0px 10px rgba(220, 53, 69, .5)', }, });

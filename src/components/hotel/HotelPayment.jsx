@@ -17,7 +17,6 @@ import { API_BASE_URL } from "../../lib/apiConfig";
 import axios from "axios";
 import { bookHotel } from "./bookHotelF";
 import { toast } from "sonner";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog";
 
 export const filterSchema = z.object({
     date: z.date({
@@ -261,13 +260,13 @@ const HotelPayment = ({ data }) => {
                                     رسوم الخدمة
                                 </div>
                                 <div className="value">
-                                    12 ريال
+                                    {data.serviceFees} ريال
                                 </div>
                             </div>
                             <div className="hagez"></div>
                             <div className="linee total-line">
                                 <div className="key">الإجمالي</div>
-                                <div className="value">{totalPrice.toFixed(2)} ريال</div>
+                                <div className="value">{totalPrice.toFixed(2) - (Number(data.discount) / 100 * totalPrice) + data.serviceFees} ريال</div>
                             </div>
                         </div>
                         {/* <AlertDialog style={{ direction: "rtl" }}>
