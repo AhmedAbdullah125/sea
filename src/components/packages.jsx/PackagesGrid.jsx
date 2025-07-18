@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import plane from '../../assets/housing/plane-icon.svg'
 import { toast } from 'sonner';
+import { toggleFavourates } from '../../pages/toggleFavourates';
 const PackagesGrid = ({ mainData }) => {
-    console.log(mainData);
     const [data, setData] = useState([])
     const [lovedPlans, setLovedPlans] = useState(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : [])
     useEffect(() => {
@@ -52,19 +52,27 @@ const PackagesGrid = ({ mainData }) => {
                                 <figure>
                                     <img src={item.thumbnail} alt="img" />
                                 </figure>
-                                <button className="fav-btn" onClick={() => {
-                                    if (lovedPlans.includes(item.id)) {
-                                        setLovedPlans(lovedPlans.filter(id => id !== item.id))
-                                        localStorage.setItem('lovedPlans', JSON.stringify(lovedPlans.filter(id => id !== item.id)))
-                                        toast.success('تم حذف الوحدة من المفضلة')
-                                    }
-                                    else {
-                                        setLovedPlans([...lovedPlans, item.id])
-                                        localStorage.setItem('lovedPlans', JSON.stringify([...lovedPlans, item.id]))
-                                        toast.success('تم اضافة الوحدة الي المفضلة')
-                                    }
-                                        
-                                }}
+                                <button className="fav-btn" onClick={
+                                            () => {
+                                                if (sessionStorage.getItem('token')) {
+                                                    if (lovedPlans.includes(item.id)) {
+                                                        setLovedPlans(lovedPlans.filter(id => id !== item.id))
+                                                        localStorage.setItem('lovedPlans', JSON.stringify(lovedPlans.filter(id => id !== item.id)))
+                                                        toast.success('تم حذف الوحدة من المفضلة')
+                                                    }
+                                                    else {
+                                                        setLovedPlans([...lovedPlans, item.id])
+                                                        localStorage.setItem('lovedPlans', JSON.stringify([...lovedPlans, item.id]))
+                                                        toast.success('تم اضافة الوحدة الي المفضلة')
+                                                    }
+                                                    toggleFavourates(item.id, 'Plan');
+                                                }
+                                                else {
+                                                    toast.error('يجب تسجيل الدخول اولا')
+                                                    window.location.href = '/login'
+                                                }
+                                            }
+                                        }
                                 >
                                     <i className={` fa-heart ${lovedPlans.includes(item.id) ? 'fa-solid text-[#a71755]' : 'fa-regular'}`}></i>
                                 </button>

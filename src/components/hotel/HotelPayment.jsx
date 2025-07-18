@@ -1,22 +1,112 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from "react"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { FaCalendarDays, FaCommentDollar } from "react-icons/fa6";
+import { ChevronDown } from "lucide-react"
+import { BsFillSendFill } from "react-icons/bs";
+import { Button } from "@/components/ui/button"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { cn } from "@/lib/utils"
+import { format } from "date-fns";
+import { Link } from "react-router-dom";
+import { API_BASE_URL } from "../../lib/apiConfig";
+import axios from "axios";
+import { bookHotel } from "./BookHotel";
+import { toast } from "sonner";
 
+export const filterSchema = z.object({
+    date: z.date({
+        required_error: "تاريخ الوصول مطلوب",
+        invalid_type_error: "تاريخ غير صالح",
+    }),
+    dateLeave: z.date({
+        required_error: "تاريخ المغادرة مطلوب",
+        invalid_type_error: "تاريخ غير صالح",
+    }),
+    visitors: z.string({
+        required_error: "عدد الضيوف مطلوب",
+        invalid_type_error: "عدد الضيوف يجب أن يكون نصًا",
+    }),
+});
 const HotelPayment = ({ data }) => {
+    console.log(data);
+    const form = useForm({
+        resolver: zodResolver(filterSchema),
+        defaultValues: {
+            date: undefined,
+            dateLeave: undefined,
+            visitors: "1",
+        },
+    });
+    const { watch } = form;
+    const arrivalDate = watch("date");
+    const departureDate = watch("dateLeave");
+
+    const [settings, setSettings] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [days, setDays] = useState(0);
+
+    useEffect(() => {
+        setLoading(true);
+        const getData = async () => {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/settings`);
+                setSettings(response.data.data);
+            } catch (error) {
+                console.error('Error retrieving data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        getData();
+    }, []);
+
+    // 🔢 Calculate number of days between dates
+    useEffect(() => {
+        if (arrivalDate && departureDate) {
+            const diffTime = new Date(departureDate) - new Date(arrivalDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            setDays(diffDays > 0 ? diffDays : 0); // prevent negative
+        } else {
+            setDays(0);
+        }
+    }, [arrivalDate, departureDate]);
+
+    const onSubmit = (values) => {
+        if(!sessionStorage.getItem('token')) {
+            toast.error('يرجى تسجيل الدخول قبل الحفظ');
+            window.location.href = '/login';
+            return;
+        }
+        console.log("Form values:", values);
+        handleBookHotel(values,data.id);
+    };
+    const handleBookHotel = async (data , id) => {
+        await bookHotel(data, setLoading ,id);
+    };
+    const pricePerNight = Number(data?.price) || 0;
+    const totalPrice = pricePerNight * days;
+
     return (
         <section className='hotel-payment-section'>
             <div className="price-discount">
                 <div className="r-side">
                     <p className='price-details'>
                         <span className='old-price'>
-                            {Number(data?.price) * (Number(data.discount) + 100) / 100}
+                            {pricePerNight * (Number(data.discount) + 100) / 100}
                         </span>
                         <span className='new-price'>
-                            {Number(data?.price)}
+                            {pricePerNight}
                         </span>
                         <div className="rs-t">
                             <span className='icon-saudi_riyal'></span> / لليلة الواحــــدة
                         </div>
                     </p>
-                    <p className='total-price'>إجمالي ليلة واحدة {Number(data?.price).toFixed(2)} ر.س</p>
+                    <p className='total-price'>إجمالي ليلة واحدة {pricePerNight.toFixed(2)} ر.س</p>
                 </div>
                 <div className="l-side">
                     <span className='discount'>
@@ -24,8 +114,142 @@ const HotelPayment = ({ data }) => {
                     </span>
                 </div>
             </div>
-        </section>
-    )
-}
 
-export default HotelPayment
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 my-10">
+                    <div className="hotel-payment-grid">
+                        {/* Arrival Date */}
+                        <FormField
+                            control={form.control}
+                            name="date"
+                            render={({ field }) => (
+                                <FormItem className="w-full flex flex-col">
+                                    <FormLabel className="flex items-center gap-1">
+                                        <FaCalendarDays size={16} className="text-main-purple" />
+                                        <p className="text-main-blue font-bold text-sm">تـــاريخ الوصــــول</p>
+                                    </FormLabel>
+                                    <Popover>
+                                        <PopoverTrigger asChild>
+                                            <FormControl>
+                                                <Button variant="outline" className={cn("bg-body h-12 w-full px-3 font-xs font-semibold text-main-gray rounded-full border-none hover:bg-body flex items-center justify-between", !field.value && "text-muted-foreground")}>
+                                                    {field.value ? format(field.value, "PPP") : <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>}
+                                                    <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full"><ChevronDown size={14} /></div>
+                                                </Button>
+                                            </FormControl>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
+                                            <Calendar mode="single" selected={field.value} onSelect={field.onChange} className="w-full" />
+                                        </PopoverContent>
+                                    </Popover>
+                                    <FormMessage className="text-red-500 text-xs" />
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* Departure Date */}
+                        <FormField
+                            control={form.control}
+                            name="dateLeave"
+                            render={({ field }) => (
+                                <FormItem className="w-full flex flex-col">
+                                    <FormLabel className="flex items-center gap-1">
+                                        <FaCalendarDays size={16} className="text-main-purple" />
+                                        <p className="text-main-blue font-bold text-sm">تـــاريخ المغادرة</p>
+                                    </FormLabel>
+                                    <Popover>
+                                        <PopoverTrigger asChild>
+                                            <FormControl>
+                                                <Button variant="outline" className={cn("bg-body h-12 w-full px-3 font-xs font-semibold text-main-gray rounded-full border-none hover:bg-body flex items-center justify-between", !field.value && "text-muted-foreground")}>
+                                                    {field.value ? format(field.value, "PPP") : <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>}
+                                                    <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full"><ChevronDown size={14} /></div>
+                                                </Button>
+                                            </FormControl>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
+                                            <Calendar mode="single" selected={field.value} onSelect={field.onChange} className="w-full" />
+                                        </PopoverContent>
+                                    </Popover>
+                                    <FormMessage className="text-red-500 text-xs" />
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* Visitors */}
+                        <FormField
+                            control={form.control}
+                            name="visitors"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel className="flex items-center gap-1">
+                                        <BsFillSendFill size={16} className="text-main-purple" />
+                                        <p className="text-main-blue font-bold text-sm">عدد الضيوف أو الاشخـــاص</p>
+                                    </FormLabel>
+                                    <Select value={field.value} onValueChange={field.onChange} dir="rtl">
+                                        <FormControl>
+                                            <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full"><ChevronDown size={14} /></div>} className="bg-body text-[#797979] text-xs font-semibold border-none rounded-full h-12">
+                                                <SelectValue placeholder="إدخـــال نقطة الانطلاق من هنــا..." />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent className="shadow border-none rounded-xl bg-white">
+                                            {Array.from({ length: 10 }, (_, i) => (
+                                                <SelectItem key={i} value={String(i + 1)} className="cursor-pointer focus:bg-body rounded-xl">
+                                                    {i + 1}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* WhatsApp Link */}
+                        <Link className="offerLink" to={`https://wa.me/${settings.whatsapp}?text= اريد مناقشتكم عن عرض سعر علي فندق  ${data?.title}`}>
+                            <span className="text-[#A71755] font-semibold text-sm">أحصل على سعــــرك الان</span>
+                            <FaCommentDollar />
+                        </Link>
+
+                        {/* Payment Details */}
+                        <div className="payment-details">
+                            <div className="linee">
+                                <div className="key">
+                                    {days > 0 ? `عدد الليالي (${days})× ${pricePerNight} ريال` : "ليلة واحدة"}
+                                </div>
+                                <div className="value">
+                                    {totalPrice.toFixed(2)} ريال
+                                </div>
+                            </div>
+                            <div className="linee">
+                                <div className="key">
+                                    خصم من العروض
+                                </div>
+                                <div className="value">
+                                    {Number(data.discount) / 100 * totalPrice} ريال
+                                </div>
+                            </div>
+                            <div className="linee">
+                                <div className="key">
+                                رسوم الخدمة
+                                </div>
+                                <div className="value">
+                                    12 ريال
+                                </div>
+                            </div>
+                            <div className="hagez"></div>
+                            <div className="linee total-line">
+                                <div className="key">الإجمالي</div>
+                                <div className="value">{totalPrice.toFixed(2)} ريال</div>
+                            </div>
+                        </div>
+
+                        {/* Submit */}
+                        <button type="submit" className="flex-shrink-0 h-12 py-0 px-9 mt-7 bg-[#A71755] text-white hover:text-red-500 font-semibold flex items-center justify-center rounded-full">
+                            احجز الان
+                        </button>
+                    </div>
+                </form>
+            </Form>
+        </section>
+    );
+};
+
+export default HotelPayment;

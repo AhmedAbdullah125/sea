@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import parse from 'html-react-parser';
 import HotelRateForm from './HotelRateForm';
 
-const HotelTabs = ({ data }) => {
+const HotelTabs = ({ data, trigger, setTrigger }) => {
     const [activeTab, setActiveTab] = useState(0);
     const latitude = data.latitude
     const longitude = data.longitude;
@@ -12,7 +12,7 @@ const HotelTabs = ({ data }) => {
         weekday: 'long',
         day: 'numeric',
         month: 'long'
-    });    
+    });
     return (
         <section className='hotel-tabs-section'>
             <div className="controllers">
@@ -62,7 +62,7 @@ const HotelTabs = ({ data }) => {
                                 ))
                             }
                         </div>
-                        <HotelRateForm comment={comment} rate={rate} setComment={setComment} data={data} setRate={setRate} />
+                        <HotelRateForm comment={comment} rate={rate} setComment={setComment} data={data} setRate={setRate} trigger={trigger} setTrigger={setTrigger}  activeTab={activeTab} setActiveTab={setActiveTab}/>
                     </>
                 }
                 {

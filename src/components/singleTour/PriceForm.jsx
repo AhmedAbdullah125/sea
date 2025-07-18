@@ -58,7 +58,6 @@ const PriceForm = ({ price, discount, tourId,tour }) => {
     }
   })
 
-console.log(tour);
 
   const movingPoints = data?.data?.data?.movePoint?.map((item) => ({ label: item, value: item }))
   // car types

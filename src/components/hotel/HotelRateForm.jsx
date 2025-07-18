@@ -1,13 +1,16 @@
-import React , { useState } from 'react';
+import React, { useState } from 'react';
 import { addComment } from './addComment';
 import Loading from '../loading/Loading';
 import { API_BASE_URL } from '../../lib/apiConfig';
 
-const HotelRateForm = ({ comment, rate, setComment, data, setRate }) => {
+const HotelRateForm = ({ comment, rate, setComment, data, setRate, trigger, setTrigger, setActiveTab }) => {
     const [loading, setLoading] = useState(false);
     function handleSubmit(e) {
         e.preventDefault(); // ✅ Prevent page reload
-
+        if (!sessionStorage.getItem('token')) {
+            toast.error('يرجى تسجيل الدخول قبل الحفظ');
+            return
+        }
         if (rate === 0) {
             alert('يرجى تحديد التقييم قبل الحفظ');
             return;
@@ -17,12 +20,16 @@ const HotelRateForm = ({ comment, rate, setComment, data, setRate }) => {
             comment,
             rate,
             // Optionally attach data like hotel ID or user ID
+
             data,
         };
         handleAddComment(payload);
+        // reset form fields
+        setComment('');
+        setRate(0);
     }
     const handleAddComment = async (payload) => {
-        await addComment(API_BASE_URL, payload, setLoading);
+        await addComment(API_BASE_URL, payload, setLoading, trigger, setTrigger, setActiveTab);
     };
     return (
         <section className="event-form-section">

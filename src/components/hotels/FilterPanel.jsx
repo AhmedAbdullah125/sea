@@ -1,15 +1,7 @@
 import axios from "axios";
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 import { FaArrowsLeftRight } from "react-icons/fa6";
 import { ChevronDown } from "lucide-react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect, useState } from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
 import { countries } from "../../data/visa"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns";
@@ -17,6 +9,14 @@ import { BsFillSendFill } from "react-icons/bs";
 import { FaCalendarDays } from "react-icons/fa6";
 import { BiSolidOffer } from "react-icons/bi";
 import { IoLanguage } from "react-icons/io5";
+import { Button } from "@/components/ui/button"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 import { AiFillDollarCircle } from "react-icons/ai";
 import { MdStarRate } from "react-icons/md";
 import { API_BASE_URL } from "../../lib/apiConfig";
@@ -30,12 +30,7 @@ const countOptions = Array.from({ length: 10 }, (_, i) => {
 export const filterSchema = z.object({
   start: z.string().optional(),
   end: z.string().optional(),
-  date: z
-    .string()
-    .refine((val) => !val || !isNaN(Date.parse(val)), {
-      message: "Invalid date",
-    })
-    .optional(),
+  date: z.string().refine((val) => !val || !isNaN(Date.parse(val)), { message: "Invalid date", }).optional(),
   lang: z.string().optional(),
   country: z.string().optional(),
   city: z.string().optional(),
@@ -51,9 +46,6 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-  const [data, setData] = useState([]);
-  const [filters, setFilters] = useState([]);
-  const [cities, setCities] = useState([])
   const [loading, setLoading] = useState(true);
   const [seletedCountry, setSelectedCountry] = useState(defaultValues.destination || '');
   const [selectedFlat, setSelectedFlat] = useState(defaultValues.flat || '');
@@ -62,6 +54,9 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
   const [seletedRate, setSelectedRate] = useState(defaultValues.rate || '');
   const [selectedOffer, setSelectedOffer] = useState(defaultValues.offer || '');
   const [selectedDate, setSelectedDate] = useState(defaultValues.start || '');
+  const [data, setData] = useState([]);
+  const [filters, setFilters] = useState([]);
+  const [cities, setCities] = useState([])
   useEffect(() => {
     setLoading(true);
     const getData = async () => {
@@ -85,7 +80,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
     setLoading(true);
     const getData = async () => {
       try {
-        const response = await axios.post(`${API_BASE_URL}/filter-hotels?countery_id=${seletedCountry}&available_from=${formatDate(selectedDate)}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`, {});
+        const response = await axios.post(`${API_BASE_URL}-hotels?countery_id=${seletedCountry}&available_from=${formatDate(selectedDate)}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`, {});
         setMainData(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -339,7 +334,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                     <FormItem className="xl:col-span-2 col-span-12">
                       <Select dir="rtl"
                         defaultValue={values.type}
-                        onValueChange={(val) => setSelectedRate( val)} >
+                        onValueChange={(val) => setSelectedRate(val)} >
                         <FormControl>
                           <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
                             <ChevronDown size={14} />

@@ -3,9 +3,20 @@ import detailImg from '../../assets/detail.jpg'
 import imgIcon1 from '../../assets/imgIcon-1.svg'
 import imgIcon2 from '../../assets/imgIcon-2.svg'
 import { toast } from 'sonner'
+import { toggleFavourates } from '../../pages/toggleFavourates'
 
 const PlanHeader = ({ data }) => {
     const [lovedPlans, setLovedPlans] = useState(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : [])
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem('lovedPlans')) {
+                setLovedPlans(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : []);
+            }
+            else {
+                localStorage.setItem('lovedPlans', []);
+            }
+        }
+    }, [data])
     useEffect(() => {
         if (typeof window !== 'undefined') {
             if (localStorage.getItem('lovedPlans')) {
@@ -41,18 +52,27 @@ const PlanHeader = ({ data }) => {
                             <i className="fa-solid fa-share-nodes"></i>
                         </button>
                         <button className="add-btn"
-                            onClick={() => {
-                                if (lovedPlans.includes(data.id)) {
-                                    setLovedPlans(lovedPlans.filter(id => id !== data.id))
-                                    localStorage.setItem('lovedPlans', JSON.stringify(lovedPlans.filter(id => id !== data.id)))
-                                    toast.success('تم حذف الوحدة من المفضلة')
+                            onClick={
+                                () => {
+                                    if (sessionStorage.getItem('token')) {
+                                        if (lovedPlans.includes(data?.id)) {
+                                            setLovedPlans(lovedPlans.filter(id => id !== data?.id))
+                                            localStorage.setItem('lovedPlans', JSON.stringify(lovedPlans.filter(id => id !== data?.id)))
+                                            toast.success('تم حذف الوحدة من المفضلة')
+                                        }
+                                        else {
+                                            setLovedPlans([...lovedPlans, data?.id])
+                                            localStorage.setItem('lovedPlans', JSON.stringify([...lovedPlans, data?.id]))
+                                            toast.success('تم اضافة الوحدة الي المفضلة')
+                                        }
+                                        toggleFavourates(data?.id, 'Plan');
+                                    }
+                                    else {
+                                        toast.error('يجب تسجيل الدخول اولا')
+                                        window.location.href = '/login'
+                                    }
                                 }
-                                else {
-                                    setLovedPlans([...lovedPlans, data.id])
-                                    localStorage.setItem('lovedPlans', JSON.stringify([...lovedPlans, data.id]))
-                                    toast.success('تم اضافة الوحدة الي المفضلة')
-                                }
-                            }}
+                            }
                         ><i className={` fa-heart ${lovedPlans.includes(data.id) ? 'fa-solid text-[#a71755]' : 'fa-regular'}`}></i></button>
                     </div>
                 </div>

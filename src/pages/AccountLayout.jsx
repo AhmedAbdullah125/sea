@@ -7,9 +7,17 @@ import { FaUserAlt } from "react-icons/fa";
 import { HiOutlineBars3BottomRight } from "react-icons/hi2";
 import { BsBagHeartFill } from "react-icons/bs";
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import { useEffect } from 'react';
 
 
 export default function AccountLayout() {
+    //if not login redirect to login
+    const token = sessionStorage.getItem('token');
+    useEffect(() => {
+        if (!token) {
+            window.location.href = '/login';
+        }
+    }, []);
     return (
 
         <div>

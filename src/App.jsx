@@ -26,7 +26,7 @@ import SingleTourPage from './pages/SingleTourPage';
 import AddHouse from './pages/AddHouse';
 import Packages from './pages/Packages';
 import Package from './pages/Package';
-
+import Logout from './pages/Logout';
 import SingleBlogPage from './pages/SingleBlog';
 import Profile from './pages/Profile';
 import AccountLayout from './pages/AccountLayout';
@@ -34,7 +34,9 @@ import Favourates from './pages/Favourates';
 import Reservations from './pages/Reservations';
 import Login from './pages/Login';
 import SingleNewsletter from './pages/SingleNewsletter';
-import Blogs from './pages/blogs';
+import Blogs from './pages/Blogs';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
 
 export const AppContext = createContext();
 function App() {
@@ -56,6 +58,8 @@ function App() {
 			{ path: "/add-house", element: <AddHouse></AddHouse> },
 			{ path: "/packages", element: <Packages></Packages> },
 			{ path: "/package", element: <Package></Package> },
+			{ path: "/terms", element: <Terms></Terms> },
+			{ path: "/privacy", element: <Privacy></Privacy> },
 			{ path: "/login", element: <Login></Login> },
 			{ path: "/blogs", element: <Blogs></Blogs> },
 			{ path: "/blogs/:slug", element: <SingleBlogPage></SingleBlogPage> },
@@ -67,7 +71,7 @@ function App() {
 					{ path: "profile", element: <Profile /> },
 					{ path: "favorites", element: <Favourates /> },
 					{ path: "reservations", element: <Reservations /> },
-					// { path: "logout", element: <Logout /> }
+					{ path: "logout", element: <Logout /> }
 				]
 			}
 
