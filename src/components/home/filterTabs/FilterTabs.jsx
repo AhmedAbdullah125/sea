@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import HotelsForm from "./HotelsForm"
 import { IoLogoApple, IoLogoGooglePlaystore, IoLogoWhatsapp } from "react-icons/io5";
@@ -6,24 +7,26 @@ import TransportForm from "./TransportForm";
 import VisaLinks from "./VisaLinks";
 import TableForm from "./TableForm";
 
-const links = [{
-  icon: (< IoLogoApple size={20} />),
-  href: "#",
-},
-{
-  icon: (< IoLogoGooglePlaystore size={20} />),
-  href: "#",
-},
-{
-  icon: (< IoLogoWhatsapp size={20} />),
-  href: "#",
-},
+
+const FilterTabs = ({data}) => {
 
 
-]
-
-const triggerStyle = "p-0 pb-2 relative data-[state=active]:shadow-none data-[state=active]:text-main-purple data-[state=active]:before:h-1 data-[state=active]:before:w-3 data-[state=active]:before:rounded-full data-[state=active]:before:absolute data-[state=active]:before:bottom-0 data-[state=active]:before:bg-main-purple data-[state=active]:before:translate-x-1/2 data-[state=active]:before:start-1/2 text-xs font-semibold data-[state=active]:font-bold   "
-const FilterTabs = () => {
+  const triggerStyle = "p-0 pb-2 relative data-[state=active]:shadow-none data-[state=active]:text-main-purple data-[state=active]:before:h-1 data-[state=active]:before:w-3 data-[state=active]:before:rounded-full data-[state=active]:before:absolute data-[state=active]:before:bottom-0 data-[state=active]:before:bg-main-purple data-[state=active]:before:translate-x-1/2 data-[state=active]:before:start-1/2 text-xs font-semibold data-[state=active]:font-bold   "
+  const links = [{
+    icon: (< IoLogoApple size={20} />),
+    href: "#",
+  },
+  {
+    icon: (< IoLogoGooglePlaystore size={20} />),
+    href: "#",
+  },
+  {
+    icon: (< IoLogoWhatsapp size={20} />),
+    href: `https://wa.me/${data.whatsapp}?text=  مهتم بالبحث عن بقات حول العالم`,
+  },
+  
+  
+  ]
   return (
     <div className="relative">
       <Tabs dir="rtl" defaultValue="hotels" className="w-full text-main-navy bg-white py-6 px-8 rounded-[40px]">
