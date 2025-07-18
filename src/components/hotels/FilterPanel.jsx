@@ -266,7 +266,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData,setLoading }) => {
                             <SelectValue placeholder={
                               <div className=" text-white flex items-center gap-1">
                                 <IoLanguage size={16} />
-                                <p >شقة</p>
+                                <p >نوع السكن </p>
                               </div>} />
                           </SelectTrigger>
                         </FormControl>
