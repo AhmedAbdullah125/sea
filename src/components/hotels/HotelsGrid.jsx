@@ -7,6 +7,7 @@ import "swiper/css/pagination";
 import { toast } from 'sonner';
 import { toggleFavourates } from '../../pages/toggleFavourates';
 const HotelsGrid = ({ mainData }) => {
+    
     const [lovedHotels, setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [])
     useEffect(() => {
         if (typeof window !== 'undefined') {

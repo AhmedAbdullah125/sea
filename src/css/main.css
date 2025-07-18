@@ -475,7 +475,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   display: flex;
   flex-direction: column;
   gap: 60px;
-  padding: 50px 0;
+  padding: 30px 0;
 }
 @media only screen and (max-width: 1025px) {
   .main-header-cont {
