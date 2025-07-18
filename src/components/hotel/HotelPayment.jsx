@@ -49,6 +49,7 @@ const HotelPayment = ({ data }) => {
     const [settings, setSettings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [days, setDays] = useState(0);
+    const [displayPrice, setDisplayPrice] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -77,16 +78,16 @@ const HotelPayment = ({ data }) => {
     }, [arrivalDate, departureDate]);
 
     const onSubmit = (values) => {
-        if(!sessionStorage.getItem('token')) {
+        if (!sessionStorage.getItem('token')) {
             toast.error('يرجى تسجيل الدخول قبل الحفظ');
             window.location.href = '/login';
             return;
         }
         console.log("Form values:", values);
-        handleBookHotel(values,data.id);
+        handleBookHotel(values, data.id);
     };
-    const handleBookHotel = async (data , id) => {
-        await bookHotel(data, setLoading ,id);
+    const handleBookHotel = async (data, id) => {
+        await bookHotel(data, setLoading, id);
     };
     const pricePerNight = Number(data?.price) || 0;
     const totalPrice = pricePerNight * days;
@@ -131,14 +132,24 @@ const HotelPayment = ({ data }) => {
                                     <Popover>
                                         <PopoverTrigger asChild>
                                             <FormControl>
-                                                <Button variant="outline" className={cn("bg-body h-12 w-full px-3 font-xs font-semibold text-main-gray rounded-full border-none hover:bg-body flex items-center justify-between", !field.value && "text-muted-foreground")}>
+                                                <Button variant="outline" className={cn("bg-white h-12 w-full px-3 font-xs font-semibold text-main-gray rounded-full border-none hover:bg-body flex items-center justify-between", !field.value && "text-muted-foreground")}>
                                                     {field.value ? format(field.value, "PPP") : <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>}
                                                     <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full"><ChevronDown size={14} /></div>
                                                 </Button>
                                             </FormControl>
                                         </PopoverTrigger>
                                         <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
-                                            <Calendar mode="single" selected={field.value} onSelect={field.onChange} className="w-full" />
+                                            <Calendar
+                                                mode="single"
+                                                selected={field.value}
+                                                onSelect={field.onChange}
+                                                className="w-full"
+                                                disabled={(date) => {
+                                                    const from = new Date(data.availableFrom);
+                                                    const to = new Date(data.availableTo);
+                                                    return date < from || date > to;
+                                                }}
+                                            />
                                         </PopoverContent>
                                     </Popover>
                                     <FormMessage className="text-red-500 text-xs" />
@@ -157,16 +168,28 @@ const HotelPayment = ({ data }) => {
                                         <p className="text-main-blue font-bold text-sm">تـــاريخ المغادرة</p>
                                     </FormLabel>
                                     <Popover>
-                                        <PopoverTrigger asChild>
+                                        <PopoverTrigger asChild disabled={!arrivalDate}>
                                             <FormControl>
-                                                <Button variant="outline" className={cn("bg-body h-12 w-full px-3 font-xs font-semibold text-main-gray rounded-full border-none hover:bg-body flex items-center justify-between", !field.value && "text-muted-foreground")}>
+                                                <Button variant="outline" className={cn("bg-white h-12 w-full px-3 font-xs font-semibold text-main-gray rounded-full border-none hover:bg-body flex items-center justify-between", !field.value && "text-muted-foreground")}>
                                                     {field.value ? format(field.value, "PPP") : <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>}
                                                     <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full"><ChevronDown size={14} /></div>
                                                 </Button>
                                             </FormControl>
                                         </PopoverTrigger>
                                         <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
-                                            <Calendar mode="single" selected={field.value} onSelect={field.onChange} className="w-full" />
+                                            <Calendar
+                                                mode="single"
+                                                selected={field.value}
+                                                onSelect={field.onChange}
+                                                className="w-full"
+                                                disabled={(date) => {
+                                                    if (!arrivalDate) return true; // Disable all if no arrival date selected
+                                                    const from = new Date(arrivalDate);
+                                                    const to = new Date(data.availableTo);
+                                                    return date < from || date > to;
+                                                }}
+                                            />
+
                                         </PopoverContent>
                                     </Popover>
                                     <FormMessage className="text-red-500 text-xs" />
@@ -184,9 +207,9 @@ const HotelPayment = ({ data }) => {
                                         <BsFillSendFill size={16} className="text-main-purple" />
                                         <p className="text-main-blue font-bold text-sm">عدد الضيوف أو الاشخـــاص</p>
                                     </FormLabel>
-                                    <Select value={field.value} onValueChange={field.onChange} dir="rtl">
+                                    <Select value={field.value} onValueChange={field.onChange} dir="rtl" className="bg-white">
                                         <FormControl>
-                                            <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full"><ChevronDown size={14} /></div>} className="bg-body text-[#797979] text-xs font-semibold border-none rounded-full h-12">
+                                            <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full"><ChevronDown size={14} /></div>} className="bg-white text-[#797979] text-xs font-semibold border-none rounded-full h-12">
                                                 <SelectValue placeholder="إدخـــال نقطة الانطلاق من هنــا..." />
                                             </SelectTrigger>
                                         </FormControl>
@@ -201,15 +224,21 @@ const HotelPayment = ({ data }) => {
                                 </FormItem>
                             )}
                         />
-
                         {/* WhatsApp Link */}
-                        <Link className="offerLink" to={`https://wa.me/${settings.whatsapp}?text= اريد مناقشتكم عن عرض سعر علي فندق  ${data?.title}`}>
-                            <span className="text-[#A71755] font-semibold text-sm">أحصل على سعــــرك الان</span>
-                            <FaCommentDollar />
-                        </Link>
+                        {
+                            days > 0 && !displayPrice ?
+                                < button className="offerLink" to={`https://wa.me/${settings.whatsapp}?text= اريد مناقشتكم عن عرض سعر علي فندق  ${data?.title}`}
+                                    onClick={() =>
+                                        setDisplayPrice(true)
+                                    }
+                                >
+                                    <span className="text-[#A71755] font-semibold text-sm">اظهــار الســعر الان</span>
+                                    <FaCommentDollar />
+                                </button> : null
+                        }
 
                         {/* Payment Details */}
-                        <div className="payment-details">
+                        <div className="payment-details" style={displayPrice ? { display: "block" } : { display: "none" }}>
                             <div className="linee">
                                 <div className="key">
                                     {days > 0 ? `عدد الليالي (${days})× ${pricePerNight} ريال` : "ليلة واحدة"}
@@ -228,27 +257,71 @@ const HotelPayment = ({ data }) => {
                             </div>
                             <div className="linee">
                                 <div className="key">
-                                رسوم الخدمة
+                                    رسوم الخدمة
                                 </div>
                                 <div className="value">
-                                    12 ريال
+                                    {data.serviceFees} ريال
                                 </div>
                             </div>
                             <div className="hagez"></div>
                             <div className="linee total-line">
                                 <div className="key">الإجمالي</div>
-                                <div className="value">{totalPrice.toFixed(2)} ريال</div>
+                                <div className="value">{totalPrice.toFixed(2) - (Number(data.discount) / 100 * totalPrice) + data.serviceFees} ريال</div>
                             </div>
                         </div>
+                        {/* <AlertDialog style={{ direction: "rtl" }}>
+                            <AlertDialogTrigger asChild>
+                                <button className="flex-shrink-0 h-12 py-0 px-9  bg-[#A71755] text-white hover:text-red-500 font-semibold flex items-center justify-center rounded-full">
+                                    احجز الان
+                                </button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent className="w-full  bg-white  border-none shadow-md max-w-[500px] p-10 rounded-3xl sm:rounded-3xl">
+                                <AlertDialogHeader className="flex flex-col gap-4">
+                                    <AlertDialogTitle className="text-center"> اختر طريقه  الحجز التي تناسبك</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        <div className="flex gap-3">
+                                            <label htmlFor="submit" type="submit" className="flex-shrink-0 h-12 py-0 px-9  bg-[#A71755] text-white hover:text-red-500 font-semibold flex items-center justify-center rounded-full">
+                                                احجز الان
+                                            </label>
+
+                                            <Link className="flex-shrink-0 h-12 py-0 px-9  bg-[#29b62a] text-white hover:text-main-blue font-semibold flex items-center justify-center rounded-full" to={`https://wa.me/${settings.whatsapp}?text= اريد مناقشتكم عن عرض سعر علي فندق  ${data?.title}`}>
+                                                <span >حجز عن طريق الواتساب </span>
+                                            </Link>
+                                        </div>
+
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>إلغاء</AlertDialogCancel>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog> */}
 
                         {/* Submit */}
-                        <button type="submit" className="flex-shrink-0 h-12 py-0 px-9 mt-7 bg-[#A71755] text-white hover:text-red-500 font-semibold flex items-center justify-center rounded-full">
-                            احجز الان
-                        </button>
+                        <div className="flex gap-3 flex-wrap">
+                            <button htmlFor="submit" type="submit" className="flex-shrink-0 h-12 py-0 px-9  bg-[#A71755] text-white hover:text-red-500 font-semibold flex items-center justify-center rounded-full">
+                                احجز الان
+                            </button>
+                            <Link
+                                className="flex-shrink-0 h-12 py-0 px-9  bg-[#29b62a] text-white hover:text-main-blue font-semibold flex items-center justify-center rounded-full"
+                                to={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(
+                                    `اريد مناقشتكم عن عرض سعر على فندق "${data?.title}"\n` +
+                                    `من يوم ${arrivalDate ? format(arrivalDate, "yyyy-MM-dd") : "?"} ` +
+                                    `إلى يوم ${departureDate ? format(departureDate, "yyyy-MM-dd") : "?"} \n` +
+                                    `عدد الضيوف: ${form.watch("visitors") || "?"}`
+                                )}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <span>حجز عن طريق الواتساب</span>
+                            </Link>
+
+
+                        </div>
                     </div>
                 </form>
             </Form>
-        </section>
+        </section >
     );
 };
 

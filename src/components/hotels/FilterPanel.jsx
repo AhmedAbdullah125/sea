@@ -38,7 +38,7 @@ export const filterSchema = z.object({
   type: z.string().optional(),
 });
 
-const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
+const FilterPanel = ({ defaultValues, onFilter, setMainData,setLoading }) => {
   function formatDate(input) {
     const date = new Date(input);
     const year = date.getFullYear();
@@ -46,7 +46,6 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-  const [loading, setLoading] = useState(true);
   const [seletedCountry, setSelectedCountry] = useState(defaultValues.destination || '');
   const [selectedFlat, setSelectedFlat] = useState(defaultValues.flat || '');
   const [selectedCity, setSelectedCity] = useState(defaultValues.city || '');
@@ -80,7 +79,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
     setLoading(true);
     const getData = async () => {
       try {
-        const response = await axios.post(`${API_BASE_URL}-hotels?countery_id=${seletedCountry}&available_from=${formatDate(selectedDate)}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`, {});
+        const response = await axios.post(`${API_BASE_URL}/filter-hotels?countery_id=${seletedCountry}&available_from=${formatDate(selectedDate)}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`, {});
         setMainData(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -94,16 +93,38 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
   const form = useForm({
     resolver: zodResolver(filterSchema),
     defaultValues: {
-      date: defaultValues.start, // or just new Date("2025-06-08") if not using ISO strings
+      start: defaultValues.destination || '',
+      end: defaultValues.city || '',
+      date: defaultValues.start || '',
+      lang: defaultValues.flat || '',
+      country: defaultValues.neighborhood || '',
+      rating: defaultValues.rate || '',
+      model: defaultValues.offer || '',
     },
   });
+
+  useEffect(() => {
+    if (defaultValues) {
+      form.setValue("start", defaultValues.destination || '');
+      form.setValue("end", defaultValues.city || '');
+      form.setValue("date", defaultValues.start || '');
+      form.setValue("lang", defaultValues.flat || '');
+      form.setValue("country", defaultValues.neighborhood || '');
+      form.setValue("rating", defaultValues.rate || '');
+      form.setValue("model", defaultValues.offer || '');
+    }
+  }, [defaultValues]);
+  
   const { watch, setValue } = form;
   const values = watch();
-
+  const t ={
+    "flat" :"شقة",
+    "room":"غرفة",
+    "hotel":"فندق"
+  }
+  
   return (
-    <>
-      {
-        loading ? <Loading /> :
+    
           <Form {...form}>
             <form className="space-y-4 mb-10">
               <div className="flex gap-4">
@@ -121,7 +142,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                         </p>
                       </FormLabel>
                       <Select dir="rtl"
-                        defaultValue={values.destination}
+                        defaultValue={String(values.destination)}
                         onValueChange={(val) => setSelectedCountry(val)} >
                         <FormControl>
                           <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
@@ -245,14 +266,14 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                             <SelectValue placeholder={
                               <div className=" text-white flex items-center gap-1">
                                 <IoLanguage size={16} />
-                                <p >شقة</p>
+                                <p >نوع السكن </p>
                               </div>} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className=" shadow border-none rounded-xl bg-white  ">
                           {filters?.flats?.map((option) => (
                             <SelectItem key={option} value={option} className=" cursor-pointer focus:bg-body rounded-xl">
-                              {option}
+                              {t[option]}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -362,8 +383,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
 
             </form>
           </Form>
-      }
-    </>
+     
   )
 }
 

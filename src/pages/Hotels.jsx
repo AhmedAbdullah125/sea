@@ -6,10 +6,12 @@ import Header from '../components/header/Header'
 import { useSearchParams } from 'react-router-dom';
 import FilterPanel from '../components/hotels/FilterPanel';
 import HotelsGrid from '../components/hotels/HotelsGrid';
+import Loading from '../components/loading/Loading';
 const Hotels = () => {
     // state for search params
     const [searchParams, setSearchParams] = useSearchParams();
     const [mainData, setMainData] = useState([])
+    const [loading, setLoading] = useState(true);
     const filters = {
         start: searchParams.get("start") || "",
         end: searchParams.get("end") || "",
@@ -25,13 +27,17 @@ const Hotels = () => {
         if (values.destination) params.set("destination", values.destination);
         setSearchParams(params);
     };
+    console.log(mainData)
     return (
         <section>
             <Header />
             {/* Start Page Content */}
             <div className="container">
-                <FilterPanel defaultValues={filters} onFilter={updateFilters} setMainData={setMainData} />
-                <HotelsGrid mainData={mainData} />
+                <FilterPanel defaultValues={filters} onFilter={updateFilters} setMainData={setMainData} setLoading={setLoading} />
+                {
+                    loading ? <Loading /> :
+                        <HotelsGrid mainData={mainData} />
+                }
             </div>
 
             {/* End Page Content */}

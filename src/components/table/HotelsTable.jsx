@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 const HotelsTable = ({ title, description, data }) => {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
+    console.log(data)
     return (
         <section className="related-section">
             <div className="container">
@@ -104,7 +105,7 @@ const HotelsTable = ({ title, description, data }) => {
                                                 </div> */}
                                                 <div className="related-btn">
                                                     <span>{Number(item.discount)}%</span>
-                                                    <button><i className="fa-regular fa-heart"></i> {Number(item.rating) || 0}</button>
+                                                    <button><i className="fa-regular fa-heart"></i></button>
                                                 </div>
                                             </div>
                                             
@@ -118,7 +119,7 @@ const HotelsTable = ({ title, description, data }) => {
                                                 </span>
                                             </div>
                                             <div className="item-period">
-                                                {item.rentalPeriod}
+                                                {item.title}
                                             </div>
                                             <div className="item-price">
                                                 يبدأ من {item.price} <span className="icon-saudi_riyal"></span>

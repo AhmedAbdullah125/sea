@@ -37,6 +37,7 @@ import SingleNewsletter from './pages/SingleNewsletter';
 import Blogs from './pages/Blogs';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
+import PaymentMaintenance from './components/hotel/PaymentMaintenance';
 
 export const AppContext = createContext();
 function App() {
@@ -62,6 +63,7 @@ function App() {
 			{ path: "/privacy", element: <Privacy></Privacy> },
 			{ path: "/login", element: <Login></Login> },
 			{ path: "/blogs", element: <Blogs></Blogs> },
+			{ path: "/paymentMaintenance", element: <PaymentMaintenance></PaymentMaintenance> },
 			{ path: "/blogs/:slug", element: <SingleBlogPage></SingleBlogPage> },
 			{ path: "/newsletter/:slug", element: <SingleNewsletter></SingleNewsletter> },
 
