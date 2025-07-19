@@ -86,7 +86,7 @@ export default function Favourates() {
                                                     <div className="card-item-name">{item.item.title} </div>
                                                     <div className="card-place">{item.item.address}</div>
                                                     <div className="item-price">
-                                                        يبدأ من {item.item.price} <span className="icon-saudi_riyal"></span>
+                                                        يبدأ من {item.item.price} {item.item.currencyName}
                                                         <span className="period"><span>/</span> لليلة الواحــــدة</span>
                                                     </div>
                                                 </a>
@@ -111,7 +111,7 @@ export default function Favourates() {
                                                         <div className="card-place">سارية في {formatArabicDate(item.item.arrivalTime)}</div>
                                                         <div className="item-price">
                                                             {item.item.cost}
-                                                            <span className='icon-saudi_riyal'></span>
+                                                            {item.item.currencyName}
                                                             <span className="period"><span>/</span> للشخص الواحد</span>
                                                         </div>
                                                         

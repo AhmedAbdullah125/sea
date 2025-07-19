@@ -5,8 +5,6 @@ import { format } from "date-fns";
 
 export const bookHotel = async (data, setLoading,id) => {    
     setLoading(true); // Set loading state
-    console.log(id);
-
     function formatDate(date) {
         return format(date, "yyyy-MM-dd HH:mm:ss");
     }
@@ -26,7 +24,6 @@ export const bookHotel = async (data, setLoading,id) => {
         if (response.status === 200 || response.status === 201) {
             const message = response.data?.message || 'Profile updated successfully';
             toast.success(message, );
-            console.log("ssss");
             window.location.href = '/paymentMaintenance';
 
         } else {

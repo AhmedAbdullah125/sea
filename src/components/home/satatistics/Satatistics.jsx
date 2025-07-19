@@ -52,7 +52,7 @@ const Satatistics = () => {
                 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-main-blue xl:text-3xl font-bold md:text-2xl text-xl " dangerouslySetInnerHTML={{ __html:doubleDecode( data?.data?.data?.mainDescription) }}></motion.h3>
+                className="text-main-blue xl:text-3xl font-bold md:text-2xl text-xl " dangerouslySetInnerHTML={{ __html:doubleDecode( data?.data?.data?.description) }}></motion.h3>
               <motion.div
                 initial={{ opacity: 0, y: -30, x: -30 }}
                 whileInView={{

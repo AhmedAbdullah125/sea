@@ -37,12 +37,10 @@ const AddToFavBtn = ({ postion = '', id, type }) => {
         if (lovedHotels.includes(id)) {
           setLovedHotels(lovedHotels.filter(id => id !== id))
           localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== id)))
-          toast.success('تم حذف الوحدة من المفضلة')
         }
         else {
           setLovedHotels([...lovedHotels, id])
           localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, id]))
-          toast.success('تم اضافة الوحدة الي المفضلة')
         }
       }
       else {

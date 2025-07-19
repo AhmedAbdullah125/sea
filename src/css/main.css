@@ -3378,7 +3378,7 @@ footer .lowerfooter {
 }
 .profile-form-ccont .form-image form {
   display: flex;
-  gap: 25px;
+  gap: 12px;
 }
 @media screen and (max-width: 1025px) {
   .profile-form-ccont .form-image form {
@@ -3389,7 +3389,7 @@ footer .lowerfooter {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 23px;
+  gap: 10px;
 }
 @media screen and (max-width: 1400px) {
   .profile-form-ccont .form-image form .r-side {

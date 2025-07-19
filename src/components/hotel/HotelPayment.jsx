@@ -33,7 +33,6 @@ export const filterSchema = z.object({
     }),
 });
 const HotelPayment = ({ data }) => {
-    console.log(data);
     const form = useForm({
         resolver: zodResolver(filterSchema),
         defaultValues: {
@@ -83,7 +82,6 @@ const HotelPayment = ({ data }) => {
             window.location.href = '/login';
             return;
         }
-        console.log("Form values:", values);
         handleBookHotel(values, data.id);
     };
     const handleBookHotel = async (data, id) => {
@@ -104,7 +102,7 @@ const HotelPayment = ({ data }) => {
                             {pricePerNight}
                         </span>
                         <div className="rs-t">
-                            <span className='icon-saudi_riyal'></span> / لليلة الواحــــدة
+                           {data.currencyName} / لليلة الواحــــدة
                         </div>
                     </p>
                     <p className='total-price'>إجمالي ليلة واحدة {pricePerNight.toFixed(2)} ر.س</p>

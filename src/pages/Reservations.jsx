@@ -30,7 +30,6 @@ export default function Reservations() {
         };
         getData();
     }, []);
-    console.log(data);
     return (
         <div className="reservation-cont">
             {
@@ -41,7 +40,7 @@ export default function Reservations() {
                     </div> :
                         <div className="no-reservation">
                             <h2>الحجوزات </h2>
-                        <p className="mb-3">يمكنك متابعة كل حجوزاتك من هنا</p>
+                            <p className="mb-3">يمكنك متابعة كل حجوزاتك من هنا</p>
                             <div className="related-grid-cont-favourates">
                                 {
                                     data.hotels.map((item, index) =>
@@ -69,31 +68,6 @@ export default function Reservations() {
 
                                     )
                                 }
-                                {/* <div className="trip-item" key={index}>
-                                                <div className="trip-img">
-                                                    <figure>
-                                                        <img src={item.item.thumbnail} alt="img" />
-                                                    </figure>
-
-                                                </div>
-                                                <a href={`/package?slug=${item.item.slug}`} className="card-content">
-                                                    <div className="detail-flex">
-                                                        <div className="detail-period">جولة لمدة {item.item.durationDays} أيــــام</div>
-                                                        <div className="detail-info-item rate">
-                                                            <i className="fa-solid fa-star"></i>
-                                                            <span>{Number(item.item.rating).toFixed(1)} <span>( {item.item.reviewsCount} )</span></span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="card-item-name">{item.item.title}</div>
-                                                    <div className="card-place">سارية في {formatArabicDate(item.item.arrivalTime)}</div>
-                                                    <div className="item-price">
-                                                        {item.item.cost}
-                                                        <span className='icon-saudi_riyal'></span>
-                                                        <span className="period"><span>/</span> للشخص الواحد</span>
-                                                    </div>
-
-                                                </a>
-                                            </div> */}
                             </div>
                         </div>
 

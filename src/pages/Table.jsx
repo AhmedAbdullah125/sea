@@ -55,7 +55,7 @@ const Table = () => {
         <Loading />
       ) : (
         <>
-          {isScrolled && (
+          {/* {isScrolled && (
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <button className="filter-btn">
@@ -75,7 +75,7 @@ const Table = () => {
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-          )}
+          )} */}
 
           <BreadCrumb
             data={[
@@ -91,7 +91,7 @@ const Table = () => {
           />
           <HotelsTable
             data={hotels}
-            title="أشهــر فنــــادق تركيـــــا."
+            title={`أشهــر فنــــادق ${localStorage.getItem('userCountry') || 'تركيـــــا'}.`}
             description="قدم الموقع قائمة 'توب عشرة' لأفضل الأنشطة والفعاليات السياحية لتسهيل اختيار المسافر لأجمل التجارب في وجهته."
           />
           <Events data={activities} />

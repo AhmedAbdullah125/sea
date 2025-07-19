@@ -53,19 +53,17 @@ export default function EditPage() {
         };
         getData();
     }, []);
-    console.log(profile);
-
     const FormSchema = z.object({
-        firstName: z.string().min(2, { message: 'name must be at least 2 characters.', }),
-        lastName: z.string().min(2, { message: 'name must be at least 2 characters.', }),
-        email: z.string().email({ message: 'Invalid email address.' }),
-        mobile: z.string().min(8, { message: 'Phone number must be 8 characters.', }).regex(/^\+?\d+$/, { message: 'Phone number must start with a plus sign and contain only digits.', }),
-        country : z.string().min(1, { message: 'country must be at least 2 characters.', }),
+        firstName: z.string().min(2, { message: 'يرجي اضافه الاسم الاول ', }),
+        lastName: z.string().min(2, { message: 'يرجي اضافه الاسم الاخير', }),
+        email: z.string().email({ message: 'يرجي ادخال بريد صحيح' }),
+        mobile: z.string().min(8, { message: 'يرجي ادخال رقم هاتف صحيح', }).regex(/^\+?\d+$/, { message: 'Phone number must start with a plus sign and contain only digits.', }),
+        country: z.string().min(1, { message: 'يرجي اختيار الدولة', }),
     });
     const form = useForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            fullName: profile?.name || '',
+            firstName: profile?.name || '',
             lastName: profile?.lastName || '',
             email: profile?.email || '',
             mobile: profile?.mobile || '',
@@ -103,13 +101,10 @@ export default function EditPage() {
             document.getElementById('triger').style.border = 'none';
         }
     }, [profile, setSelectedImage]);
-
-    console.log(profile);
-
     return (
         <div className="account-content">
             {
-                loading || !profile  || !countryData? <Loading /> :
+                loading || !profile || !countryData ? <Loading /> :
                     <div className="profile-form-ccont">
                         <h3>معلومات الملف الشخصي</h3>
                         <p>يمكنك تعديل معلومات الملف الشخصي باستثناء الرقم الجوال.</p>
@@ -196,38 +191,50 @@ export default function EditPage() {
                                         {/* start */}
                                         <FormField
                                             control={form.control}
-                                            name={"country"}
-                                            className="w-full "
-                                            render={() => (
+                                            name="country"
+                                            render={({ field }) => (
                                                 <FormItem className="w-full">
-                                                    <FormLabel className="block" dir="rtl" >
-                                                            <p className="text-main-blue font-bold text-sm">
-                                                                الدولـــة
-                                                                <span className="text-red-500">*</span>
-                                                            </p>
-                                                        </FormLabel>
-                                                    <Select dir="rtl"
-                                                        defaultValue={""}
-                                                        onValueChange={(val) => setSelectedCountry(val)} >
+                                                    <FormLabel className="block" dir="rtl">
+                                                        <p className="text-main-blue font-bold text-sm">
+                                                            الدولـــة
+                                                            <span className="text-red-500">*</span>
+                                                        </p>
+                                                    </FormLabel>
+                                                    <Select
+                                                        dir="rtl"
+                                                        value={field.value}
+                                                        onValueChange={field.onChange}
+                                                    >
                                                         <FormControl>
-                                                            <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
-                                                                <ChevronDown size={14} />
-                                                            </div>} className={`bg-white  text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
-                                                                <SelectValue placeholder={"اختر الدولة"} className="text-[#797979]" />
+                                                            <SelectTrigger
+                                                                icon={
+                                                                    <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                                                                        <ChevronDown size={14} />
+                                                                    </div>
+                                                                }
+                                                                className="bg-white text-[#797979] text-xs font-semibold border-none rounded-full h-12"
+                                                            >
+                                                                <SelectValue placeholder="اختر الدولة" />
                                                             </SelectTrigger>
                                                         </FormControl>
-                                                        <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                                                            {countryData.map((option) => (
-                                                                <SelectItem key={option.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
+                                                        <SelectContent className="shadow border-none rounded-xl bg-white">
+                                                            {countryData?.map((option) => (
+                                                                <SelectItem
+                                                                    key={option.id}
+                                                                    value={String(option.id)}
+                                                                    className="cursor-pointer focus:bg-body rounded-xl"
+                                                                >
                                                                     {option.name}
                                                                 </SelectItem>
                                                             ))}
                                                         </SelectContent>
                                                     </Select>
+                                                    <FormMessage />
                                                 </FormItem>
                                             )}
                                         />
-                                        <Button className="form-btn-cont" type="submit">
+
+                                        <Button className="form-btn-cont mt-4" type="submit">
                                             <sapan className="form-btn">حفظ</sapan>
                                         </Button>
                                     </div>

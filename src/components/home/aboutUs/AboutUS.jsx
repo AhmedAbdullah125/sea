@@ -56,11 +56,11 @@ const AboutUS = () => {
               <div className=' text-center xl:text-start space-y-3 '>
                 <div className=' font-bold text-main-navy' >لمــــاذا نحن !.</div>
 
-                <div className='text-main-blue max-md:text-nowrap max-w-[300px] font-bold xl:text-4xl text-2xl xl:leading-relaxed text-center xl:text-start m-auto xl:m-0'
+                <div className='text-main-blue max-w-[300px] font-bold xl:text-4xl text-2xl xl:leading-relaxed text-center xl:text-start m-auto xl:m-0'
                   dangerouslySetInnerHTML={{ __html: doubleDecode(data?.data?.data?.mainDescription) }}>
                 </div>
 
-                <div className='text-main-navy ' dangerouslySetInnerHTML={{ __html: doubleDecode(data?.data?.data?.title) }}></div>
+                <div className='text-main-navy ' dangerouslySetInnerHTML={{ __html: doubleDecode(data?.data?.data?.mainTitle) }}></div>
               </div>
               <div className=" mt-4 flex items-center max-xl:justify-center  gap-2 w-full">
                 <a href={`https://wa.me/${whatsapp?.whatsapp}`} target='_blank' className="h-8  rounded-full   bg-main-purple !text-white e hover:bg-main-blue transation-all duration-300  text-xs font-semibold px-6 flex items-center justify-center">إحجـــز رحلتك الان</a>

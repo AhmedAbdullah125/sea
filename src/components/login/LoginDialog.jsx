@@ -26,7 +26,9 @@ const LoginDialog = ({ mainHeader = false }) => {
     const getData = async () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/user/profile`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
-        setProfile(response.data.data);
+        const user = response.data.data;
+        localStorage.setItem('userCountry', user.countryName);
+        setProfile(user);
         setLoading(false);
       } catch (error) {
         console.error('Error retrieving data:', error);
@@ -35,7 +37,9 @@ const LoginDialog = ({ mainHeader = false }) => {
       }
     };
     getData();
+
   }, []);
+  console.log(profile)
   const handleSendOtp = (enteredPhone) => {
     setPhone(enteredPhone);
     setIsOtpSent(true);
@@ -46,12 +50,13 @@ const LoginDialog = ({ mainHeader = false }) => {
     <>
       {
         loading ?
-          <button onClick={logout} className={`w-fit text-sm font-bold text-white ${!mainHeader ? "h-12 px-4  bg-main-blue hover:bg-main-purple transation-all duration-300  flex items-center justify-center gap-4 rounded-full " : "hover:text-main-blue"}`}>
-            <p>تسجيل الخروج</p>
-          </button>
+         
+          <Link to="/account/profile" className='profile'>
+            <LazyLoadImage src={profile?.image || profileImage} alt="logo" loading='lazy' className='w-[45px] h-[45px] rounded-full m-auto object-cover header-profileImage border-2 border-white bg-white' />
+          </Link>
           :
           <Link to="/account/profile" className='profile'>
-            <LazyLoadImage src={profile?.image || profileImage} alt="logo" loading='lazy' className='w-[45px] h-[45px] rounded-full m-auto object-cover header-profileImage' />
+            <LazyLoadImage src={profile?.image || profileImage} alt="logo" loading='lazy' className='w-[45px] h-[45px] rounded-full m-auto object-cover header-profileImage border-2 border-white bg-white' />
           </Link>
       }
 

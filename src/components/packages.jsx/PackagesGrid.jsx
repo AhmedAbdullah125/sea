@@ -53,26 +53,24 @@ const PackagesGrid = ({ mainData }) => {
                                     <img src={item.thumbnail} alt="img" />
                                 </figure>
                                 <button className="fav-btn" onClick={
-                                            () => {
-                                                if (sessionStorage.getItem('token')) {
-                                                    if (lovedPlans.includes(item.id)) {
-                                                        setLovedPlans(lovedPlans.filter(id => id !== item.id))
-                                                        localStorage.setItem('lovedPlans', JSON.stringify(lovedPlans.filter(id => id !== item.id)))
-                                                        toast.success('تم حذف الوحدة من المفضلة')
-                                                    }
-                                                    else {
-                                                        setLovedPlans([...lovedPlans, item.id])
-                                                        localStorage.setItem('lovedPlans', JSON.stringify([...lovedPlans, item.id]))
-                                                        toast.success('تم اضافة الوحدة الي المفضلة')
-                                                    }
-                                                    toggleFavourates(item.id, 'Plan');
-                                                }
-                                                else {
-                                                    toast.error('يجب تسجيل الدخول اولا')
-                                                    window.location.href = '/login'
-                                                }
+                                    () => {
+                                        if (sessionStorage.getItem('token')) {
+                                            if (lovedPlans.includes(item.id)) {
+                                                setLovedPlans(lovedPlans.filter(id => id !== item.id))
+                                                localStorage.setItem('lovedPlans', JSON.stringify(lovedPlans.filter(id => id !== item.id)))
                                             }
+                                            else {
+                                                setLovedPlans([...lovedPlans, item.id])
+                                                localStorage.setItem('lovedPlans', JSON.stringify([...lovedPlans, item.id]))
+                                            }
+                                            toggleFavourates(item.id, 'Plan');
                                         }
+                                        else {
+                                            toast.error('يجب تسجيل الدخول اولا')
+                                            window.location.href = '/login'
+                                        }
+                                    }
+                                }
                                 >
                                     <i className={` fa-heart ${lovedPlans.includes(item.id) ? 'fa-solid text-[#a71755]' : 'fa-regular'}`}></i>
                                 </button>
@@ -88,9 +86,7 @@ const PackagesGrid = ({ mainData }) => {
                                 <div className="card-item-name">{item.title}</div>
                                 <div className="card-place">سارية في {formatArabicDate(item.arrivalTime)}</div>
                                 <div className="item-price">
-                                    {item.cost}
-                                    <span className='icon-saudi_riyal'></span>
-                                    <span className="period"><span>/</span> للشخص الواحد</span>
+                                    {item.cost} {item.currencyName}  <span className="period"><span> / </span> للشخص الواحد </span>
                                 </div>
                                 <div className="item-btn">
                                     <a href={`https://wa.me/${data.whatsapp}?text= مناقشتكم لإضافه لحجز الباقة ${item.title} `} className="book-ancor">إحجـــز رحلتك الان</a>

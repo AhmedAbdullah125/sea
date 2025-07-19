@@ -56,12 +56,10 @@ const EventHeader = ({data}) => {
                                     if (lovedEvents.includes(Number(id))) {
                                         setLovedEvents(lovedEvents.filter(id => id !== Number(id)))
                                         localStorage.setItem('lovedEvents', JSON.stringify(lovedEvents.filter(id => id !== Number(id))))
-                                        toast.success('تم حذف الوحدة من المفضلة')
                                     }
                                     else {
                                         setLovedEvents([...lovedEvents, Number(id)])
                                         localStorage.setItem('lovedEvents', JSON.stringify([...lovedEvents, Number(id)]))
-                                        toast.success('تم اضافة الوحدة الي المفضلة')
                                     }
                                     toggleFavourates(Number(id), 'Event');
                                 }

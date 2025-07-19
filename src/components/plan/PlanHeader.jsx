@@ -58,12 +58,10 @@ const PlanHeader = ({ data }) => {
                                         if (lovedPlans.includes(data?.id)) {
                                             setLovedPlans(lovedPlans.filter(id => id !== data?.id))
                                             localStorage.setItem('lovedPlans', JSON.stringify(lovedPlans.filter(id => id !== data?.id)))
-                                            toast.success('تم حذف الوحدة من المفضلة')
                                         }
                                         else {
                                             setLovedPlans([...lovedPlans, data?.id])
                                             localStorage.setItem('lovedPlans', JSON.stringify([...lovedPlans, data?.id]))
-                                            toast.success('تم اضافة الوحدة الي المفضلة')
                                         }
                                         toggleFavourates(data?.id, 'Plan');
                                     }

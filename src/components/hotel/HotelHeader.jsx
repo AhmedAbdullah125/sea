@@ -58,12 +58,10 @@ const HotelHeader = ({ data }) => {
                                     if (lovedHotels.includes(data.id)) {
                                         setLovedHotels(lovedHotels.filter(id => id !== data.id))
                                         localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== data.id)))
-                                        toast.success('تم حذف الوحدة من المفضلة')
                                     }
                                     else {
                                         setLovedHotels([...lovedHotels, data.id])
                                         localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, data.id]))
-                                        toast.success('تم اضافة الوحدة الي المفضلة')
                                     }
                                     toggleFavourates(data.id, 'Hotel');
                                 }

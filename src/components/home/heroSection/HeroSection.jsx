@@ -37,7 +37,6 @@ const HeroSection = () => {
     };
     getData();
   }, []);
-  console.log(data)
   return (
     <motion.section
       initial={{ opacity: 0 }}

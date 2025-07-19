@@ -116,7 +116,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
         loading ? <Loading /> :
           <Form {...form}>
             <form className="space-y-4 mb-10">
-              <div className="flex gap-4">
+              <div className="flex gap-4 xl:flex-nowrap flex-wrap">
                 {/* end */}
                 <FormField
                   className="w-full "
@@ -236,7 +236,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                     </FormItem>
                   )}
                 />
-                <button type="button" className="flex-shrink-0 xl:col-span-2 col-span-12 h-12 py-0 px-9 mt-7 bg-[#A71755]  text-white hover:text-red-500  font-semibold flex items-center justify-center rounded-full">عرض النــــتائج</button>
+                <button type="button" className="flex-shrink-0 xl:col-span-2 col-span-12 h-12 py-0 px-9 mt-7 bg-[#A71755]  text-white hover:text-red-500  font-semibold flex items-center justify-center rounded-full xl:order-[unset] order-1">عرض النــــتائج</button>
               </div>
               <div className="grid grid-cols-6 gap-4">
                 {/* lang */}
