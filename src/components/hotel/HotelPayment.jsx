@@ -104,7 +104,7 @@ const HotelPayment = ({ data }) => {
                             {pricePerNight}
                         </span>
                         <div className="rs-t">
-                            <span className='icon-saudi_riyal'></span> / لليلة الواحــــدة
+                           {data.currencyName} / لليلة الواحــــدة
                         </div>
                     </p>
                     <p className='total-price'>إجمالي ليلة واحدة {pricePerNight.toFixed(2)} ر.س</p>
