@@ -13,9 +13,11 @@ import { MdArrowBackIosNew } from "react-icons/md";
 
 import { GoArrowUpLeft } from "react-icons/go";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 const NewsletterCard = ({ bgColor, item }) => {
+  console.log(item)
   return (
-    <div className='space-y-4 h-[220px] rounded-[65px] p-10 flex  flex-col justify-between' style={{ backgroundColor: `${bgColor}` }}>
+    <div className='space-y-4 rounded-[65px] px-3 py-10 flex  flex-col justify-between' style={{ backgroundColor: `${bgColor}` }}>
       <Dialog >
         <DialogTrigger className="block ms-auto">
           <GoArrowUpLeft size={20} />
@@ -29,7 +31,8 @@ const NewsletterCard = ({ bgColor, item }) => {
                     <IoClose className="size-24" />
                   </Button>
                 </DialogClose>
-                <div className="size-[100px] rounded-[30px] flex items-end p-4" style={{ backgroundColor: `${bgColor}` }}>
+                <div className="size-[100px] rounded-[30px] flex flex-col items-end px-1 py-4" style={{ backgroundColor: `${bgColor}` }}>
+                  <LazyLoadImage src={item?.image} className="w-full h-full object-cover rounded-[15px]" />
                   <h3 className=' font-bold  text-[8px] text-right'>
                     {item?.title}
                   </h3>
@@ -47,6 +50,7 @@ const NewsletterCard = ({ bgColor, item }) => {
           </DialogHeader>
         </DialogContent>
       </Dialog>
+      <LazyLoadImage src={item?.image} className="w-full h-full object-cover rounded-[15px]" />
       <h3 className='xl:text-2xl font-bold'>
         {item?.title}
       </h3>

@@ -118,7 +118,7 @@ const ActivitiesTable = ({ title, description, data }) => {
                                                 {item.period} ليالي
                                             </div>
                                             <div className="item-price">
-                                                يبدأ من {item.price} <span className="icon-saudi_riyal"></span>
+                                                يبدأ من {item.price} {item.currencyName}
                                             </div>
                                         </div>
                                     </Link>

@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react'
 
 const PlanPrices = ({ data }) => {
     return (
@@ -14,7 +13,7 @@ const PlanPrices = ({ data }) => {
                                 <img src={room.icon} alt="package-img"  style={{height:"50px" ,objectFit:"contain",marginBottom:"18px"}} />
                                 <h5 className="package-name">{room.name}</h5>
                                 <span className="package-ele"><i className="fa-solid fa-circle-check"></i><span>{room.age_groups} سنـــوات.</span></span>
-                                <div className="package-price">{room.price}<span className="icon-saudi_riyal"></span>
+                                <div className="package-price">{room.price} <span> {room.currencyName}</span>
                                 </div>
                             </div>
                         ))
