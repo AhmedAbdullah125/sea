@@ -33,7 +33,7 @@ export default function AccountLayout() {
                                 <li><NavLink to="profile"><span>الملف الشخصي</span> <FaUserAlt /></NavLink></li>
                                 <li><NavLink to="reservations"><span>حجــوزاتي</span> <HiOutlineBars3BottomRight /></NavLink></li>
                                 <li><NavLink to="favorites"><span>مفضلتي</span> <BsBagHeartFill /></NavLink></li>
-                                <li><NavLink to="logout">Log Out <RiLogoutCircleRLine /></NavLink></li>
+                                <li><NavLink to="logout"><span>تسجيل الخروج</span><RiLogoutCircleRLine /></NavLink></li>
                             </ul>
                         </nav>
                     </aside>

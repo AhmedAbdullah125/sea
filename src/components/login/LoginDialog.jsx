@@ -50,9 +50,10 @@ const LoginDialog = ({ mainHeader = false }) => {
     <>
       {
         loading ?
-          <button onClick={logout} className={`w-fit text-sm font-bold text-white ${!mainHeader ? "h-12 px-4  bg-main-blue hover:bg-main-purple transation-all duration-300  flex items-center justify-center gap-4 rounded-full " : "hover:text-main-blue"}`}>
-            <p>تسجيل الخروج</p>
-          </button>
+         
+          <Link to="/account/profile" className='profile'>
+            <LazyLoadImage src={profile?.image || profileImage} alt="logo" loading='lazy' className='w-[45px] h-[45px] rounded-full m-auto object-cover header-profileImage' />
+          </Link>
           :
           <Link to="/account/profile" className='profile'>
             <LazyLoadImage src={profile?.image || profileImage} alt="logo" loading='lazy' className='w-[45px] h-[45px] rounded-full m-auto object-cover header-profileImage' />
