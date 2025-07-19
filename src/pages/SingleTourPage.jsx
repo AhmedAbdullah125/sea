@@ -158,7 +158,7 @@ const SingleTourPage = () => {
           </div>
           {/* form  */}
           <div className='col-span-12 xl:col-span-5 space-y-4'>
-            <PriceForm tourId={data?.id}  price={data?.totalServicePrice} discount={data?.discount} tour={data} />
+            <PriceForm currencyName={data?.currencyName} tourId={data?.id}  price={data?.totalServicePrice} discount={data?.discount} tour={data} />
           </div>
         </div>
 
