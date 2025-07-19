@@ -34,9 +34,17 @@ const VisaPage = () => {
       <div className="bg-[url('/visa/bg.png')] bg-cover bg-center py-16">
         {/* content  */}
         <div className="container text-white text-center ">
-          <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">تأشيرات {type == "sa" ? "السعودية" : "الإمارات العربية المتحدة"} </h1>
-          <p className="max-w-6xl xl:text-xl md:text-base text-sm m-auto font-light leading-relaxed mt-6">
-            توفر دولة {type == "sa" ? "السعودية" : "الإمارات العربية المتحدة"} أنواعاً مختلفة من التأشيرات المصممة خصيصاً لغرض ومدة زيارتك. فيما يلي أنواع التأشيرات الأكثر طلباً من قبل المسافرين        </p>
+          {type ?
+            <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">تأشيرات {type == "sa" ? "السعودية" : "الإمارات العربية المتحدة"} الإلكترونية </h1>
+            :
+            <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">التأشيرات الإلكترونية</h1>
+          }
+
+          <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">
+            يمكن لأي شخص يَحمل جواز سفر الحصول على التأشيرة الإلكترونية وفقًا للشروط الموضوعة .
+          </p>
+          <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">
+            يتم معالجة الطلب من 3 إلى 5 أيام عمل.          </p>
         </div>
       </div>
       {/* content */}
@@ -45,7 +53,7 @@ const VisaPage = () => {
         <div className="  text-center xl:space-y-8 md:space-y-6 space-y-4">
           <p className="font-bold text-xs">أنواع التأشيرات</p>
           <h1 className="xl:text-6xl md:text-4xl text-3xl text-main-blue font-bold ">إختر نــوع تـــأشيرتك</h1>
-          <p className="text-xs font-semibold">جميع التأشيرات صالحة في جميع أنحاء الإمارات العربية المتحدة ويمكن استخدامها لجميع وسائل النقل.</p>
+          <p className="text-xs font-semibold">جميع التأشيرات صالحة ومعتمدة  ويمكن استخدامها لجميع وسائل النقل.</p>
 
         </div>
         {/* grid */}
