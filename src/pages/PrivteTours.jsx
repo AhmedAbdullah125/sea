@@ -74,7 +74,7 @@ const PrivteTours = () => {
   return (
     <>
     <Header/>
-    <main className="container my-16 ">
+    <main className="container mb-16 ">
       {/* breadcrumb */}
       <div className="mb-8">
       <Breadcrumbs items={[{ label: "الرئيسية", href: "/" }, { label: "النقل و الجولات", href: "/transport" }, { label: "جولات خـــاصة", href: "/privte-tours" }]} />

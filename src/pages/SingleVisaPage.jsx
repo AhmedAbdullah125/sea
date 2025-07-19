@@ -41,6 +41,7 @@ const SingleVisaPage = () => {
   const visa = data?.data?.data
   if (isLoading) return <Loading />
   if (isError) return <p>Error</p>
+  console.log(visa)
   return (
     <>
       <Header />
@@ -51,11 +52,8 @@ const SingleVisaPage = () => {
             {/* content  */}
             <div className="container text-white text-center ">
               <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">تأشيرة {visa?.countryName} الإلكترونية</h1>
-              <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">
-                يمكن لأي شخص يَحمل جواز سفر الحصول على التأشيرة الإلكترونية وفقًا للشروط الموضوعة .
-              </p>
-              <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">
-                يتم معالجة الطلب من 3 إلى 5 أيام عمل.          </p>
+              <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">{visa?.description} </p>
+              <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">{visa?.period}</p>
             </div>
           </div>
 

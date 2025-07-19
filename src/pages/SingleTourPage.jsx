@@ -86,8 +86,7 @@ const SingleTourPage = () => {
   return (
     <>
       <Header />
-      <p>{id}</p>
-      <main className="my-16 container space-y-6">
+      <main className="mb-16 container space-y-6">
         {/* title */}
         <div className='space-y-2 '>
           <h1 className="text-4xl font-bold line-clamp-1" >{data?.model}</h1 >

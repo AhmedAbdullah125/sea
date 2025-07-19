@@ -15,7 +15,7 @@ const AppSection = () => {
     const getData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${API_BASE_URL}/settings`, {});
+        const response = await axios.get(`${API_BASE_URL}/about-us`, {});
         setData(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -36,7 +36,9 @@ const AppSection = () => {
       className='my-16  container'>
       {
         loading ? <Loading /> :
-          <div className={`overflow-hidden  bg-[url(${data?.appName})] bg-center bg-cover bg-no-repeat rounded-[105px] bg-main-blue/45`}>
+          <div className={`overflow-hidden bg-center bg-cover bg-no-repeat rounded-[105px] bg-main-blue/45`}
+          style={{ backgroundImage: `url(${data?.imageApp})` }}
+          >
             <div className=" flex items-center justify-between bg-main-blue/45">
 
               {/* content */}
