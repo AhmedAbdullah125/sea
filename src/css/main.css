@@ -602,19 +602,10 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   background-color: var(--white-color);
 }
 
-.fixed-navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-  background-color: #F1F1F1;
-  width: 100%;
-  padding: 10px 0 !important;
-}
-
 .header-cont {
   padding: 40px 0 50px;
+  top: -200px;
+  transition: all 0.3s ease-in-out;
 }
 @media only screen and (max-width: 767px) {
   .header-cont {
@@ -788,6 +779,17 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
 
 .header-profileImage:hover {
   border: 2px solid var(--sec-color);
+}
+
+.fixed-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  background-color: #F1F1F1;
+  width: 100%;
+  padding: 10px 0 !important;
 }
 
 .detail-title {
@@ -1661,7 +1663,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   grid-template-columns: repeat(3, 1fr);
   gap: 20px 10px;
 }
-@media only screen and (max-width: 1025px) {
+@media screen and (max-width: 1500px) {
   .places-cont {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
@@ -1696,6 +1698,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   max-width: 315px;
   border-radius: 28px;
   position: relative;
+  flex-shrink: 0;
 }
 .places-item figure::after {
   content: "";
@@ -1742,6 +1745,10 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   font-weight: 800;
   font-size: 24px;
   color: var(--main-color);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 @media only screen and (max-width: 767px) {
   .places-content .places-name {
