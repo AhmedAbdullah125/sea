@@ -120,19 +120,19 @@ const TransportPage = () => {
                   <div className="text-xs font-semibold flex items-center justify-between">
                     <p>خدمة الاستقبال:</p>
                     <p className="text-main-blue text-sm  flex items-center gap-1">{parseFloat(data?.totalServicePrice).toFixed(2)}
-                      <span>{ryail}</span>
+                      <span>{data?.currencyName}</span>
                     </p>
                   </div>
                   <div className="text-xs font-semibold flex items-center justify-between">
                     <p>المجموع الفرعي:</p>
                     <p className="text-main-blue text-sm  flex items-center gap-1">{parseFloat(data?.totalServicePrice).toFixed(2)}
-                      <span>{ryail}</span>
+                      <span>{data?.currencyName}</span>
                     </p>
                   </div>
                   <div className="text-sm font-bold flex items-center justify-between">
                     <p>الإجمالي:</p>
                     <p className="text-main-blue   flex items-center gap-1"> ={parseFloat(data?.totalServicePrice).toFixed(2)}
-                      <span>{ryail}</span>
+                      <span>{data?.currencyName}</span>
                     </p>
                   </div>
 
@@ -144,7 +144,7 @@ const TransportPage = () => {
           {/* steps */}
           <div className='xl:col-span-9  col-span-12 bg-body rounded-[50px] p-8 flex items-center justify-center'>
             {step === 1 && <Step1 nextStep={nextStep} alerts={data?.alerts} />}
-            {step === 2 && <Step2 nextStep={nextStep} transportId={tour_id} />}
+            {step === 2 && <Step2 nextStep={nextStep} transportId={tour_id} starting_point={starting_point} people_count={people_count} date={date} car_type={car_type} />}
             {step === 3 && <Step3 />}
 
           </div>

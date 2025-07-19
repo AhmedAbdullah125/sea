@@ -33,9 +33,14 @@ const FilterCard = ({ tour }) => {
         {/* img slider */}
         < div className="relative overflow-hidden   rounded-[50px]" >
           {/* sale */}
-          <div div className="absolute top-5 end-5 z-10 px-8 py-3 bg-white/15 backdrop-blur-sm text-white text-[10px] font-semibold flex items-center justify-center rounded-full" > كيلومترات غير محدودة</div>
+          <div className="absolute top-5 end-5 z-10 flex items-center gap-2">
+            {tour?.carAdvantages?.map((item, index) => (
+
+              <div div className=" px-8 py-3 bg-white/15 backdrop-blur-sm text-white text-[10px] font-semibold flex items-center justify-center rounded-full" >{item} </div>
+            ))}
+          </div>
           {/* card image */}
-          <FilterCuroasel images={tour?.images}  />
+          <FilterCuroasel images={tour?.images} />
 
         </div >
       </CardHeader>
@@ -51,11 +56,11 @@ const FilterCard = ({ tour }) => {
           <h3 h3 className="text-4xl font-bold line-clamp-1" >{tour?.model}</h3 >
           {/* price */}
           <div className="flex items-center justify-between" >
-            <h4 className="text-xl font-bold text-main-blue flex items-center gap-2">{parseFloat(price - discount).toFixed(2)}
-              {ryial}
+            <h4 className="text-xl font-bold text-main-blue flex items-center gap-2">{parseFloat(price).toFixed(2)}
+              {tour?.currencyName}
             </h4>
             <div className="h-8 w-10 bg-main-purple text-white text-[10px] font-semibold flex items-center justify-center rounded-full">
-              {parseFloat((discount / price) * 100).toFixed(1)} % 
+              {parseFloat(discount).toFixed(1)} %
             </div>
           </div>
         </div >
