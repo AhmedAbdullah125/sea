@@ -71,7 +71,7 @@ const formSchema = z.object({
 })
 
 const VisaForm = () => {
-  const { token }= useContext(userContext);
+  const { token } = useContext(userContext);
   // picture privwer
   const [picturePreview, setPicturePreview] = useState(null);
   const [passportPdf, setPassportPdfPreview] = useState(null);
@@ -79,7 +79,7 @@ const VisaForm = () => {
 
 
   // visa 
-  const { data:visa } = useQuery({
+  const { data: visa } = useQuery({
     queryKey: ['visa'],
     queryFn: async () => {
       const res = await fetchFromApi("/travel-visa");
@@ -87,7 +87,7 @@ const VisaForm = () => {
     }
   })
   // visa 
-  const { data:counts } = useQuery({
+  const { data: counts } = useQuery({
     queryKey: ['countries'],
     queryFn: async () => {
       const res = await fetchFromApi("/countries");
@@ -119,12 +119,12 @@ const VisaForm = () => {
 
   // formate date
   function formatDate(date) {
-  const d = new Date(date);
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`; // YYYY-MM-DD format
-}
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`; // YYYY-MM-DD format
+  }
 
   // 1. Define your form.
   const form = useForm({
@@ -179,6 +179,7 @@ const VisaForm = () => {
           'Content-Type': 'multipart/form-data', // Explicitly set content type
         }
       });
+      console.log(res);
       if (res.status === 201) {
         toast.success("تم إرسال الطلب بنجاح");
         form.reset();
@@ -228,8 +229,16 @@ const VisaForm = () => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <span className="size-8 shrink-0 bg-main-navy rounded-full flex items-center justify-center text-white text-xs font-semibold">
-                        {selectedVisa ? `${parseInt(selectedVisa.price)} ` : null}
+                      <span className="h-12 w-20 shrink-0 bg-main-navy rounded-full flex flex-col  items-center justify-center text-white text-[10px] font-semibold">
+                        {selectedVisa ? <>
+                          <p>
+                            {parseInt(selectedVisa.price)}
+                          </p>
+                          <p>
+                            {selectedVisa.currencyName}
+                          </p>
+                        </>
+                          : null}
                       </span>
                     </div>
                     <FormMessage className="text-red-500  text-xs " />
@@ -257,7 +266,7 @@ const VisaForm = () => {
                 <FormItem className="col-span-12" dir="ltr">
                   <FormLabel className="block" dir="rtl" >
                     <p className="text-main-blue font-bold text-sm">
-                      رقم الاتصال 
+                      رقم الاتصال
                       <span className="text-red-500">*</span>
                     </p>
                   </FormLabel>
