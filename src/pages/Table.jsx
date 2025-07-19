@@ -55,7 +55,7 @@ const Table = () => {
         <Loading />
       ) : (
         <>
-          {isScrolled && (
+          {/* {isScrolled && (
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <button className="filter-btn">
@@ -75,7 +75,7 @@ const Table = () => {
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-          )}
+          )} */}
 
           <BreadCrumb
             data={[
