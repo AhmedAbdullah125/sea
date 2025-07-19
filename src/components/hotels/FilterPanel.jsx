@@ -143,7 +143,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData,setLoading }) => {
     
           <Form {...form}>
             <form className="space-y-4 mb-10">
-              <div className="flex gap-4">
+              <div className="flex gap-4 xl:flex-nowrap flex-wrap">
                 {/* start */}
                 <FormField
                   control={form.control}
