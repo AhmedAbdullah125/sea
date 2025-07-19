@@ -3,19 +3,34 @@ import imgicon1 from '../../assets/imgIcon-1.svg'
 import imgicon2 from '../../assets/imgIcon-2.svg'
 import { toast } from 'sonner'
 import { toggleFavourates } from '../../pages/toggleFavourates'
+import { Fancybox } from "@fancyapps/ui";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
 const HotelHeader = ({ data }) => {
     const [selectedImg, setselectedImg] = useState(data.images[0])
-    const [lovedHotels ,setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [] )
+    const [lovedHotels, setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [])
+    Fancybox.bind("[data-fancybox]", {
+        animated: true,
+        showClass: "fancybox-zoomIn",
+        hideClass: "fancybox-zoomOut",
+        dragToClose: true,
+        backdropClick: "close",
+        closeButton: "outside",
+        placeFocusBack: false,
+        Images: { zoom: true, Panzoom: { maxScale: 3, }, },
+        Thumbs: { autoStart: false, },
+    });
+    // Link swipers after both are ready
     useEffect(() => {
         if (typeof window !== 'undefined') {
-          if (localStorage.getItem('lovedHotels')) {
-            setLovedHotels(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : []);
-          }
-          else {
-            localStorage.setItem('lovedHotels', []);
-          }
+            if (localStorage.getItem('lovedHotels')) {
+                setLovedHotels(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : []);
+            }
+            else {
+                localStorage.setItem('lovedHotels', []);
+            }
         }
-      },[data])
+    }, [data])
+    console.log(data)
     return (
         <section className="content-section">
             <div className="container">
@@ -52,32 +67,36 @@ const HotelHeader = ({ data }) => {
                         </button>
                         {/* make button adding id of hotel to localstorage if it not exist and remove it if it exist */}
                         <button className="add-btn"
-                        onClick={
-                            () => {
-                                if (sessionStorage.getItem('token')) {
-                                    if (lovedHotels.includes(data.id)) {
-                                        setLovedHotels(lovedHotels.filter(id => id !== data.id))
-                                        localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== data.id)))
+                            onClick={
+                                () => {
+                                    if (sessionStorage.getItem('token')) {
+                                        if (lovedHotels.includes(data.id)) {
+                                            setLovedHotels(lovedHotels.filter(id => id !== data.id))
+                                            localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== data.id)))
+                                        }
+                                        else {
+                                            setLovedHotels([...lovedHotels, data.id])
+                                            localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, data.id]))
+                                        }
+                                        toggleFavourates(data.id, 'Hotel');
                                     }
                                     else {
-                                        setLovedHotels([...lovedHotels, data.id])
-                                        localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, data.id]))
+                                        toast.error('يجب تسجيل الدخول اولا')
+                                        window.location.href = '/login'
                                     }
-                                    toggleFavourates(data.id, 'Hotel');
-                                }
-                                else {
-                                    toast.error('يجب تسجيل الدخول اولا')
-                                    window.location.href = '/login'
                                 }
                             }
-                        }
                         ><i className={`fa-heart ${lovedHotels.includes(data.id) ? 'fa-solid text-[#A71755]' : 'fa-regular'}`}></i></button>
                     </div>
                 </div>
                 <div className="detail-cont">
                     <div className="detail-box">
                         <figure className="detail-img">
-                            <img src={selectedImg} className="img-fluid" alt="detail-img" />
+                            {/\.(mp4|mov|webm)$/i.test(selectedImg) ? (
+                                <video src={selectedImg} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                            ) : (
+                                <img src={selectedImg} className="img-fluid" alt="detail-img" />
+                            )}
                         </figure>
                         <div className="detail-img-btn">
                             <button className="add-btn">
@@ -88,13 +107,29 @@ const HotelHeader = ({ data }) => {
                             </button>
                         </div>
                     </div>
-                    {data.images.map((img, idx) => (
-                        <div className="detail-box" key={idx}>
-                            <figure className="detail-img" onClick={() => setselectedImg(img)}>
-                                <img src={img} className="img-fluid" alt="detail-img" />
-                            </figure>
-                        </div>
-                    ))}
+                    {data.images.map((mediaUrl, idx) => {
+                        const isVideo = /\.(mp4|mov|webm)$/i.test(mediaUrl);
+
+                        return (
+                            <div className="detail-box" key={idx}>
+                                <figure
+                                    className="detail-img"
+                                    onClick={() => setselectedImg(mediaUrl)}
+                                >
+                                    {isVideo ? (
+                                        <a href={mediaUrl} data-fancybox="gallery" data-caption={`Video ${idx + 1}`} className="single-img">
+                                            <video src={mediaUrl} className="img-fluid" muted preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
+                                        </a>
+                                    ) : (
+                                        <a href={mediaUrl} data-fancybox="gallery" className="single-img">
+                                            <img src={mediaUrl} className="img-fluid" alt="detail-img" />
+                                        </a>
+                                    )}
+                                </figure>
+                            </div>
+                        );
+                    })}
+
                 </div>
             </div>
         </section>

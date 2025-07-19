@@ -915,6 +915,9 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   height: 100%;
   aspect-ratio: 866/586;
 }
+.detail-img:hover::after {
+  z-index: -1;
+}
 
 .detail-img img {
   width: 100%;
