@@ -264,7 +264,7 @@ const HotelPayment = ({ data }) => {
                             <div className="hagez"></div>
                             <div className="linee total-line">
                                 <div className="key">الإجمالي</div>
-                                <div className="value">{totalPrice.toFixed(2) - (Number(data.discount) / 100 * totalPrice) + data.serviceFees} ريال</div>
+                                <div className="value">{totalPrice.toFixed(2) - (Number(data.discount) / 100 * totalPrice) + Number(data.serviceFees)} ريال</div>
                             </div>
                         </div>
                         {/* <AlertDialog style={{ direction: "rtl" }}>

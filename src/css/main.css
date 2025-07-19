@@ -2161,6 +2161,10 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   font-weight: 800;
   margin-bottom: 70px;
   color: var(--black-color);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 @media only screen and (max-width: 1025px) {
   .about-place-section .about-grid .grid-item h4 {
@@ -2174,6 +2178,10 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   font-size: 28px;
   font-weight: 800;
   margin-bottom: 0px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 @media only screen and (max-width: 1025px) {
   .about-place-section .about-grid .grid-item span {
