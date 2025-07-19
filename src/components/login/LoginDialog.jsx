@@ -52,11 +52,11 @@ const LoginDialog = ({ mainHeader = false }) => {
         loading ?
          
           <Link to="/account/profile" className='profile'>
-            <LazyLoadImage src={profile?.image || profileImage} alt="logo" loading='lazy' className='w-[45px] h-[45px] rounded-full m-auto object-cover header-profileImage' />
+            <LazyLoadImage src={profile?.image || profileImage} alt="logo" loading='lazy' className='w-[45px] h-[45px] rounded-full m-auto object-cover header-profileImage border-2 border-white bg-white' />
           </Link>
           :
           <Link to="/account/profile" className='profile'>
-            <LazyLoadImage src={profile?.image || profileImage} alt="logo" loading='lazy' className='w-[45px] h-[45px] rounded-full m-auto object-cover header-profileImage' />
+            <LazyLoadImage src={profile?.image || profileImage} alt="logo" loading='lazy' className='w-[45px] h-[45px] rounded-full m-auto object-cover header-profileImage border-2 border-white bg-white' />
           </Link>
       }
 
