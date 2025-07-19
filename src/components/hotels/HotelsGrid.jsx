@@ -19,8 +19,6 @@ const HotelsGrid = ({ mainData }) => {
             }
         }
     }, [mainData])
-    console.log(mainData);
-
     return (
         <div className="grid-cont">
             {

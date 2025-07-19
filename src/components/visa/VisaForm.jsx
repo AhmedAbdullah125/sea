@@ -179,7 +179,6 @@ const VisaForm = () => {
           'Content-Type': 'multipart/form-data', // Explicitly set content type
         }
       });
-      console.log(res);
       if (res.status === 201) {
         toast.success("تم إرسال الطلب بنجاح");
         form.reset();

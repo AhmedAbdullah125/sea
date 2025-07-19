@@ -15,7 +15,6 @@ import { GoArrowUpLeft } from "react-icons/go";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 const NewsletterCard = ({ bgColor, item }) => {
-  console.log(item)
   return (
     <div className='space-y-4 h-[220px] rounded-[65px]  bg-cover bg-center bg-no-repeat overflow-hidden' style={{ backgroundColor: `${bgColor}`, backgroundImage: `url(${item?.image})` }}>
      

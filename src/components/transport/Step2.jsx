@@ -84,7 +84,6 @@ const Step2 = ({ nextStep, transportId, starting_point, date, people_count, car_
           "Content-Type": "multipart/form-data",
         }
       });
-      console.log(res);
       if (res.status === 201) {
         toast.success("تم الحجز بنجاح");
         setTimeout(() => {

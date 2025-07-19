@@ -30,7 +30,6 @@ const HotelHeader = ({ data }) => {
             }
         }
     }, [data])
-    console.log(data)
     return (
         <section className="content-section">
             <div className="container">

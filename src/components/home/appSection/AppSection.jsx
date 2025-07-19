@@ -26,7 +26,6 @@ const AppSection = () => {
     };
     getData();
   }, []);
-  console.log(data)
   return (
     <motion.section
       initial={{ opacity: 0, y: 30 }}

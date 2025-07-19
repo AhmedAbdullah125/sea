@@ -13,7 +13,6 @@ const HotelTabs = ({ data, trigger, setTrigger }) => {
         day: 'numeric',
         month: 'long'
     });
-    console.log(data)
     return (
         <section className='hotel-tabs-section'>
             <div className="controllers">

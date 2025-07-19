@@ -24,7 +24,6 @@ const ryial = <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns=
 
 
 const FilterCard = ({ tour }) => {
-  console.log(tour)
   const price = parseFloat(tour?.totalServicePrice || tour?.services_price[0]?.price)
   const discount = parseFloat(tour?.discount)
   return (
