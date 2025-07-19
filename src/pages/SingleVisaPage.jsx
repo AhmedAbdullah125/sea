@@ -32,7 +32,7 @@ const SingleVisaPage = () => {
       {data?.data?.data ?
         <main >
           {/* header */}
-          <div className="bg-[url('/visa/omraa.png')] bg-cover bg-center py-16">
+          <div className="bg-[url('/visa/bg.png')] bg-cover bg-center py-16">
             {/* content  */}
             <div className="container text-white text-center ">
               <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">تأشيرة {visa?.countryName} الإلكترونية</h1>

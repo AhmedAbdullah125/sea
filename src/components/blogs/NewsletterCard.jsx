@@ -15,7 +15,10 @@ import { GoArrowUpLeft } from "react-icons/go";
 import { Link } from "react-router-dom";
 const NewsletterCard = ({ bgColor, item }) => {
   return (
-    <div className='space-y-4 h-[220px] rounded-[65px] p-10 flex  flex-col justify-between' style={{ backgroundColor: `${bgColor}` }}>
+    <div className='space-y-4 h-[220px] rounded-[65px]  bg-cover bg-center bg-no-repeat overflow-hidden' style={{ backgroundColor: `${bgColor}`, backgroundImage: `url(${item?.image})` }}>
+     
+      <div className="flex  flex-col justify-between  p-10 w-full h-full bg-black/50 text-white">
+        
       <Dialog >
         <DialogTrigger className="block ms-auto">
           <GoArrowUpLeft size={20} />
@@ -29,10 +32,10 @@ const NewsletterCard = ({ bgColor, item }) => {
                     <IoClose className="size-24" />
                   </Button>
                 </DialogClose>
-                <div className="size-[100px] rounded-[30px] flex items-end p-4" style={{ backgroundColor: `${bgColor}` }}>
-                  <h3 className=' font-bold  text-[8px] text-right'>
+                <div className="size-[100px] rounded-[30px] flex items-end p-4 bg-center bg-cover bg-no-repeat" style={{ backgroundColor: `${bgColor}` , backgroundImage: `url(${item?.image})`}}>
+                  {/* <h3 className=' font-bold  text-[8px] text-right'>
                     {item?.title}
-                  </h3>
+                  </h3> */}
                 </div>
                 <div className="text-right">
                   <h4 className="text-xl font-bold">اذا حابب نرسلك كل ويكند </h4>
@@ -50,6 +53,7 @@ const NewsletterCard = ({ bgColor, item }) => {
       <h3 className='xl:text-2xl font-bold'>
         {item?.title}
       </h3>
+     </div>
     </div>
   )
 }
