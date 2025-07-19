@@ -898,7 +898,7 @@
 
   figure {
     aspect-ratio: 315/202;
-    height: 100%;
+    width: 60%;
     overflow: hidden;
     max-width: 315px;
     border-radius: 28px;
@@ -943,14 +943,15 @@
   gap: 15px;
   font-weight: 500;
   font-size: 10px;
-
+  min-width: calc(40% - 20px);
+  // flex-shrink: 0;
   .place-type {
     color: $sec;
   }
 
   .places-name {
     font-weight: 800;
-    font-size: 24px;
+    font-size: 21px;
     color: $main;
     //max lines 2
     overflow: hidden;
