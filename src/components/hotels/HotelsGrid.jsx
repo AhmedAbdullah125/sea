@@ -73,12 +73,10 @@ const HotelsGrid = ({ mainData }) => {
                                                     if (lovedHotels.includes(item.id)) {
                                                         setLovedHotels(lovedHotels.filter(id => id !== item.id))
                                                         localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== item.id)))
-                                                        toast.success('تم حذف الوحدة من المفضلة')
                                                     }
                                                     else {
                                                         setLovedHotels([...lovedHotels, item.id])
                                                         localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, item.id]))
-                                                        toast.success('تم اضافة الوحدة الي المفضلة')
                                                     }
                                                     toggleFavourates(item.id, 'Hotel');
                                                 }

@@ -58,12 +58,10 @@ const PackagesGrid = ({ mainData }) => {
                                             if (lovedPlans.includes(item.id)) {
                                                 setLovedPlans(lovedPlans.filter(id => id !== item.id))
                                                 localStorage.setItem('lovedPlans', JSON.stringify(lovedPlans.filter(id => id !== item.id)))
-                                                toast.success('تم حذف الوحدة من المفضلة')
                                             }
                                             else {
                                                 setLovedPlans([...lovedPlans, item.id])
                                                 localStorage.setItem('lovedPlans', JSON.stringify([...lovedPlans, item.id]))
-                                                toast.success('تم اضافة الوحدة الي المفضلة')
                                             }
                                             toggleFavourates(item.id, 'Plan');
                                         }
