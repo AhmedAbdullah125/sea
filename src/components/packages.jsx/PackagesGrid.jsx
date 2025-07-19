@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import plane from '../../assets/housing/plane-icon.svg'
 import { toast } from 'sonner';
 import { toggleFavourates } from '../../pages/toggleFavourates';
+import axios from 'axios';
+import { API_BASE_URL } from '../../lib/apiConfig';
 const PackagesGrid = ({ mainData }) => {
     const [data, setData] = useState([])
     const [lovedPlans, setLovedPlans] = useState(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : [])
@@ -48,34 +50,35 @@ const PackagesGrid = ({ mainData }) => {
                 {
                     mainData.map((item, index) => (
                         <div className="trip-item" key={index}>
-                            <div className="trip-img">
-                                <figure>
-                                    <img src={item.thumbnail} alt="img" />
-                                </figure>
-                                <button className="fav-btn" onClick={
-                                    () => {
-                                        if (sessionStorage.getItem('token')) {
-                                            if (lovedPlans.includes(item.id)) {
-                                                setLovedPlans(lovedPlans.filter(id => id !== item.id))
-                                                localStorage.setItem('lovedPlans', JSON.stringify(lovedPlans.filter(id => id !== item.id)))
+                            <a href={`package?slug=${item.slug}`} className="card-content" style={{padding:"0px"}}>
+                                <div className="trip-img">
+                                    <figure>
+                                        <img src={item.thumbnail} alt="img" />
+                                    </figure>
+                                    <button className="fav-btn" onClick={
+                                        () => {
+                                            if (sessionStorage.getItem('token')) {
+                                                if (lovedPlans.includes(item.id)) {
+                                                    setLovedPlans(lovedPlans.filter(id => id !== item.id))
+                                                    localStorage.setItem('lovedPlans', JSON.stringify(lovedPlans.filter(id => id !== item.id)))
+                                                }
+                                                else {
+                                                    setLovedPlans([...lovedPlans, item.id])
+                                                    localStorage.setItem('lovedPlans', JSON.stringify([...lovedPlans, item.id]))
+                                                }
+                                                toggleFavourates(item.id, 'Plan');
                                             }
                                             else {
-                                                setLovedPlans([...lovedPlans, item.id])
-                                                localStorage.setItem('lovedPlans', JSON.stringify([...lovedPlans, item.id]))
+                                                toast.error('يجب تسجيل الدخول اولا')
+                                                window.location.href = '/login'
                                             }
-                                            toggleFavourates(item.id, 'Plan');
-                                        }
-                                        else {
-                                            toast.error('يجب تسجيل الدخول اولا')
-                                            window.location.href = '/login'
                                         }
                                     }
-                                }
-                                >
-                                    <i className={` fa-heart ${lovedPlans.includes(item.id) ? 'fa-solid text-[#a71755]' : 'fa-regular'}`}></i>
-                                </button>
-                            </div>
-                            <a href={`package?slug=${item.slug}`} className="card-content">
+                                    >
+                                        <i className={` fa-heart ${lovedPlans.includes(item.id) ? 'fa-solid text-[#a71755]' : 'fa-regular'}`}></i>
+                                    </button>
+                                </div>
+
                                 <div className="detail-flex">
                                     <div className="detail-period">جولة لمدة {item.durationDays} أيــــام</div>
                                     <div className="detail-info-item rate">
