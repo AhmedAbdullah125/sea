@@ -102,7 +102,7 @@ const SingleVisaPage = () => {
                 <h3 className='text-5xl font-bold text-main-blue leading-loose'>الــتـأشيرة السيـــاحية
                   الإلكتـــرونية.
                 </h3>
-                <img src={"/public/app/app-victor.svg"} alt="victor" loading='lazy' className=' block m-auto absolute top-24 start-1/3 -translate-1/2' />
+                <img src={"/app/app-victor.svg"} alt="victor" loading='lazy' className=' block m-auto absolute top-24 start-1/3 -translate-1/2' />
                 <p className='text-lg text-main-navy'>{visa?.description}</p>
               </div>
               {/* buttons */}
