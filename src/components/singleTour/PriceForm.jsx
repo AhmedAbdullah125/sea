@@ -48,8 +48,8 @@ export const filterSchema = z.object({
   car_type: z.string().nonempty("هذا الحقل مطلوب"),
 });
 
-const PriceForm = ({ price, discount, tourId,tour }) => {
-  const navigate =useNavigate();
+const PriceForm = ({ price, discount, tourId, tour, currencyName }) => {
+  const navigate = useNavigate();
   const { data } = useQuery({
     queryKey: [`all-filters`],
     queryFn: async () => {
@@ -90,9 +90,9 @@ const PriceForm = ({ price, discount, tourId,tour }) => {
         {/* price */}
         <div className="flex items-center justify-between">
           <div className="space-y-2">
-            <p className=" flex items-center gap-1 text-main-blue font-bold"><del className="text-main-gray text-sm">{parseFloat(price).toFixed(2)}</del> {parseFloat(price - discount).toFixed(2)} {ryial} <span className="text-main-purple font-semibold text-sm">/ لليوم الواحــــدة</span></p>
+            <p className=" flex items-center gap-1 text-main-blue font-bold"><del className="text-main-gray text-sm">{(parseFloat(price) + parseFloat(discount)).toFixed(2)}</del> {parseFloat(price).toFixed(2)} {currencyName} <span className="text-main-purple font-semibold text-sm">/ لليوم الواحــــدة</span></p>
             <p className="text-xs font-semibold text-main-gray">
-              إجمالي لليوم {parseFloat(price - discount).toFixed(2)}ر.س
+              إجمالي لليوم {parseFloat(price).toFixed(2)} {currencyName}
             </p>
           </div>
           {/* sale */}
@@ -262,7 +262,7 @@ const PriceForm = ({ price, discount, tourId,tour }) => {
         </div>
         {/* price icon */}
         <div className="bg-main-blue p-4 rounded-full flex items-center justify-between text-white text-xs font-bold ">
-          <p>التكلفة {parseFloat(price - discount).toFixed(2)}ر.س</p>
+          <p>التكلفة {parseFloat(price).toFixed(2)} {currencyName}</p>
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7.6875 7.5225C7.6875 7.9275 7.8 7.9875 8.055 8.0775L8.4375 8.2125V6.9375H8.2125C7.9275 6.9375 7.6875 7.2 7.6875 7.5225Z" fill="white" />
             <path d="M9.5625 11.0631H9.7875C10.08 11.0631 10.3125 10.8006 10.3125 10.4781C10.3125 10.0731 10.2 10.0131 9.945 9.92309L9.5625 9.78809V11.0631Z" fill="white" />
@@ -284,7 +284,7 @@ const PriceForm = ({ price, discount, tourId,tour }) => {
           </svg>
           <p className="flex-grow text-[10px] text-main-purple font-semibold text-center" >
 
-            ستدفع الآن {parseFloat(price - discount).toFixed(2)} ريال
+            ستدفع الآن {parseFloat(price).toFixed(2)} {currencyName}
           </p>
           <svg width="180" height="6" viewBox="0 0 230 6" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M224.333 3.00002C224.333 4.47278 225.527 5.66669 227 5.66669C228.473 5.66669 229.667 4.47278 229.667 3.00002C229.667 1.52726 228.473 0.333353 227 0.333353C225.527 0.333353 224.333 1.52726 224.333 3.00002ZM227 3.00002L227 2.50002L4.37114e-08 2.5L0 3L-4.37114e-08 3.5L227 3.50002L227 3.00002Z" fill="url(#paint0_linear_324_4156)" />
@@ -301,21 +301,21 @@ const PriceForm = ({ price, discount, tourId,tour }) => {
         <div className="bg-white p-6 rounded-[30px]">
           <ul className="space-y-7">
             <li className="text-xs font-bold flex items-center justify-between">
-              <p className="text-main-blue">ليلة واحدة × {parseFloat(price - discount).toFixed(2)} ريال</p>
-              <p>{parseFloat(price - discount).toFixed(2)} ريال</p>
+              <p className="text-main-blue">ليلة واحدة × {(parseFloat(price)+parseFloat(discount)).toFixed(2)} {currencyName}</p>
+              <p>{(parseFloat(price)+parseFloat(discount)).toFixed(2)}{currencyName}</p>
             </li>
             <li className="text-xs font-bold flex items-center justify-between">
               <p className="text-main-blue">خصم من العروض</p>
-              <p>-00.00 ريال</p>
+              <p dir="ltr">-{discount} {currencyName}</p>
             </li>
-            <li className="text-xs font-bold flex items-center justify-between">
+            {/* <li className="text-xs font-bold flex items-center justify-between">
               <p className="text-main-blue">رسوم الخدمة</p>
               <p>+47.76 ريال</p>
-            </li>
+            </li> */}
             <li className="h-[1px] bg-body"></li>
             <li className="text-xs font-bold flex items-center justify-between">
               <p className="text-main-blue">الإجمالي</p>
-              <p>{(parseFloat(price - discount) + 47.76).toFixed(2)} ريال</p>
+              <p>{parseFloat(price).toFixed(2)}{currencyName}</p>
             </li>
           </ul>
         </div>

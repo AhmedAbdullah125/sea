@@ -14,14 +14,19 @@ import { toast } from "sonner"
 import { userContext } from "../../context/UserContext"
 import { postToApi } from "../../api/utils/postData"
 const formSchema = z.object({
-  flight_number: z.string().nonempty("هذا الحقل مطلوب"),
+  flight_number: z.string()
+    .nonempty("هذا الحقل مطلوب")
+    .refine((val) => !isNaN(Number(val)), {
+      message: "يجب إدخال رقم صحيح",
+    })
+    .transform(Number),
   payment_type: z.string().nonempty("هذا الحقل مطلوب"),
   first_name: z.string().nonempty("هذا الحقل مطلوب"),
   last_name: z.string().nonempty("هذا الحقل مطلوب"),
   notes: z.string().nonempty("هذا الحقل مطلوب"),
   image: z.any().refine((file) => file instanceof File && file.size > 0, { message: "يرجى رفع صورة التذكــرة" }),
 })
-const Step2 = ({ nextStep, transportId }) => {
+const Step2 = ({ nextStep, transportId, starting_point, date, people_count, car_type }) => {
   const { token } = useContext(userContext)
   // img preview
   const [picturePreview, setPicturePreview] = useState(null);
@@ -30,7 +35,6 @@ const Step2 = ({ nextStep, transportId }) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      flight_number: "",
       payment_type: "",
       first_name: "",
       last_name: "",
@@ -69,6 +73,10 @@ const Step2 = ({ nextStep, transportId }) => {
       formData.append("notes", values.notes);
       formData.append("image", values.image);
       formData.append("transportation_id", transportId);
+      formData.append("starting_point", starting_point);
+      formData.append("date", date);
+      formData.append("people_count", people_count);
+      formData.append("car_type", car_type);
 
       const res = await postToApi('/booking', formData, {
         headers: {
@@ -76,7 +84,7 @@ const Step2 = ({ nextStep, transportId }) => {
           "Content-Type": "multipart/form-data",
         }
       });
-
+      console.log(res);
       if (res.status === 201) {
         toast.success("تم الحجز بنجاح");
         setTimeout(() => {
@@ -93,7 +101,7 @@ const Step2 = ({ nextStep, transportId }) => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-12 gap-5 w-full ">
         {/* flight_number */}
-        <CustomInput bg="bg-white" name="flight_number" type="text" label="رقـــم الرحلــة" placeholder="إدخـــال رقــم الرحلة هنــا..." form={form} colSpan=" md:col-span-6 col-span-12" />
+        <CustomInput bg="bg-white" name="flight_number" type="number" label="رقـــم الرحلــة" placeholder="إدخـــال رقــم الرحلة هنــا..." form={form} colSpan=" md:col-span-6 col-span-12" />
         {/* payment_type */}
         <CustomFilterSelect bg="bg-white" placeholder="إدخـــال طريقة السداد هنــا..." form={form} name="payment_type" label="طريــقة السداد" options={payment} colSpan=" md:col-span-6 col-span-12" />
         {/* first_name */}
