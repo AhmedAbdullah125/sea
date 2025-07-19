@@ -16,10 +16,12 @@ const NewsletterBody = ({ slug }) => {
   if (isLoading) return <Loader />
   return (
     <div className='bg-body rounded-[40px] px-6 py-10 flex flex-col xl:flex-row items-center gap-4'>
-      <div className='space-y-4 h-[220px] xl:w-[20%] rounded-[65px] p-10 flex items-end ' style={{ backgroundColor: `#FB7830` }}>
-        <h3 className='xl:text-2xl font-bold'>
-          {data?.data?.data?.title}
-        </h3>
+      <div className='space-y-4 h-[220px] xl:w-[20%] rounded-[65px]   bg-cover bg-center bg-no-repeat overflow-hidden' style={{ backgroundColor: `#FB7830`, backgroundImage: `url(${data?.data?.data?.image})` }}>
+        <div className='p-10 flex items-end bg-black/50 text-white w-full h-full'>
+          <h3 className='xl:text-2xl font-bold'>
+            {data?.data?.data?.title}
+          </h3>
+        </div>
       </div>
       {/* content */}
       <div className='space-y-3'>

@@ -17,7 +17,10 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 const NewsletterCard = ({ bgColor, item }) => {
   console.log(item)
   return (
-    <div className='space-y-4 rounded-[65px] px-3 py-10 flex  flex-col justify-between' style={{ backgroundColor: `${bgColor}` }}>
+    <div className='space-y-4 h-[220px] rounded-[65px]  bg-cover bg-center bg-no-repeat overflow-hidden' style={{ backgroundColor: `${bgColor}`, backgroundImage: `url(${item?.image})` }}>
+     
+      <div className="flex  flex-col justify-between  p-10 w-full h-full bg-black/50 text-white">
+        
       <Dialog >
         <DialogTrigger className="block ms-auto">
           <GoArrowUpLeft size={20} />
@@ -31,11 +34,10 @@ const NewsletterCard = ({ bgColor, item }) => {
                     <IoClose className="size-24" />
                   </Button>
                 </DialogClose>
-                <div className="size-[100px] rounded-[30px] flex flex-col items-end px-1 py-4" style={{ backgroundColor: `${bgColor}` }}>
-                  <LazyLoadImage src={item?.image} className="w-full h-full object-cover rounded-[15px]" />
-                  <h3 className=' font-bold  text-[8px] text-right'>
+                <div className="size-[100px] rounded-[30px] flex items-end p-4 bg-center bg-cover bg-no-repeat" style={{ backgroundColor: `${bgColor}` , backgroundImage: `url(${item?.image})`}}>
+                  {/* <h3 className=' font-bold  text-[8px] text-right'>
                     {item?.title}
-                  </h3>
+                  </h3> */}
                 </div>
                 <div className="text-right">
                   <h4 className="text-xl font-bold">اذا حابب نرسلك كل ويكند </h4>
@@ -54,6 +56,7 @@ const NewsletterCard = ({ bgColor, item }) => {
       <h3 className='xl:text-2xl font-bold'>
         {item?.title}
       </h3>
+     </div>
     </div>
   )
 }
