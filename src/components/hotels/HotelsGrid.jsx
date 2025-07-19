@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 import { toast } from 'sonner';
 import { toggleFavourates } from '../../pages/toggleFavourates';
 const HotelsGrid = ({ mainData }) => {
-    
+
     const [lovedHotels, setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [])
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -19,6 +19,7 @@ const HotelsGrid = ({ mainData }) => {
             }
         }
     }, [mainData])
+    console.log(mainData);
 
     return (
         <div className="grid-cont">
@@ -66,7 +67,7 @@ const HotelsGrid = ({ mainData }) => {
                                 <div className="related-btn">
                                     <span>{Number(item.discount)}%</span>
                                     <button
-                                       
+
                                         onClick={
                                             () => {
                                                 if (sessionStorage.getItem('token')) {
@@ -105,8 +106,8 @@ const HotelsGrid = ({ mainData }) => {
                             <div className="card-item-name">{item.title} </div>
                             <div className="card-place">{item.address}</div>
                             <div className="item-price">
-                                يبدأ من {item.price} <span className="icon-saudi_riyal"></span>
-                                <span className="period"><span>/</span> لليلة الواحــــدة</span>
+                                يبدأ من  {item.price} <span> {item.currencyName} </span>
+                                <span className="period"><span> / </span> لليلة الواحــــدة</span>
                             </div>
                         </a>
                     </div>

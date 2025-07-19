@@ -26,7 +26,7 @@ const EventPrice = () => {
                                 <span>3 - 11 سنـــوات.</span>
                             </span>
                             <div className="package-price">
-                                {item.price}<span className="icon-saudi_riyal"></span>
+                                {item.price} <span> {item.currencyName}</span>
                             </div>
                         </div>
                     ))}

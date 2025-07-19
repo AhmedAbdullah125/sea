@@ -121,7 +121,7 @@ const HotelsTable = ({ title, description, data }) => {
                                                 {item.title}
                                             </div>
                                             <div className="item-price">
-                                                يبدأ من {item.price} <span className="icon-saudi_riyal"></span>
+                                                يبدأ من {item.price} {item.currencyName}
                                             </div>
                                         </div>
                                     </Link>

@@ -13,7 +13,9 @@ import { MdArrowBackIosNew } from "react-icons/md";
 
 import { GoArrowUpLeft } from "react-icons/go";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 const NewsletterCard = ({ bgColor, item }) => {
+  console.log(item)
   return (
     <div className='space-y-4 h-[220px] rounded-[65px]  bg-cover bg-center bg-no-repeat overflow-hidden' style={{ backgroundColor: `${bgColor}`, backgroundImage: `url(${item?.image})` }}>
      
@@ -50,6 +52,7 @@ const NewsletterCard = ({ bgColor, item }) => {
           </DialogHeader>
         </DialogContent>
       </Dialog>
+      <LazyLoadImage src={item?.image} className="w-full h-full object-cover rounded-[15px]" />
       <h3 className='xl:text-2xl font-bold'>
         {item?.title}
       </h3>
