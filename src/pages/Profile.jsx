@@ -53,8 +53,6 @@ export default function EditPage() {
         };
         getData();
     }, []);
-    console.log(profile);
-
     const FormSchema = z.object({
         firstName: z.string().min(2, { message: 'يرجي اضافه الاسم الاول ', }),
         lastName: z.string().min(2, { message: 'يرجي اضافه الاسم الاخير', }),
@@ -103,9 +101,6 @@ export default function EditPage() {
             document.getElementById('triger').style.border = 'none';
         }
     }, [profile, setSelectedImage]);
-
-    console.log(profile);
-
     return (
         <div className="account-content">
             {

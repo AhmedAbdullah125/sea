@@ -26,7 +26,9 @@ const LoginDialog = ({ mainHeader = false }) => {
     const getData = async () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/user/profile`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
-        setProfile(response.data.data);
+        const user = response.data.data;
+        localStorage.setItem('userCountry', user.countryName);
+        setProfile(user);
         setLoading(false);
       } catch (error) {
         console.error('Error retrieving data:', error);
@@ -35,7 +37,9 @@ const LoginDialog = ({ mainHeader = false }) => {
       }
     };
     getData();
+
   }, []);
+  console.log(profile)
   const handleSendOtp = (enteredPhone) => {
     setPhone(enteredPhone);
     setIsOtpSent(true);

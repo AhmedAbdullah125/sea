@@ -9,7 +9,6 @@ import { TiStarFullOutline } from "react-icons/ti"
 import { Link } from "react-router-dom"
 
 const PakageCard = ({item}) => {
-  console.log(item);
   return (
     <Card className="shadow-none border-none col-span-12 md:col-span-6 xl:col-span-3 space-y-3">
       <CardHeader className="p-0 ">

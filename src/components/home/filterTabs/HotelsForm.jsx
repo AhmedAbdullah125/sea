@@ -47,7 +47,6 @@ const HotelsForm = () => {
     };
     getData();
   }, []);
-  console.log(filters);
   // select
   const filterSelectFields = [
     {

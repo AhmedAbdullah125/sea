@@ -33,7 +33,6 @@ export const filterSchema = z.object({
     }),
 });
 const HotelPayment = ({ data }) => {
-    console.log(data);
     const form = useForm({
         resolver: zodResolver(filterSchema),
         defaultValues: {
@@ -83,7 +82,6 @@ const HotelPayment = ({ data }) => {
             window.location.href = '/login';
             return;
         }
-        console.log("Form values:", values);
         handleBookHotel(values, data.id);
     };
     const handleBookHotel = async (data, id) => {

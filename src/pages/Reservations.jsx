@@ -30,7 +30,6 @@ export default function Reservations() {
         };
         getData();
     }, []);
-    console.log(data);
     return (
         <div className="reservation-cont">
             {
