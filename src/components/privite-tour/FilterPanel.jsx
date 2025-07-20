@@ -20,7 +20,6 @@ import { HiOutlineBars3CenterLeft } from "react-icons/hi2";
 import { MdLanguage } from "react-icons/md";
 import { TbPentagonFilled } from "react-icons/tb";
 import { z } from "zod";
-import { countries } from "../../data/visa";
 import { useQuery } from "@tanstack/react-query";
 import { fetchFromApi } from "../../api/utils/fetchData";
 const countOptions = Array.from({ length: 100 }, (_, i) => {
@@ -80,7 +79,19 @@ const FilterPanel = ({ defaultValues, onFilter, onReset }) => {
     <div>
       {
         Object.values(values).some((val) => val) &&
-        <Button onClick={onReset} className="flex items-center gap-2 text-main-blue font-bold text-sm mb-4">
+        <Button onClick={() => {
+          onReset()
+          form.reset()
+          setValue("moving_point", "")
+          setValue("city", "")
+          setValue("date_and_time", "")
+          setValue("number_of_person", "")
+          setValue("country", "")
+          setValue("model", "")
+          setValue("car_types_id", "")
+          
+          } }
+          className="flex items-center gap-2 text-main-blue font-bold text-sm mb-4">
           <HiOutlineBars3CenterLeft size={16} />
           <p>حذف الفلتر</p>
         </Button>
