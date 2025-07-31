@@ -15,6 +15,7 @@ export default function Homepage() {
             {/* <Header /> */}
             <main className='main-home relative'>
                 <HeroSection />
+                
                 <HotelsSection />
                 <PakageSection />
                 <TotalHotelsSection />
