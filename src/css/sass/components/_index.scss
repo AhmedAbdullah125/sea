@@ -22,8 +22,9 @@
 
     .offer {
         cursor: pointer;
-        figure {
+        .offer-img {
             aspect-ratio: 415/215;
+            display: block;
             overflow: hidden;
             border-radius: 45px;
             position: relative;
@@ -77,5 +78,11 @@
                 font-weight: 500;
             }
         }
+
+    }
+    button{
+        color: #6F6F6F;
+                font-size: 12px;
+                font-weight: 500;
     }
 }

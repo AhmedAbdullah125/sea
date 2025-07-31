@@ -813,19 +813,20 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
 .big-offers-section .offer {
   cursor: pointer;
 }
-.big-offers-section .offer figure {
+.big-offers-section .offer .offer-img {
   aspect-ratio: 415/215;
+  display: block;
   overflow: hidden;
   border-radius: 45px;
   position: relative;
   margin-bottom: 25px;
 }
 @media screen and (max-width: 767px) {
-  .big-offers-section .offer figure {
+  .big-offers-section .offer .offer-img {
     border-radius: 20px;
   }
 }
-.big-offers-section .offer figure img {
+.big-offers-section .offer .offer-img img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -855,6 +856,11 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   margin-bottom: 15px;
 }
 .big-offers-section .offer .place span {
+  color: #6F6F6F;
+  font-size: 12px;
+  font-weight: 500;
+}
+.big-offers-section button {
   color: #6F6F6F;
   font-size: 12px;
   font-weight: 500;
