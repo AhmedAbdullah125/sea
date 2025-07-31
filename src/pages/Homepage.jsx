@@ -3,6 +3,7 @@ import Footer from '../components/footer/Footer';
 import MainHeader from '../components/header/MainHeader';
 import AboutUS from '../components/home/aboutUs/AboutUS';
 import AppSection from '../components/home/appSection/AppSection';
+import BigOffers from '../components/home/BigOffers';
 import HeroSection from '../components/home/heroSection/HeroSection';
 import HotelsSection from '../components/home/hotelsSection/HotelsSection';
 import PakageSection from '../components/home/pakageSection/PakageSection';
@@ -15,7 +16,7 @@ export default function Homepage() {
             {/* <Header /> */}
             <main className='main-home relative'>
                 <HeroSection />
-                
+                <BigOffers />
                 <HotelsSection />
                 <PakageSection />
                 <TotalHotelsSection />

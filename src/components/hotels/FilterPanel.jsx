@@ -17,10 +17,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { AiFillDollarCircle } from "react-icons/ai";
 import { MdStarRate } from "react-icons/md";
 import { API_BASE_URL } from "../../lib/apiConfig";
-import Loading from "../loading/Loading";
 const countOptions = Array.from({ length: 10 }, (_, i) => {
   const num = (i + 1).toString();
   return { label: num, value: num };

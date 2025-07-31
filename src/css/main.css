@@ -792,6 +792,25 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   padding: 10px 0 !important;
 }
 
+.big-offers-section {
+  padding: 75px 0;
+}
+.big-offers-section h2 {
+  color: var(--main-hover);
+  font-size: 44px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-align: center;
+}
+.big-offers-section p {
+  font-size: 15px;
+  font-weight: 600;
+  color: #6F6F6F;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 750px;
+}
+
 .detail-title {
   font-weight: 700;
   font-size: 32px;
