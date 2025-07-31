@@ -810,6 +810,9 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   text-align: center;
   max-width: 750px;
 }
+.big-offers-section .offer {
+  cursor: pointer;
+}
 .big-offers-section .offer figure {
   aspect-ratio: 415/215;
   overflow: hidden;
@@ -838,12 +841,10 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
 .big-offers-section .offer p {
   color: var(--main-color);
   font-family: 800;
-  font-size: 22px;
   margin-bottom: 25px;
   line-height: 30px;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   text-align: start;
 }
