@@ -14,9 +14,67 @@
         font-size: 15px;
         font-weight: 600;
         color: #6F6F6F;
-        margin: 0 auto;
+        margin: 0 auto 63px;
         text-align: center;
         max-width: 750px;
 
+    }
+
+    .offer {
+        figure {
+            aspect-ratio: 415/215;
+            overflow: hidden;
+            border-radius: 45px;
+            position: relative;
+            margin-bottom: 25px;
+
+            @media screen and (max-width: 767px) {
+                border-radius: 20px;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: all 0.3s ease-in-out;
+            }
+        }
+
+        h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #747474;
+            margin-bottom: 25px;
+
+        }
+
+        p {
+            color: $main;
+            font-family: 800;
+            font-size: 22px;
+            margin-bottom: 25px;
+            line-height: 30px;
+            // maximum 2 lines 
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            text-align: start;
+        }
+
+        .valid-date {
+            color: $main;
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            
+        }
+        .place {
+            span{
+                color: #6F6F6F;
+                font-size: 12px;
+                font-weight: 500;
+            }
+        }
     }
 }
