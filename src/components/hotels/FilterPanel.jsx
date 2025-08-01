@@ -116,9 +116,13 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData,setLoading }) => {
   const { watch, setValue } = form;
   const values = watch();
   const t ={
-    "flat" :"شقة",
+    "flat" :"شقق فندقية",
     "room":"غرفة",
-    "hotel":"فندق"
+    "hotel":"⁠فنادق",
+    "villa":"فلل",
+    "huts":"أكواخ",
+    "hotel_suites":"أجنحة فندقية"
+
   }
   function clearFilter() {
     setValue("start", "");

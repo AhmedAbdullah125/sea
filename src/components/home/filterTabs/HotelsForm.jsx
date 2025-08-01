@@ -27,9 +27,13 @@ const HotelsForm = () => {
   const [filters, setFilters] = useState([]);
   const [loading, setLoading] = useState(true);
   const t ={
-    "flat" :"شقة",
+    "flat" :"شقق فندقية",
     "room":"غرفة",
-    "hotel":"فندق"
+    "hotel":"⁠فنادق",
+    "villa":"فلل",
+    "huts":"أكواخ",
+    "hotel_suites":"أجنحة فندقية"
+
   }
   useEffect(() => {
     setLoading(true);
