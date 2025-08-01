@@ -54,6 +54,8 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
   const [cities, setCities] = useState([])
+  console.log(selectedDate);
+  
   useEffect(() => {
     setLoading(true);
     const getData = async () => {
