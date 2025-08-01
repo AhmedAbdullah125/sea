@@ -58,6 +58,7 @@ const BigOffers = ({ mainData }) => {
                                 pagination={false}
                                 spaceBetween={20}
                                 slidesPerView={4}
+                                navigation={{ nextEl: `#swiper-btn-next1a`, prevEl: `#swiper-btn-prev1a`, }}
                                 autoplay={{ delay: 3000, disableOnInteraction: false }}
                                 loop={true}
                                 modules={[Autoplay, Navigation, Pagination]}
@@ -110,6 +111,15 @@ const BigOffers = ({ mainData }) => {
                                         </SwiperSlide>
                                     ))
                                 }
+                                <div className="swiper-btn-cont swiper-btn-2" id={`swiper-btn-prev1a`}>
+                                    <div className="swiper-btn-prev swiper-btn">
+                                        <i className="fa-solid fa-chevron-right"></i>
+                                    </div>
+
+                                    <div className="swiper-btn-next swiper-btn" id={`swiper-btn-next1a`}>
+                                        <i className="fa-solid fa-chevron-left"></i>
+                                    </div>
+                                </div>
                             </Swiper>
                         </div>
                 }

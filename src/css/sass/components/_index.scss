@@ -1,6 +1,12 @@
 .big-offers-section {
     padding: 75px 0;
 
+    .swiper-btn-2 {
+        bottom: 50%;
+        transform: translateY(50%);
+        padding: 0;
+    }
+
     h2 {
         color: $hover;
         font-size: 44px;
@@ -22,6 +28,7 @@
 
     .offer {
         cursor: pointer;
+
         .offer-img {
             aspect-ratio: 415/215;
             display: block;
@@ -53,13 +60,13 @@
         p {
             color: $main;
             font-family: 800;
-            
+
             margin-bottom: 25px;
             line-height: 30px;
             // maximum 2 lines 
             overflow: hidden;
             display: -webkit-box;
-            
+
             -webkit-box-orient: vertical;
             text-align: start;
         }
@@ -69,10 +76,11 @@
             font-size: 14px;
             font-weight: 800;
             margin-bottom: 15px;
-            
+
         }
+
         .place {
-            span{
+            span {
                 color: #6F6F6F;
                 font-size: 12px;
                 font-weight: 500;
@@ -80,9 +88,10 @@
         }
 
     }
-    button{
+
+    button {
         color: #6F6F6F;
-                font-size: 12px;
-                font-weight: 500;
+        font-size: 12px;
+        font-weight: 500;
     }
 }
