@@ -68,9 +68,11 @@ const CustomDatePicker = ({
                 mode="single"
                 selected={field.value}
                 onSelect={field.onChange}
-                disabled={disabledDate}
+                // disabled={disabledDate}
+                fromDate={new Date()} // ✅ only allow today and future
                 initialFocus
                 className="w-full"
+
               />
             </PopoverContent>
           </Popover>
