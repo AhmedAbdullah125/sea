@@ -134,7 +134,7 @@ const HotelsGrid = ({ mainData }) => {
                                                     <span className="period"><span> / </span> لليلة الواحــــدة</span>
                                                 </div>
                                                 :
-                                                <Link to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم حول ${item.title}`}>تواصل الاون واحصل علي عرض سعر</Link>
+                                                <Link to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم حول ${item.title}`}>تواصل الآن واحصل علي عرض سعر</Link>
                                         }
                                     </a>
                                 </div>
