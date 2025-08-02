@@ -27,6 +27,7 @@ export const filterSchema = z.object({
   start: z.string().optional(),
   end: z.string().optional(),
   date: z.string().refine((val) => !val || !isNaN(Date.parse(val)), { message: "Invalid date", }).optional(),
+  dateTo : z.string().refine((val) => !val || !isNaN(Date.parse(val)), { message: "Invalid date", }).optional(),
   lang: z.string().optional(),
   country: z.string().optional(),
   city: z.string().optional(),
@@ -43,13 +44,14 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
     return `${year}-${month}-${day}`;
   }
   console.log(defaultValues)
-  const [seletedCountry, setSelectedCountry] = useState(Number(defaultValues.destination) || '');
+  const [seletedCountry, setSelectedCountry] = useState(String(defaultValues.destination) || '');
   const [selectedFlat, setSelectedFlat] = useState(defaultValues.flat || '');
   const [selectedCity, setSelectedCity] = useState(defaultValues.city || '');
   const [seletedNeighborhood, setSelectedNeighborhood] = useState(defaultValues.neighborhood || '');
   const [seletedRate, setSelectedRate] = useState(defaultValues.rate || '');
   const [selectedOffer, setSelectedOffer] = useState(defaultValues.offer || '');
   const [selectedDate, setSelectedDate] = useState(defaultValues.start || '');
+  const [selectedDateTo, setSelectedDateTo] = useState(defaultValues.end || '');
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
   const [cities, setCities] = useState([])
@@ -57,7 +59,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
     setLoading(true);
     const getData = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/countries`, {});
+        const response = await axios.get(`${API_BASE_URL}/all-filters`, {});
         const response2 = await axios.get(`${API_BASE_URL}/cities`, {});
         const response3 = await axios.get(`${API_BASE_URL}/all-filters`, {});
         setData(response.data.data);
@@ -76,7 +78,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
     setLoading(true);
     const getData = async () => {
       try {
-        const response = await axios.post(`${API_BASE_URL}/filter-hotels?countery_id=${seletedCountry}&available_from=${formatDate(selectedDate)}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`, {});
+        const response = await axios.post(`${API_BASE_URL}/filter-hotels?countery_id=${seletedCountry}${selectedDate?`&available_from=${formatDate(selectedDate)}`:""}${selectedDateTo?`&available_to=${formatDate(selectedDateTo)}`:""}&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`, {});
         setMainData(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -86,25 +88,27 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
       }
     };
     getData();
-  }, [seletedCountry, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer]);
+  }, [seletedCountry, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer, selectedDateTo]);
   const form = useForm({
     resolver: zodResolver(filterSchema),
     defaultValues: {
-      start: defaultValues.destination || '',
+      start: String(defaultValues.destination) || '',
       end: defaultValues.city || '',
       date: defaultValues.start || '',
+      dateTo: defaultValues.end || '',
       lang: defaultValues.flat || '',
       country: defaultValues.neighborhood || '',
       rating: defaultValues.rate || '',
       model: defaultValues.offer || '',
     },
   });
-
+console.log(formatDate(selectedDate) , formatDate(selectedDateTo))
   useEffect(() => {
     if (defaultValues) {
-      form.setValue("start", defaultValues.destination || '');
+      form.setValue("start", String(defaultValues.destination));
       form.setValue("end", defaultValues.city || '');
       form.setValue("date", defaultValues.start || '');
+      form.setValue("dateTo", defaultValues.end || '');
       form.setValue("lang", defaultValues.flat || '');
       form.setValue("country", defaultValues.neighborhood || '');
       form.setValue("rating", defaultValues.rate || '');
@@ -127,6 +131,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
     setValue("start", "");
     setValue("end", "");
     setValue("date", "");
+    setValue("dateTo", "");
     setValue("lang", "");
     setValue("country", "");
     setValue("rating", "");
@@ -159,7 +164,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
                   </p>
                 </FormLabel>
                 <Select dir="rtl"
-                  defaultValue={String(values.destination || "")}
+                  defaultValue={String(defaultValues.destination || "")}
                   onValueChange={(val) => setSelectedCountry(val)} >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
@@ -169,9 +174,9 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {data.map((option) => (
+                    {data?.countries?.map((option) => (
                       <SelectItem key={option.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
-                        {option.name}
+                        {option.country}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -193,7 +198,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
                   </p>
                 </FormLabel>
                 <Select dir="rtl"
-                  defaultValue={selectedCity}
+                  defaultValue={String(defaultValues.city || "")}
                   onValueChange={(val) => setSelectedCity(val)} >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
@@ -223,9 +228,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
               <FormItem className={`xl:col-span-3 col-span-12  w-full flex flex-col`}>
                 <FormLabel className="flex items-center gap-1">
                   <FaCalendarDays size={16} className="text-main-purple" />
-                  <p className="text-main-blue font-bold text-sm">
-                    موعـــد الوصول / العودة
-                  </p>
+                  <p className="text-main-blue font-bold text-sm">موعـــد الوصول </p>
                 </FormLabel>
                 <Popover className="w-full">
                   <PopoverTrigger asChild>
@@ -254,6 +257,52 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
                       selected={field.value ? new Date(field.value) : undefined}
                       // onChange={field.onChange}
                       onSelect={(date) => setSelectedDate(date)}
+                      className="w-full"
+                      //only enable future dates 
+                      fromDate={new Date()} // ⬅️ This prevents selecting past dates
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormMessage className="text-red-500  text-xs " />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name={"dateTo"}
+            className="w-full "
+            render={({ field }) => (
+              <FormItem className={`xl:col-span-3 col-span-12  w-full flex flex-col`}>
+                <FormLabel className="flex items-center gap-1">
+                  <FaCalendarDays size={16} className="text-main-purple" />
+                  <p className="text-main-blue font-bold text-sm">موعـــد العودة</p>
+                </FormLabel>
+                <Popover className="w-full">
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "bg-body h-12 w-full px-3  font-xs font-semibold text-main-gray  rounded-full border-none hover:bg-body  flex items-center justify-between",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>
+                        )}
+                        <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                          <ChevronDown size={14} />
+                        </div>
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value ? new Date(field.value) : undefined}
+                      onSelect={(date) => setSelectedDateTo(date)}
                       className="w-full"
                       //only enable future dates 
                       fromDate={new Date()} // ⬅️ This prevents selecting past dates

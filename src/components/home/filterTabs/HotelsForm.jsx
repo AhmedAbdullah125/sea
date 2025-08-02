@@ -158,7 +158,7 @@ const HotelsForm = () => {
   function onSubmit(values) {
     const formattedStartDate = formatDate(values.startDate);
     const formattedEndDate = formatDate(values.endDate);
-    navigate(`/hotels?destination=${values.destination}&type=${values.type}&start=${formattedStartDate}&end=${formattedEndDate}`);
+    navigate(`/hotels?destination=${values.destination}&city=${values.city}&type=${values.type}&start=${formattedStartDate}&end=${formattedEndDate}`);
   }
   return (
     <Form {...form}>
