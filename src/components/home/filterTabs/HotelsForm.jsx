@@ -26,13 +26,13 @@ import { API_BASE_URL } from "../../../lib/apiConfig";
 const HotelsForm = () => {
   const [filters, setFilters] = useState([]);
   const [loading, setLoading] = useState(true);
-  const t ={
-    "flat" :"شقق فندقية",
-    "room":"غرفة",
-    "hotel":"⁠فنادق",
-    "villa":"فلل",
-    "huts":"أكواخ",
-    "hotel_suites":"أجنحة فندقية"
+  const t = {
+    "flat": "شقق فندقية",
+    "room": "غرفة",
+    "hotel": "⁠فنادق",
+    "villa": "فلل",
+    "huts": "أكواخ",
+    "hotel_suites": "أجنحة فندقية"
 
   }
   useEffect(() => {
@@ -52,6 +52,7 @@ const HotelsForm = () => {
     getData();
   }, []);
   // select
+  console.log(filters)
   const filterSelectFields = [
     {
       name: "type",
@@ -94,6 +95,7 @@ const HotelsForm = () => {
 
   const formSchema = z.object({
     destination: z.string().nonempty("هذا الحقل مطلوب"),
+    city: z.string().nonempty("هذا الحقل مطلوب"),
     type: z.string().nonempty("هذا الحقل مطلوب"),
     startDate: z.coerce.date({
       errorMap: () => ({ message: "يرجى إدخال تاريخ بداية صالح" }),
@@ -117,14 +119,35 @@ const HotelsForm = () => {
 
   })
   // 1. Define your form.
+  
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  
+  const threeDaysLater = new Date(today);
+  threeDaysLater.setDate(today.getDate() + 3);
+  
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       destination: "",
       type: "",
+      city: "",
+      startDate: tomorrow,           // ✅ tomorrow
+      endDate: threeDaysLater,       // ✅ 3 days from today
     },
-  })
-
+  });
+  const destination = form.watch("destination");
+  const [cities, setCities] = useState([]);
+  useEffect(() => {
+    if (!destination) {
+      setCities([]);
+      return;
+    }
+    const selectedCountry = filters?.countries?.find((country) => String(country?.id) === String(destination));
+    setCities(selectedCountry?.cities || []);
+    console.log(cities);
+  }, [destination, filters]);
   // formate date
   function formatDate(date) {
     const d = new Date(date);
@@ -141,12 +164,12 @@ const HotelsForm = () => {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-12 gap-x-4 xl:gap-y-6 gap-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-10 gap-x-4 xl:gap-y-6 gap-y-4">
         <FormField
           control={form.control}
           name={"destination"}
           render={({ field }) => (
-            <FormItem className={"xl:col-span-3 md:col-span-6 col-span-12"}>
+            <FormItem className={"xl:col-span-2 md:col-span-5 col-span-10"}>
               <FormLabel className="flex items-center gap-1">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5.89567 2.2193L12.6681 4.4693C17.2206 5.9918 17.2206 8.47432 12.6681 9.98932L10.6581 10.6568L9.99067 12.6668C8.47567 17.2193 5.98567 17.2193 4.47067 12.6668L2.21317 5.9018C1.20817 2.8643 2.85817 1.2068 5.89567 2.2193ZM5.65567 6.2543L8.50567 9.11932C8.61817 9.23182 8.76067 9.28432 8.90317 9.28432C9.04567 9.28432 9.18817 9.23182 9.30067 9.11932C9.51817 8.90182 9.51817 8.54182 9.30067 8.32432L6.45067 5.4593C6.23317 5.2418 5.87317 5.2418 5.65567 5.4593C5.43817 5.6768 5.43817 6.0368 5.65567 6.2543Z" fill="#A71755" />
@@ -164,9 +187,9 @@ const HotelsForm = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                  {data?.data?.data?.map((option) => (
+                  {filters?.countries?.map((option) => (
                     <SelectItem key={option?.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
-                      {option.name}
+                      {option.country}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -175,6 +198,50 @@ const HotelsForm = () => {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name={"city"}
+          render={({ field }) => (
+            <FormItem className={"xl:col-span-2 md:col-span-5 col-span-10"}>
+              <FormLabel className="flex items-center gap-1">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5.89567 2.2193L12.6681 4.4693C17.2206 5.9918 17.2206 8.47432 12.6681 9.98932L10.6581 10.6568L9.99067 12.6668C8.47567 17.2193 5.98567 17.2193 4.47067 12.6668L2.21317 5.9018C1.20817 2.8643 2.85817 1.2068 5.89567 2.2193ZM5.65567 6.2543L8.50567 9.11932C8.61817 9.23182 8.76067 9.28432 8.90317 9.28432C9.04567 9.28432 9.18817 9.23182 9.30067 9.11932C9.51817 8.90182 9.51817 8.54182 9.30067 8.32432L6.45067 5.4593C6.23317 5.2418 5.87317 5.2418 5.65567 5.4593C5.43817 5.6768 5.43817 6.0368 5.65567 6.2543Z" fill="#A71755" />
+                </svg>
+                <p className="text-main-blue font-bold text-sm">إختــــــر المديــنه</p>
+              </FormLabel>
+
+              <Select
+                dir="rtl"
+                onValueChange={field.onChange}
+                value={field.value}
+                defaultValue={field.value}
+                disabled={!destination} // ✅ Disable if no destination selected
+              >
+                <FormControl>
+                  <SelectTrigger
+                    icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                      <ChevronDown size={14} />
+                    </div>}
+                    className={`bg-body text-[#797979] text-xs font-semibold border-none rounded-full h-12 ${!destination ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  >
+                    <SelectValue placeholder={"إدخـــال المدينة هنــا.."} />
+                  </SelectTrigger>
+                </FormControl>
+
+                <SelectContent className="shadow border-none rounded-xl bg-white">
+                  {cities.map((option) => (
+                    <SelectItem key={option.id} value={String(option.id)} className="cursor-pointer focus:bg-body rounded-xl">
+                      {option.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <FormMessage className="text-red-500 text-xs" />
+            </FormItem>
+          )}
+        />
+
 
         {filterSelectFields.map((fieldProps, index) => (
           <CustomFilterSelect key={index} {...fieldProps} form={form} />
@@ -195,7 +262,7 @@ const HotelsForm = () => {
         ))}
 
 
-        <Button type="submit" className=" col-span-12 bg-main-purple w-fit m-auto text-white  hover:bg-main-blue transition-all duration-300  rounded-full flex items-center gap-14">بحـــــث
+        <Button type="submit" className="xl:col-span-10 md:col-span-5 col-span-10 bg-main-purple w-fit m-auto text-white  hover:bg-main-blue transition-all duration-300  rounded-full flex items-center gap-14">بحـــــث
           <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_22_399)">
               <path d="M10.5 3.75H15" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -212,7 +279,7 @@ const HotelsForm = () => {
 
         </Button>
       </form>
-    </Form>
+    </Form >
   )
 }
 

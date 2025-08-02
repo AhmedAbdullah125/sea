@@ -33,7 +33,7 @@ const CustomDatePicker = ({
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className={`${colSpan}  flex flex-col`}>
+        <FormItem className={`xl:col-span-2 md:col-span-5 col-span-10 flex flex-col`}>
           {label && <FormLabel className="flex items-center gap-1">
             {icon? icon : null}
             <p className="text-main-blue font-bold text-sm">
