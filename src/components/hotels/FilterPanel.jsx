@@ -78,7 +78,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
     setLoading(true);
     const getData = async () => {
       try {
-        const response = await axios.post(`${API_BASE_URL}/filter-hotels?countery_id=${seletedCountry}${selectedDate ? `&available_from=${formatDate(selectedDate)}` : ""}${selectedDateTo ? `&available_to=${formatDate(selectedDateTo)}` : ""}&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`, {});
+        const response = await axios.get(`${API_BASE_URL}/filter-hotels?countery_id=${seletedCountry}${selectedDate ? `&available_from=${formatDate(selectedDate)}` : ""}${selectedDateTo ? `&available_to=${formatDate(selectedDateTo)}` : ""}&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`, {});
         setMainData(response.data.data);
         setLoading(false);
       } catch (error) {
