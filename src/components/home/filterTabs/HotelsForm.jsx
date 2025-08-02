@@ -52,7 +52,6 @@ const HotelsForm = () => {
     getData();
   }, []);
   // select
-  console.log(filters)
   const filterSelectFields = [
     {
       name: "type",
@@ -146,7 +145,6 @@ const HotelsForm = () => {
     }
     const selectedCountry = filters?.countries?.find((country) => String(country?.id) === String(destination));
     setCities(selectedCountry?.cities || []);
-    console.log(cities);
   }, [destination, filters]);
   // formate date
   function formatDate(date) {

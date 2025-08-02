@@ -41,7 +41,6 @@ const SingleVisaPage = () => {
   const visa = data?.data?.data
   if (isLoading) return <Loading />
   if (isError) return <p>Error</p>
-  console.log(visa)
   return (
     <>
       <Header />

@@ -2,12 +2,10 @@ import axios from "axios";
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 import { FaArrowsLeftRight } from "react-icons/fa6";
 import { ChevronDown } from "lucide-react"
-import { countries } from "../../data/visa"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns";
 import { BsFillSendFill } from "react-icons/bs";
 import { FaCalendarDays } from "react-icons/fa6";
-import { BiSolidOffer } from "react-icons/bi";
 import { IoLanguage } from "react-icons/io5";
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -44,7 +42,8 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-  const [seletedCountry, setSelectedCountry] = useState(defaultValues.destination || '');
+  console.log(defaultValues)
+  const [seletedCountry, setSelectedCountry] = useState(Number(defaultValues.destination) || '');
   const [selectedFlat, setSelectedFlat] = useState(defaultValues.flat || '');
   const [selectedCity, setSelectedCity] = useState(defaultValues.city || '');
   const [seletedNeighborhood, setSelectedNeighborhood] = useState(defaultValues.neighborhood || '');
@@ -54,8 +53,6 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
   const [cities, setCities] = useState([])
-  console.log(selectedDate);
-  
   useEffect(() => {
     setLoading(true);
     const getData = async () => {
@@ -258,9 +255,8 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
                       // onChange={field.onChange}
                       onSelect={(date) => setSelectedDate(date)}
                       className="w-full"
-                    //only enable future dates 
-                    
-                    fromDate={new Date()} // ⬅️ This prevents selecting past dates
+                      //only enable future dates 
+                      fromDate={new Date()} // ⬅️ This prevents selecting past dates
                     />
                   </PopoverContent>
                 </Popover>

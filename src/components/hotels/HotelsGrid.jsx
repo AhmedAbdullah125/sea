@@ -22,7 +22,6 @@ const HotelsGrid = ({ mainData }) => {
             }
         }
     }, [mainData])
-    console.log(mainData);
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     useEffect(() => {

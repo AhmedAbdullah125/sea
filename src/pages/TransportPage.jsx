@@ -54,7 +54,6 @@ const TransportPage = () => {
     }
   });
 
-console.log(data)
   return (
     <>
       <Header />
