@@ -796,9 +796,11 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   padding: 75px 0;
 }
 .big-offers-section .swiper-btn-2 {
-  bottom: 50%;
-  transform: translateY(50%);
+  bottom: -45px;
+  /* transform: translateY(50%); */
   padding: 0;
+  width: 120px;
+  inset-inline-end: 0;
 }
 .big-offers-section h2 {
   color: var(--main-hover);
@@ -1360,6 +1362,9 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   box-shadow: 0px 0px 1px 1px rgba(255, 255, 255, 0.25);
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
+}
+.swiper-btn-2 .swiper-btn:hover {
+  background-color: var(--main-color);
 }
 .swiper-btn-2 .swiper-btn i {
   z-index: 2;

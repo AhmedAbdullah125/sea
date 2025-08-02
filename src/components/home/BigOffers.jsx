@@ -43,10 +43,21 @@ const BigOffers = ({ mainData }) => {
     }, []);
 
     return (
-        <section className="big-offers-section">
+        <section className="big-offers-section relative" >
             <div className="container">
-                <h2>عــروض رهيـبة ومميــزات كثيــرة</h2>
-                <p>سواء كنت تحلم بالسفر إلى أوروبا، آسيا، إفريقيا، أستراليا أو أمريكا، نوفر لك خيارات إقامة متنوعة بأسعار تناسب ميزانيتك.</p>
+                <div className="relative">
+                    <h2>عــروض رهيـبة ومميــزات كثيــرة</h2>
+                    <p>سواء كنت تحلم بالسفر إلى أوروبا، آسيا، إفريقيا، أستراليا أو أمريكا، نوفر لك خيارات إقامة متنوعة بأسعار تناسب ميزانيتك.</p>
+                    <div className="swiper-btn-cont swiper-btn-2" id={`swiper-btn-prev1a`}>
+                        <div className="swiper-btn-prev swiper-btn">
+                            <i className="fa-solid fa-chevron-right"></i>
+                        </div>
+
+                        <div className="swiper-btn-next swiper-btn" id={`swiper-btn-next1a`}>
+                            <i className="fa-solid fa-chevron-left"></i>
+                        </div>
+                    </div>
+                </div>
                 {
                     loading ? <Loading /> :
                         <div
@@ -111,16 +122,8 @@ const BigOffers = ({ mainData }) => {
                                         </SwiperSlide>
                                     ))
                                 }
-                                <div className="swiper-btn-cont swiper-btn-2" id={`swiper-btn-prev1a`}>
-                                    <div className="swiper-btn-prev swiper-btn">
-                                        <i className="fa-solid fa-chevron-right"></i>
-                                    </div>
-
-                                    <div className="swiper-btn-next swiper-btn" id={`swiper-btn-next1a`}>
-                                        <i className="fa-solid fa-chevron-left"></i>
-                                    </div>
-                                </div>
                             </Swiper>
+
                         </div>
                 }
             </div>
