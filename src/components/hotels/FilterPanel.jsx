@@ -27,7 +27,7 @@ export const filterSchema = z.object({
   start: z.string().optional(),
   end: z.string().optional(),
   date: z.string().refine((val) => !val || !isNaN(Date.parse(val)), { message: "Invalid date", }).optional(),
-  dateTo : z.string().refine((val) => !val || !isNaN(Date.parse(val)), { message: "Invalid date", }).optional(),
+  dateTo: z.string().refine((val) => !val || !isNaN(Date.parse(val)), { message: "Invalid date", }).optional(),
   lang: z.string().optional(),
   country: z.string().optional(),
   city: z.string().optional(),
@@ -78,7 +78,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
     setLoading(true);
     const getData = async () => {
       try {
-        const response = await axios.post(`${API_BASE_URL}/filter-hotels?countery_id=${seletedCountry}${selectedDate?`&available_from=${formatDate(selectedDate)}`:""}${selectedDateTo?`&available_to=${formatDate(selectedDateTo)}`:""}&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`, {});
+        const response = await axios.post(`${API_BASE_URL}/filter-hotels?countery_id=${seletedCountry}${selectedDate ? `&available_from=${formatDate(selectedDate)}` : ""}${selectedDateTo ? `&available_to=${formatDate(selectedDateTo)}` : ""}&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`, {});
         setMainData(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -102,7 +102,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
       model: defaultValues.offer || '',
     },
   });
-console.log(formatDate(selectedDate) , formatDate(selectedDateTo))
+  console.log(formatDate(selectedDate), formatDate(selectedDateTo))
   useEffect(() => {
     if (defaultValues) {
       form.setValue("start", String(defaultValues.destination));
@@ -240,11 +240,11 @@ console.log(formatDate(selectedDate) , formatDate(selectedDateTo))
                           !field.value && "text-muted-foreground"
                         )}
                       >
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                          <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>
-                        )}
+                        {
+                          selectedDate ? format(selectedDate, "PPP") :
+                            field.value ? format(field.value, "PPP") :
+                              <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>
+                        }
                         <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                           <ChevronDown size={14} />
                         </div>
@@ -254,7 +254,7 @@ console.log(formatDate(selectedDate) , formatDate(selectedDateTo))
                   <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
                     <Calendar
                       mode="single"
-                      selected={field.value ? new Date(field.value) : undefined}
+                      selected={selectedDate ? new Date(selectedDate) : undefined}
                       // onChange={field.onChange}
                       onSelect={(date) => setSelectedDate(date)}
                       className="w-full"
@@ -287,11 +287,12 @@ console.log(formatDate(selectedDate) , formatDate(selectedDateTo))
                           !field.value && "text-muted-foreground"
                         )}
                       >
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                          <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>
-                        )}
+                        {
+                          selectedDateTo ? format(selectedDateTo, "PPP") :
+                            field.value ? format(field.value, "PPP") :
+                              (
+                                <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>
+                              )}
                         <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                           <ChevronDown size={14} />
                         </div>
@@ -301,7 +302,7 @@ console.log(formatDate(selectedDate) , formatDate(selectedDateTo))
                   <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
                     <Calendar
                       mode="single"
-                      selected={field.value ? new Date(field.value) : undefined}
+                      selected={selectedDateTo ? new Date(selectedDateTo) :field.value ? new Date(field.value) : undefined}
                       onSelect={(date) => setSelectedDateTo(date)}
                       className="w-full"
                       //only enable future dates 
