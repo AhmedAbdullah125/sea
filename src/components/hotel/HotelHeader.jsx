@@ -90,6 +90,7 @@ const HotelHeader = ({ data }) => {
                 </div>
                 <div className="detail-cont">
                     <div className="detail-box">
+
                         <figure className="detail-img">
                             {/\.(mp4|mov|webm)$/i.test(selectedImg) ? (
                                 <video src={selectedImg} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
@@ -115,15 +116,36 @@ const HotelHeader = ({ data }) => {
                                     className="detail-img"
                                     onClick={() => setselectedImg(mediaUrl)}
                                 >
-                                    {isVideo ? (
-                                        <a href={mediaUrl} data-fancybox="gallery" data-caption={`Video ${idx + 1}`} className="single-img">
-                                            <video src={mediaUrl} className="img-fluid" muted preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
-                                        </a>
-                                    ) : (
-                                        <a href={mediaUrl} data-fancybox="gallery" className="single-img">
-                                            <img src={mediaUrl} className="img-fluid" alt="detail-img" />
-                                        </a>
-                                    )}
+                                    {
+                                        idx == 3 ?
+                                            isVideo ? (
+                                                <video src={mediaUrl} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                                            )
+                                                :
+                                                <img src={mediaUrl} className="img-fluid" alt="detail-img" />
+                                            :
+                                            isVideo ? (
+                                                <a href={mediaUrl} data-fancybox="gallery" data-caption={`Video ${idx + 1}`} className="single-img">
+                                                    <video src={mediaUrl} className="img-fluid" muted preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
+                                                </a>
+                                            ) : (
+                                                isVideo ? (
+                                                    <a href={mediaUrl} data-fancybox="gallery" data-caption={`Image ${idx + 1}`} className="single-img">
+                                                        <img src={mediaUrl} className="img-fluid" alt="detail-img" />
+                                                    </a>
+                                                ):
+                                                (
+                                                    <a href={mediaUrl} data-fancybox="gallery" data-caption={`Image ${idx + 1}`} className="single-img">
+                                                        <img src={mediaUrl} className="img-fluid" alt="detail-img" />
+                                                    </a>
+                                                )
+                                            )
+                                    }
+                                    {
+                                        idx == 3 ?
+                                            <div className="rest"><a href={mediaUrl} data-fancybox="gallery">+{data.images.length - 3}</a></div>
+                                            : null
+                                    }
                                 </figure>
                             </div>
                         );
