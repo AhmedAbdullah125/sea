@@ -10,6 +10,8 @@ import { useQuery } from "@tanstack/react-query"
 import { fetchFromApi } from "../../../api/utils/fetchData"
 import { useNavigate } from "react-router-dom"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { useRef } from "react";
+
 import {
   Select,
   SelectContent,
@@ -26,6 +28,9 @@ import { API_BASE_URL } from "../../../lib/apiConfig";
 const HotelsForm = () => {
   const [filters, setFilters] = useState([]);
   const [loading, setLoading] = useState(true);
+  const endDateRef = useRef(null);
+  const [openEndDate, setOpenEndDate] = useState(false);
+
   const t = {
     "flat": "شقق فندقية",
     "room": "غرفة",
@@ -52,6 +57,7 @@ const HotelsForm = () => {
     getData();
   }, []);
   // select
+
   const filterSelectFields = [
     {
       name: "type",
@@ -118,14 +124,14 @@ const HotelsForm = () => {
 
   })
   // 1. Define your form.
-  
+
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
-  
+
   const threeDaysLater = new Date(today);
   threeDaysLater.setDate(today.getDate() + 3);
-  
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -160,6 +166,24 @@ const HotelsForm = () => {
     const formattedEndDate = formatDate(values.endDate);
     navigate(`/hotels?destination=${values.destination}&city=${values.city}&type=${values.type}&start=${formattedStartDate}&end=${formattedEndDate}`);
   }
+
+  useEffect(() => {
+    const subscription = form.watch((values, { name }) => {
+      if (name === "startDate" && values.startDate) {
+        // ✅ Delay to ensure calendar closes before opening the second
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            setOpenEndDate(true);
+          });
+        });
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [form]);
+
+
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-10 gap-x-4 xl:gap-y-6 gap-y-4">
@@ -256,8 +280,12 @@ const HotelsForm = () => {
             disabledDate={(date) =>
               date > new Date() || date < new Date("1900-01-01")
             }
+            open={item.name === "endDate" ? openEndDate : undefined}
+            setOpen={item.name === "endDate" ? setOpenEndDate : undefined}
+
           />
         ))}
+
 
 
         <Button type="submit" className="xl:col-span-10 md:col-span-5 col-span-10 bg-main-purple w-fit m-auto text-white  hover:bg-main-blue transition-all duration-300  rounded-full flex items-center gap-14">بحـــــث
