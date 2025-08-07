@@ -1,33 +1,29 @@
 import axios from "axios";
-import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
-import { FaArrowsLeftRight } from "react-icons/fa6";
-import { ChevronDown } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { FaArrowsLeftRight, FaCalendarDays } from "react-icons/fa6";
+import { ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { BsFillSendFill } from "react-icons/bs";
-import { FaCalendarDays } from "react-icons/fa6";
 import { IoLanguage } from "react-icons/io5";
-import { Button } from "@/components/ui/button"
+import { MdStarRate } from "react-icons/md";
+import { Button } from "@/components/ui/button";
+
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect, useState } from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { MdStarRate } from "react-icons/md";
+import { Calendar } from "@/components/ui/calendar";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { API_BASE_URL } from "../../lib/apiConfig";
-const countOptions = Array.from({ length: 10 }, (_, i) => {
-  const num = (i + 1).toString();
-  return { label: num, value: num };
-});
 
-// schema
+// Zod schema
 export const filterSchema = z.object({
   start: z.string().optional(),
   end: z.string().optional(),
-  date: z.string().refine((val) => !val || !isNaN(Date.parse(val)), { message: "Invalid date", }).optional(),
-  dateTo: z.string().refine((val) => !val || !isNaN(Date.parse(val)), { message: "Invalid date", }).optional(),
+  date: z.string().refine((val) => !val || !isNaN(Date.parse(val)), { message: "Invalid date" }).optional(),
+  dateTo: z.string().refine((val) => !val || !isNaN(Date.parse(val)), { message: "Invalid date" }).optional(),
   lang: z.string().optional(),
   country: z.string().optional(),
   city: z.string().optional(),
@@ -35,15 +31,28 @@ export const filterSchema = z.object({
   type: z.string().optional(),
 });
 
-const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
-  function formatDate(input) {
-    const date = new Date(input);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+// Utility: Normalize to YYYY-MM-DD format
+function formatDate(input) {
+  if (!input) return "";
+  const date = new Date(input);
+  if (isNaN(date.getTime())) return "";
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+// Utility: parse date safely (e.g., "08-25-2025" → "2025-08-25")
+function safeDateParse(input) {
+  if (!input) return undefined;
+  if (/^\d{2}-\d{2}-\d{4}$/.test(input)) {
+    const [month, day, year] = input.split("-");
+    return new Date(`${year}-${month}-${day}`);
   }
-  console.log(defaultValues)
+  return new Date(input);
+}
+
+const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
   const [seletedCountry, setSelectedCountry] = useState(String(defaultValues.destination) || '');
   const [selectedFlat, setSelectedFlat] = useState(defaultValues.flat || '');
   const [selectedCity, setSelectedCity] = useState(defaultValues.city || '');
@@ -54,41 +63,43 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
   const [selectedDateTo, setSelectedDateTo] = useState(defaultValues.end || '');
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
-  const [cities, setCities] = useState([])
+  const [cities, setCities] = useState([]);
+
   useEffect(() => {
-    setLoading(true);
     const getData = async () => {
+      setLoading(true);
       try {
-        const response = await axios.get(`${API_BASE_URL}/all-filters`, {});
-        const response2 = await axios.get(`${API_BASE_URL}/cities`, {});
-        const response3 = await axios.get(`${API_BASE_URL}/all-filters`, {});
+        const response = await axios.get(`${API_BASE_URL}/all-filters`);
+        const response2 = await axios.get(`${API_BASE_URL}/cities`);
         setData(response.data.data);
+        setFilters(response.data.data);
         setCities(response2.data.data);
-        setFilters(response3.data.data);
-        setLoading(false);
       } catch (error) {
         console.error('Error retrieving data:', error);
-        setLoading(false);
-        throw new Error('Could not get data');
       }
+      setLoading(false);
     };
     getData();
   }, []);
+
   useEffect(() => {
-    setLoading(true);
-    const getData = async () => {
+    const getHotels = async () => {
+      setLoading(true);
       try {
-        const response = await axios.get(`${API_BASE_URL}/filter-hotels?country_id=${seletedCountry}${selectedDate ? `&available_from=${formatDate(selectedDate)}` : ""}${selectedDateTo ? `&available_to=${formatDate(selectedDateTo)}` : ""}&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`, {});
+        const query = `${API_BASE_URL}/filter-hotels?country_id=${seletedCountry}` +
+          `${selectedDate ? `&available_from=${formatDate(selectedDate)}` : ""}` +
+          `${selectedDateTo ? `&available_to=${formatDate(selectedDateTo)}` : ""}` +
+          `&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`;
+        const response = await axios.get(query);
         setMainData(response.data.data);
-        setLoading(false);
       } catch (error) {
-        console.error('Error retrieving data:', error);
-        setLoading(false);
-        throw new Error('Could not get data');
+        console.error('Error retrieving hotels:', error);
       }
+      setLoading(false);
     };
-    getData();
+    getHotels();
   }, [seletedCountry, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer, selectedDateTo]);
+
   const form = useForm({
     resolver: zodResolver(filterSchema),
     defaultValues: {
@@ -102,22 +113,10 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
       model: defaultValues.offer || '',
     },
   });
-  console.log(formatDate(selectedDate), formatDate(selectedDateTo))
-  useEffect(() => {
-    if (defaultValues) {
-      form.setValue("start", String(defaultValues.destination));
-      form.setValue("end", defaultValues.city || '');
-      form.setValue("date", defaultValues.start || '');
-      form.setValue("dateTo", defaultValues.end || '');
-      form.setValue("lang", defaultValues.flat || '');
-      form.setValue("country", defaultValues.neighborhood || '');
-      form.setValue("rating", defaultValues.rate || '');
-      form.setValue("model", defaultValues.offer || '');
-    }
-  }, [defaultValues]);
 
   const { watch, setValue } = form;
   const values = watch();
+
   const t = {
     "flat": "شقق فندقية",
     "room": "غرفة",
@@ -125,8 +124,8 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
     "villa": "فلل",
     "huts": "أكواخ",
     "hotel_suites": "أجنحة فندقية"
+  };
 
-  }
   function clearFilter() {
     setValue("start", "");
     setValue("end", "");
@@ -143,10 +142,10 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
     setSelectedRate('');
     setSelectedOffer('');
     setSelectedDate('');
+    setSelectedDateTo('');
   }
 
   return (
-
     <Form {...form}>
       <form className="space-y-4 mb-10">
         <div className="flex gap-4 xl:flex-nowrap flex-wrap">
@@ -223,61 +222,45 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
           <FormField
             control={form.control}
             name={"date"}
-            className="w-full "
             render={({ field }) => (
-              <FormItem className={`xl:col-span-3 col-span-12  w-full flex flex-col`}>
+              <FormItem className="w-full">
                 <FormLabel className="flex items-center gap-1">
                   <FaCalendarDays size={16} className="text-main-purple" />
                   <p className="text-main-blue font-bold text-sm">موعـــد الوصول </p>
                 </FormLabel>
-                <Popover className="w-full">
+                <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
-                      <Button
-                        variant="outline"
-                        className={cn(
-                          "bg-body h-12 w-full px-3  font-xs font-semibold text-main-gray  rounded-full border-none hover:bg-body  flex items-center justify-between",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        {
-                          selectedDate ? format(selectedDate, "PPP") :
-                            field.value ? format(field.value, "PPP") :
-                              <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>
-                        }
-                        <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
-                          <ChevronDown size={14} />
-                        </div>
+                      <Button variant="outline" className="bg-body rounded-full h-12 w-full flex justify-between">
+                        {selectedDate ? format(safeDateParse(selectedDate), "PPP") :
+                          field.value ? format(safeDateParse(field.value), "PPP") :
+                            <span className="text-[#797979] text-xs font-semibold">اختر تاريخ الوصول</span>}
+                        <ChevronDown size={14} />
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
                   <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
                     <Calendar
                       mode="single"
-                      selected={selectedDate ? new Date(selectedDate) : undefined}
-                      // onChange={field.onChange}
+                      selected={safeDateParse(selectedDate)}
                       onSelect={(date) => setSelectedDate(date)}
-                      className="w-full"
-                      //only enable future dates 
-                      fromDate={new Date()} // ⬅️ This prevents selecting past dates
+                      fromDate={new Date()}
                     />
                   </PopoverContent>
                 </Popover>
-                <FormMessage className="text-red-500  text-xs " />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
             name={"dateTo"}
-            className="w-full "
             render={({ field }) => (
-              <FormItem className={`xl:col-span-3 col-span-12  w-full flex flex-col`}>
+              <FormItem className="w-full">
                 <FormLabel className="flex items-center gap-1">
                   <FaCalendarDays size={16} className="text-main-purple" />
                   <p className="text-main-blue font-bold text-sm">موعـــد العودة</p>
                 </FormLabel>
-                <Popover className="w-full">
+                <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
                       <Button
@@ -287,175 +270,36 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
                           !field.value && "text-muted-foreground"
                         )}
                       >
-                        {
-                          selectedDateTo ? format(selectedDateTo, "PPP") :
-                            field.value ? format(field.value, "PPP") :
-                              (
-                                <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>
-                              )}
-                        <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
-                          <ChevronDown size={14} />
-                        </div>
+                        {selectedDateTo ? format(safeDateParse(selectedDateTo), "PPP") :
+                          field.value ? format(safeDateParse(field.value), "PPP") :
+                            <span className="text-[#797979] text-xs font-semibold">اختر تاريخ العودة</span>}
+                        <ChevronDown size={14} />
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
                   <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
                     <Calendar
                       mode="single"
-                      selected={selectedDateTo ? new Date(selectedDateTo) :field.value ? new Date(field.value) : undefined}
+                      selected={safeDateParse(selectedDateTo || field.value)}
                       onSelect={(date) => setSelectedDateTo(date)}
-                      className="w-full"
-                      //only enable future dates 
-                      fromDate={new Date()} // ⬅️ This prevents selecting past dates
+                      fromDate={new Date()}
                     />
                   </PopoverContent>
                 </Popover>
-                <FormMessage className="text-red-500  text-xs " />
               </FormItem>
             )}
           />
           <button
-            className="flex-shrink-0 xl:col-span-2 col-span-12 h-12 py-0 px-9 mt-7 bg-[#A71755]  text-white hover:text-red-500  font-semibold flex items-center justify-center rounded-full"
+            type="button"
             onClick={clearFilter}
-          >مسح الفلترة</button>
+            className="flex-shrink-0 h-12 py-0 px-9 mt-7 bg-[#A71755] text-white font-semibold rounded-full"
+          >
+            مسح الفلترة
+          </button>
         </div>
-        <div className="grid grid-cols-6 gap-4">
-          {/* lang */}
-          <FormField
-            control={form.control}
-            name={"lang"}
-            render={() => (
-              <FormItem className="xl:col-span-2 col-span-12">
-                <Select dir="rtl"
-                  defaultValue={values.lang}
-                  onValueChange={(val) => setSelectedFlat(val)} >
-                  <FormControl>
-                    <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
-                      <ChevronDown size={14} />
-                    </div>}
-                      className={`bg-main-navy  text-white text-xs font-semibold border-none  rounded-full h-12`}>
-                      <SelectValue placeholder={
-                        <div className=" text-white flex items-center gap-1">
-                          <IoLanguage size={16} />
-                          <p >نوع السكن </p>
-                        </div>} />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {filters?.flats?.map((option) => (
-                      <SelectItem key={option} value={option} className=" cursor-pointer focus:bg-body rounded-xl">
-                        {t[option]}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormItem>
-            )}
-          />
-          {/* country */}
-          <FormField
-            control={form.control}
-            name={"country"}
-            render={() => (
-              <FormItem className="xl:col-span-2 col-span-12">
-                <Select dir="rtl"
-                  defaultValue={values.country}
-                  onValueChange={(val) => setSelectedNeighborhood(val)} >
-                  <FormControl>
-                    <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
-                      <ChevronDown size={14} />
-                    </div>}
-                      className={`bg-main-navy  text-white text-xs font-semibold border-none  rounded-full h-12`}>
-                      <SelectValue placeholder={
-                        <div className=" text-white flex items-center gap-1">
-                          <FaArrowsLeftRight size={16} />
-                          <p >الحي</p>
-                        </div>} />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {filters?.neighborhood?.map((option) => (
-                      option ?
-                        <SelectItem key={option} value={option} className=" cursor-pointer focus:bg-body rounded-xl">
-                          {option}
-                        </SelectItem> : null
-
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormItem>
-            )}
-          />
-          {/* offers */}
-          {/* <FormField
-                  control={form.control}
-                  name={"offers"}
-                  render={() => (
-                    <FormItem className="xl:col-span-2 col-span-12">
-                      <Select dir="rtl"
-                        defaultValue={values.model}
-                        onValueChange={(val) => setSelectedOffer( val)} >
-                        <FormControl>
-                          <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
-                            <ChevronDown size={14} />
-                          </div>}
-                            className={`bg-main-navy  text-white text-xs font-semibold border-none  rounded-full h-12`}>
-                            <SelectValue placeholder={
-                              <div className=" text-white flex items-center gap-1">
-                                <BiSolidOffer size={16} />
-                                <p >العروض</p>
-                              </div>} />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                          {filters?.offers?.map((option, index) => (
-                            <SelectItem key={index} value={option} className=" cursor-pointer focus:bg-body rounded-xl">
-                              {option}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormItem>
-                  )}
-                /> */}
-          {/* tating */}
-          <FormField
-            control={form.control}
-            name={"rating"}
-            render={() => (
-              <FormItem className="xl:col-span-2 col-span-12">
-                <Select dir="rtl"
-                  defaultValue={values.type}
-                  onValueChange={(val) => setSelectedRate(val)} >
-                  <FormControl>
-                    <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
-                      <ChevronDown size={14} />
-                    </div>}
-                      className={`bg-main-navy  text-white text-xs font-semibold border-none  rounded-full h-12`}>
-                      <SelectValue placeholder={
-                        <div className=" text-white flex items-center gap-1">
-                          <MdStarRate size={16} />
-                          <p >التقييم</p>
-                        </div>} />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {filters?.rating?.map((option) => (
-                      <SelectItem key={option} value={option.toString()} className=" cursor-pointer focus:bg-body rounded-xl">
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormItem>
-            )}
-          />
-        </div>
-
       </form>
     </Form>
+  );
+};
 
-  )
-}
-
-export default FilterPanel
+export default FilterPanel;
