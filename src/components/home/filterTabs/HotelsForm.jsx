@@ -5,47 +5,30 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import CustomFilterSelect from "./CustomFilterSelect"
-import CustomDatePicker from "./CustomDatePicker"
 import { useQuery } from "@tanstack/react-query"
 import { fetchFromApi } from "../../../api/utils/fetchData"
 import { useNavigate } from "react-router-dom"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { useRef } from "react";
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { Calendar } from "@/components/ui/calendar"
+import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 import { ChevronDown } from "lucide-react"
-
+import { format } from "date-fns"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
 import axios from "axios";
 import { API_BASE_URL } from "../../../lib/apiConfig";
-
-
 const HotelsForm = () => {
   const [filters, setFilters] = useState([]);
   const [loading, setLoading] = useState(true);
-  const endDateRef = useRef(null);
+  const [internalStartOpen, setInternalStartOpen] = useState(false);
   const [openEndDate, setOpenEndDate] = useState(false);
 
-  const t = {
-    "flat": "شقق فندقية",
-    "room": "غرفة",
-    "hotel": "⁠فنادق",
-    "villa": "فلل",
-    "huts": "أكواخ",
-    "hotel_suites": "أجنحة فندقية"
-
-  }
+  const t = { "flat": "شقق فندقية", "room": "غرفة", "hotel": "⁠فنادق", "villa": "فلل", "huts": "أكواخ", "hotel_suites": "أجنحة فندقية" }
   useEffect(() => {
     setLoading(true);
     const getData = async () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/all-filters`, {});
-
         setFilters(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -70,7 +53,6 @@ const HotelsForm = () => {
       placeholder: "إدخـــال نوع السكـــن هنــا...",
       options: filters?.flats?.map((item) => ({ label: t[item] || item, value: item }))
     },
-
   ]
   //dates
   const datePickers = [
@@ -124,14 +106,11 @@ const HotelsForm = () => {
 
   })
   // 1. Define your form.
-
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
-
   const threeDaysLater = new Date(today);
   threeDaysLater.setDate(today.getDate() + 3);
-
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -139,7 +118,7 @@ const HotelsForm = () => {
       type: "",
       city: "",
       startDate: tomorrow,           // ✅ tomorrow
-      endDate: threeDaysLater,       // ✅ 3 days from today
+      endDate: "",       // ✅ 3 days from today
     },
   });
   const destination = form.watch("destination");
@@ -171,17 +150,17 @@ const HotelsForm = () => {
     const subscription = form.watch((values, { name }) => {
       if (name === "startDate" && values.startDate) {
         // ✅ Delay to ensure calendar closes before opening the second
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            setOpenEndDate(true);
-          });
-        });
+        setTimeout(() => {
+          setOpenEndDate(true);
+        }, 150); // 100–200ms is ideal
+
       }
     });
 
     return () => subscription.unsubscribe();
   }, [form]);
 
+  const startDate = form.watch("startDate"); // 👈 get startDate
 
 
   return (
@@ -269,25 +248,112 @@ const HotelsForm = () => {
           <CustomFilterSelect key={index} {...fieldProps} form={form} />
         ))}
 
-        {datePickers.map((item) => (
-          <CustomDatePicker
-            key={item.name}
-            icon={item.icon}
-            name={item.name}
-            label={item.label}
-            form={form}
-            placeholder={item.placeholder}
-            disabledDate={(date) =>
-              date > new Date() || date < new Date("1900-01-01")
-            }
-            open={item.name === "endDate" ? openEndDate : undefined}
-            setOpen={item.name === "endDate" ? setOpenEndDate : undefined}
+        {/* Start Date Calendar */}
+        <FormField
+          control={form.control}
+          name="startDate"
+          render={({ field }) => (
+            <FormItem className="xl:col-span-2 md:col-span-5 col-span-10 flex flex-col">
+              <FormLabel className="flex items-center gap-1">
+                {datePickers[0].icon}
+                <p className="text-main-blue font-bold text-sm">{datePickers[0].label}</p>
+              </FormLabel>
 
-          />
-        ))}
+              <Popover open={internalStartOpen} onOpenChange={setInternalStartOpen}>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant="outline"
+                      className="h-12 w-full px-3 font-xs font-semibold text-main-gray rounded-full border-none hover:bg-body flex items-center justify-between bg-body"
+                    >
+                      {field.value ? (
+                        format(field.value, "PPP")
+                      ) : (
+                        <span className="text-[#797979] text-xs font-semibold">
+                          {datePickers[0].placeholder}
+                        </span>
+                      )}
+                      <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                        <ChevronDown size={14} />
+                      </div>
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
 
+                <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
+                  <Calendar
+                    mode="single"
+                    onSelect={(val) => {
+                      field.onChange(val);
+                      setInternalStartOpen(false); // ✅ close start calendar
 
+                      setTimeout(() => {
+                        setOpenEndDate(true);       // ✅ reliably open end calendar
+                      }, 200);
+                    }}
+                    fromDate={new Date()}
+                    className="w-full"
+                  />
+                </PopoverContent>
+              </Popover>
 
+              <FormMessage className="text-red-500 text-xs" />
+            </FormItem>
+          )}
+        />
+
+        {/* End Date Calendar */}
+        <FormField
+          control={form.control}
+          name="endDate"
+          render={({ field }) => (
+            <FormItem className="xl:col-span-2 md:col-span-5 col-span-10 flex flex-col">
+              <FormLabel className="flex items-center gap-1">
+                {datePickers[1].icon}
+                <p className="text-main-blue font-bold text-sm">{datePickers[1].label}</p>
+              </FormLabel>
+
+              <Popover open={openEndDate} onOpenChange={setOpenEndDate}>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant="outline"
+                      disabled={!startDate} // ✅ disable if no startDate
+                      className={`h-12 w-full px-3 font-xs font-semibold text-main-gray rounded-full border-none hover:bg-body flex items-center justify-between bg-body ${!startDate ? "opacity-50 cursor-not-allowed" : ""
+                        }`}
+                    >
+                      {field.value ? (
+                        format(field.value, "PPP")
+                      ) : (
+                        <span className="text-[#797979] text-xs font-semibold">
+                          {datePickers[1].placeholder}
+                        </span>
+                      )}
+                      <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                        <ChevronDown size={14} />
+                      </div>
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+
+                <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={field.value}
+                    onSelect={(val) => {
+                      field.onChange(val);
+                      setOpenEndDate(false);
+                    }}
+                    fromDate={startDate || new Date()} // ✅ limit to startDate onward
+                    className="w-full"
+                  />
+                </PopoverContent>
+              </Popover>
+
+              <FormMessage className="text-red-500 text-xs" />
+            </FormItem>
+          )}
+        />
         <Button type="submit" className="xl:col-span-10 md:col-span-5 col-span-10 bg-main-purple w-fit m-auto text-white  hover:bg-main-blue transition-all duration-300  rounded-full flex items-center gap-14">بحـــــث
           <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_22_399)">

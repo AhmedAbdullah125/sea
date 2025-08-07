@@ -19,22 +19,8 @@ import { cn } from "@/lib/utils"
 
 import { useState } from "react";
 
-const CustomDatePicker = ({
-  name,
-  label,
-  form,
-  placeholder = "Pick a date",
-  disabledDate,
-  icon,
-  isRequired = false,
-  colSpan = "xl:col-span-3 md:col-span-6 col-span-12",
-  bg = "bg-body",
-  triggerRef,
-  open,
-  setOpen,
-}) => {
+const CustomDatePicker = ({ name, label, form, placeholder = "Pick a date", disabledDate, icon, isRequired = false,  bg = "bg-body", triggerRef, open, setOpen,minDate}) => {
   const [internalOpen, setInternalOpen] = useState(false);
-
   return (
     <FormField
       control={form.control}
@@ -81,8 +67,8 @@ const CustomDatePicker = ({
                   field.onChange(val);
                   if (setOpen) setOpen(false); // close after selection
                 }}
-                fromDate={new Date()}
                 initialFocus
+                fromDate={minDate ?? new Date()} // 👈 Apply minDate if passed
                 className="w-full"
               />
             </PopoverContent>
