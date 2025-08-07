@@ -45,11 +45,10 @@ const HotelsGrid = ({ mainData }) => {
                 mainData.length > 0 ?
                     <div className="grid-cont">
                         {
-
                             mainData.map((item, index) =>
 
                                 <div className="card-item" key={index}>
-                                    <div className="related-item">
+                                    <Link to={`/hotel?id=${item.id}`} className="related-item block">
                                         <Swiper
                                             pagination={{ clickable: true }}
                                             spaceBetween={0}
@@ -112,8 +111,8 @@ const HotelsGrid = ({ mainData }) => {
                                                 ><i className={`fa-heart ${lovedHotels.includes(item.id) ? 'fa-solid text-[#A71755]' : 'fa-regular '}`}></i></button>
                                             </div>
                                         </div>
-                                    </div>
-                                    <a href={`hotel?id=${item.id}`} className="card-content">
+                                    </Link>
+                                    <Link to={`/hotel?id=${item.id}`} className="card-content">
                                         <div className="detail-info-item rate">
                                             <i className="fa-solid fa-star"></i>
                                             <span>{Number(item.rating).toFixed(1)} <span>( {item.likes} )</span></span>
@@ -136,7 +135,7 @@ const HotelsGrid = ({ mainData }) => {
                                                 :
                                                 <Link to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم حول ${item.title}`}>تواصل الآن واحصل علي عرض سعر</Link>
                                         }
-                                    </a>
+                                    </Link>
                                 </div>
                             )
                         }
