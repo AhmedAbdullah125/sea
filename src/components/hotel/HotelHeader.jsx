@@ -8,16 +8,12 @@ import "@fancyapps/ui/dist/fancybox/fancybox.css";
 const HotelHeader = ({ data }) => {
     const [selectedImg, setselectedImg] = useState(data.images[0])
     const [lovedHotels, setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [])
+    const [videosArr, setVideosArr] = useState([])
     Fancybox.bind("[data-fancybox]", {
-        animated: true,
-        showClass: "fancybox-zoomIn",
-        hideClass: "fancybox-zoomOut",
-        dragToClose: true,
-        backdropClick: "close",
-        closeButton: "outside",
-        placeFocusBack: false,
-        Images: { zoom: true, Panzoom: { maxScale: 3, }, },
-        Thumbs: { autoStart: false, },
+        // Your custom options
+    });
+    Fancybox.bind("[data-fancybox-video]", {
+        // Your custom options
     });
     // Link swipers after both are ready
     useEffect(() => {
@@ -30,6 +26,19 @@ const HotelHeader = ({ data }) => {
             }
         }
     }, [data])
+    useEffect(() => {
+        let vids = []
+        for (let i = 0; i < data.images.length; i++) {
+            if (data.images[i].includes('.mp4') || data.images[i].includes('.mov') || data.images[i].includes('.webm')) {
+                vids = [...vids, data.images[i]]
+            }
+
+        }
+        setVideosArr(vids)
+    }, [data.videos])
+    console.log(videosArr);
+
+
     return (
         <section className="content-section">
             <div className="container">
@@ -99,12 +108,21 @@ const HotelHeader = ({ data }) => {
                             )}
                         </figure>
                         <div className="detail-img-btn">
-                            <button className="add-btn">
-                                <img src={imgicon1} alt="icon" />
-                            </button>
-                            <button className="add-btn">
-                                <img src={imgicon2} alt="icon" />
-                            </button>
+                            <a href={data.images[0]} data-fancybox="gallery" data-caption={`Image 1`} className="single-img">
+                                <button className="add-btn">
+                                    <img src={imgicon1} alt="icon" />
+                                </button>
+                            </a>
+                            {
+                                videosArr.length > 0 ?
+                                    <a href={videosArr[0]} data-fancybox="vids" data-caption={`Video 1`} className="single-img">
+                                        <button className="add-btn">
+                                            <img src={imgicon2} alt="icon" />
+                                        </button>
+                                    </a>
+                                    : null
+
+                            }
                         </div>
                     </div>
                     {data.images.map((mediaUrl, idx) => {
@@ -133,12 +151,12 @@ const HotelHeader = ({ data }) => {
                                                     <a href={mediaUrl} data-fancybox="gallery" data-caption={`Image ${idx + 1}`} className="single-img">
                                                         <img src={mediaUrl} className="img-fluid" alt="detail-img" />
                                                     </a>
-                                                ):
-                                                (
-                                                    <a href={mediaUrl} data-fancybox="gallery" data-caption={`Image ${idx + 1}`} className="single-img">
-                                                        <img src={mediaUrl} className="img-fluid" alt="detail-img" />
-                                                    </a>
-                                                )
+                                                ) :
+                                                    (
+                                                        <a href={mediaUrl} data-fancybox="gallery" data-caption={`Image ${idx + 1}`} className="single-img">
+                                                            <img src={mediaUrl} className="img-fluid" alt="detail-img" />
+                                                        </a>
+                                                    )
                                             )
                                     }
                                     {

@@ -167,8 +167,7 @@ const Hotels = () => {
                                 <div className="package-list">
                                     <ul>
                                         <li>
-                                            <i className="fa-solid fa-house"></i
-                                            ><span>الإقامة فندقية 7 ليالي.</span>
+                                            <i className="fa-solid fa-house"></i ><span>الإقامة فندقية 7 ليالي.</span>
                                         </li>
                                         <li>
                                             <i className="fa-solid fa-mug-hot"></i><span>شامل الإفطار.</span>
@@ -177,19 +176,16 @@ const Hotels = () => {
                                             <i className="fa-solid fa-eye"></i><span>زيارة متحف اللوفر.</span>
                                         </li>
                                         <li>
-                                            <i className="fa-solid fa-cart-shopping"></i
-                                            ><span> رحلة إلى السوق التقليدي.</span>
+                                            <i className="fa-solid fa-cart-shopping"></i><span> رحلة إلى السوق التقليدي.</span>
                                         </li>
                                         <li>
                                             <i className="fa-solid fa-pot-food"></i><span>وجبة العشاء.</span>
                                         </li>
                                         <li>
-                                            <i className="fa-solid fa-hand-wave"></i
-                                            ><span>الاستقبال والتوديع بالمطار.</span>
+                                            <i className="fa-solid fa-hand-wave"></i><span>الاستقبال والتوديع بالمطار.</span>
                                         </li>
                                         <li>
-                                            <i className="fa-solid fa-city"></i
-                                            ><span>جولة سياحية في المدينة.</span>
+                                            <i className="fa-solid fa-city"></i><span>جولة سياحية في المدينة.</span>
                                         </li>
                                         <li>
                                             <i className="fa-solid fa-heart"></i><span>تأمين صحي للسفر.</span>

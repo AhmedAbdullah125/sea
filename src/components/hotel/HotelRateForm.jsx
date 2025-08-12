@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { addComment } from './addComment';
 import Loading from '../loading/Loading';
 import { API_BASE_URL } from '../../lib/apiConfig';
+import { toast } from 'sonner';
 
 const HotelRateForm = ({ comment, rate, setComment, data, setRate, trigger, setTrigger, setActiveTab }) => {
     const [loading, setLoading] = useState(false);
