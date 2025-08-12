@@ -33,7 +33,6 @@ const Hotels = () => {
 
         setSearchParams(params);
     };
-    console.log(mainData);
     
     return (
         <section>

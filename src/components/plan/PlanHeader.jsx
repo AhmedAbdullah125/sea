@@ -10,7 +10,6 @@ import { toggleFavourates } from '../../pages/toggleFavourates'
 const PlanHeader = ({ data }) => {
     const [selectedImg, setselectedImg] = useState(data.images[0])
     const [lovedPlans, setLovedPlans] = useState(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : [])
-    console.log(data)
     Fancybox.bind("[data-fancybox]", {
         // Your custom options
     });
@@ -50,7 +49,6 @@ const PlanHeader = ({ data }) => {
         }
         setVideosArr(vids)
     }, [data.videos])
-    console.log(videosArr);
 
     return (
         <section className="content-section">

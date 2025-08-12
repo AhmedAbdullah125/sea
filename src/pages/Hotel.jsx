@@ -35,9 +35,7 @@ const Hotel = () => {
         };
         getData();
     }, [trigger]);
-    console.log(data);
-
-    return (
+        return (
         <section>
             <Header />
             {/* Start Page Content */}

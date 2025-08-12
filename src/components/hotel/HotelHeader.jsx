@@ -36,7 +36,6 @@ const HotelHeader = ({ data }) => {
         }
         setVideosArr(vids)
     }, [data.videos])
-    console.log(videosArr);
 
 
     return (

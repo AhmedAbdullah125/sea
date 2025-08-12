@@ -1,10 +1,4 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious,} from "@/components/ui/carousel"
 import HotelCard from './HotelCard'
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
@@ -13,6 +7,10 @@ import Loader from "../../loader/Loader"
 import AlertError from "../../alerts/AlertError"
 import AlertWarning from "../../alerts/AlertWarning"
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { API_BASE_URL } from "../../../lib/apiConfig";
+
 const HotelsSection = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['hotels'],
@@ -21,10 +19,29 @@ const HotelsSection = () => {
       return res;
     }
   })
+  const [loading, setLoading] = useState(true);
+  const [settings, setSettings] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`${API_BASE_URL}/settings`, {});
+        setSettings(response.data.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error retrieving data:', error);
+        setLoading(false);
+        throw new Error('Could not get data');
+      }
+    };
+    getData();
+  }, []);
+  
   if (isLoading) return <Loader />
   if (isError) return <div className="container my-12"><AlertError>
     هناك خطاء ما
   </AlertError></div>
+  
 
   return (
 
@@ -62,7 +79,7 @@ const HotelsSection = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <HotelCard hotel={hotel} />
+                    <HotelCard hotel={hotel} data= {settings} />
                   </motion.div>
                 </CarouselItem>
               ))}
