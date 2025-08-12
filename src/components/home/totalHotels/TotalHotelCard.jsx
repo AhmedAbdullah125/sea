@@ -21,7 +21,7 @@ const TotalHotelCard = ({ hotel }) => {
         </div>
       </div>
 
-      <Link to={`/hotel?id=${hotel?.slug}`} className={`absolute -bottom-1 -end-1 size-10  bg-main-blue  !text-white  text-xs font-semibold flex items-center justify-center rounded-full  hover:bg-main-purple transition-all duration-300`}>
+      <Link to={`/hotel/${hotel?.slug}`} className={`absolute -bottom-1 -end-1 size-10  bg-main-blue  !text-white  text-xs font-semibold flex items-center justify-center rounded-full  hover:bg-main-purple transition-all duration-300`}>
         <GoArrowUpLeft size={20} />
       </Link>
     </div>

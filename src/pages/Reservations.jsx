@@ -45,7 +45,7 @@ export default function Reservations() {
                                 {
                                     data.hotels.map((item, index) =>
 
-                                        <a href={`/hotel?id=${item.slug}`} className="card-content">
+                                        <a href={`/hotel/${item.slug}`} className="card-content">
                                             <div className="card-item" key={index}>
                                                 <div className="related-item mb-4">
 

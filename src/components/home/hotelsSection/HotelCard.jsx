@@ -8,7 +8,7 @@ import HotelCardCarousel from "./HotelCardCarousel";
 const HotelCard = ({ hotel }) => {
   return (
     <Card className="shadow-none border-none space-y-2 " dir="rtl">
-      <Link to={`/hotel?id=${hotel?.slug}`} className="block" >
+      <Link to={`/hotel/${hotel?.slug}`} className="block" >
         <CardHeader className="p-0 mb-4">
           {/* img slider */}
           < div className="relative overflow-hidden   rounded-[40px]" >

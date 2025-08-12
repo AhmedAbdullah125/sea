@@ -70,7 +70,7 @@ export default function Favourates() {
                                                             : null
                                                     }
                                                 </div>
-                                                <a href={`/hotel?id=${item.item.slug}`} className="card-content">
+                                                <a href={`/hotel/${item.item.slug}`} className="card-content">
                                                     <div className="detail-info-item rate">
                                                         <i className="fa-solid fa-star"></i>
                                                         <span>{Number(item.item.rating).toFixed(1)} <span>( {item.item.likes} )</span></span>

@@ -11,6 +11,7 @@ import { ChevronDown } from "lucide-react"
 
 const Hotels = () => {
     // state for search params
+    
     const [searchParams, setSearchParams] = useSearchParams();
     const [mainData, setMainData] = useState([])
     const [loading, setLoading] = useState(true);

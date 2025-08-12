@@ -48,7 +48,7 @@ const HotelsGrid = ({ mainData }) => {
                             mainData.map((item, index) =>
 
                                 <div className="card-item" key={index}>
-                                    <Link to={`/hotel?id=${item.slug}`} className="related-item block">
+                                    <Link to={`/hotel/${item.slug}`} className="related-item block">
                                         <Swiper
                                             pagination={{ clickable: true }}
                                             spaceBetween={0}
@@ -112,7 +112,7 @@ const HotelsGrid = ({ mainData }) => {
                                             </div>
                                         </div>
                                     </Link>
-                                    <Link to={`/hotel?id=${item.slug}`} className="card-content">
+                                    <Link to={`/hotel/${item.slug}`} className="card-content">
                                         <div className="detail-info-item rate">
                                             <i className="fa-solid fa-star"></i>
                                             <span>{Number(item.rating).toFixed(1)} <span>( {item.likes} )</span></span>
