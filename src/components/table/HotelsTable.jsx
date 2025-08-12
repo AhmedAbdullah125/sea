@@ -55,7 +55,7 @@ const HotelsTable = ({ title, description, data }) => {
                             data.map((item, idx) => (
 
                                 <SwiperSlide key={idx}>
-                                    <Link to={`/hotel?id=${item.id}`} className="related-item-cont" key={idx}>
+                                    <Link to={`/hotel?id=${item.slug}`} className="related-item-cont" key={idx}>
                                         <div className="related-item">
                                             <div className="swiper ">
                                                 <Swiper
