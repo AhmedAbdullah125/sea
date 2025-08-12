@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .PhoneInput>input{
   height: 3rem;
   width: 100%;
@@ -47,7 +46,6 @@
   display: none !important;
 }
 
-
 .loader {
   width: 50px;
   padding: 8px;
@@ -67,4 +65,39 @@
 
 .rating-stars svg {
   display: inline-block !important;
+}
+
+@layer base {
+  .theme {
+    --animate-marquee: marquee var(--duration) infinite linear;
+    --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@theme inline {
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+    }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+    }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
 }

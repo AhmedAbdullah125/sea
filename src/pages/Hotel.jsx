@@ -12,6 +12,7 @@ import Loading from '../components/loading/Loading';
 const Hotel = () => {
     // state for search params
     const { id } = useParams();
+    console.log(id);
     const [searchParams] = useSearchParams();
     // const id = searchParams.get('id');
     const [data, setData] = useState([]);
