@@ -40,7 +40,7 @@ const VisaCard = ({ item }) => {
           </p>
         </div>
       </CardHeader>
-      <CardContent className="p-0 ">
+      <CardContent className="p-0 h-full">
         <h2 className="font-bold text-xl my-8">{item?.title}</h2>
         <h3 className="font-bold text-base my-8">{item?.period}</h3>
         <ul className="space-y-4">

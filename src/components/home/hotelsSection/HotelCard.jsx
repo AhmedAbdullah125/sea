@@ -8,18 +8,20 @@ import HotelCardCarousel from "./HotelCardCarousel";
 const HotelCard = ({ hotel }) => {
   return (
     <Card className="shadow-none border-none space-y-2 " dir="rtl">
-      <Link to={`/hotel/${hotel?.slug}`} className="block" >
-        <CardHeader className="p-0 mb-4">
-          {/* img slider */}
-          < div className="relative overflow-hidden   rounded-[40px]" >
-            {/* sale */}
-            <div div className="absolute top-5 start-5 z-10 size-10 bg-main-purple  text-white text-xs font-semibold flex items-center justify-center rounded-[15px]" > {Number(hotel?.discount).toFixed(1)} %</div>
-            {/* card image */}
+      <CardHeader className="p-0 mb-4">
+        {/* img slider */}
+        < div className="relative overflow-hidden   rounded-[40px]" >
+          {/* sale */}
+          <div div className="absolute top-5 start-5 z-10 size-10 bg-main-purple  text-white text-xs font-semibold flex items-center justify-center rounded-[15px]" > {Number(hotel?.discount).toFixed(1)} %</div>
+          {/* card image */}
+          <Link to={`/hotel/${hotel?.slug}`} className="block" >
             <HotelCardCarousel images={hotel?.images} />
-            {/* add to fav */}
-            < AddToFavBtn id={hotel?.id} type="Hotel" postion="absolute top-5 end-5 z-10" />
-          </div >
-        </CardHeader>
+          </Link>
+          {/* add to fav */}
+          < AddToFavBtn id={hotel?.id} type="Hotel" postion="absolute top-5 end-5 z-10" />
+        </div >
+      </CardHeader>
+      <Link to={`/hotel/${hotel?.slug}`} className="block" >
         <CardContent className=" p-0">
           {/* content */}
           < div className="flex flex-col gap-2" >
