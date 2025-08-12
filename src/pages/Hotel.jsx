@@ -33,6 +33,7 @@ const Hotel = () => {
         };
         getData();
     }, [trigger]);
+console.log(data);
 
     return (
         <section>
@@ -44,7 +45,7 @@ const Hotel = () => {
                 ) : (
                     <div>
                         <HotelHeader data={data} />
-                        <HotelBook data={data} />
+                    <HotelBook data={data} />
                         <div className="midd-section container">
                             <div className="tabs">
                                 <HotelTabs data={data} trigger={trigger} setTrigger={setTrigger} />
