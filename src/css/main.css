@@ -820,6 +820,9 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
 .big-offers-section .offer {
   cursor: pointer;
 }
+.big-offers-section .offer:hover .offer-img img {
+  transform: scale(1.1);
+}
 .big-offers-section .offer .offer-img {
   aspect-ratio: 415/215;
   display: block;

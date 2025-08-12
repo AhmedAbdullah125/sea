@@ -30,7 +30,11 @@
 
     .offer {
         cursor: pointer;
-
+        &:hover {
+            .offer-img img {
+                transform: scale(1.1);
+            }
+        }
         .offer-img {
             aspect-ratio: 415/215;
             display: block;
