@@ -876,6 +876,10 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   font-weight: 500;
 }
 
+.hotels-card-in-home:hover img {
+  transform: scale(1.1);
+}
+
 .detail-title {
   font-weight: 700;
   font-size: 32px;
