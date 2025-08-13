@@ -29,8 +29,8 @@ const PlanMarq = ({ data, settings }) => {
             <div className="relative flex w-full flex-col items-center justify-center overflow-hidden ">
                 <Marquee pauseOnHover className="[--duration:20s]">
                     {data.paymentMethodImages.map((review) => (
-                        <div className="pay-item">
-                        <LazyLoadImage src={review} alt="pay-img" />
+                        <div className="pay-item min-w-48">
+                        <LazyLoadImage src={review.image} alt="pay-img" className="min-w-20 max-h-full" />
                     </div>
                     ))}
                 </Marquee>

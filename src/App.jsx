@@ -58,7 +58,7 @@ function App() {
 			{ path: "/hotel/:id", element: <Hotel></Hotel> },
 			{ path: "/add-house", element: <AddHouse></AddHouse> },
 			{ path: "/packages", element: <Packages></Packages> },
-			{ path: "/package", element: <Package></Package> },
+			{ path: "/package/:id", element: <Package></Package> },
 			{ path: "/terms", element: <Terms></Terms> },
 			{ path: "/privacy", element: <Privacy></Privacy> },
 			{ path: "/login", element: <Login></Login> },

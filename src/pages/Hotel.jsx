@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import HotelHeader from '../components/hotel/HotelHeader';
 import { API_BASE_URL } from '../lib/apiConfig';
 import HotelBook from '../components/hotel/HotelBook';
@@ -12,9 +12,6 @@ import Loading from '../components/loading/Loading';
 const Hotel = () => {
     // state for search params
     const { id } = useParams();
-    console.log(id);
-    const [searchParams] = useSearchParams();
-    // const id = searchParams.get('id');
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [trigger, setTrigger] = useState(false);

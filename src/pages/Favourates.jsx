@@ -99,7 +99,7 @@ export default function Favourates() {
                                                         </figure>
                                                        
                                                     </div>
-                                                    <a href={`/package?slug=${item.item.slug}`} className="card-content">
+                                                    <a href={`/package/${item.item.slug}`} className="card-content">
                                                         <div className="detail-flex">
                                                             <div className="detail-period">جولة لمدة {item.item.durationDays} أيــــام</div>
                                                             <div className="detail-info-item rate">

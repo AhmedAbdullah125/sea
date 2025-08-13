@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
-
-import playImg from '../assets/play.png'
-import { useSearchParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { API_BASE_URL } from '../lib/apiConfig'
 import PlanHeader from '../components/plan/PlanHeader'
@@ -13,9 +11,9 @@ import PlanMarq from '../components/plan/PlanMarq'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import PlanFaqs from '../components/plan/PlanFaqs'
 
-const Hotels = () => {
-    const [searchParams] = useSearchParams();
-    const id = searchParams.get('slug');
+const Package = () => {
+    const { id } = useParams();
+    console.log(id);
     const [data, setData] = useState([]);
     const [settings, setSettings] = useState({});
     const [loading, setLoading] = useState(true);
@@ -88,4 +86,4 @@ const Hotels = () => {
     )
 }
 
-export default Hotels
+export default Package
