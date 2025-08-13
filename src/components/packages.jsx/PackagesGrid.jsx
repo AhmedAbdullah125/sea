@@ -50,7 +50,7 @@ const PackagesGrid = ({ mainData }) => {
                 {
                     mainData.map((item, index) => (
                         <div className="trip-item" key={index}>
-                            <a href={`package?slug=${item.slug}`} className="card-content" style={{padding:"0px"}}>
+                            <a href={`package/${item.slug}`} className="card-content" style={{padding:"0px"}}>
                                 <div className="trip-img">
                                     <figure>
                                         <img src={item.thumbnail} alt="img" />

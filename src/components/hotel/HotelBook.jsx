@@ -2,9 +2,8 @@ import React, { useContext, useState } from 'react'
 import img1 from '../../assets/s.svg'
 import img2 from '../../assets/check.svg'
 import { userContext } from '../../context/UserContext';
+import profileActive from '../../assets/profileActive.svg'
 const HotelBook = ({ data }) => {
-    const { token } = useContext(userContext);
-    
     return (
         <section className="content-section">
             <div className="container">
@@ -27,10 +26,13 @@ const HotelBook = ({ data }) => {
                         <div className="r-side">
                             <div className="name-cont">
                                 {/* first letter of the name */}
-                                {data.ownerName.slice(0, 1)}
+                                {data?.ownerName?
+                                data.ownerName.slice(0, 1):
+                                <img  src={profileActive} alt="profile" />
+                                }
                             </div>
                             <div className="info">
-                                <h3>{data.ownerName} <img src={img2} alt="" /></h3>
+                                <h3>{data.ownerName?data.ownerName:"عميل ســـي"} <img src={img2} alt="" /></h3>
                                 <div className="dets"><p><i className="fa-solid fa-star"></i> <span>{Number(data.ownerRating).toFixed(1)}</span></p> <div className="fasel"> <p><i className="fa-solid fa-house"></i> <span>{data.rentalPeriod}</span></p></div></div>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://sea.subcodeco.com/api';
+const API_BASE_URL = 'https://panel.seatourism.sa/api';
 
 const API_ENDPOINTS = {
   REGISTER: '/auth/register',

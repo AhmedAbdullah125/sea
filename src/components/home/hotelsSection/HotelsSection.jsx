@@ -1,10 +1,4 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious,} from "@/components/ui/carousel"
 import HotelCard from './HotelCard'
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
@@ -13,6 +7,10 @@ import Loader from "../../loader/Loader"
 import AlertError from "../../alerts/AlertError"
 import AlertWarning from "../../alerts/AlertWarning"
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { API_BASE_URL } from "../../../lib/apiConfig";
+
 const HotelsSection = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['hotels'],
@@ -21,15 +19,34 @@ const HotelsSection = () => {
       return res;
     }
   })
+  const [loading, setLoading] = useState(true);
+  const [settings, setSettings] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`${API_BASE_URL}/settings`, {});
+        setSettings(response.data.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error retrieving data:', error);
+        setLoading(false);
+        throw new Error('Could not get data');
+      }
+    };
+    getData();
+  }, []);
+  
   if (isLoading) return <Loader />
   if (isError) return <div className="container my-12"><AlertError>
     هناك خطاء ما
   </AlertError></div>
+  
 
   return (
 
     <motion.section
-      className='my-16'
+      className='my-16 relative container'
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -44,14 +61,14 @@ const HotelsSection = () => {
           }}
           className="w-full space-y-8  "
         >
-          <div className=' flex items-center justify-between xl:ps-20 2xl:ps-24'>
+          <div className=' flex items-center justify-between gap-2'>
             <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue  '>أشهــر فنــــادق {localStorage.getItem('userCountry') || 'تركيـــــا'}.</h2>
-            <div className='flex gap-2 items-center '>
-              <CarouselPrevious className="border-none bg-[#F2F2F2]  text-main-gray hover:bg-main-blue hover:text-white   static xl:size-10  size-8 -translate-y-0" icon={<MdArrowForwardIos />} />
-              <CarouselNext className="border-none bg-[#F2F2F2]  text-main-gray hover:bg-main-blue hover:text-white  static xl:size-10  size-8 -translate-y-0 " icon={<MdArrowBackIos />} />
+            <div className='flex gap-2 items-center justify-between w-[120px] '>
+              <CarouselPrevious className="flex items-center justify-center rounded-full transition-all duration-300 ease-in-out text-white w-11 h-11 text-[10px] bg-[rgba(0,0,0,0.25)] shadow-[0_0_1px_1px_rgba(255,255,255,0.25)] backdrop-blur-[10px] relative top-[unset] bottom-[unset] left-[unset] right-[unset] translate-x-0 translate-y-0" icon={<MdArrowForwardIos />} />
+              <CarouselNext className="flex items-center justify-center rounded-full transition-all duration-300 ease-in-out text-white w-11 h-11 text-[10px] bg-[rgba(0,0,0,0.25)] shadow-[0_0_1px_1px_rgba(255,255,255,0.25)] backdrop-blur-[10px] relative top-[unset] bottom-[unset] left-[unset] right-[unset] translate-x-0 translate-y-0" icon={<MdArrowBackIos />} />
             </div>
           </div>
-          <div className="max-xl:container xl:ps-20 2xl:ps-24">
+          <div className="max-xl:container">
 
             <CarouselContent className=""  >
               {data?.data?.data?.map((hotel, index) => (
@@ -62,7 +79,7 @@ const HotelsSection = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <HotelCard hotel={hotel} />
+                    <HotelCard hotel={hotel} data= {settings} />
                   </motion.div>
                 </CarouselItem>
               ))}

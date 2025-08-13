@@ -9,24 +9,13 @@ import { API_BASE_URL } from '../lib/apiConfig';
 import axios from 'axios';
 import ActivitiesTable from '../components/table/ActivitiesTable';
 import Loading from '../components/loading/Loading';
-import {  AlertDialog,  AlertDialogAction,  AlertDialogCancel,  AlertDialogContent,  AlertDialogDescription,  AlertDialogFooter,  AlertDialogHeader,  AlertDialogTitle,  AlertDialogTrigger,} from "@/components/ui/alert-dialog";
 
 const Table = () => {
   const [hotels, setHotels] = useState([]);
   const [activities, setActivities] = useState([]);
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isScrolled, setIsScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 300);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -55,28 +44,6 @@ const Table = () => {
         <Loading />
       ) : (
         <>
-          {/* {isScrolled && (
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <button className="filter-btn">
-                  تصفيــة وترتيــب <i className="fa-solid fa-arrow-down-arrow-up"></i>
-                </button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>هل أنت متأكد؟</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    لا يمكن التراجع عن هذا الإجراء. هذا سيقوم بحذف حسابك نهائيًا من النظام.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>إلغاء</AlertDialogCancel>
-                  <AlertDialogAction>متابعة</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          )} */}
-
           <BreadCrumb
             data={[
               { title: "الرئيــسية", href: "/" },

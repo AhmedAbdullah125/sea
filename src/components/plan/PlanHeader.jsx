@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import detailImg from '../../assets/detail.jpg'
-import imgIcon1 from '../../assets/imgIcon-1.svg'
-import imgIcon2 from '../../assets/imgIcon-2.svg'
+import imgicon1 from '../../assets/imgIcon-1.svg'
+import imgicon2 from '../../assets/imgIcon-2.svg'
+import { Fancybox } from "@fancyapps/ui";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { toast } from 'sonner'
 import { toggleFavourates } from '../../pages/toggleFavourates'
 
 const PlanHeader = ({ data }) => {
+    const [selectedImg, setselectedImg] = useState(data.images[0])
     const [lovedPlans, setLovedPlans] = useState(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : [])
+    Fancybox.bind("[data-fancybox]", {
+        // Your custom options
+    });
+    Fancybox.bind("[data-fancybox-video]", {
+        // Your custom options
+    });
+    // Link swipers after both are ready
     useEffect(() => {
         if (typeof window !== 'undefined') {
             if (localStorage.getItem('lovedPlans')) {
@@ -28,6 +38,18 @@ const PlanHeader = ({ data }) => {
         }
     }, [data])
     const [selectedImage, setSelectedImage] = useState(data.thumbnail)
+    const [videosArr, setVideosArr] = useState([])
+    useEffect(() => {
+        let vids = []
+        for (let i = 0; i < data.images.length; i++) {
+            if (data.images[i].includes('.mp4') || data.images[i].includes('.mov') || data.images[i].includes('.webm')) {
+                vids = [...vids, data.images[i]]
+            }
+
+        }
+        setVideosArr(vids)
+    }, [data.videos])
+
     return (
         <section className="content-section">
             <div className="container">
@@ -74,35 +96,83 @@ const PlanHeader = ({ data }) => {
                         ><i className={` fa-heart ${lovedPlans.includes(data.id) ? 'fa-solid text-[#a71755]' : 'fa-regular'}`}></i></button>
                     </div>
                 </div>
-                <div className="detail-cont">
-                    <div className="detail-box">
-                        <figure className="detail-img">
-                            <img src={selectedImage} className="img-fluid" alt="detail-img" />
-                        </figure>
-                        <div className="detail-img-btn">
-                            <button className="add-btn">
-                                <img src={imgIcon1} alt="icon" />
-                            </button>
-                            <button className="add-btn">
-                                <img src={imgIcon2} alt="icon" />
-                            </button>
-                        </div>
-                    </div>
-                    <div className="detail-box">
-                        <figure className="detail-img" onClick={() => setSelectedImage(data.thumbnail)}>
-                            <img src={data.thumbnail} className="img-fluid" alt="detail-img" />
-                        </figure>
-                    </div>
-                    {
-                        data.images.slice(0, 3).map((img, index) => (
-                            <div className="detail-box" key={index}>
-                                <figure className="detail-img" onClick={() => setSelectedImage(img)}>
-                                    <img src={img} className="img-fluid" alt="detail-img" />
+                {
+                    data.images.length > 0 ?
+                        <div className="detail-cont">
+                            <div className="detail-box">
+
+                                <figure className="detail-img">
+                                    {/\.(mp4|mov|webm)$/i.test(selectedImg) ? (
+                                        <video src={selectedImg} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                                    ) : (
+                                        <img src={selectedImg} className="img-fluid" alt="detail-img" />
+                                    )}
                                 </figure>
+                                <div className="detail-img-btn">
+                                    <a href={data.images[0]} data-fancybox="gallery" data-caption={`Image 1`} className="single-img">
+                                        <button className="add-btn">
+                                            <img src={imgicon1} alt="icon" />
+                                        </button>
+                                    </a>
+                                    {
+                                        videosArr.length > 0 ?
+                                            <a href={videosArr[0]} data-fancybox="vids" data-caption={`Video 1`} className="single-img">
+                                                <button className="add-btn">
+                                                    <img src={imgicon2} alt="icon" />
+                                                </button>
+                                            </a>
+                                            : null
+
+                                    }
+                                </div>
                             </div>
-                        ))
-                    }
-                </div>
+                            {data.images.map((mediaUrl, idx) => {
+                                const isVideo = /\.(mp4|mov|webm)$/i.test(mediaUrl);
+
+                                return (
+                                    <div className="detail-box" key={idx}>
+                                        <figure
+                                            className="detail-img"
+                                            onClick={() => setselectedImg(mediaUrl)}
+                                        >
+                                            {
+                                                idx == 3 ?
+                                                    isVideo ? (
+                                                        <video src={mediaUrl} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                                                    )
+                                                        :
+                                                        <img src={mediaUrl} className="img-fluid" alt="detail-img" />
+                                                    :
+                                                    isVideo ? (
+                                                        <a href={mediaUrl} data-fancybox="gallery" data-caption={`Video ${idx + 1}`} className="single-img">
+                                                            <video src={mediaUrl} className="img-fluid" muted preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
+                                                        </a>
+                                                    ) : (
+                                                        isVideo ? (
+                                                            <a href={mediaUrl} data-fancybox="gallery" data-caption={`Image ${idx + 1}`} className="single-img">
+                                                                <img src={mediaUrl} className="img-fluid" alt="detail-img" />
+                                                            </a>
+                                                        ) :
+                                                            (
+                                                                <a href={mediaUrl} data-fancybox="gallery" data-caption={`Image ${idx + 1}`} className="single-img">
+                                                                    <img src={mediaUrl} className="img-fluid" alt="detail-img" />
+                                                                </a>
+                                                            )
+                                                    )
+                                            }
+                                            {
+                                                idx == 3 ?
+                                                    <div className="rest"><a href={mediaUrl} data-fancybox="gallery">+{data.images.length - 3}</a></div>
+                                                    : null
+                                            }
+                                        </figure>
+                                    </div>
+                                );
+                            })}
+
+                        </div>
+                        : null
+                }
             </div>
         </section>
     )

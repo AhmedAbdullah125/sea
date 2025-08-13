@@ -1,0 +1,110 @@
+.big-offers-section {
+    padding: 75px 0;
+
+    .swiper-btn-2 {
+        bottom: -45px;
+        /* transform: translateY(50%); */
+        padding: 0;
+        width: 120px;
+        inset-inline-end: 0;
+    }
+
+    h2 {
+        color: $hover;
+        font-size: 44px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        text-align: center;
+
+    }
+
+    p {
+        font-size: 15px;
+        font-weight: 600;
+        color: #6F6F6F;
+        margin: 0 auto 63px;
+        text-align: center;
+        max-width: 750px;
+
+    }
+
+    .offer {
+        cursor: pointer;
+        &:hover {
+            .offer-img img {
+                transform: scale(1.1);
+            }
+        }
+        .offer-img {
+            aspect-ratio: 415/215;
+            display: block;
+            overflow: hidden;
+            border-radius: 45px;
+            position: relative;
+            margin-bottom: 25px;
+
+            @media screen and (max-width: 767px) {
+                border-radius: 20px;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: all 0.3s ease-in-out;
+            }
+        }
+
+        h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #747474;
+            margin-bottom: 25px;
+
+        }
+
+        p {
+            color: $main;
+            font-family: 800;
+
+            margin-bottom: 25px;
+            line-height: 30px;
+            // maximum 2 lines 
+            overflow: hidden;
+            display: -webkit-box;
+
+            -webkit-box-orient: vertical;
+            text-align: start;
+        }
+
+        .valid-date {
+            color: $main;
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 15px;
+
+        }
+
+        .place {
+            span {
+                color: #6F6F6F;
+                font-size: 12px;
+                font-weight: 500;
+            }
+        }
+
+    }
+
+    button {
+        color: #6F6F6F;
+        font-size: 12px;
+        font-weight: 500;
+    }
+}
+.hotels-card-in-home{
+    &:hover{
+        img{
+            transform: scale(1.1);
+        }
+    }
+}

@@ -15,7 +15,7 @@ const AppSection = () => {
     const getData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${API_BASE_URL}/settings`, {});
+        const response = await axios.get(`${API_BASE_URL}/about-us`, {});
         setData(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -26,7 +26,6 @@ const AppSection = () => {
     };
     getData();
   }, []);
-  console.log(data)
   return (
     <motion.section
       initial={{ opacity: 0, y: 30 }}
@@ -36,7 +35,9 @@ const AppSection = () => {
       className='my-16  container'>
       {
         loading ? <Loading /> :
-          <div className={`overflow-hidden  bg-[url(${data?.appName})] bg-center bg-cover bg-no-repeat rounded-[105px] bg-main-blue/45`}>
+          <div className={`overflow-hidden bg-center bg-cover bg-no-repeat rounded-[105px] bg-main-blue/45`}
+          style={{ backgroundImage: `url(${data?.imageApp})` }}
+          >
             <div className=" flex items-center justify-between bg-main-blue/45">
 
               {/* content */}
@@ -50,7 +51,7 @@ const AppSection = () => {
                   <p className='text-xs  font-bold'>التطبيق</p>
                   <h3 className='xl:text-5xl text-3xl font-bold '>تطبيق ســـي / SEA</h3>
                   <svg className='ms-auto max-xl:hidden' width="250" height="29" viewBox="0 0 383 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.99991 23.7725C52.5375 10.5523 193.772 -8.87522 378.409 19.1765" stroke="white" strokeWidth="9" stroke-linecap="round" />
+                    <path d="M4.99991 23.7725C52.5375 10.5523 193.772 -8.87522 378.409 19.1765" stroke="white" strokeWidth="9" strokeLinecap="round" />
                   </svg>
 
                   <p className='text-sm xl:text-nowrap font-bold'>استكشـــــــف، احجــــــــــز، واستمتــــــــــــــــــع... مــــــــــــــن جوالك!</p>

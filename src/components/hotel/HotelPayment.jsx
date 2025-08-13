@@ -92,30 +92,36 @@ const HotelPayment = ({ data }) => {
 
     return (
         <section className='hotel-payment-section'>
-            <div className="price-discount">
-                <div className="r-side">
-                    <p className='price-details'>
-                        <span className='old-price'>
-                            {pricePerNight * (Number(data.discount) + 100) / 100}
-                        </span>
-                        <span className='new-price'>
-                            {pricePerNight}
-                        </span>
-                        <div className="rs-t">
-                           {data.currencyName} / لليلة الواحــــدة
+            {
+                data?.price ?
+                    <div className="price-discount">
+                        <div className="r-side">
+                            <p className='price-details'>
+                                <span className='old-price'>
+                                    {pricePerNight * (Number(data.discount) + 100) / 100}
+                                </span>
+                                <span className='new-price'>
+                                    {pricePerNight}
+                                </span>
+                                <div className="rs-t">
+                                    {data.currencyName} / لليلة الواحــــدة
+                                </div>
+                            </p>
+                            <p className='total-price'>إجمالي ليلة واحدة {pricePerNight.toFixed(2)} ر.س</p>
                         </div>
-                    </p>
-                    <p className='total-price'>إجمالي ليلة واحدة {pricePerNight.toFixed(2)} ر.س</p>
-                </div>
-                <div className="l-side">
-                    <span className='discount'>
-                        خصم %{Number(data?.discount).toFixed(0) || 0}
-                    </span>
-                </div>
-            </div>
+                        <div className="l-side">
+                            <span className='discount'>
+                                خصم %{Number(data?.discount).toFixed(0) || 0}
+                            </span>
+                        </div>
+                    </div>
+                    : null
+            }
 
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 my-10">
+            {
+                data.price ?
+                <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-10">
                     <div className="hotel-payment-grid">
                         {/* Arrival Date */}
                         <FormField
@@ -264,7 +270,7 @@ const HotelPayment = ({ data }) => {
                             <div className="hagez"></div>
                             <div className="linee total-line">
                                 <div className="key">الإجمالي</div>
-                                <div className="value">{totalPrice.toFixed(2) - (Number(data.discount) / 100 * totalPrice) + data.serviceFees} ريال</div>
+                                <div className="value">{totalPrice.toFixed(2) - (Number(data.discount) / 100 * totalPrice) + Number(data.serviceFees)} ريال</div>
                             </div>
                         </div>
                         {/* <AlertDialog style={{ direction: "rtl" }}>
@@ -297,16 +303,27 @@ const HotelPayment = ({ data }) => {
 
                         {/* Submit */}
                         <div className="flex gap-3 flex-wrap">
-                            <button htmlFor="submit" type="submit" 
+                            <button htmlFor="submit" type="submit"
                                 className="group h-12 px-6 text-white  bg-main-blue hover:bg-main-purple transtion-all duration-300 w-full text-xs font-bold   rounded-full flex items-center justify-between  hover:text-white  "
                             >
                                 احجز الان
-                            <FaLink
-                                size={20} className="text-white" />
+                                <FaLink
+                                    size={20} className="text-white" />
                             </button>
 
 
-                       
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </form>
+            </Form>
+            :null
+            }
 
                             <Link
                                 className="h-12 px-6 text-white  bg-main-blue hover:bg-main-purple transtion-all duration-300 w-full text-xs font-bold   rounded-full flex items-center justify-between  hover:text-white  "
@@ -325,15 +342,6 @@ const HotelPayment = ({ data }) => {
                                     <path d="M15.0625 13.3125C14.8125 14.0625 13.875 14.6875 13.0625 14.8125C12.875 14.875 12.6875 14.875 12.4375 14.875C11.9375 14.875 11.1875 14.75 9.875 14.1875C8.375 13.5625 6.875 12.25 5.6875 10.5625V10.5C5.3125 9.9375 4.625 8.875 4.625 7.75C4.625 6.375 5.3125 5.6875 5.5625 5.375C5.875 5.0625 6.3125 4.875 6.8125 4.875C6.9375 4.875 7 4.875 7.125 4.875C7.5625 4.875 7.875 5 8.1875 5.625L8.4375 6.125C8.625 6.625 8.875 7.1875 8.9375 7.25C9.125 7.625 9.125 7.9375 8.9375 8.25C8.875 8.4375 8.75 8.5625 8.625 8.6875C8.5625 8.8125 8.5 8.875 8.4375 8.875C8.375 8.9375 8.375 8.9375 8.3125 9C8.5 9.3125 8.875 9.875 9.375 10.3125C10.125 11 10.6875 11.1875 11 11.3125C11.125 11.1875 11.25 10.9375 11.4375 10.75L11.5 10.625C11.8125 10.1875 12.3125 10.0625 12.8125 10.25C13.0625 10.375 14.4375 11 14.4375 11L14.5625 11.0625C14.75 11.1875 15 11.25 15.125 11.5C15.375 12.0625 15.1875 12.875 15.0625 13.3125Z" fill="white" />
                                 </svg>
                             </Link>
-
-
-
-
-
-                        </div>
-                    </div>
-                </form>
-            </Form>
         </section >
     );
 };

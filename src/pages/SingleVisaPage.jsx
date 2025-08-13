@@ -47,15 +47,14 @@ const SingleVisaPage = () => {
       {data?.data?.data ?
         <main >
           {/* header */}
-          <div className="bg-[url('/visa/bg.png')] bg-cover bg-center py-16">
+          <div className={`bg-cover bg-center`} style={{ backgroundImage: `url(${visa?.image})` }} >
             {/* content  */}
-            <div className="container text-white text-center ">
-              <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">تأشيرة {visa?.countryName} الإلكترونية</h1>
-              <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">
-                يمكن لأي شخص يَحمل جواز سفر الحصول على التأشيرة الإلكترونية وفقًا للشروط الموضوعة .
-              </p>
-              <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">
-                يتم معالجة الطلب من 3 إلى 5 أيام عمل.          </p>
+            <div className="overlay bg-black/50 text-white text-center  py-16">
+              <div className="container">
+                <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">تأشيرة {visa?.countryName} الإلكترونية</h1>
+                <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">{visa?.description} </p>
+                <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">{visa?.period}</p>
+              </div>
             </div>
           </div>
 

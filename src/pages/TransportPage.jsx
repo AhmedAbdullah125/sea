@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Step1 from "../components/transport/Step1";
 import Step2 from "../components/transport/Step2";
 import Step3 from "../components/transport/Step3";
@@ -53,8 +53,6 @@ const TransportPage = () => {
       return res?.data?.data
     }
   });
-  
-  
 
   return (
     <>
@@ -103,25 +101,31 @@ const TransportPage = () => {
                 <li className="flex items-center gap-1 ">
                   <FaCalendarAlt size={16} />
                   <p>
-                  {new Date(date).toLocaleString("ar-EG", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </p>
+                    {new Date(date).toLocaleString("ar-EG", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </p>
                 </li>
               </ul>
             </div>
             {/* price content */}
             <Accordion type="single" collapsible defaultValue="price" className="w-full">
               <AccordionItem value="price" className="border-none">
-                <AccordionTrigger className="text-main-blue text-xs font-semibold hover:underline-none ">تفاصيل التكلفة (بالـريـــال)</AccordionTrigger>
+                <AccordionTrigger className="text-main-blue text-xs font-semibold hover:underline-none ">تفاصيل التكلفة ({data?.currencyName})</AccordionTrigger>
                 <AccordionContent className="flex flex-col gap-4 mt-6"  >
                   <div className="text-xs font-semibold flex items-center justify-between">
-                    <p>خدمة الاستقبال:</p>
-                    <p className="text-main-blue text-sm  flex items-center gap-1">{parseFloat(data?.totalServicePrice).toFixed(2)}
-                      <span>{data?.currencyName}</span>
-                    </p>
+                    {
+                      data?.services.map((item, index) => (
+                        <>
+                          <p>{item.name} :</p>
+                          <p className="text-main-blue text-sm  flex items-center gap-1">{parseFloat(item?.price).toFixed(2)}
+                            <span>{data?.currencyName}</span>
+                          </p>
+                        </>
+                      ))
+                    }
                   </div>
                   <div className="text-xs font-semibold flex items-center justify-between">
                     <p>المجموع الفرعي:</p>
@@ -131,7 +135,7 @@ const TransportPage = () => {
                   </div>
                   <div className="text-sm font-bold flex items-center justify-between">
                     <p>الإجمالي:</p>
-                    <p className="text-main-blue   flex items-center gap-1"> ={parseFloat(data?.totalServicePrice).toFixed(2)}
+                    <p className="text-main-blue   flex items-center gap-1">  {(Number(data?.totalServicePrice)).toFixed(2)}
                       <span>{data?.currencyName}</span>
                     </p>
                   </div>

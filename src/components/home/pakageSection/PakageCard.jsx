@@ -8,14 +8,16 @@ import AddToFavBtn from "../hotelsSection/AddToFavBtn"
 import { TiStarFullOutline } from "react-icons/ti"
 import { Link } from "react-router-dom"
 
-const PakageCard = ({item}) => {
+const PakageCard = ({ item }) => {
   return (
     <Card className="shadow-none border-none col-span-12 md:col-span-6 xl:col-span-3 space-y-3">
       <CardHeader className="p-0 ">
         <div className=" relative overflow-hidden h-56 rounded-[40px]">
           {/* add to fav */}
           < AddToFavBtn id={item?.id} type="Plan" postion="absolute top-5 end-5 z-10" />
-          < img src={item?.thumbnail} alt="item" loading="lazy" className="w-full h-full object-cover" />
+          <Link to={`/package/${item?.slug}`}>
+            < img src={item?.thumbnail} alt="item" loading="lazy" className="w-full h-full object-cover" />
+          </Link>
         </div>
       </CardHeader>
       <CardContent className="p-0 space-y-3">
@@ -30,7 +32,7 @@ const PakageCard = ({item}) => {
           </div >
         </div>
         {/* details */}
-        <h3 h3 className=" font-bold line-clamp-1" > {item?.title }</h3 >
+        <h3 h3 className=" font-bold line-clamp-1" > {item?.title}</h3 >
         <p className="text-main-gray text-xs line-clamp-1">سارية في {item?.startDate} </p>
         {/* price */}
         <h4 className="font-bold text-main-blue"> {Number(item?.cost).toFixed(2)} <span className="text-xs font-semibold text-main-purple">{item?.currencyName}/ للشخص الواحد</span>
@@ -40,8 +42,8 @@ const PakageCard = ({item}) => {
       </CardContent>
       <CardFooter className="p-0">
         <div className="flex items-center justify-between gap-2 w-full">
-          <Link to={`/package?slug=${item?.slug}`} className="h-10 flex-grow  rounded-full   bg-main-purple !text-white  hover:bg-main-blue transition-all duration-300 text-xs font-semibold flex items-center justify-center ">إحجـــز رحلتك الان</Link>
-          <Link to={`/package?slug=${item?.slug}`} className="group size-10 bg-main-purple  hover:bg-main-blue transition-all duration-300 rounded-full flex items-center justify-center">
+          <Link to={`/package/${item?.slug}`} className="h-10 flex-grow  rounded-full   bg-main-purple !text-white  hover:bg-main-blue transition-all duration-300 text-xs font-semibold flex items-center justify-center ">إحجـــز رحلتك الان</Link>
+          <Link to={`/package/${item?.slug}`} className="group size-10 bg-main-purple  hover:bg-main-blue transition-all duration-300 rounded-full flex items-center justify-center">
             <svg
               className="text-white "
               width="20"

@@ -39,7 +39,6 @@ const LoginDialog = ({ mainHeader = false }) => {
     getData();
 
   }, []);
-  console.log(profile)
   const handleSendOtp = (enteredPhone) => {
     setPhone(enteredPhone);
     setIsOtpSent(true);

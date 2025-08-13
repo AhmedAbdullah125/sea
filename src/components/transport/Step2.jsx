@@ -84,7 +84,6 @@ const Step2 = ({ nextStep, transportId, starting_point, date, people_count, car_
           "Content-Type": "multipart/form-data",
         }
       });
-      console.log(res);
       if (res.status === 201) {
         toast.success("تم الحجز بنجاح");
         setTimeout(() => {
@@ -151,10 +150,10 @@ const Step2 = ({ nextStep, transportId, starting_point, date, people_count, car_
                       <div className=" border size-14 rounded-full flex items-center justify-center">
                         <svg width="69" height="70" viewBox="0 0 69 70" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <rect y="0.5" width="69" height="69" rx="34.5" fill="black" />
-                          <path d="M31.5 34V40L33.5 38" stroke="white" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                          <path d="M31.5 40L29.5 38" stroke="white" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                          <path d="M44.5 33V38C44.5 43 42.5 45 37.5 45H31.5C26.5 45 24.5 43 24.5 38V32C24.5 27 26.5 25 31.5 25H36.5" stroke="white" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                          <path d="M44.5 33H40.5C37.5 33 36.5 32 36.5 29V25L44.5 33Z" stroke="white" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                          <path d="M31.5 34V40L33.5 38" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M31.5 40L29.5 38" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M44.5 33V38C44.5 43 42.5 45 37.5 45H31.5C26.5 45 24.5 43 24.5 38V32C24.5 27 26.5 25 31.5 25H36.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M44.5 33H40.5C37.5 33 36.5 32 36.5 29V25L44.5 33Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
 
                       </div>
@@ -167,7 +166,7 @@ const Step2 = ({ nextStep, transportId, starting_point, date, people_count, car_
                     </div>
                     {/* icon */}
                     <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fillRule="evenodd" clip-rule="evenodd" d="M0 8C0 4.46446 -8.9407e-08 2.6967 1.09835 1.59835C2.1967 0.5 3.96446 0.5 7.5 0.5C11.0355 0.5 12.8033 0.5 13.9016 1.59835C15 2.6967 15 4.46446 15 8C15 11.5355 15 13.3033 13.9016 14.4016C12.8033 15.5 11.0355 15.5 7.5 15.5C3.96446 15.5 2.1967 15.5 1.09835 14.4016C-8.9407e-08 13.3033 0 11.5355 0 8ZM7.5 12.3125C7.81065 12.3125 8.0625 12.0607 8.0625 11.75V7.85803L9.35228 9.14773C9.57195 9.3674 9.92805 9.3674 10.1477 9.14773C10.3674 8.92805 10.3674 8.57195 10.1477 8.35228L7.89773 6.10225C7.79228 5.99677 7.64918 5.9375 7.5 5.9375C7.35083 5.9375 7.20773 5.99677 7.10228 6.10225L4.85225 8.35228C4.63259 8.57195 4.63259 8.92805 4.85225 9.14773C5.07192 9.3674 5.42808 9.3674 5.64775 9.14773L6.9375 7.85803V11.75C6.9375 12.0607 7.18935 12.3125 7.5 12.3125ZM4.5 4.8125C4.18934 4.8125 3.9375 4.56066 3.9375 4.25C3.9375 3.93934 4.18934 3.6875 4.5 3.6875H10.5C10.8107 3.6875 11.0625 3.93934 11.0625 4.25C11.0625 4.56066 10.8107 4.8125 10.5 4.8125H4.5Z" fill="black" />
+                      <path fillRule="evenodd" clipRule="evenodd" d="M0 8C0 4.46446 -8.9407e-08 2.6967 1.09835 1.59835C2.1967 0.5 3.96446 0.5 7.5 0.5C11.0355 0.5 12.8033 0.5 13.9016 1.59835C15 2.6967 15 4.46446 15 8C15 11.5355 15 13.3033 13.9016 14.4016C12.8033 15.5 11.0355 15.5 7.5 15.5C3.96446 15.5 2.1967 15.5 1.09835 14.4016C-8.9407e-08 13.3033 0 11.5355 0 8ZM7.5 12.3125C7.81065 12.3125 8.0625 12.0607 8.0625 11.75V7.85803L9.35228 9.14773C9.57195 9.3674 9.92805 9.3674 10.1477 9.14773C10.3674 8.92805 10.3674 8.57195 10.1477 8.35228L7.89773 6.10225C7.79228 5.99677 7.64918 5.9375 7.5 5.9375C7.35083 5.9375 7.20773 5.99677 7.10228 6.10225L4.85225 8.35228C4.63259 8.57195 4.63259 8.92805 4.85225 9.14773C5.07192 9.3674 5.42808 9.3674 5.64775 9.14773L6.9375 7.85803V11.75C6.9375 12.0607 7.18935 12.3125 7.5 12.3125ZM4.5 4.8125C4.18934 4.8125 3.9375 4.56066 3.9375 4.25C3.9375 3.93934 4.18934 3.6875 4.5 3.6875H10.5C10.8107 3.6875 11.0625 3.93934 11.0625 4.25C11.0625 4.56066 10.8107 4.8125 10.5 4.8125H4.5Z" fill="black" />
                     </svg>
 
                   </div>
