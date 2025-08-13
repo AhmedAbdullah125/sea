@@ -7,6 +7,7 @@ const HotelTabs = ({ data, trigger, setTrigger }) => {
     const [activeTab, setActiveTab] = useState(0);
     const latitude = data.latitude
     const longitude = data.longitude;
+    console.log(data)
     const [comment, setComment] = useState("");
     const [rate, setRate] = useState(null);
     const formatter = new Intl.DateTimeFormat('ar-EG', {
@@ -51,7 +52,7 @@ const HotelTabs = ({ data, trigger, setTrigger }) => {
                         <div className="comments">
                             {
                                 data.commnets.map((item, idx) => (
-                                    <div className="comment">
+                                    <div className="comment" key={idx}>
                                         <div className="comment-head">
                                             {/* first letter of the name */}
                                             <span className='first-letter'>{item?.name?.slice(0, 1)}</span>
@@ -68,19 +69,13 @@ const HotelTabs = ({ data, trigger, setTrigger }) => {
                                 ))
                             }
                         </div>
-                        <HotelRateForm comment={comment} rate={rate} setComment={setComment} data={data} setRate={setRate} trigger={trigger} setTrigger={setTrigger}  activeTab={activeTab} setActiveTab={setActiveTab}/>
+                        <HotelRateForm comment={comment} rate={rate} setComment={setComment} data={data} setRate={setRate} trigger={trigger} setTrigger={setTrigger} activeTab={activeTab} setActiveTab={setActiveTab} />
                     </>
                 }
                 {
                     activeTab === 3 &&
                     <div className="map-cont">
-                        <iframe
-                            width="100%"
-                            height="450"
-                            style={{ border: 0 }}
-                            loading="lazy"
-                            allowFullScreen
-                            referrerPolicy="no-referrer-when-downgrade"
+                        <iframe width="100%" height="450" style={{ border: 0 }} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade"
                             src={`https://www.google.com/maps?q=${latitude},${longitude}&hl=ar&z=14&output=embed`}
                         />
 
