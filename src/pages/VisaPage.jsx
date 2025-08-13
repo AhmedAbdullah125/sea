@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom"
 import Loading from "../components/loading/Loading"
 import AlertWarning from "../components/alerts/AlertWarning"
 import AlertError from "../components/alerts/AlertError"
+import { motion } from "framer-motion"
 const VisaPage = () => {
   const [searchParams] = useSearchParams();
   const type = searchParams.get("type");
@@ -31,7 +32,12 @@ const VisaPage = () => {
     <main>
       <Header />
       {/* header */}
-      <div className="bg-[url('/visa/bg.png')] bg-cover bg-center py-16">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        className="bg-[url('/visa/bg.png')] bg-cover bg-center py-16">
         {/* content  */}
         <div className="container text-white text-center ">
           {type ?
@@ -46,20 +52,36 @@ const VisaPage = () => {
           <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">
             يتم معالجة الطلب من 3 إلى 5 أيام عمل.          </p>
         </div>
-      </div>
+      </motion.div>
       {/* content */}
       <section className="my-16 container">
         {/* header of section */}
-        <div className="  text-center xl:space-y-8 md:space-y-6 space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="  text-center xl:space-y-8 md:space-y-6 space-y-4">
           <p className="font-bold text-xs">أنواع التأشيرات</p>
           <h1 className="xl:text-6xl md:text-4xl text-3xl text-main-blue font-bold ">إختر نــوع تـــأشيرتك</h1>
           <p className="text-xs font-semibold">جميع التأشيرات صالحة ومعتمدة  ويمكن استخدامها لجميع وسائل النقل.</p>
 
-        </div>
+        </motion.div>
         {/* grid */}
         {data?.data?.data?.length > 0 ?
           <div className="grid grid-cols-12 gap-4  mt-16">
-            {data?.data?.data?.map((item, index) => (<VisaCard key={index} item={item} />))}
+            {data?.data?.data?.map((item, index) => (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: index * 0.1 }}
+                key={index}
+              className="col-span-12 md:col-span-6 xl:col-span-3  bg-body rounded-[50px]  p-6 h-full"
+              >
+                <VisaCard  item={item} />
+              </motion.div>
+            ))}
           </div>
           : <AlertWarning>لا يوجد تأشيرات متاحه الان</AlertWarning>
         }

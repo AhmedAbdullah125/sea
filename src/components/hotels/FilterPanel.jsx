@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { API_BASE_URL } from "../../lib/apiConfig";
+import { motion } from "framer-motion";
 
 // Zod schema
 export const filterSchema = z.object({
@@ -147,7 +148,12 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
 
   return (
     <Form {...form}>
-      <form className="space-y-4 mb-10">
+      <motion.form
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.5 }}
+        className="space-y-4 mb-10">
         <div className="flex gap-4 xl:flex-nowrap flex-wrap">
           {/* start */}
           <FormField
@@ -297,7 +303,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
             مسح الفلترة
           </button>
         </div>
-      </form>
+      </motion.form>
     </Form>
   );
 };

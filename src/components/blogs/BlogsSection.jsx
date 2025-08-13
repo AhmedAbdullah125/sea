@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import AlertWarning from '../alerts/AlertWarning';
 import Loader from '../loader/Loader';
 import BlogCard from './BlogCard';
@@ -8,7 +9,12 @@ const BlogsSection = ({ title, data, isLoading }) => {
   return (
     <section className='space-y-12'>
       {title &&
-        <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue max-xl:text-center'>{title}</h2>
+        <motion.h2
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue max-xl:text-center'>{title}</motion.h2>
       }
       {data?.data?.data?.length == 0 ?
         <AlertWarning >

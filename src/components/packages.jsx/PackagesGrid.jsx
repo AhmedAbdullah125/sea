@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 import { toggleFavourates } from '../../pages/toggleFavourates';
 import axios from 'axios';
 import { API_BASE_URL } from '../../lib/apiConfig';
+import {motion} from "framer-motion";
 const PackagesGrid = ({ mainData }) => {
     const [data, setData] = useState([])
     const [lovedPlans, setLovedPlans] = useState(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : [])
@@ -49,7 +50,11 @@ const PackagesGrid = ({ mainData }) => {
 
                 {
                     mainData.map((item, index) => (
-                        <div className="trip-item" key={index}>
+                        <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }} className="trip-item" key={index}>
                             <a href={`package/${item.slug}`} className="card-content" style={{padding:"0px"}}>
                                 <div className="trip-img">
                                     <figure>
@@ -96,7 +101,7 @@ const PackagesGrid = ({ mainData }) => {
                                     <a href={`https://wa.me/${data.whatsapp}?text= مناقشتكم لإضافه لحجز الباقة ${item.title} `} className="book-flight"><img src={plane} alt="icon" /></a>
                                 </div>
                             </a>
-                        </div>
+                        </motion.div>
                     ))
                 }
             </div>

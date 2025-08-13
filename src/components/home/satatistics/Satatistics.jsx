@@ -71,19 +71,36 @@ const Satatistics = () => {
             </Link>
           </div>
           {/* statistics */}
-          <div className="grid grid-cols-12 gap-2 ">
-            {data?.data?.data?.images?.map((statistic, index) => {
-              const isLast = index === data?.data?.data?.images?.length - 1;
+          <div className="flex flex-wrap">
+            {data?.data?.data?.images?.map((statistic, index, arr) => {
+              const colPerRow = 3; // عدد الأعمدة العادي
+              const rowIndex = Math.floor(index / colPerRow); // الصف الحالي
+              const startOfRow = rowIndex * colPerRow; // أول عنصر في الصف
+              const itemsInRow = Math.min(colPerRow, arr.length - startOfRow); // عدد العناصر في الصف ده
+
+              let widthClass = "xl:w-1/3 w-full"; // الافتراضي
+
+              if (itemsInRow === 1) {
+                widthClass = "w-full";
+              } else if (itemsInRow === 2) {
+                // العنصر الأول في الصف ياخد تلت، التاني ياخد تلتين
+                if (index === startOfRow) widthClass = "xl:w-1/3 w-full";
+                else widthClass = "xl:w-2/3 w-full";
+              }
+
               return (
-                <StatisticCard
-                  key={index}
-                  idx={index + 1}
-                  statistic={statistic}
-                  isLast={isLast}
-                />
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  key={index} className={`p-2 ${widthClass}`}>
+                  <StatisticCard statistic={statistic} idx={index + 1} />
+                </motion.div>
               );
             })}
           </div>
+
         </div> : ""}
     </motion.section>
   )

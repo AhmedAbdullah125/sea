@@ -14,9 +14,15 @@ import { MdArrowBackIosNew } from "react-icons/md";
 import { GoArrowUpLeft } from "react-icons/go";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { motion } from "framer-motion";
 const NewsletterCard = ({ bgColor, item }) => {
   return (
-    <div className='space-y-4 h-[220px] rounded-[65px]  bg-cover bg-center bg-no-repeat overflow-hidden' style={{ backgroundColor: `${bgColor}`, backgroundImage: `url(${item?.image})` }}>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95, y: 20 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      viewport={{ once: true }}
+      className='space-y-4 h-[220px] rounded-[65px]  bg-cover bg-center bg-no-repeat overflow-hidden' style={{ backgroundColor: `${bgColor}`, backgroundImage: `url(${item?.image})` }}>
      
       <div className="flex  flex-col justify-between  p-10 w-full h-full bg-black/50 text-white">
         
@@ -56,7 +62,7 @@ const NewsletterCard = ({ bgColor, item }) => {
         {item?.title}
       </h3>
      </div>
-    </div>
+    </motion.div>
   )
 }
 
