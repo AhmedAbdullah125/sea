@@ -22,6 +22,7 @@ import { TbPentagonFilled } from "react-icons/tb";
 import { z } from "zod";
 import { useQuery } from "@tanstack/react-query";
 import { fetchFromApi } from "../../api/utils/fetchData";
+import {motion} from "framer-motion"
 const countOptions = Array.from({ length: 100 }, (_, i) => {
   const num = (i + 1).toString();
   return { label: num, value: num };
@@ -76,7 +77,12 @@ const FilterPanel = ({ defaultValues, onFilter, onReset }) => {
     return () => clearTimeout(timeout);
   }, [values, onFilter]);
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, x: 50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 1 }}
+    >
       {
         Object.values(values).some((val) => val) &&
         <Button onClick={() => {
@@ -410,7 +416,7 @@ const FilterPanel = ({ defaultValues, onFilter, onReset }) => {
 
         </form>
       </Form>
-    </div>
+    </motion.div>
   )
 }
 

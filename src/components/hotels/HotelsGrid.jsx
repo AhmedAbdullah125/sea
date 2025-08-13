@@ -9,6 +9,8 @@ import { toggleFavourates } from '../../pages/toggleFavourates';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_BASE_URL } from '../../lib/apiConfig';
+import { motion } from "framer-motion";
+
 const HotelsGrid = ({ mainData }) => {
 
     const [lovedHotels, setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [])
@@ -47,7 +49,12 @@ const HotelsGrid = ({ mainData }) => {
                         {
                             mainData.map((item, index) =>
 
-                                <div className="card-item" key={index}>
+                                <motion.div
+                                    initial={{ opacity: 0, x: -50 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                                    className="card-item" key={index}>
                                     <Link to={`/hotel/${item.slug}`} className="related-item block">
                                         <Swiper
                                             pagination={{ clickable: true }}
@@ -137,7 +144,7 @@ const HotelsGrid = ({ mainData }) => {
                                             }
                                     </Link>
                                             <Link to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم حول ${item.title}`} className='card-content'>تواصل الآن واحصل علي عرض سعر</Link>
-                                </div>
+                                </motion.div>
                             )
                         }
 

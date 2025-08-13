@@ -48,6 +48,7 @@
 
 // export default ImagesGallery
 
+import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 
 const images = [
@@ -81,7 +82,12 @@ const ImagesGallery = ({ images }) => {
     <>
 
       {images?.length > 0 ?
-        <div className='grid grid-cols-12 gap-2'>
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className='grid grid-cols-12 gap-2'>
           {/* Main image */}
           <div className={`relative h-[450px]  rounded-[40px] ${images?.length == 1 ? 'col-span-12' : 'col-span-12 xl:col-span-6'}  `}>
             <img src={images[0]} alt="hotel" loading='lazy' className='w-full h-full object-cover rounded-[40px]' />
@@ -159,7 +165,7 @@ const ImagesGallery = ({ images }) => {
               </div>
             </div>
           )}
-        </div> : null
+        </motion.div> : null
       }
     </>
   );

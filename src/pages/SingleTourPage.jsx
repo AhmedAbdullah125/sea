@@ -12,6 +12,7 @@ import PriceForm from '../components/singleTour/PriceForm';
 import Loader from '../components/loader/Loader';
 import AlertError from '../components/alerts/AlertError';
 import { fetchFromApi } from '../api/utils/fetchData';
+import { motion } from 'framer-motion';
 const logo = <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="58" height="58" rx="29" fill="white" />
   <path fill-rule="evenodd" clipRule="evenodd" d="M30.1177 26.2208C33.9456 24.5015 38.4963 26.0963 40.2817 29.783C42.0672 33.4688 40.411 37.8512 36.5823 39.5697C32.7544 41.2889 17.001 40.2358 17.001 40.2358C17.001 40.2358 26.2898 27.9392 30.1177 26.22V26.2208Z" fill="#6D7172" />
@@ -86,20 +87,30 @@ const SingleTourPage = () => {
   return (
     <>
       <Header />
-      <main className="mb-16 container space-y-6">
+      <main className="mb-16 container space-y-12">
         {/* title */}
-        <div className='space-y-2 '>
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className='space-y-2 '>
           <h1 className="text-4xl font-bold line-clamp-1" >{data?.model}</h1 >
           {/* rate */}
           <div className="flex items-end gap-1 w-fit" >
             <TiStarFullOutline size={14} className="text-yellow-500" />
             <p className="p-0 m-0 text-[10px] font-semibold">{data?.rating} ({data?.total_rating}) </p>
           </div >
-        </div>
+        </motion.div>
         <ImagesGallery images={data?.images} />
         {/* details */}
         <div className='grid grid-cols-12 gap-2'>
-          <div className='col-span-12 xl:col-span-7 space-y-4'>
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className='col-span-12 xl:col-span-7 space-y-4'>
             {/* sea */}
             <Link to={"/"} className="flex items-center justify-between w-full bg-body  px-5 py-2 rounded-full">
               {/* content */}
@@ -154,11 +165,16 @@ const SingleTourPage = () => {
               referrerPolicy="no-referrer-when-downgrade"
               className="w-full rounded-[40px]"
             ></iframe>
-          </div>
+          </motion.div>
           {/* form  */}
-          <div className='col-span-12 xl:col-span-5 space-y-4'>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className='col-span-12 xl:col-span-5 space-y-4'>
             <PriceForm currencyName={data?.currencyName} tourId={data?.id}  price={data?.totalServicePrice} discount={data?.discount} tour={data} />
-          </div>
+          </motion.div>
         </div>
 
       </main>

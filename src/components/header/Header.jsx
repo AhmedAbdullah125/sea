@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
 import axios from 'axios'
 import { API_BASE_URL } from '../../lib/apiConfig'
+import { motion } from "framer-motion";
 
 const Header = () => {
     const [isFixed, setIsFixed] = useState(false);
@@ -41,7 +42,12 @@ const Header = () => {
         getData();
     }, []);
     return (
-        <section className={`header-cont ${isFixed ? 'fixed-navbar' : ''}`}>
+        <motion.section
+            initial={{ opacity: 0}}
+            whileInView={{ opacity: 1}}
+            viewport={{ once: true }}
+            transition={{ duration: 1}}
+            className={`header-cont ${isFixed ? 'fixed-navbar' : ''}`}>
             <div className="container nav-cont">
                 <div className="logo">
                     <Link to="/">
@@ -99,7 +105,7 @@ const Header = () => {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-        </section>
+        </motion.section>
     )
 }
 

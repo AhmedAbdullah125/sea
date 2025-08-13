@@ -25,7 +25,7 @@ const VisaCard = ({ item }) => {
   }, [])
 
   return (
-    <Card className="shadow-none border-none  bg-body rounded-[50px] col-span-12 md:col-span-6 xl:col-span-3 p-6">
+    <Card className="shadow-none border-none ">
       <CardHeader className="p-0 " >
         <div className="p-0  flex items-center justify-between">
 

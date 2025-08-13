@@ -10,7 +10,7 @@ import PlanPrices from '../components/plan/PlanPrices'
 import PlanMarq from '../components/plan/PlanMarq'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import PlanFaqs from '../components/plan/PlanFaqs'
-
+import { motion } from "framer-motion"; 
 const Package = () => {
     const { id } = useParams();
     console.log(id);
@@ -61,21 +61,35 @@ const Package = () => {
                         <PlanFaqs data={data} />
                         <section className="package-section">
                             <div className="container">
+                                <motion.div
+                                    initial={{ opacity: 0, y: -50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 1 }}
+                                >
                                 <h6 className="package-head">ماذا يوجد في الباقة !.</h6>
                                 <h3 className="package-title">تشمل البــــــاقة</h3>
                                 <p className="package-text">نسهل عليك لتستمتع في رحلتك !</p>
-                                <div className="package-list">
-                                    <ul>
+                                </motion.div>
+                                <motion.div
+                                        initial={{ opacity: 0, y: 50 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 1 }}
+                                
+                                    className="package-list">
+                                    <ul
+                                    >
 
                                         {
                                             data.planComponents.map((component, index) => (
-                                                <li>
-                                                    <LazyLoadImage src={component.icon} alt="package-img" className='package-icon' /><span>{component.name}</span>
+                                                <li className='bg-white p-4 rounded-xl flex flex-col '>
+                                                    <LazyLoadImage src={component.icon} alt="package-img" className='package-icon !size-12' /><span>{component.name}</span>
                                                 </li>
                                             ))
                                         }
                                     </ul>
-                                </div>
+                                </motion.div>
                             </div>
                         </section>
                     </>

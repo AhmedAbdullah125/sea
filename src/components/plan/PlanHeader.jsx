@@ -6,7 +6,7 @@ import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { toast } from 'sonner'
 import { toggleFavourates } from '../../pages/toggleFavourates'
-
+import {motion} from "framer-motion";
 const PlanHeader = ({ data }) => {
     const [selectedImg, setselectedImg] = useState(data.images[0])
     const [lovedPlans, setLovedPlans] = useState(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : [])
@@ -53,9 +53,21 @@ const PlanHeader = ({ data }) => {
     return (
         <section className="content-section">
             <div className="container">
+                <motion.div
+                initial={{ opacity: 0, x: 100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1 }}
+                >
                 <h2 className="detail-title">{data.title}</h2>
                 <div className="detail-time">{data.durationDays} أيـــــــــام</div>
-                <div className="detail-info-cont">
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, x: 100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1 }}
+                    className="detail-info-cont">
                     <div className="detail-info">
                         <div className="detail-info-item rate">
                             <i className="fa-solid fa-star"></i>
@@ -95,10 +107,14 @@ const PlanHeader = ({ data }) => {
                             }
                         ><i className={` fa-heart ${lovedPlans.includes(data.id) ? 'fa-solid text-[#a71755]' : 'fa-regular'}`}></i></button>
                     </div>
-                </div>
+                </motion.div>
                 {
                     data.images.length > 0 ?
-                        <div className="detail-cont">
+                        <motion.div
+                            initial={{ opacity: 0, x: -100 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1 }} className="detail-cont">
                             <div className="detail-box">
 
                                 <figure className="detail-img">
@@ -170,7 +186,7 @@ const PlanHeader = ({ data }) => {
                                 );
                             })}
 
-                        </div>
+                        </motion.div>
                         : null
                 }
             </div>

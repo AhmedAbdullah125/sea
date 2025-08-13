@@ -5,6 +5,8 @@ import { toast } from 'sonner'
 import { toggleFavourates } from '../../pages/toggleFavourates'
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import { motion } from "framer-motion";
+
 const HotelHeader = ({ data }) => {
     const [selectedImg, setselectedImg] = useState(data.images[0])
     const [lovedHotels, setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [])
@@ -35,15 +37,27 @@ const HotelHeader = ({ data }) => {
 
         }
         setVideosArr(vids)
-    }, [data.videos])
+    }, [data.videos]) 
 
 
     return (
         <section className="content-section">
             <div className="container">
+                <motion.div
+                    initial={{ opacity: 0, x: 100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1 }}
+                >
                 <h2 className="detail-title">{data.title}</h2>
                 <span>كود الوحدة ( {data.code} ) </span>
-                <div className="detail-info-cont">
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, x: 100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1 }}
+                    className="detail-info-cont">
                     <div className="detail-info">
                         <div className="detail-info-item rate">
                             <i className="fa-solid fa-star"></i>
@@ -95,8 +109,13 @@ const HotelHeader = ({ data }) => {
                             }
                         ><i className={`fa-heart ${lovedHotels.includes(data.id) ? 'fa-solid text-[#A71755]' : 'fa-regular'}`}></i></button>
                     </div>
-                </div>
-                <div className="detail-cont">
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1 }}
+                    className="detail-cont">
                     <div className="detail-box">
 
                         <figure className="detail-img">
@@ -168,7 +187,7 @@ const HotelHeader = ({ data }) => {
                         );
                     })}
 
-                </div>
+                </motion.div>
             </div>
         </section>
     )

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import parse from 'html-react-parser';
 import HotelRateForm from './HotelRateForm';
+import { motion } from "framer-motion";
 
 const HotelTabs = ({ data, trigger, setTrigger }) => {
     const [activeTab, setActiveTab] = useState(0);
@@ -14,7 +15,12 @@ const HotelTabs = ({ data, trigger, setTrigger }) => {
         month: 'long'
     });
     return (
-        <section className='hotel-tabs-section'>
+        <motion.section
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className='hotel-tabs-section'>
             <div className="controllers">
                 <span className={activeTab === 0 ? "active" : ""} onClick={() => setActiveTab(0)}>الوصـــــف</span>
                 <span className={activeTab === 1 ? "active" : ""} onClick={() => setActiveTab(1)}>المواصفات والميزات</span>
@@ -82,7 +88,7 @@ const HotelTabs = ({ data, trigger, setTrigger }) => {
 
                 }
             </div>
-        </section>
+        </motion.section>
     )
 }
 
