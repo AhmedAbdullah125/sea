@@ -8,6 +8,11 @@ import axios from 'axios'
 import { API_BASE_URL } from '../../lib/apiConfig'
 import Loading from '../loading/Loading'
 import { motion } from "framer-motion";
+import payImg1 from '../../assets/pay-img/01.svg'
+import payImg2 from '../../assets/pay-img/02.svg'
+import payImg3 from '../../assets/pay-img/03.svg'
+import payImg4 from '../../assets/pay-img/04.svg'
+import payImg5 from '../../assets/pay-img/05.svg'
 const Footer = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -53,7 +58,7 @@ const Footer = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="links-cont">
+                            <div className="links-cont relative">
                                 <div className="links-group">
                                     <div className="title">
                                         <h3>خدمـــــاتنا</h3>
@@ -103,6 +108,14 @@ const Footer = () => {
                                         <Link to="#"><LazyLoadImage src={apple} alt="logo" loading='lazy' /></Link>
                                     </div>
 
+                                </div>
+                                {/* payments */}
+                                <div className='flex items-center gap-4  md:absolute bottom-6  right-0'>
+                                    <img src={payImg1} alt="pay-img" className='w-14' />
+                                    <img src={payImg2} alt="pay-img" className='w-14' />
+                                    <img src={payImg3} alt="pay-img" className='w-14' />
+                                    <img src={payImg4} alt="pay-img" className='w-14' />
+                                    <img src={payImg5} alt="pay-img" className='w-14' />
                                 </div>
                             </div>
                         </div>
