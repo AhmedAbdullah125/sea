@@ -66,7 +66,6 @@ const Package = () => {
                                 <p className="package-text">نسهل عليك لتستمتع في رحلتك !</p>
                                 <div className="package-list">
                                     <ul>
-
                                         {
                                             data.planComponents.map((component, index) => (
                                                 <li>
