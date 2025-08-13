@@ -3,7 +3,7 @@ import NewsletterCard from './NewsletterCard'
 import { useQuery } from '@tanstack/react-query'
 import { fetchFromApi } from '../../api/utils/fetchData'
 import Loader from '../loader/Loader'
-
+import { motion } from 'framer-motion'
 const Newsletter = () => {
   const colors = [
     "#C69E9E",
@@ -24,7 +24,12 @@ const Newsletter = () => {
   return (
     data?.length === 0 ? null :
       <section className='space-y-12'>
-        <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue max-xl:text-center'>نشــرات بريديّــة مميّــزة.</h2>
+        <motion.h2
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue max-xl:text-center'>نشــرات بريديّــة مميّــزة.</motion.h2>
         <div className='grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 '>
           {data.map((item, index) => {
             const color = colors[index % colors.length]; 

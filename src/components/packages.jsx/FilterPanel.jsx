@@ -21,6 +21,7 @@ import { AiFillDollarCircle } from "react-icons/ai";
 import { MdStarRate } from "react-icons/md";
 import { API_BASE_URL } from "../../lib/apiConfig";
 import Loading from "../loading/Loading";
+import {motion} from "framer-motion"
 const countOptions = Array.from({ length: 10 }, (_, i) => {
   const num = (i + 1).toString();
   return { label: num, value: num };
@@ -115,7 +116,11 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
       {
         loading ? <Loading /> :
           <Form {...form}>
-            <form className="space-y-4 mb-10">
+            <motion.form
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5}} className="space-y-4 mb-10">
               <div className="flex gap-4 xl:flex-nowrap flex-wrap">
                 {/* end */}
                 <FormField
@@ -377,7 +382,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
 
               </div>
 
-            </form>
+            </motion.form>
           </Form>
       }
     </>

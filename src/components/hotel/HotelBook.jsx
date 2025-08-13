@@ -3,12 +3,19 @@ import img1 from '../../assets/s.svg'
 import img2 from '../../assets/check.svg'
 import { userContext } from '../../context/UserContext';
 import profileActive from '../../assets/profileActive.svg'
+import { motion } from "framer-motion";
+
 const HotelBook = ({ data }) => {
     return (
         <section className="content-section">
             <div className="container">
                 <div className="damans">
-                    <div className="daman">
+                    <motion.div
+                        initial={{ opacity: 0, y: -50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                        className="daman">
                         <div className="r-side">
                             <div className="img-cont">
                                 <img src={img1} alt="" />
@@ -21,8 +28,13 @@ const HotelBook = ({ data }) => {
                         <div className="l-side">
                             <i className="fa-solid fa-chevron-left"></i>
                         </div>
-                    </div>
-                    <div className="daman">
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, y: -50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="daman">
                         <div className="r-side">
                             <div className="name-cont">
                                 {/* first letter of the name */}
@@ -39,7 +51,7 @@ const HotelBook = ({ data }) => {
                         <div className="l-side">
                             <i className="fa-solid fa-chevron-left"></i>
                         </div>
-                    </div>
+                    </motion.div>
 
                 </div>
             </div>

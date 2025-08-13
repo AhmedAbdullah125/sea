@@ -6,7 +6,7 @@ import Newsletter from '../components/blogs/Newsletter'
 import BlogsSection from '../components/blogs/BlogsSection'
 import { useQuery } from '@tanstack/react-query'
 import { fetchFromApi } from '../api/utils/fetchData'
-
+import { motion } from 'framer-motion'
 const Blogs = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['blogs'],
@@ -21,7 +21,12 @@ const Blogs = () => {
       <BreadCrumb data={[{ title: "الرئيسية", href: "/" }, { title: "المدونة", href: "/blogs" }]} />
       <main className='container space-y-12 mb-12'>
         {/* header */}
-        <div className='relative overflow-hidden bg-main-navy rounded-[40px] py-12 px-10 xl:flex justify-around items-center'>
+        <motion.div
+          initial={{ opacity: 0, y: -100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className='relative overflow-hidden bg-main-navy rounded-[40px] py-12 px-10 xl:flex justify-around items-center'>
           <div className='text-white font-semibold space-y-4 max-xl:text-center'>
             <h1 className='text-3xl xl:text-5xl font-bold '>مدونـــــة ســــي / Sea...</h1>
             <p className='leading-8'>أول مدونة عربية متخصصة بالنشرات البريدية في القطاع السياحي.</p>
@@ -31,7 +36,7 @@ const Blogs = () => {
           <div className='hidden xl:block size-16 rounded-[20px] bg-body/10 absolute top-16 end-[38%]'></div>
           <div className='hidden xl:block size-16 rounded-[20px] bg-body/10 absolute bottom-6 end-6'></div>
           <div className='hidden xl:block size-16 rounded-[20px] bg-body/10 absolute -bottom-2 -end-2'></div>
-        </div>
+        </motion.div>
         {/* newsletter */}
         <Newsletter />
         {/* blogs */}

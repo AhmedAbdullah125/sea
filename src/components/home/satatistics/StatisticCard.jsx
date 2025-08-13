@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { NumberTicker } from "@/components/magicui/number-ticker";
 
-const SatisticCard = ({ statistic, idx, isLast }) => {
+const SatisticCard = ({ statistic, idx, layout }) => {
   const [showOverlay, setShowOverlay] = useState(false)
 
   const handleIconClick = () => {
@@ -11,13 +11,9 @@ const SatisticCard = ({ statistic, idx, isLast }) => {
 
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className={`overflow-hidden h-[300px] rounded-[105px] bg-red-500 bg-no-repeat bg-center bg-cover ${isLast ? 'col-span-12' : 'xl:col-span-4 md:col-span-6 col-span-12'
-          }`}
+
+      <div
+        className={`${layout} overflow-hidden h-[300px] rounded-[105px] bg-red-500 bg-no-repeat bg-center bg-cover `}
         style={{ backgroundImage: `url(${statistic.image})` }}
       >
         <div className="w-full h-full xl:p-12 p-10 flex flex-col justify-between bg-black/50">
@@ -37,7 +33,7 @@ const SatisticCard = ({ statistic, idx, isLast }) => {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       <AnimatePresence>
         {showOverlay && (
