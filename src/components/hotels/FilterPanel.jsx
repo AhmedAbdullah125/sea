@@ -300,7 +300,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
             onClick={clearFilter}
             className="flex-shrink-0 h-12 py-0 px-9 mt-7 bg-[#A71755] text-white font-semibold rounded-full"
           >
-            مسح الفلترة
+            مسح النتائج
           </button>
         </div>
       </motion.form>
