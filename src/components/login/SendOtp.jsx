@@ -13,6 +13,7 @@ import { postToApi } from "../../api/utils/postData"
 // validation
 const formSchema = z.object({
   mobile: z.string().nonempty("هذا الحقل مطلوب"),
+  password: z.string().nonempty("هذا الحقل مطلوب").min(6, "كلمة المرور يجب ان تكون على الاقل 6 حروف"),
 })
 const SendOtp = ({ handleSendOtp }) => {
   const [submitMethod, setSubmitMethod] = useState("whatsapp")
@@ -21,6 +22,7 @@ const SendOtp = ({ handleSendOtp }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       mobile: "",
+      password: "",
     },
   })
   // 2. Define a submit handler.
@@ -72,12 +74,33 @@ const SendOtp = ({ handleSendOtp }) => {
                     className="custom-phone-input"
                   />
                 </FormControl>
+                
                 <p dir="rtl" className="text-xs ">سنقوم بإرسال رسالة إلى الرقم المدخل تحتوي على كود للمتابعة <span className="font-semibold">تأكد من إدخال رقمك بشكل صحيح.</span></p>
                 <FormMessage className="text-red-500  text-xs text-end" />
               </FormItem>
-            )}
-          />
+              )}
+              />
         </div>
+              {/* password */}
+              <div>
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem className="col-span-12" dir="ltr">
+                      <FormControl>
+                        <input
+                          type="password"
+                          placeholder="Password"
+                          {...field}
+                          className="h-12 w-full px-3 text-sm bg-[#F5F5F5] font-semibold text-[#797979] rounded-full border-none hover:bg-body flex items-center justify-between"
+                        />
+                      </FormControl>
+                      <FormMessage className="text-red-500  text-xs text-end" />
+                    </FormItem>
+                  )}
+                />
+              </div>
         <div className="space-y-4">
           <Button
             onClick={() => setSubmitMethod("whatsapp")}

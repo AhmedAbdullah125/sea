@@ -7,7 +7,6 @@ const HotelTabs = ({ data, trigger, setTrigger }) => {
     const [activeTab, setActiveTab] = useState(0);
     const latitude = data.latitude
     const longitude = data.longitude;
-    console.log(data)
     const [comment, setComment] = useState("");
     const [rate, setRate] = useState(null);
     const formatter = new Intl.DateTimeFormat('ar-EG', {

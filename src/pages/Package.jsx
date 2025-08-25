@@ -13,7 +13,6 @@ import PlanFaqs from '../components/plan/PlanFaqs'
 import { motion } from "framer-motion"; 
 const Package = () => {
     const { id } = useParams();
-    console.log(id);
     const [data, setData] = useState([]);
     const [settings, setSettings] = useState({});
     const [loading, setLoading] = useState(true);

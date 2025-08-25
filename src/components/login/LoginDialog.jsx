@@ -64,8 +64,7 @@ const LoginDialog = ({ mainHeader = false }) => {
   return (
     <Dialog   >
       <DialogTrigger className={`w-fit text-sm font-bold text-white ${!mainHeader ? "h-12 px-4  bg-main-blue hover:bg-main-purple transation-all duration-300  flex items-center justify-center gap-4 rounded-full " : "hover:text-main-blue"}`}>
-        <p>
-          أنشئ حســـاب الان</p>
+        <p>تسجـــيل الدخــول</p>
         {mainHeader ? null : <ChevronLeft size={18} />}
       </DialogTrigger>
       <DialogContent className='bg-white !rounded-xl  max-w-[90%] xl:p-10 z-[999999]' hideClose >
@@ -84,7 +83,7 @@ const LoginDialog = ({ mainHeader = false }) => {
           </div>
           {/* image */}
           <div className="xl:col-span-7  max-xl:hidden h-full">
-            <LazyLoadImage src={'/login/login.png'} alt="logo" loading='lazy' className="h-full w-full " />
+            <img src={'/login/login.png'} alt="logo" loading='lazy' className="h-full w-full " />
           </div>
         </div>
       </DialogContent>

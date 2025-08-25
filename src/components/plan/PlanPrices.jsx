@@ -1,6 +1,5 @@
 import { motion } from "framer-motion"
 const PlanPrices = ({ data,settings }) => {
-    console.log(data);
     return (
         <section className="package-section">
             <div className="container">

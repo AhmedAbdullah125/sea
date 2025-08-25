@@ -1,17 +1,8 @@
-import { cn } from "@/lib/utils";
 import { Marquee } from "@/components/magicui/marquee";
 import { motion } from "framer-motion";
-import payImg1 from '../../assets/pay-img/01.svg'
-import payImg2 from '../../assets/pay-img/02.svg'
-import payImg3 from '../../assets/pay-img/03.svg'
-import payImg4 from '../../assets/pay-img/04.svg'
-import payImg5 from '../../assets/pay-img/05.svg'
 import { LazyLoadImage } from "react-lazy-load-image-component";
-const PlanMarq = ({ data, settings }) => {
-    console.log(data);
-    const reviews = [
-        { img: payImg1, }, { img: payImg2, }, { img: payImg3, }, { img: payImg4, }, { img: payImg5, },
-    ];
+const PlanMarq = ({ data }) => {
+
     const ReviewCard = ({ img,}) => {
         return (
             <div className="pay-item">

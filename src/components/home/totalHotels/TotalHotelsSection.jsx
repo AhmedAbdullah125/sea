@@ -16,6 +16,7 @@ const TotalHotelsSection = () => {
       return res;
     }
   })
+  console.log(data);
   if (isLoading) return <Loader />
   if (isError) return <div className="container my-12"><AlertError>
     هناك خطاء ما

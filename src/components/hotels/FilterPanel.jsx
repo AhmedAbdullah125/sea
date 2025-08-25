@@ -1,14 +1,14 @@
 import axios from "axios";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { FaArrowsLeftRight, FaCalendarDays } from "react-icons/fa6";
+import { FaCalendarDays } from "react-icons/fa6";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { MdPlace } from "react-icons/md";
 import { format } from "date-fns";
-import { BsFillSendFill } from "react-icons/bs";
-import { IoLanguage } from "react-icons/io5";
+import { HiMiniViewfinderCircle } from "react-icons/hi2";
 import { MdStarRate } from "react-icons/md";
+import { BsFillSendFill } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
-
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
@@ -18,7 +18,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { API_BASE_URL } from "../../lib/apiConfig";
 import { motion } from "framer-motion";
-
 // Zod schema
 export const filterSchema = z.object({
   start: z.string().optional(),
@@ -62,10 +61,11 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
   const [selectedOffer, setSelectedOffer] = useState(defaultValues.offer || '');
   const [selectedDate, setSelectedDate] = useState(defaultValues.start || '');
   const [selectedDateTo, setSelectedDateTo] = useState(defaultValues.end || '');
+  const [selectedPlace, setSelectedPlace] = useState('');
+  const [selectedView , setSelectedView] = useState('');
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
   const [cities, setCities] = useState([]);
-
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
@@ -78,7 +78,6 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
       } catch (error) {
         console.error('Error retrieving data:', error);
       }
-      setLoading(false);
     };
     getData();
   }, []);
@@ -90,6 +89,8 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
         const query = `${API_BASE_URL}/filter-hotels?country_id=${seletedCountry}` +
           `${selectedDate ? `&available_from=${formatDate(selectedDate)}` : ""}` +
           `${selectedDateTo ? `&available_to=${formatDate(selectedDateTo)}` : ""}` +
+          `${selectedPlace ? `&place=${selectedPlace}` : ""}` +
+          `${selectedView ? `&view=${selectedView}` : ""}` +
           `&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`;
         const response = await axios.get(query);
         setMainData(response.data.data);
@@ -99,7 +100,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
       setLoading(false);
     };
     getHotels();
-  }, [seletedCountry, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer, selectedDateTo]);
+  }, [seletedCountry, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer, selectedDateTo, selectedPlace, selectedView]);
 
   const form = useForm({
     resolver: zodResolver(filterSchema),
@@ -118,15 +119,49 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
   const { watch, setValue } = form;
   const values = watch();
 
-  const t = {
-    "flat": "شقق فندقية",
-    "room": "غرفة",
-    "hotel": "⁠فنادق",
-    "villa": "فلل",
-    "huts": "أكواخ",
-    "hotel_suites": "أجنحة فندقية"
-  };
+  const t = { "flat": "شقق فندقية", "room": "غرفة", "hotel": "⁠فنادق بتوصية ســـي", "villa": "فلل وشاليهات ", "huts": "أكواخ خشبية", "hotel_suites": "أجنحة فندقية" }
+  const rooms = [
+    {
+      id: 1,
+      numberOfBeds: 3,
+      name: "غرفـــة مع إطلالـــة على الأتريــــــوم.",
+      childBedEnabled: false, //true or false
+      numberOfBedsChild: 0, //number of child beds
+      price: 200,
+      currency: "EGP", //EGP or USD ...
+      option: [
+        { id: 1, name: "مكيف", icon: "https://www.iconpacks.net/icons/2/free-air-conditioner-icon-1838-thumb.png" },
+        { id: 2, name: "واي فاي لا محدود", icon: "https://www.iconpacks.net/icons/2/free-air-conditioner-icon-1838-thumb.png" },
 
+      ],
+      paymentMethods: [
+        { id: 1, name: "كاش", icon: "https://www.svgrepo.com/show/75156/hand-cash-circular-symbol.svg" },
+        { id: 2, name: "Visa", icon: "https://logolook.net/wp-content/uploads/2023/09/Visa-Logo.png" },
+        { id: 3, name: "Master Card", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/2560px-MasterCard_Logo.svg.png" },
+        { id: 4, name: "Tabby", icon: "https://www.pfgrowth.com/wp-content/uploads/2023/03/tabby-logo-1.png" },
+      ]
+    },
+    {
+      id: 2,
+      numberOfBeds: 3,
+      name: "غرفـــة مع إطلالـــة على الأتريــــــوم.",
+      childBedEnabled: true, //true or false
+      numberOfBedsChild: 2, //number of child beds
+      price: 200,
+      currency: "EGP", //EGP or USD ...
+      option: [
+        { id: 1, name: "مكيف", icon: "https://www.iconpacks.net/icons/2/free-air-conditioner-icon-1838-thumb.png" },
+        { id: 2, name: "واي فاي لا محدود", icon: "https://www.iconpacks.net/icons/2/free-air-conditioner-icon-1838-thumb.png" },
+
+      ],
+      paymentMethods: [
+        { id: 1, name: "كاش", icon: "https://www.svgrepo.com/show/75156/hand-cash-circular-symbol.svg" },
+        { id: 2, name: "Visa", icon: "https://logolook.net/wp-content/uploads/2023/09/Visa-Logo.png" },
+        { id: 3, name: "Master Card", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/2560px-MasterCard_Logo.svg.png" },
+        { id: 4, name: "Tabby", icon: "https://www.pfgrowth.com/wp-content/uploads/2023/03/tabby-logo-1.png" },
+      ]
+    }
+  ]
   function clearFilter() {
     setValue("start", "");
     setValue("end", "");
@@ -144,6 +179,8 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
     setSelectedOffer('');
     setSelectedDate('');
     setSelectedDateTo('');
+    setSelectedPlace('');
+    form.reset();
   }
 
   return (
@@ -292,6 +329,133 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
                     />
                   </PopoverContent>
                 </Popover>
+              </FormItem>
+            )}
+          />
+
+        </div>
+        <div className="flex gap-4 xl:flex-nowrap flex-wrap">
+          {/* rate */}
+          <FormField
+            control={form.control}
+            name={"rate"}
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel className="flex items-center gap-1">
+                  <MdStarRate size={16} className="text-main-purple" />
+                  <p className="text-main-blue font-bold text-sm">التقييم</p>
+                </FormLabel>
+                <Select dir="rtl"
+                  defaultValue={String(field.value || "")}
+                  onValueChange={(val) => setSelectedRate(val)} >
+                  <FormControl>
+                    <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                      <ChevronDown size={14} />
+                    </div>} className={`bg-body  text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
+                      <SelectValue placeholder={"اختر التقييم..."} className="text-[#797979]" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                    {data?.rating?.map((option) => (
+                      <SelectItem key={option.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
+                        {option.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name={"places"}
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel className="flex items-center gap-1">
+                  <MdPlace size={16} className="text-main-purple" />
+                  <p className="text-main-blue font-bold text-sm">المكان</p>
+                </FormLabel>
+                <Select dir="rtl"
+                  defaultValue={String(field.value || "")}
+                  onValueChange={(val) => setSelectedPlace(val)} >
+                  <FormControl>
+                    <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                      <ChevronDown size={14} />
+                    </div>} className={`bg-body  text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
+                      <SelectValue placeholder={"اختر المكان..."} className="text-[#797979]" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                    {data?.places?.map((option) => (
+                      <SelectItem key={option.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
+                        {option.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name={"views"}
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel className="flex items-center gap-1">
+                  <HiMiniViewfinderCircle size={16} className="text-main-purple" />
+                  <p className="text-main-blue font-bold text-sm">الإطلالة</p>
+                </FormLabel>
+                <Select dir="rtl"
+                  defaultValue={String(field.value || "")}
+                  onValueChange={(val) => setSelectedView(val)} >
+                  <FormControl>
+                    <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                      <ChevronDown size={14} />
+                    </div>} className={`bg-body  text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
+                      <SelectValue placeholder={"اختر الإطلالة..."} className="text-[#797979]" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                    {data?.views?.map((option) => (
+                      <SelectItem key={option.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
+                        {option.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name={"model"}
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel className="flex items-center gap-1">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M9.82957 16.5H8.17042C5.58553 16.5 4.29307 16.5 3.41177 15.7412C2.53047 14.9823 2.34769 13.712 1.98213 11.1714L1.77305 9.71843C1.48847 7.7406 1.34618 6.75172 1.75153 5.90621C2.15687 5.0607 3.01964 4.54676 4.74518 3.51886L5.78381 2.90015C7.35078 1.96672 8.13427 1.5 9 1.5C9.86572 1.5 10.6493 1.96672 12.2162 2.90015L13.2548 3.51886C14.9803 4.54676 15.8432 5.0607 16.2484 5.90621C16.6538 6.75172 16.5115 7.7406 16.2269 9.71843L16.0179 11.1714C15.6523 13.712 15.4695 14.9823 14.5882 15.7412C13.7069 16.5 12.4144 16.5 9.82957 16.5ZM6.29818 11.6649C6.48317 11.4153 6.83546 11.363 7.08503 11.548C7.63132 11.9528 8.29065 12.1874 9.00007 12.1874C9.7095 12.1874 10.3688 11.9528 10.9151 11.548C11.1647 11.363 11.517 11.4153 11.7019 11.6649C11.887 11.9144 11.8346 12.2668 11.585 12.4517C10.8557 12.9923 9.96382 13.3124 9.00007 13.3124C8.03632 13.3124 7.14442 12.9923 6.41512 12.4517C6.16554 12.2668 6.11319 11.9144 6.29818 11.6649Z" fill="#A71755" />
+                  </svg>
+                  <p className="text-main-blue font-bold text-sm">
+                    اختر نوع السكن
+                  </p>
+                </FormLabel>
+                <Select dir="rtl" onValueChange={(val) => setSelectedFlat(val)} defaultValue={field.value} >
+                  <FormControl>
+                    <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                      <ChevronDown size={14} />
+                    </div>} className={` bg-body text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
+                      <SelectValue placeholder={"اختر نوع السكن..."} className="text-[#797979]" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                    {data?.flats?.map((option) => (
+                      <SelectItem key={option} value={option} className=" cursor-pointer focus:bg-body rounded-xl">
+                        {t[option]}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage className="text-red-500  text-xs " />
               </FormItem>
             )}
           />

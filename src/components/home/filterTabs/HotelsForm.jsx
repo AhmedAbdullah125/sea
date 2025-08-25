@@ -23,7 +23,7 @@ const HotelsForm = () => {
   const [internalStartOpen, setInternalStartOpen] = useState(false);
   const [openEndDate, setOpenEndDate] = useState(false);
 
-  const t = { "flat": "شقق فندقية", "room": "غرفة", "hotel": "⁠فنادق", "villa": "فلل", "huts": "أكواخ", "hotel_suites": "أجنحة فندقية" }
+  const t = { "flat": "شقق فندقية", "room": "غرفة", "hotel": "⁠فنادق بتوصية ســـي", "villa": "فلل وشاليهات ", "huts": "أكواخ خشبية", "hotel_suites": "أجنحة فندقية" }
   useEffect(() => {
     setLoading(true);
     const getData = async () => {

@@ -9,8 +9,6 @@ import HotelBook from '../components/hotel/HotelBook';
 import HotelTabs from '../components/hotel/HotelTabs';
 import HotelPayment from '../components/hotel/HotelPayment';
 import Loading from '../components/loading/Loading';
-import { motion } from "framer-motion";
-
 const Hotel = () => {
     // state for search params
     const { id } = useParams();
@@ -35,6 +33,7 @@ const Hotel = () => {
         };
         getData();
     }, [trigger]);
+    console.log(data);
         return (
         <section>
             <Header />

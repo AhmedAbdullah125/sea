@@ -59,7 +59,7 @@ const VerfiyOtp = ({ phone }) => {
   return (
     <Form {...form}>
       <form className="loginForm xl:space-y-8 space-y-6" onSubmit={form.handleSubmit(onSubmit)} >
-        {/* header */}
+        {/* header
         <div className="space-y-2">
           <h2 className="text-2xl font-bold">
             الرجاء إدخال الكود للمتابعة
@@ -67,7 +67,7 @@ const VerfiyOtp = ({ phone }) => {
           <p className="text-sm font-semibold">
             لقد أرسلنا الكود برسالة إلى الرقم - (<span className="font-bold" dir="ltr">{phone}</span>)
           </p>
-        </div>
+        </div> */}
         {/* input */}
         <CustomInput form={form} name="otp" type="text" placeholder="ادخل رمز التحقق" label="رمز التحقق" isRequired={true} bg="bg-body" />
         <Button type="submit" className="h-12  bg-main-blue w-full  text-white  hover:bg-main-purple transation-all duration-300  rounded-full flex items-center gap-14">

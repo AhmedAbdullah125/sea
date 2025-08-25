@@ -93,7 +93,7 @@ const HotelsGrid = ({ mainData }) => {
                                         </Swiper>
                                         <div className="related-content">
                                             <div className="related-btn">
-                                                <span>{Number(item.discount)}%</span>
+                                                {/* <span>{Number(item.discount)}%</span> */}
                                                 <button
 
                                                     onClick={

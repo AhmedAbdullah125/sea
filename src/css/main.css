@@ -3299,13 +3299,14 @@ footer .lowerfooter {
   color: #808080;
 }
 
-/* From Uiverse.io by Nawsome */
 .pl {
   width: 6em;
   height: 6em;
 }
 
 .pl__ring {
+  fill: none;
+  stroke-linecap: round;
   animation: ringA 2s linear infinite;
 }
 
@@ -3331,150 +3332,150 @@ footer .lowerfooter {
 /* Animations */
 @keyframes ringA {
   from, 4% {
-    strokeDasharray: 0 660;
-    strokeWidth: 20;
-    strokeDashoffset: -330;
+    stroke-dasharray: 0 660;
+    stroke-width: 20;
+    stroke-dashoffset: -330;
   }
   12% {
-    strokeDasharray: 60 600;
-    strokeWidth: 30;
-    strokeDashoffset: -335;
+    stroke-dasharray: 60 600;
+    stroke-width: 30;
+    stroke-dashoffset: -335;
   }
   32% {
-    strokeDasharray: 60 600;
-    strokeWidth: 30;
-    strokeDashoffset: -595;
+    stroke-dasharray: 60 600;
+    stroke-width: 30;
+    stroke-dashoffset: -595;
   }
   40%, 54% {
-    strokeDasharray: 0 660;
-    strokeWidth: 20;
-    strokeDashoffset: -660;
+    stroke-dasharray: 0 660;
+    stroke-width: 20;
+    stroke-dashoffset: -660;
   }
   62% {
-    strokeDasharray: 60 600;
-    strokeWidth: 30;
-    strokeDashoffset: -665;
+    stroke-dasharray: 60 600;
+    stroke-width: 30;
+    stroke-dashoffset: -665;
   }
   82% {
-    strokeDasharray: 60 600;
-    strokeWidth: 30;
-    strokeDashoffset: -925;
+    stroke-dasharray: 60 600;
+    stroke-width: 30;
+    stroke-dashoffset: -925;
   }
   90%, to {
-    strokeDasharray: 0 660;
-    strokeWidth: 20;
-    strokeDashoffset: -990;
+    stroke-dasharray: 0 660;
+    stroke-width: 20;
+    stroke-dashoffset: -990;
   }
 }
 @keyframes ringB {
   from, 12% {
-    strokeDasharray: 0 220;
-    strokeWidth: 20;
-    strokeDashoffset: -110;
+    stroke-dasharray: 0 220;
+    stroke-width: 20;
+    stroke-dashoffset: -110;
   }
   20% {
-    strokeDasharray: 20 200;
-    strokeWidth: 30;
-    strokeDashoffset: -115;
+    stroke-dasharray: 20 200;
+    stroke-width: 30;
+    stroke-dashoffset: -115;
   }
   40% {
-    strokeDasharray: 20 200;
-    strokeWidth: 30;
-    strokeDashoffset: -195;
+    stroke-dasharray: 20 200;
+    stroke-width: 30;
+    stroke-dashoffset: -195;
   }
   48%, 62% {
-    strokeDasharray: 0 220;
-    strokeWidth: 20;
-    strokeDashoffset: -220;
+    stroke-dasharray: 0 220;
+    stroke-width: 20;
+    stroke-dashoffset: -220;
   }
   70% {
-    strokeDasharray: 20 200;
-    strokeWidth: 30;
-    strokeDashoffset: -225;
+    stroke-dasharray: 20 200;
+    stroke-width: 30;
+    stroke-dashoffset: -225;
   }
   90% {
-    strokeDasharray: 20 200;
-    strokeWidth: 30;
-    strokeDashoffset: -305;
+    stroke-dasharray: 20 200;
+    stroke-width: 30;
+    stroke-dashoffset: -305;
   }
   98%, to {
-    strokeDasharray: 0 220;
-    strokeWidth: 20;
-    strokeDashoffset: -330;
+    stroke-dasharray: 0 220;
+    stroke-width: 20;
+    stroke-dashoffset: -330;
   }
 }
 @keyframes ringC {
   from {
-    strokeDasharray: 0 440;
-    strokeWidth: 20;
-    strokeDashoffset: 0;
+    stroke-dasharray: 0 440;
+    stroke-width: 20;
+    stroke-dashoffset: 0;
   }
   8% {
-    strokeDasharray: 40 400;
-    strokeWidth: 30;
-    strokeDashoffset: -5;
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -5;
   }
   28% {
-    strokeDasharray: 40 400;
-    strokeWidth: 30;
-    strokeDashoffset: -175;
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -175;
   }
   36%, 58% {
-    strokeDasharray: 0 440;
-    strokeWidth: 20;
-    strokeDashoffset: -220;
+    stroke-dasharray: 0 440;
+    stroke-width: 20;
+    stroke-dashoffset: -220;
   }
   66% {
-    strokeDasharray: 40 400;
-    strokeWidth: 30;
-    strokeDashoffset: -225;
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -225;
   }
   86% {
-    strokeDasharray: 40 400;
-    strokeWidth: 30;
-    strokeDashoffset: -395;
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -395;
   }
   94%, to {
-    strokeDasharray: 0 440;
-    strokeWidth: 20;
-    strokeDashoffset: -440;
+    stroke-dasharray: 0 440;
+    stroke-width: 20;
+    stroke-dashoffset: -440;
   }
 }
 @keyframes ringD {
   from, 8% {
-    strokeDasharray: 0 440;
-    strokeWidth: 20;
-    strokeDashoffset: 0;
+    stroke-dasharray: 0 440;
+    stroke-width: 20;
+    stroke-dashoffset: 0;
   }
   16% {
-    strokeDasharray: 40 400;
-    strokeWidth: 30;
-    strokeDashoffset: -5;
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -5;
   }
   36% {
-    strokeDasharray: 40 400;
-    strokeWidth: 30;
-    strokeDashoffset: -175;
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -175;
   }
   44%, 50% {
-    strokeDasharray: 0 440;
-    strokeWidth: 20;
-    strokeDashoffset: -220;
+    stroke-dasharray: 0 440;
+    stroke-width: 20;
+    stroke-dashoffset: -220;
   }
   58% {
-    strokeDasharray: 40 400;
-    strokeWidth: 30;
-    strokeDashoffset: -225;
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -225;
   }
   78% {
-    strokeDasharray: 40 400;
-    strokeWidth: 30;
-    strokeDashoffset: -395;
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -395;
   }
   86%, to {
-    strokeDasharray: 0 440;
-    strokeWidth: 20;
-    strokeDashoffset: -440;
+    stroke-dasharray: 0 440;
+    stroke-width: 20;
+    stroke-dashoffset: -440;
   }
 }
 .accout-aside {

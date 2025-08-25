@@ -1,7 +1,4 @@
-import {
-	QueryClient,
-	QueryClientProvider
-} from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createContext } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -66,7 +63,6 @@ function App() {
 			{ path: "/paymentMaintenance", element: <PaymentMaintenance></PaymentMaintenance> },
 			{ path: "/blogs/:slug", element: <SingleBlogPage></SingleBlogPage> },
 			{ path: "/newsletter/:slug", element: <SingleNewsletter></SingleNewsletter> },
-
 			{
 				path: "account", element: <AccountLayout />,
 				children: [
@@ -76,9 +72,6 @@ function App() {
 					{ path: "logout", element: <Logout /> }
 				]
 			}
-
-
-			// { path: '/login', element: <Login></Login> },			
 		]
 	}
 	])
