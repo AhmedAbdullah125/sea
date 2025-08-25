@@ -38,56 +38,59 @@ const HeroSection = () => {
     getData();
   }, []);
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-      className="min-h-[80vh] bg-[url('/home/hero.png')] bg-cover bg-center bg-no-repeat space-y-6 pb-6 flex flex-col lg:justify-end justify-between lg:pt-[210px]">
-      <MainHeader />
+    <>
       {
+
         loading ? <Loading /> :
-          <motion.div
-            initial={{ opacity: 0 ,y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+          <motion.section
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="  flex items-end justify-center ">
-            <div className="container text-white space-y-6 ">
-              {/* content */}
-              <div className="w-full flex flex-col xl:flex-row justify-between items-end ">
-                {/* title */}
-                <div className=" xl:max-w-[45rem] me-auto  space-y-4">
-                  <h1 className={`${styles.title} text-4xl md:text-5xl xl:text-6xl font-semibold`} >
-                    رحلتك تبدأ من هنـــــا...
-                    إحجــز بثقة.
-                  </h1>
-                  <p className="text-sm font-light xl:max-w-[70%] ">
-                    منصة إلكترونية أوفلاين معتمدة للحجوزات الفندقية و الباقات السياحية
-                    حول العالم والتواصل المباشر مع العملاء .
-                  </p>
-                </div>
-                {/* counters */}
-                <div className="hidden xl:flex flex-col  justify-center items-center gap-10 ">
-                  <div >
-                    <h2 className="text-5xl font-bold text-white">
-                      <NumberTicker value={data?.compleated_bookings} className="text-5xl font-bold text-white" /> +</h2>
-                    <p >حجـــــز مكتمل</p>
+            transition={{ duration: 0.5 }}
+            className="min-h-[80vh] bg-[url('/home/hero.png')] bg-cover bg-center bg-no-repeat space-y-6 pb-6 flex flex-col lg:justify-end justify-between lg:pt-[210px]">
+            <MainHeader />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="  flex items-end justify-center ">
+              <div className="container text-white space-y-6 ">
+                {/* content */}
+                <div className="w-full flex flex-col xl:flex-row justify-between items-end ">
+                  {/* title */}
+                  <div className=" xl:max-w-[45rem] me-auto  space-y-4">
+                    <h1 className={`${styles.title} text-4xl md:text-5xl xl:text-6xl font-semibold`} >
+                      رحلتك تبدأ من هنـــــا...
+                      إحجــز بثقة.
+                    </h1>
+                    <p className="text-sm font-light xl:max-w-[70%] ">
+                      منصة إلكترونية أوفلاين معتمدة للحجوزات الفندقية و الباقات السياحية
+                      حول العالم والتواصل المباشر مع العملاء .
+                    </p>
                   </div>
-                  <div>
-                    <h2 className="text-5xl font-bold "><NumberTicker value={data?.happy_customers} className="text-5xl font-bold text-white" /> + </h2>
-                    <p >عميــل سعيد!</p>
+                  {/* counters */}
+                  <div className="hidden xl:flex flex-col  justify-center items-center gap-10 ">
+                    <div >
+                      <h2 className="text-5xl font-bold text-white">
+                        <NumberTicker value={data?.compleated_bookings} className="text-5xl font-bold text-white" /> +</h2>
+                      <p >حجـــــز مكتمل</p>
+                    </div>
+                    <div>
+                      <h2 className="text-5xl font-bold "><NumberTicker value={data?.happy_customers} className="text-5xl font-bold text-white" /> + </h2>
+                      <p >عميــل سعيد!</p>
+                    </div>
                   </div>
                 </div>
+                {/* filter  */}
+                <FilterTabs data={data} />
+
               </div>
-              {/* filter  */}
-              <FilterTabs data={data} />
+            </motion.div>
 
-            </div>
-          </motion.div>
+          </motion.section>
       }
-
-    </motion.section>
+    </>
   )
 }
 

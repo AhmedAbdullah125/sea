@@ -3478,6 +3478,24 @@ footer .lowerfooter {
     stroke-dashoffset: -440;
   }
 }
+.small-loading {
+  display: none;
+}
+@media screen and (max-width: 1025px) {
+  .small-loading {
+    display: block;
+  }
+}
+
+.large-loading {
+  display: block;
+}
+@media screen and (max-width: 1025px) {
+  .large-loading {
+    display: none;
+  }
+}
+
 .accout-aside {
   width: 230px;
 }

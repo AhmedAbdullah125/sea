@@ -41,15 +41,17 @@ const MainHeader = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
     return (
-        <motion.section
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay:  0.5 }}
-            className={`main-header-cont  lg:fixed top-0 left-0 right-0 z-[9999] gap-3 py-5  transition-colors duration-500 ${scrolled ? 'bg-main-navy ' : 'bg-transparent'}`}>
+        <>
             {
-                loading ? <Loading /> :
-                    <>
+                loading ? null :
+                    <motion.section
+                        initial={{ opacity: 0, y: -20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                        className={`main-header-cont  lg:fixed top-0 left-0 right-0 z-[9999] gap-3 py-5  transition-colors duration-500 ${scrolled ? 'bg-main-navy ' : 'bg-transparent'}`}>
+
+
                         <div className="container upper-nav-cont">
                             <div className="r-links">
                                 <NavLink to="/add-house">أضف سكنـك</NavLink>
@@ -133,9 +135,11 @@ const MainHeader = () => {
                                 <NavLink to='/blogs'>المدونـة</NavLink>
                             </div>
                         </div>
-                    </>
+
+
+                    </motion.section>
             }
-        </motion.section>
+        </>
     )
 }
 export default MainHeader

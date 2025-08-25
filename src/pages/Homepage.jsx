@@ -9,6 +9,7 @@ import HotelsSection from '../components/home/hotelsSection/HotelsSection';
 import PakageSection from '../components/home/pakageSection/PakageSection';
 import Satatistics from '../components/home/satatistics/Satatistics';
 import TotalHotelsSection from '../components/home/totalHotels/TotalHotelsSection';
+import Loading from '../components/loading/Loading';
 export default function Homepage() {
     return (
         <div className="bodyCont">
@@ -24,6 +25,7 @@ export default function Homepage() {
                 <AppSection />
                 <Satatistics/>
                 <Footer />
+                <Loading />
             </main>
             {/* </div> */}
         </div>

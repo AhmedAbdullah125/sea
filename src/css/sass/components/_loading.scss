@@ -204,3 +204,17 @@
     stroke-dashoffset: -440;
   }
 }
+.small-loading{
+    display: none;
+    @media screen and (max-width: 1025px) {
+        display: block;
+      
+    }
+}
+.large-loading{
+    display: block;
+    @media screen and (max-width: 1025px) {
+        display: none;
+      
+    }
+}
