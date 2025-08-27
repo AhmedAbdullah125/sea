@@ -89,8 +89,8 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
         const query = `${API_BASE_URL}/filter-hotels?country_id=${seletedCountry}` +
           `${selectedDate ? `&available_from=${formatDate(selectedDate)}` : ""}` +
           `${selectedDateTo ? `&available_to=${formatDate(selectedDateTo)}` : ""}` +
-          `${selectedPlace ? `&place=${selectedPlace}` : ""}` +
-          `${selectedView ? `&view=${selectedView}` : ""}` +
+          `${selectedPlace ? `&place_id=${selectedPlace}` : ""}` +
+          `${selectedView ? `&view_id=${selectedView}` : ""}` +
           `&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`;
         const response = await axios.get(query);
         setMainData(response.data.data);
@@ -180,6 +180,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
     setSelectedDate('');
     setSelectedDateTo('');
     setSelectedPlace('');
+    setSelectedView('');
     form.reset();
   }
 
@@ -343,7 +344,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
               <FormItem className="w-full">
                 <FormLabel className="flex items-center gap-1">
                   <MdStarRate size={16} className="text-main-purple" />
-                  <p className="text-main-blue font-bold text-sm">التقييم</p>
+                  <p className="text-main-blue font-bold text-sm">فئة النجوم</p>
                 </FormLabel>
                 <Select dir="rtl"
                   defaultValue={String(field.value || "")}
@@ -403,7 +404,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
               <FormItem className="w-full">
                 <FormLabel className="flex items-center gap-1">
                   <HiMiniViewfinderCircle size={16} className="text-main-purple" />
-                  <p className="text-main-blue font-bold text-sm">الإطلالة</p>
+                  <p className="text-main-blue font-bold text-sm"> نوع الإطلالة</p>
                 </FormLabel>
                 <Select dir="rtl"
                   defaultValue={String(field.value || "")}

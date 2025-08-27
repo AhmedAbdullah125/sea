@@ -25,7 +25,6 @@ export default function Homepage() {
                 <AppSection />
                 <Satatistics/>
                 <Footer />
-                <Loading />
             </main>
             {/* </div> */}
         </div>

@@ -126,14 +126,14 @@ const HotelHeader = ({ data }) => {
                             )}
                         </figure>
                         <div className="detail-img-btn">
-                            <a href={data.images[0]} data-fancybox="gallery" data-caption={`Image 1`} className="single-img">
+                            <a href={data.images[0]} data-caption={data.title} data-fancybox="gallery"  className="single-img">
                                 <button className="add-btn">
                                     <img src={imgicon1} alt="icon" />
                                 </button>
                             </a>
                             {
                                 videosArr.length > 0 ?
-                                    <a href={videosArr[0]} data-fancybox="vids" data-caption={`Video 1`} className="single-img">
+                                    <a href={videosArr[0]} data-caption={data.title} data-fancybox="vids" className="single-img">
                                         <button className="add-btn">
                                             <img src={imgicon2} alt="icon" />
                                         </button>
@@ -161,17 +161,17 @@ const HotelHeader = ({ data }) => {
                                                 <img src={mediaUrl} className="img-fluid" alt="detail-img" />
                                             :
                                             isVideo ? (
-                                                <a href={mediaUrl} data-fancybox="gallery" data-caption={`Video ${idx + 1}`} className="single-img">
+                                                <a href={mediaUrl} data-caption={data.title} data-fancybox="gallery"  className="single-img">
                                                     <video src={mediaUrl} className="img-fluid" muted preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
                                                 </a>
                                             ) : (
                                                 isVideo ? (
-                                                    <a href={mediaUrl} data-fancybox="gallery" data-caption={`Image ${idx + 1}`} className="single-img">
+                                                    <a href={mediaUrl} data-caption={data.title} data-fancybox="gallery"  className="single-img">
                                                         <img src={mediaUrl} className="img-fluid" alt="detail-img" />
                                                     </a>
                                                 ) :
                                                     (
-                                                        <a href={mediaUrl} data-fancybox="gallery" data-caption={`Image ${idx + 1}`} className="single-img">
+                                                        <a href={mediaUrl} data-caption={data.title} data-fancybox="gallery"  className="single-img">
                                                             <img src={mediaUrl} className="img-fluid" alt="detail-img" />
                                                         </a>
                                                     )
@@ -179,7 +179,7 @@ const HotelHeader = ({ data }) => {
                                     }
                                     {
                                         idx == 3 ?
-                                            <div className="rest"><a href={mediaUrl} data-fancybox="gallery">+{data.images.length - 3}</a></div>
+                                            <div className="rest"><a href={mediaUrl} data-caption={data.title} data-fancybox="gallery">+{data.images.length - 3}</a></div>
                                             : null
                                     }
                                 </figure>

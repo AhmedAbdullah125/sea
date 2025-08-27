@@ -17,14 +17,7 @@ const SatisticCard = ({ statistic, idx, layout }) => {
         style={{ backgroundImage: `url(${statistic.image})` }}
       >
         <div className="w-full h-full xl:p-12 p-10 flex flex-col justify-between bg-black/50">
-          <img
-            src={`/statistics/icon-${idx}.svg`}
-            alt="icon"
-            width={55}
-            height={55}
-            className="ms-auto cursor-pointer"
-            onClick={handleIconClick}
-          />
+       <div className=""></div>
           <div className="text-white">
             <NumberTicker value={statistic.number} className="text-6xl text-white font-bold after:content-['+']" />
             <div className="space-y-2">

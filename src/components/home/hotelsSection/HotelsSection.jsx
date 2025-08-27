@@ -15,7 +15,7 @@ const HotelsSection = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['hotels'],
     queryFn: async () => {
-      const res = await fetchFromApi("/hotels-user");
+      const res = await fetchFromApi("/hotels");
       return res;
     }
   })

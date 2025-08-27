@@ -9,6 +9,7 @@ import HotelBook from '../components/hotel/HotelBook';
 import HotelTabs from '../components/hotel/HotelTabs';
 import HotelPayment from '../components/hotel/HotelPayment';
 import Loading from '../components/loading/Loading';
+import HotelRooms from '../components/hotel/HotelRooms';
 const Hotel = () => {
     // state for search params
     const { id } = useParams();
@@ -33,7 +34,6 @@ const Hotel = () => {
         };
         getData();
     }, [trigger]);
-    console.log(data);
         return (
         <section>
             <Header />
@@ -45,7 +45,8 @@ const Hotel = () => {
                     <div>
                         <HotelHeader data={data} />
                         <HotelBook data={data} />
-                        <div className="midd-section container">
+                        <HotelRooms data={data} />
+                        <div className="midd-section container mb-6">
                             <div className="tabs">
                                 <HotelTabs data={data} trigger={trigger} setTrigger={setTrigger} />
                             </div>
@@ -53,6 +54,7 @@ const Hotel = () => {
                                 <HotelPayment data={data} />
                             </div>
                         </div>
+
                     </div>
                 )
             }
