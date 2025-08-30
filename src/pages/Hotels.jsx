@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { API_BASE_URL } from '../lib/apiConfig';
 import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
 import { useSearchParams } from 'react-router-dom';

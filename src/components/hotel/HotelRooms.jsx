@@ -4,9 +4,22 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../../lib/apiConfig";
 import { Link } from "react-router-dom";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import waImage from '../../assets/wa.svg'
+import { Fancybox } from "@fancyapps/ui";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 const HotelRooms = ({ data }) => {
+    Fancybox.bind("[data-fancybox]", {
+        // Your custom options
+    });
+    Fancybox.bind("[data-fancybox-video]", {
+        // Your custom options
+    });
     const [settings, setSettings] = useState([]);
     useEffect(() => {
         //getting settings from api
@@ -20,6 +33,7 @@ const HotelRooms = ({ data }) => {
         };
         getData();
     }, []);
+    console.log(data);
     return (
         <section className="hotel-room">
             {
@@ -37,15 +51,67 @@ const HotelRooms = ({ data }) => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.5, delay: index * 0.2 }}
-                                    className="room-item"
+                                    className="room-item card-item"
                                     key={index}
                                 >
-                                    <div className="img-cont">
-                                        <div className="overlay"></div>
-                                        {
-                                            room.numberOfBeds > 1 ? <span className="beds"> إجمــــالي الضيـوف : {room.numberOfBeds}  </span> : null
-                                        }
-                                        <img src={room.image} alt="" />
+                                    <div className="related-item block mb-5">
+
+                                        <Swiper
+                                            pagination={{ clickable: true }}
+                                            spaceBetween={0}
+                                            navigation={{ nextEl: `#swiper-btn-next1a`, prevEl: `#swiper-btn-prev1a`, }}
+                                            slidesPerView={1}
+                                            autoplay={true}
+                                            loop={true}
+                                            modules={[Autoplay, Navigation, Pagination]}
+                                            breakpoints={{
+                                                1400: {
+                                                    slidesPerView: 1,
+                                                },
+
+                                            }}
+                                        >
+                                            {
+                                                room.image.map((img, index) => {
+                                                    const isVideo = /\.(mp4|mov|webm)$/i.test(img);
+
+                                                    return (
+                                                        <SwiperSlide key={index}>
+                                                            <figure className="img-cont">
+                                                                <a data-fancybox="room" href={img} data-caption={room.name}>
+                                                                    <div className="overlay"></div>
+                                                                    {room.numberOfBeds > 1 && (
+                                                                        <span className="beds">إجمــــالي الضيـوف : {room.numberOfBeds}</span>
+                                                                    )}
+                                                                    {isVideo ? (
+                                                                        <video
+                                                                            src={img}
+                                                                            controls
+                                                                            preload="metadata"
+                                                                            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                                                                        >
+                                                                            Your browser does not support the video tag.
+                                                                        </video>
+                                                                    ) : (
+                                                                        <img src={img} alt={room.name} />
+                                                                    )}
+                                                                </a>
+                                                            </figure>
+                                                        </SwiperSlide>
+                                                    );
+                                                })
+                                            }
+
+                                            <div className="swiper-btn-cont swiper-btn-2" id={`swiper-btn-prev1a`}>
+                                                <div className="swiper-btn-prev swiper-btn">
+                                                    <i className="fa-solid fa-chevron-right"></i>
+                                                </div>
+
+                                                <div className="swiper-btn-next swiper-btn" id={`swiper-btn-next1a`}>
+                                                    <i className="fa-solid fa-chevron-left"></i>
+                                                </div>
+                                            </div>
+                                        </Swiper>
                                     </div>
                                     <div className="info">
                                         <div className="features">
@@ -81,8 +147,8 @@ const HotelRooms = ({ data }) => {
                                             </div>
                                         </div>
                                         <Link className="btn-wa" to={`https://wa.me/${settings.whatsapp}?text=اريد مناقشتكم عن غرفة ${room.name} في ${data.title}`}>
-                                        <span>تخصيص الغرفة</span>
-                                        <img src={waImage} alt="whatsapp" />
+                                            <span>تخصيص الغرفة</span>
+                                            <img src={waImage} alt="whatsapp" />
                                         </Link>
                                     </div>
                                 </motion.div>
@@ -91,7 +157,7 @@ const HotelRooms = ({ data }) => {
                     </div>
                     : null
             }
-        </section>
+        </section >
     )
 }
 

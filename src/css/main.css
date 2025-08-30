@@ -2956,6 +2956,9 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   height: 100%;
   z-index: 2;
 }
+.hotel-room .rooms-grid .room-item .img-cont .overlay:hover {
+  background-color: rgba(0, 0, 0, 0);
+}
 .hotel-room .rooms-grid .room-item .img-cont .beds {
   position: absolute;
   top: 30px;
