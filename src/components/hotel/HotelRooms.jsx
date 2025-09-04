@@ -15,7 +15,7 @@ import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { toggleFavourates } from "../../pages/toggleFavourates";
 
 const HotelRooms = ({ data }) => {
-    const [favouratesRooms , setFavouratesRooms] = useState([])
+    const [favouratesRooms, setFavouratesRooms] = useState([])
     Fancybox.bind("[data-fancybox]", {
         dirction: "ltr",
 
@@ -41,7 +41,7 @@ const HotelRooms = ({ data }) => {
             if (data.rooms[index].is_favourate) {
                 favs.push(data.rooms[index].id)
             }
-            
+
         }
         setFavouratesRooms(favs)
     }, []);
@@ -168,10 +168,14 @@ const HotelRooms = ({ data }) => {
                                         }
                                         <div className="details">
                                             <div className="r-side">
-                                                <div className="price">
-                                                    <span>{Number(room.price).toFixed(1)}</span>
-                                                    <span className="currency">{data.currencyName}</span>
-                                                </div>
+                                                {
+                                                    room.price && Number(room.price > 0) ?
+                                                        <div className="price">
+                                                            <span>{Number(room.price).toFixed(1)}</span>
+                                                            <span className="currency">{data.currencyName}</span>
+                                                        </div>
+                                                        : null
+                                                }
                                                 <span className="price-per-night">المجموع ل (1) غرفة</span>
                                             </div>
                                             <div className="l-side">

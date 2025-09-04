@@ -2984,7 +2984,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
 .hotel-room .rooms-grid .room-item .img-cont .beds {
   position: absolute;
   top: 30px;
-  inset-inline-end: 30px;
+  inset-inline-start: 30px;
   padding: 0 13px;
   display: flex;
   align-items: center;

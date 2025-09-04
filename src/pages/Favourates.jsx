@@ -3,14 +3,32 @@ import axios from "axios";
 import { API_BASE_URL } from "../lib/apiConfig";
 import Loading from "../components/loading/Loading";
 import waImage from '../assets/wa.svg'
-
+import { ChevronDown } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+function formatDate(d) {
+    if (!d) return "";
+    // Arabic/Egypt formatting example – tweak as you like:
+    return d.toLocaleDateString("ar-EG", {
+        weekday: "short",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+}
 export default function Favourates() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [settings, setSettings] = useState([]);
+    const [selectedPersonsNumber, setSelectedPersonsNumber] = useState(1);
+    const [selectedChildrenNumber, setSelectedChildrenNumber] = useState(0);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedDateTo, setSelectedDateTo] = useState(null);
+    console.log(selectedChildrenNumber, selectedPersonsNumber, selectedDate, selectedDateTo)
     useEffect(() => {
         setLoading(true);
         //scroll to the top of page 
@@ -57,11 +75,99 @@ export default function Favourates() {
         });
         return formatter.format(date);
     }
-    const t = { "hotels": "الفنادق", "plans": "الباقات", "roms": "الغرف" }
+    const t = { "hotels": "الفنادق", "plans": "الباقات", "rooms": "الغرف" }
     const [selectedHotels, setSelectedHotels] = useState([]);
     const [selectedRooms, setSelectedRooms] = useState([]);
     return (
         <div className="reservation-cont">
+            <div className="fav-filter">
+                {
+                    selectedHotels.length > 1 || selectedRooms.length > 1 ?
+                        <div className="persons-sele bg-body mb-5 flex items-center justify-center gap-2 flex-wrap xl:flex-nowrap">
+                            <Select dir="rtl"
+                                onValueChange={(val) => setSelectedPersonsNumber(val)}
+                            >
+                                <SelectTrigger icon={<div className="  size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                                    <ChevronDown size={14} />
+                                </div>} className={` text-[#797979]  text-xs font-semibold border-slate-800 bg-white  rounded-full h-12`}>
+                                    <SelectValue placeholder={"اختر عدد الاشخاص..."} className="text-red bg-body" />
+                                </SelectTrigger>
+                                <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                                    {Array.from({ length: 10 }, (_, index) => index + 1).map((option) => (
+                                        <SelectItem key={option} value={String(option)} className=" cursor-pointer focus:bg-body rounded-xl">
+                                            {option}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            <Select dir="rtl"
+                                onValueChange={(val) => setSelectedChildrenNumber(val)}
+                            >
+                                <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                                    <ChevronDown size={14} />
+                                </div>} className={` text-[#797979]  text-xs font-semibold border-slate-800  bg-white rounded-full h-12`}>
+                                    <SelectValue placeholder={"اختر عدد الاطفال..."} className="text-red bg-body" />
+                                </SelectTrigger>
+                                <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                                    {Array.from({ length: 10 }, (_, index) => index + 1).map((option) => (
+                                        <SelectItem key={option} value={String(option)} className=" cursor-pointer focus:bg-body rounded-xl">
+                                            {option}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            <Popover className="bg-white">
+                                <PopoverTrigger asChild >
+                                    <Button
+                                        variant="outline"
+                                        className="bg-white rounded-full h-12 w-full flex justify-between"
+                                    >
+                                        {selectedDate ? (
+                                            <span className="font-semibold text-sm">{(selectedDate)}</span>
+                                        ) : (
+                                            <span className="text-[#797979] text-xs font-semibold">اختر تاريخ الوصول</span>
+                                        )}
+                                        <ChevronDown size={14} />
+                                    </Button>
+                                </PopoverTrigger>
+
+                                <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
+                                    <Calendar
+                                        mode="single"
+                                        selected={selectedDate ?? undefined}   // pass a Date or undefined
+                                        onSelect={(date) => setSelectedDate(formatDate(date) ?? null)}
+                                        fromDate={new Date()}
+                                    />
+                                </PopoverContent>
+                            </Popover>
+                            <Popover className="bg-white">
+                                <PopoverTrigger asChild >
+                                    <Button
+                                        variant="outline"
+                                        className="bg-white rounded-full h-12 w-full flex justify-between"
+                                    >
+                                        {selectedDateTo ? (
+                                            <span className="font-semibold text-sm">{(selectedDateTo)}</span>
+                                        ) : (
+                                            <span className="text-[#797979] text-xs font-semibold">اختر تاريخ الخروج</span>
+                                        )}
+                                        <ChevronDown size={14} />
+                                    </Button>
+                                </PopoverTrigger>
+
+                                <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
+                                    <Calendar
+                                        mode="single"
+                                        selected={selectedDateTo ?? undefined}   // pass a Date or undefined
+                                        onSelect={(date) => setSelectedDateTo(formatDate(date) ?? null)}
+                                        fromDate={new Date()}
+                                    />
+                                </PopoverContent>
+                            </Popover>
+                        </div>
+                        : null
+                }
+            </div>
             {
                 loading ? <Loading /> :
                     data.length == 0 ?
@@ -83,7 +189,7 @@ export default function Favourates() {
                                                 item.type == "hotels" ?
 
                                                     selectedHotels.length > 1 && item.type == "hotels" && settings ?
-                                                        <a className="btn-wa max-w-56" href={`https://wa.me/${settings.whatsapp}?text=  اريد مناقشتكم عن مقارنه بين الفنادق ${selectedHotels.map(item => item).join(', ')}`}>
+                                                        <a className="btn-wa max-w-56" href={`https://wa.me/${settings.whatsapp}?text=  اريد مناقشتكم عن مقارنه بين الفنادق ${selectedHotels.map(item => item).join(', ')} ${selectedPersonsNumber ? `ل ${selectedPersonsNumber} اشخاص و ${selectedChildrenNumber} اطفال` : ""} ${selectedDate && selectedDateTo ? `من تاريخ ${selectedDate} الى تاريخ ${selectedDateTo}` : ""}`}>
                                                             <span>
                                                                 قارن الفنادق المحددة
                                                             </span>
@@ -93,9 +199,9 @@ export default function Favourates() {
                                                         null
 
                                                     :
-                                                    item.type == "roms" ?
-                                                        selectedRooms.length > 1 && item.type == "roms" && settings ?
-                                                            <a className="btn-wa max-w-56" href={`https://wa.me/${settings.whatsapp}?text=  اريد مناقشتكم عن مقارنه بين الغرف ${selectedRooms.map(item => item).join(', ')}`}>
+                                                    item.type == "rooms" ?
+                                                        selectedRooms.length > 1 && item.type == "rooms" && settings ?
+                                                        <a className="btn-wa max-w-56" href={`https://wa.me/${settings.whatsapp}?text=  اريد مناقشتكم عن مقارنه بين الغرف ${selectedRooms.map(item => item).join(', ')} ${selectedPersonsNumber ? `ل ${selectedPersonsNumber} اشخاص و ${selectedChildrenNumber} اطفال` : ""} ${selectedDate && selectedDateTo ? `من تاريخ ${selectedDate} الى تاريخ ${selectedDateTo}` : ""}`}>
                                                                 <span>
                                                                     قارن الغرف المحددة
                                                                 </span>
@@ -196,7 +302,7 @@ export default function Favourates() {
                                                                 </a>
                                                             </div>
                                                         )
-                                                        : item.type == "roms" ?
+                                                        : item.type == "rooms" ?
 
                                                             item.items.map((room, index) =>
                                                                 <motion.div
