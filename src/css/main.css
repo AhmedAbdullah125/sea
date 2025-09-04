@@ -1517,14 +1517,20 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
      object-fit: cover;
 }
 
+.fancybox__container {
+  direction: ltr;
+}
+
 .related-content {
   position: absolute;
   top: 0;
+  inset-inline-end: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  width: 100%;
+  width: -moz-fit-content;
+  width: fit-content;
   gap: 10px;
   padding: 30px;
   z-index: 2;
@@ -2457,6 +2463,12 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   gap: 20px;
   margin-bottom: 35px;
 }
+.damans .daman-accordion {
+  border-bottom: none;
+}
+.damans .daman-accordion svg {
+  display: none;
+}
 .damans .daman {
   padding: 15px 20px;
   border-radius: 30px;
@@ -2500,6 +2512,12 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   font-size: 22px;
   font-weight: 800;
   border: 2px solid var(--main-hover);
+}
+.damans .daman .r-side .name-cont img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .damans .daman .r-side span {
   color: #6F6F6F;

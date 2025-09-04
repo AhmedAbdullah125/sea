@@ -4,6 +4,8 @@ import { API_BASE_URL } from "../lib/apiConfig";
 import Loading from "../components/loading/Loading";
 import waImage from '../assets/wa.svg'
 
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function Favourates() {
     const [loading, setLoading] = useState(true);
@@ -45,6 +47,7 @@ export default function Favourates() {
         }
         getSettings();
     }, [])
+    console.log(data)
     function formatArabicDate(dateStr) {
         const date = new Date(dateStr);
         const formatter = new Intl.DateTimeFormat('ar-EG', {
@@ -54,8 +57,9 @@ export default function Favourates() {
         });
         return formatter.format(date);
     }
-    const t = { "hotels": "الفنادق", "plans": "الباقات" }
+    const t = { "hotels": "الفنادق", "plans": "الباقات", "roms": "الغرف" }
     const [selectedHotels, setSelectedHotels] = useState([]);
+    const [selectedRooms, setSelectedRooms] = useState([]);
     return (
         <div className="reservation-cont">
             {
@@ -76,15 +80,30 @@ export default function Favourates() {
                                         <div className="flex items-center justify-between mb-5 gap-2">
                                             <h3 className="">{t[item.type]}</h3>
                                             {
-                                                selectedHotels.length > 1 && item.type == "hotels" && settings ?
-                                                    <a className="btn-wa max-w-56" href={`https://wa.me/${settings.whatsapp}?text=  اريد مناقشتكم عن مقارنه بين الفنادق ${selectedHotels.map(item => item).join(', ')}`}>
-                                                        <span>
-                                                            قارن الفنادق المحددة
-                                                        </span>
-                                                        <img src={waImage} alt="whatsapp" />
-                                                    </a>
+                                                item.type == "hotels" ?
+
+                                                    selectedHotels.length > 1 && item.type == "hotels" && settings ?
+                                                        <a className="btn-wa max-w-56" href={`https://wa.me/${settings.whatsapp}?text=  اريد مناقشتكم عن مقارنه بين الفنادق ${selectedHotels.map(item => item).join(', ')}`}>
+                                                            <span>
+                                                                قارن الفنادق المحددة
+                                                            </span>
+                                                            <img src={waImage} alt="whatsapp" />
+                                                        </a>
+                                                        :
+                                                        null
+
                                                     :
-                                                    null
+                                                    item.type == "roms" ?
+                                                        selectedRooms.length > 1 && item.type == "roms" && settings ?
+                                                            <a className="btn-wa max-w-56" href={`https://wa.me/${settings.whatsapp}?text=  اريد مناقشتكم عن مقارنه بين الغرف ${selectedRooms.map(item => item).join(', ')}`}>
+                                                                <span>
+                                                                    قارن الغرف المحددة
+                                                                </span>
+                                                                <img src={waImage} alt="whatsapp" />
+                                                            </a>
+                                                            :
+                                                            null
+                                                        : null
                                             }
                                         </div>
                                         <div className="related-grid-cont-favourates">
@@ -147,34 +166,94 @@ export default function Favourates() {
                                                             </a>
                                                         </div>
                                                     )
-                                                    :
-                                                    item.items.map((trip, index) =>
-                                                        <div className="trip-item" key={index}>
-                                                            <div className="trip-img">
-                                                                <figure>
-                                                                    <img src={trip.thumbnail} alt="img" />
-                                                                </figure>
 
-                                                            </div>
-                                                            <a href={`/package/${trip.slug}`} className="card-content">
-                                                                <div className="detail-flex">
-                                                                    <div className="detail-period">جولة لمدة {trip.durationDays} أيــــام</div>
-                                                                    <div className="detail-info-item rate">
-                                                                        <i className="fa-solid fa-star"></i>
-                                                                        <span>{Number(trip.rating).toFixed(1)} <span>( {trip.reviewsCount} )</span></span>
+                                                    : item.type == "plans" ?
+
+                                                        item.items.map((trip, index) =>
+                                                            <div className="trip-item" key={index}>
+                                                                <div className="trip-img">
+                                                                    <figure>
+                                                                        <img src={trip.thumbnail} alt="img" />
+                                                                    </figure>
+
+                                                                </div>
+                                                                <a href={`/package/${trip.slug}`} className="card-content">
+                                                                    <div className="detail-flex">
+                                                                        <div className="detail-period">جولة لمدة {trip.durationDays} أيــــام</div>
+                                                                        <div className="detail-info-item rate">
+                                                                            <i className="fa-solid fa-star"></i>
+                                                                            <span>{Number(trip.rating).toFixed(1)} <span>( {trip.reviewsCount} )</span></span>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div className="card-item-name">{trip.title}</div>
-                                                                <div className="card-place">سارية في {formatArabicDate(trip.arrivalTime)}</div>
-                                                                <div className="item-price">
-                                                                    {trip.cost}
-                                                                    {trip.currencyName}
-                                                                    <span className="period"><span>/</span> للشخص الواحد</span>
-                                                                </div>
+                                                                    <div className="card-item-name">{trip.title}</div>
+                                                                    <div className="card-place">سارية في {formatArabicDate(trip.arrivalTime)}</div>
+                                                                    <div className="item-price">
+                                                                        {trip.cost}
+                                                                        {trip.currencyName}
+                                                                        <span className="period"><span>/</span> للشخص الواحد</span>
+                                                                    </div>
 
-                                                            </a>
-                                                        </div>
-                                                    )
+                                                                </a>
+                                                            </div>
+                                                        )
+                                                        : item.type == "roms" ?
+
+                                                            item.items.map((room, index) =>
+                                                                <motion.div
+                                                                    initial={{ opacity: 0, y: -50 }}
+                                                                    whileInView={{ opacity: 1, y: 0 }}
+                                                                    viewport={{ once: true }}
+                                                                    transition={{ duration: 0.5, delay: index * 0.2 }}
+                                                                    className="room-item card-item"
+                                                                    key={index}
+                                                                >
+                                                                    <div className="related-item block mb-5">
+
+                                                                        <figure className="img-cont fav-img-cont">
+                                                                            {
+                                                                                item.items.length > 1 ?
+                                                                                    <div className={`check-box ${selectedRooms.includes(room.name) ? "active" : ""}`} onClick={() => {
+                                                                                        selectedRooms.includes(room.name) ? setSelectedRooms(selectedRooms.filter(item => item !== room.name))
+                                                                                            :
+                                                                                            setSelectedRooms([...selectedRooms, room.name])
+                                                                                    }} data-id={`${room.name}`}>
+                                                                                        {
+                                                                                            selectedRooms.includes(room.name) ?
+                                                                                                <i className="fa-solid fa-check"></i>
+                                                                                                :
+                                                                                                null
+                                                                                        }
+                                                                                    </div>
+                                                                                    :
+                                                                                    null
+                                                                            }
+                                                                            <img src={room.image[0]} alt={room.name} />
+                                                                        </figure>
+                                                                    </div>
+                                                                    <div className="info">
+
+                                                                        <h3 className="room-name">{room.name}</h3>
+                                                                        {
+                                                                            room.childBedEnabled ? <span className="child-bed">أسرة أطفال / رضع مجانًا</span> : null
+                                                                        }
+                                                                        <div className="details">
+                                                                            <div className="r-side">
+                                                                                <div className="price">
+                                                                                    <span>{Number(room.price).toFixed(1)}</span>
+                                                                                    <span className="currency">{data.currencyName ? data.currencyName : "SAR"}</span>
+                                                                                </div>
+                                                                                <span className="price-per-night">المجموع ل (1) غرفة</span>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <Link className="btn-wa" to={`https://wa.me/${settings.whatsapp}?text=اريد مناقشتكم عن غرفة ${room.name} في ${data.title}`}>
+                                                                            <span>تخصيص الغرفة</span>
+                                                                            <img src={waImage} alt="whatsapp" />
+                                                                        </Link>
+                                                                    </div>
+                                                                </motion.div>
+                                                            )
+                                                            : null
                                             }
                                         </div>
                                     </div>

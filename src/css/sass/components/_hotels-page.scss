@@ -531,6 +531,12 @@
   flex-direction: column;
   gap: 20px;
   margin-bottom: 35px;
+  .daman-accordion{
+    border-bottom: none;
+    svg{
+      display: none;
+    }
+  }
 
   .daman {
     padding: 15px 20px;
@@ -573,6 +579,11 @@
         font-size: 22px;
         font-weight: 800;
         border: 2px solid $hover;
+        img{
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
 
       span {

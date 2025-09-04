@@ -12,10 +12,13 @@ import "swiper/css/pagination";
 import waImage from '../../assets/wa.svg'
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import { toggleFavourates } from "../../pages/toggleFavourates";
 
 const HotelRooms = ({ data }) => {
+    const [favouratesRooms , setFavouratesRooms] = useState([])
     Fancybox.bind("[data-fancybox]", {
-        // Your custom options
+        dirction: "ltr",
+
     });
     Fancybox.bind("[data-fancybox-video]", {
         // Your custom options
@@ -32,6 +35,15 @@ const HotelRooms = ({ data }) => {
             }
         };
         getData();
+        // adding favourates rooms ids to favouratesRooms state
+        let favs = []
+        for (let index = 0; index < data.rooms.length; index++) {
+            if (data.rooms[index].is_favourate) {
+                favs.push(data.rooms[index].id)
+            }
+            
+        }
+        setFavouratesRooms(favs)
     }, []);
     console.log(data);
     return (
@@ -55,7 +67,31 @@ const HotelRooms = ({ data }) => {
                                     key={index}
                                 >
                                     <div className="related-item block mb-5">
+                                        <div className="related-content">
+                                            <div className="related-btn">
+                                                {/* <span>{Number(item.discount)}%</span> */}
+                                                <button
 
+                                                    onClick={
+                                                        () => {
+                                                            if (sessionStorage.getItem('token')) {
+                                                                if (favouratesRooms.includes(room.id)) {
+                                                                    setFavouratesRooms(favouratesRooms.filter(id => id !== room.id))
+                                                                }
+                                                                else {
+                                                                    setFavouratesRooms([...favouratesRooms, room.id])
+                                                                }
+                                                                toggleFavourates(room.id, 'Room');
+                                                            }
+                                                            else {
+                                                                toast.error('يجب تسجيل الدخول اولا')
+                                                                window.location.href = '/login'
+                                                            }
+                                                        }
+                                                    }
+                                                ><i className={`fa-heart ${favouratesRooms.includes(room.id) ? 'fa-solid text-[#A71755]' : 'fa-regular '}`}></i></button>
+                                            </div>
+                                        </div>
                                         <Swiper
                                             pagination={{ clickable: true }}
                                             spaceBetween={0}

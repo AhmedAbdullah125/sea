@@ -630,15 +630,18 @@
     object-fit: cover;
   }
 }
-
+.fancybox__container{
+  direction: ltr;
+}
 .related-content {
   position: absolute;
   top: 0;
+  inset-inline-end: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  width: 100%;
+  width: fit-content;
   gap: 10px;
   padding: 30px;
   z-index: 2;
