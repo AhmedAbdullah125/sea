@@ -68,14 +68,14 @@ const Header = () => {
                     <NavLink to='/blogs'>المدونـة</NavLink>
                 </div>
                 <div className="account-cont">
-                    {
+                    {/* {
                         loading ?
                             <Link to="/account/profile" className='profile'>
                                 <LazyLoadImage src={profileImage} alt="logo" loading='lazy' className='w-[18px]' />
                             </Link>
                             :
                             null
-                    }
+                    } */}
                     <LoginDialog />
                 </div>
                 <DropdownMenu>

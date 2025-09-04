@@ -12,6 +12,7 @@ import axios from 'axios'
 import { API_BASE_URL } from '../../lib/apiConfig'
 import { Link } from "react-router-dom";
 import profileImage from '../../../public/home/profile.svg'
+import loginImg from '../../../public/login/login.png'
 
 const LoginDialog = ({ mainHeader = false }) => {
   const [phone, setPhone] = useState("");
@@ -46,20 +47,10 @@ const LoginDialog = ({ mainHeader = false }) => {
 
   if (token) return (
 
-    <>
-      {
-        loading ?
-         
           <Link to="/account/profile" className='profile'>
             <LazyLoadImage src={profile?.image || profileImage} alt="logo" loading='lazy' className='w-[45px] h-[45px] rounded-full m-auto object-cover header-profileImage border-2 border-white bg-white' />
           </Link>
-          :
-          <Link to="/account/profile" className='profile'>
-            <LazyLoadImage src={profile?.image || profileImage} alt="logo" loading='lazy' className='w-[45px] h-[45px] rounded-full m-auto object-cover header-profileImage border-2 border-white bg-white' />
-          </Link>
-      }
-
-    </>
+  
   )
   return (
     <Dialog   >
@@ -83,7 +74,7 @@ const LoginDialog = ({ mainHeader = false }) => {
           </div>
           {/* image */}
           <div className="xl:col-span-7  max-xl:hidden h-full">
-            <img src={'/login/login.png'} alt="logo" loading='lazy' className="h-full w-full " />
+            <img src={loginImg} alt="logo" loading='lazy' className="h-full w-full " />
           </div>
         </div>
       </DialogContent>

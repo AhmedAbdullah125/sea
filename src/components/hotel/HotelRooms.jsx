@@ -61,7 +61,9 @@ const HotelRooms = ({ data }) => {
                                             spaceBetween={0}
                                             navigation={{ nextEl: `#swiper-btn-next1a`, prevEl: `#swiper-btn-prev1a`, }}
                                             slidesPerView={1}
-                                            autoplay={true}
+                                            autoplay={false}
+                                            //pause on mouse hoverx
+                                            mousewheel={true}
                                             loop={true}
                                             modules={[Autoplay, Navigation, Pagination]}
                                             breakpoints={{
