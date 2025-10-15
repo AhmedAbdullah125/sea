@@ -62,8 +62,8 @@ const Header = () => {
                     <NavLink to='/hotels'>فــنادق وشقــق</NavLink>
                     <div className="noqta"></div>
                     <NavLink to='/visa'>التــأشيــرات</NavLink>
-                    <div className="noqta"></div>
-                    <NavLink to='/privite-tours'>النقل و المــواصلات</NavLink>
+                    {/* <div className="noqta"></div>
+                    <NavLink to='/privite-tours'>النقل و المــواصلات</NavLink> */}
                     <div className="noqta"></div>
                     <NavLink to='/blogs'>المدونـة</NavLink>
                 </div>
@@ -95,9 +95,9 @@ const Header = () => {
                             <DropdownMenuItem>
                                 <NavLink className="w-full text-white" to="/visa">التــأشيــرات</NavLink>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
+                            {/* <DropdownMenuItem>
                                 <NavLink className="w-full text-white" to="/privite-tours">النقل و المــواصلات</NavLink>
-                            </DropdownMenuItem>
+                            </DropdownMenuItem> */}
                             <DropdownMenuItem>
                                 <NavLink className="w-full text-white" to="/blogs">المدونـة</NavLink>
                             </DropdownMenuItem>

@@ -8,7 +8,7 @@ export const addComment = async (API_BASE_URL, payload, setLoading,trigger, setT
     const url = `${API_BASE_URL}/hotel-comment`; // API endpoint   
     try {
         // Prepare the request payload
-        const queryParams = { comment: payload.comment, rating: payload.rate, hotel_id: payload.data.id, };
+        const queryParams = { comment: payload.comment, rating: payload.rate, hotel_id: payload.id, };
         const response = await axios({
             method: 'post', url: url, data: queryParams,
             headers: { lang: localStorage.getItem('lang') || 'en', Authorization: `Bearer ${sessionStorage.getItem('token')}`, },

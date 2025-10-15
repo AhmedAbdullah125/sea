@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import React from 'react'
 import { Link } from 'react-router-dom'
+import fallbackImage from '../../../public/blogs/blogs.png'
 const BlogCard = ({ blog }) => {
   const formatDateArabic = (isoDate) => {
     if (!isoDate) return '';
@@ -11,6 +12,7 @@ const BlogCard = ({ blog }) => {
       year: 'numeric'
     });
   };
+  console.log(blog)
   return (
     <motion.div
       initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -29,7 +31,7 @@ const BlogCard = ({ blog }) => {
         </div>
         <div className='font-semibold text-sm  flex items-center gap-2'>
           <div className='flex items-center gap-2'>
-            <img src={blog?.authorImage || "/blogs/blogs.png"} alt="author" className='size-6 rounded-full object-cover' />
+            <img src={blog?.authorImage || fallbackImage} alt="author" className='size-6 rounded-full object-cover' />
             <p className='text-main-purple font-bold'>{blog?.authorName || "موقع sea"}</p>
           </div>
           {

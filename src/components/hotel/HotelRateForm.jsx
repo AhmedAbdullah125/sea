@@ -4,7 +4,9 @@ import Loading from '../loading/Loading';
 import { API_BASE_URL } from '../../lib/apiConfig';
 import { toast } from 'sonner';
 
-const HotelRateForm = ({ comment, rate, setComment, data, setRate, trigger, setTrigger, setActiveTab }) => {
+const HotelRateForm = ({id, trigger, setTrigger, setActiveTab }) => {
+    const [comment, setComment] = useState('');
+    const [rate, setRate] = useState(null);
     const [loading, setLoading] = useState(false);
     function handleSubmit(e) {
         e.preventDefault(); // ✅ Prevent page reload
@@ -22,7 +24,7 @@ const HotelRateForm = ({ comment, rate, setComment, data, setRate, trigger, setT
             rate,
             // Optionally attach data like hotel ID or user ID
 
-            data,
+            id,
         };
         handleAddComment(payload);
         // reset form fields

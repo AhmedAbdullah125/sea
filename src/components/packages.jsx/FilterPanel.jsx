@@ -53,17 +53,12 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
     return `${year}-${month}-${day}`;
   }
   const [data, setData] = useState([]);
-  const [filters, setFilters] = useState([]);
-  const [cities, setCities] = useState([])
   const [loading, setLoading] = useState(true);
   const [continents, setContinents] = useState([])
   const [seletedCountry, setSelectedCountry] = useState(defaultValues.destination || '');
-  const [selectedCity, setSelectedCity] = useState(defaultValues.city || '');
-  const [seletedNeighborhood, setSelectedNeighborhood] = useState(defaultValues.neighborhood || '');
   const [guests, setGuests] = useState(defaultValues.guest || '');
-  const [seletedRate, setSelectedRate] = useState(defaultValues.rate || '');
-  const [selectedOffer, setSelectedOffer] = useState(defaultValues.offer || '');
   const [selectedDate, setSelectedDate] = useState(defaultValues.start || '');
+  const [selectedDateTo, setSelectedDateTo] = useState(defaultValues.end || '');
   const [selectedContinents, setSelectedContinents] = useState(defaultValues.continent || '');
   const [minPrice, setMinPrice] = useState(defaultValues.min_price || '');
   const [maxPrice, setMaxPrice] = useState(defaultValues.max_price || '');
@@ -73,10 +68,8 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
       try {
         const response = await axios.get(`${API_BASE_URL}/countries`, {});
         const response2 = await axios.get(`${API_BASE_URL}/continents`, {});
-        const response3 = await axios.get(`${API_BASE_URL}/all-filters`, {});
         setData(response.data.data);
         setContinents(response2.data.data);
-        setFilters(response3.data.data);
         setLoading(false);
       } catch (error) {
         console.error('Error retrieving data:', error);
@@ -86,11 +79,12 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
     };
     getData();
   }, []);
+  console.log(continents)
   useEffect(() => {
     setLoading(true);
     const getData = async () => {
       try {
-        const response = await axios.post(`${API_BASE_URL}/filter-plans?country=${seletedCountry}&continent=${selectedContinents}&arrival_time=${formatDate(selectedDate)}&number_of_person=${guests}&min_price=${minPrice}&max_price=${maxPrice}`, {});
+        const response = await axios.post(`${API_BASE_URL}/filter-plans?country=${seletedCountry}&continent=${selectedContinents}${selectedDateTo ? `&arrival_time=${formatDate(selectedDateTo)}` : ""}${selectedDate ? `&start_date=${formatDate(selectedDate)}` : ""}&number_of_person=${guests}&min_price=${minPrice}&max_price=${maxPrice}`, {});
         setMainData(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -110,7 +104,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
   });
   const { watch, setValue } = form;
   const values = watch();
-
+  console.log(selectedContinents)
   return (
     <>
       {
@@ -136,8 +130,8 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                         </p>
                       </FormLabel>
                       <Select dir="rtl"
-                        defaultValue={selectedCity}
-                        onValueChange={(val) => setSelectedContinents(val)} >
+                        onValueChange={(val) => {
+                          setSelectedCountry(""); setSelectedContinents(val)}} >
                         <FormControl>
                           <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                             <ChevronDown size={14} />
@@ -166,11 +160,12 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                       <FormLabel className="flex items-center gap-1">
                         <BsFillSendFill size={16} className="text-main-purple" />
                         <p className="text-main-blue font-bold text-sm">
-                          إختــــــر الوجهـــة
+                        إختـــر الدولـــة
                         </p>
                       </FormLabel>
                       <Select dir="rtl"
                         defaultValue={values.destination}
+                        disabled={selectedContinents ? false : true}
                         onValueChange={(val) => setSelectedCountry(val)} >
                         <FormControl>
                           <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
@@ -180,11 +175,14 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                          {data.map((option) => (
-                            <SelectItem key={option.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
-                              {option.name}
-                            </SelectItem>
-                          ))}
+                          {
+                            continents.find((cont) => String(cont.id) === selectedContinents)?.countries?.map((option) => (
+                              <SelectItem key={option.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
+                                {option.name}
+                              </SelectItem>
+                            ))
+                          }
+                         
                         </SelectContent>
                       </Select>
                     </FormItem>
@@ -202,7 +200,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                       <FormLabel className="flex items-center gap-1">
                         <FaCalendarDays size={16} className="text-main-purple" />
                         <p className="text-main-blue font-bold text-sm">
-                          موعـــد الوصول / العودة
+                          موعـــد الوصول 
                         </p>
                       </FormLabel>
                       <Popover className="w-full">
@@ -241,7 +239,55 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                     </FormItem>
                   )}
                 />
-                <button type="button" className="flex-shrink-0 xl:col-span-2 col-span-12 h-12 py-0 px-9 mt-7 bg-[#A71755]  text-white hover:text-red-500  font-semibold flex items-center justify-center rounded-full xl:order-[unset] order-1">عرض النــــتائج</button>
+                <FormField
+                  control={form.control}
+                  name={"dateTo"}
+                  className="w-full "
+                  render={({ field }) => (
+                    <FormItem className={`xl:col-span-3 col-span-12  w-full flex flex-col`}>
+                      <FormLabel className="flex items-center gap-1">
+                        <FaCalendarDays size={16} className="text-main-purple" />
+                        <p className="text-main-blue font-bold text-sm">
+                          موعـــد العودة
+                        </p>
+                      </FormLabel>
+                      <Popover className="w-full">
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant="outline"
+                              className={cn(
+                                "bg-body h-12 w-full px-3  font-xs font-semibold text-main-gray  rounded-full border-none hover:bg-body  flex items-center justify-between",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, "PPP")
+                              ) : (
+                                <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>
+                              )}
+                              <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                                <ChevronDown size={14} />
+                              </div>
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value ? new Date(field.value) : undefined}
+                            // onChange={field.onChange}
+                            onSelect={(date) => setSelectedDateTo(date)}
+                            className="w-full"
+                          // fromDate={new Date()} // ⬅️ This prevents selecting past dates
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage className="text-red-500  text-xs " />
+                    </FormItem>
+                  )}
+                />
+                {/* <button type="button" className="flex-shrink-0 xl:col-span-2 col-span-12 h-12 py-0 px-9 mt-7 bg-[#A71755]  text-white hover:text-red-500  font-semibold flex items-center justify-center rounded-full xl:order-[unset] order-1">عرض النــــتائج</button> */}
               </div>
               <div className="grid grid-cols-6 gap-4">
                 {/* lang */}
@@ -285,7 +331,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                     <FormItem className="xl:col-span-2 col-span-12">
                       <Select dir="rtl"
                         defaultValue={values.country}
-                        onValueChange={(val) => setMinPrice(val)} >
+                        onValueChange={(val) => setMinPrice(Number(val))} >
                         <FormControl>
                           <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
                             <ChevronDown size={14} />
@@ -319,7 +365,7 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                     <FormItem className="xl:col-span-2 col-span-12">
                       <Select dir="rtl"
                         defaultValue={values.country}
-                        onValueChange={(val) => setMaxPrice(val)} >
+                        onValueChange={(val) => setMaxPrice(Number(val))} >
                         <FormControl>
                           <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
                             <ChevronDown size={14} />

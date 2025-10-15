@@ -8,6 +8,7 @@ import Loading from "../components/loading/Loading"
 import AlertWarning from "../components/alerts/AlertWarning"
 import AlertError from "../components/alerts/AlertError"
 import { motion } from "framer-motion"
+import bg from "../assets/visabg.jpg"
 const VisaPage = () => {
   const [searchParams] = useSearchParams();
   const type = searchParams.get("type");
@@ -37,9 +38,16 @@ const VisaPage = () => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1 }}
-        className="bg-[url('/visa/bg.png')] bg-cover bg-center py-16">
+        className={` bg-cover bg-center `}
+        style={{
+          backgroundImage: `url(${bg})`,
+          backgroundColor: "rgba(0, 0, 0, 0.5)"
+        }}
+        >
+          <div className="py-16 bg-black/50">
+
         {/* content  */}
-        <div className="container text-white text-center ">
+        <div className="container text-white text-center">
           {type ?
             <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">تأشيرات {type == "sa" ? "السعودية" : "الإمارات العربية المتحدة"} الإلكترونية </h1>
             :
@@ -52,6 +60,7 @@ const VisaPage = () => {
           <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">
             يتم معالجة الطلب من 3 إلى 5 أيام عمل.          </p>
         </div>
+          </div>
       </motion.div>
       {/* content */}
       <section className="my-16 container">

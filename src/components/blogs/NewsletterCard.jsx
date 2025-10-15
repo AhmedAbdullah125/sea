@@ -57,7 +57,7 @@ const NewsletterCard = ({ bgColor, item }) => {
           </DialogHeader>
         </DialogContent>
       </Dialog>
-      <LazyLoadImage src={item?.image} className="w-full h-full object-cover rounded-[15px]" />
+      {/* <LazyLoadImage src={item?.image} className="w-full h-full object-cover rounded-[15px]" /> */}
       <h3 className='xl:text-2xl font-bold'>
         {item?.title}
       </h3>

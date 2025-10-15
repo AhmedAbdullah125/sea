@@ -17,6 +17,7 @@ import victorsvg from "../../public/app/app-victor.svg"
 import { useContext } from "react"
 import { userContext } from "../context/UserContext"
 import { toast } from "sonner"
+import AppSection from "../components/home/appSection/AppSection"
 const SingleVisaPage = () => {
   const { token } = useContext(userContext)
   const navigate = useNavigate()
@@ -72,9 +73,9 @@ const SingleVisaPage = () => {
                 {visa?.steps?.map((item, index) => (
                   <div
                     key={index}
-                    className="w-[250px] px-0 pb-10 overflow-hidden flex flex-col justify-between items-center bg-body rounded-[50px] shadow"
+                    className="w-[250px] p-10 overflow-hidden flex flex-col justify-between items-center bg-body rounded-[50px] shadow"
                   >
-                    <img src={item.image} alt="icon" loading="lazy" className="w-full aspect-[3/2] object-cover" />
+                    <img src={item.image} alt="icon" loading="lazy" className="w-16 aspect-square object-contain" />
                     <p className="text-xs font-semibold text-main-navy text-center mt-4">
                       {item.text}
                     </p>
@@ -89,68 +90,69 @@ const SingleVisaPage = () => {
           </section>
           {/*  */}
 
-          <section className='my-16 container flex items-center justify-between xl:gap-16 relative'>
-            <img src={bgappImae} alt="bg" loading='lazy' className='absolute top-0 start-0 size-[25rem] ' />
+          {
+            visa?.countryVisas?.map((item, index) => (
+              <section className='my-16 container flex items-center justify-between xl:gap-16 relative'>
+                <img src={bgappImae} alt="bg" loading='lazy' className='absolute top-0 start-0 size-[25rem] ' />
+                {/* content */}
+                <div className='xl:w-1/2 w-full '>
+                  {/* title */}
+                  <div className='xl:space-y-12 space-y-6 text-center xl:text-start relative'>
+                    <p className='text-xs text-main-purple font-bold'>السيــاحة</p>
+                    <h3 className='text-5xl font-bold text-main-blue leading-loose'>{item?.title}</h3>
+                    <img src={"/app/app-victor.svg"} alt="victor" loading='lazy' className=' block m-auto absolute top-24 start-1/3 -translate-1/2' />
+                    <p className='text-lg text-main-navy'>{item?.description}</p>
+                  </div>
+                  {/* buttons */}
 
+                  <div className="flex items-center max-xl:justify-center gap-3 xl:mt-12 mt-6">
 
-            {/* content */}
-            <div className='xl:w-1/2 w-full '>
-              {/* title */}
-              <div className='xl:space-y-12 space-y-6 text-center xl:text-start relative'>
-                <p className='text-xs text-main-purple font-bold'>السيــاحة</p>
-                <h3 className='text-5xl font-bold text-main-blue leading-loose'>الــتـأشيرة السيـــاحية
-                  الإلكتـــرونية.
-                </h3>
-                <img src={"/app/app-victor.svg"} alt="victor" loading='lazy' className=' block m-auto absolute top-24 start-1/3 -translate-1/2' />
-                <p className='text-lg text-main-navy'>{visa?.description}</p>
-              </div>
-              {/* buttons */}
+                    <Dialog  >
+                      <DialogTrigger className="h-10 px-8 w-fit bg-main-purple  text-xs font-bold  text-white hover:bg-main-blue transation-all duration-300 flex items-center justify-center rounded-full ">عرض قـــائمة البلدان</DialogTrigger>
+                      <DialogContent className='bg-white !rounded-xl ' >
 
-              <div className="flex items-center max-xl:justify-center gap-3 xl:mt-12 mt-6">
+                        <div  >
+                          <h3 className="text-sm font-bold pb-3 mb-3 border-b">
+                            الدول المؤهلة للحصول على التأشيرة السيــاحية !.
+                          </h3>
+                          <ul>
+                            {visa?.countries?.map((ele, index) => (
 
-                <Dialog  >
-                  <DialogTrigger className="h-10 px-8 w-fit bg-main-purple  text-xs font-bold  text-white hover:bg-main-blue transation-all duration-300 flex items-center justify-center rounded-full ">عرض قـــائمة البلدان</DialogTrigger>
-                  <DialogContent className='bg-white !rounded-xl ' >
+                              <li key={index} className="text-xs space-y-3">
+                                <h2 className="text-black font-bold">{ele.country_name}</h2>
+                                <p className="text-main-gray">{ele?.country_need_paper}</p>
+                              </li>
+                            ))}
 
-                    <div  >
-                      <h3 className="text-sm font-bold pb-3 mb-3 border-b">
-                        الدول المؤهلة للحصول على التأشيرة السيــاحية !.
-                      </h3>
-                      <ul>
-                        {visa?.countries?.map((item, index) => (
+                          </ul>
+                        </div>
 
-                          <li key={index} className="text-xs space-y-3">
-                            <h2 className="text-black font-bold">{item.country_name}</h2>
-                            <p className="text-main-gray">{item?.country_need_paper}</p>
-                          </li>
-                        ))}
+                        <DialogClose asChild>
+                          <Button type="button" className="mt-8 h-10 px-8 w-[40%] mx-auto bg-black  text-xs font-bold  text-white hover:bg-main-blue transation-all duration-300  flex items-center justify-center rounded-full ">
+                            إلغاء
+                          </Button>
+                        </DialogClose>
+                      </DialogContent>
+                    </Dialog>
 
-                      </ul>
-                    </div>
+                    {/* gate */}
+                    <Link to="/gate" className="h-10 px-8   w-fit bg-main-blue   text-xs font-bold  !text-white hover:bg-main-purple transation-all duration-300  flex items-center justify-center rounded-full ">
+                      قدم طلب الان
+                    </Link>
+                  </div>
 
-                    <DialogClose asChild>
-                      <Button type="button" className="mt-8 h-10 px-8 w-[40%] mx-auto bg-black  text-xs font-bold  text-white hover:bg-main-blue transation-all duration-300  flex items-center justify-center rounded-full ">
-                        إلغاء
-                      </Button>
-                    </DialogClose>
-                  </DialogContent>
-                </Dialog>
-
-                {/* gate */}
-                <Link to="/gate" className="h-10 px-8   w-fit bg-main-blue   text-xs font-bold  !text-white hover:bg-main-purple transation-all duration-300  flex items-center justify-center rounded-full ">
-                  قدم طلب الان
-                </Link>
-              </div>
-
-            </div>
-            {/* img */}
-            <div className='xl:w-1/2 w-0 xl:h-screen rounded-[80px] overflow-hidden max-h-96'>
-              <img src={visa?.image} alt="iphone" loading='lazy' className='w-full h-full object-cover' />
-            </div>
-          </section>
+                </div>
+                {/* img */}
+                <div className='xl:w-1/2 w-0 xl:h-screen rounded-[80px] overflow-hidden max-h-96'>
+                  <img src={item?.image} alt="iphone" loading='lazy' className='w-full h-full object-cover' />
+                </div>
+              </section>
+            ))
+          }
         </main>
         : null
       }
+      <AppSection />
       <Footer />
     </>
   )

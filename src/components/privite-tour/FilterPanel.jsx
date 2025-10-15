@@ -236,7 +236,7 @@ const FilterPanel = ({ defaultValues, onFilter, onReset }) => {
                       <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                         <ChevronDown size={14} />
                       </div>} className={`bg-body  text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
-                        <SelectValue placeholder={"إدخـــال عدد الاشخــاص من هنــا.."} className="text-[#797979]" />
+                        <SelectValue placeholder={"إدخـــال عدد الأشخــاص من هنــا.."} className="text-[#797979]" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className=" shadow border-none rounded-xl bg-white  ">

@@ -7,8 +7,6 @@ const HotelTabs = ({ data, trigger, setTrigger }) => {
     const [activeTab, setActiveTab] = useState(0);
     const latitude = data.latitude
     const longitude = data.longitude;
-    const [comment, setComment] = useState("");
-    const [rate, setRate] = useState(null);
     const formatter = new Intl.DateTimeFormat('ar-EG', {
         weekday: 'long',
         day: 'numeric',
@@ -68,7 +66,7 @@ const HotelTabs = ({ data, trigger, setTrigger }) => {
                                 ))
                             }
                         </div>
-                        <HotelRateForm comment={comment} rate={rate} setComment={setComment} data={data} setRate={setRate} trigger={trigger} setTrigger={setTrigger} activeTab={activeTab} setActiveTab={setActiveTab} />
+                        <HotelRateForm  id={data.id} trigger={trigger} setTrigger={setTrigger} activeTab={activeTab} setActiveTab={setActiveTab} />
                     </>
                 }
                 {

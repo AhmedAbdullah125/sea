@@ -14,6 +14,7 @@ const Events = ({ data }) => {
         setCats(arr);
     }, [data]);
     
+    console.log(data);
     return (
         <section className="places-section">
             <div className="container">

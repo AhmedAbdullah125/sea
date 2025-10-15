@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 const counters = [
   {
     number: "10k",
-    title: "حجـــــز مكتمل",
+    title: "فــندق مبــاشر",
   },
   {
     number: "47k",
@@ -74,7 +74,7 @@ const HeroSection = () => {
                     <div >
                       <h2 className="text-5xl font-bold text-white">
                         <NumberTicker value={data?.compleated_bookings} className="text-5xl font-bold text-white" /> +</h2>
-                      <p >حجـــــز مكتمل</p>
+                      <p >فــندق مبــاشر </p>
                     </div>
                     <div>
                       <h2 className="text-5xl font-bold "><NumberTicker value={data?.happy_customers} className="text-5xl font-bold text-white" /> + </h2>

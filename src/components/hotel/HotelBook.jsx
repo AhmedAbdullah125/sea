@@ -34,51 +34,80 @@ const HotelBook = ({ data }) => {
                         </div>
 
                     </motion.div>
+                   {
+                    data.caption?
                     <Accordion
-                        type="single"
-                        collapsible
-                        className="w-full daman"
-                        defaultValue="item-1"
-                    >
-                        <AccordionItem value="item-2" className="daman-accordion w-full">
-                            <AccordionTrigger className=" p-0">
-                                <motion.div
-                                    initial={{ opacity: 0, y: -50 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.5, delay: 0.2 }}
-                                    className="flex items-center justify-between w-full">
-                                    <div className="r-side">
-                                        <div className="name-cont">
-                                            {/* first letter of the name */}
-                                            {
-                                                data?.hotel_logo ?
-                                                    <img src={data.hotel_logo} alt="profile" /> :
-                                                    data?.ownerName ?
-                                                        data.ownerName.slice(0, 1) :
-                                                        <img src={profileActive} alt="profile" />
-                                            }
-                                        </div>
-                                        <div className="info">
-                                            <h3>{data.ownerName ? data.ownerName : "عميل ســـي"} <img src={img2} alt="" /></h3>
-                                            <div className="dets"><p><i className="fa-solid fa-star"></i> <span>{Number(data.ownerRating).toFixed(1)}</span></p> <div className="fasel"> <p><i className="fa-solid fa-house"></i> <span>{data.rentalPeriod}</span></p></div></div>
-                                        </div>
+                    type="single"
+                    collapsible
+                    className="w-full daman"
+                    defaultValue="item-1"
+                >
+                    <AccordionItem value="item-2" className="daman-accordion w-full">
+                        <AccordionTrigger className=" p-0">
+                            <motion.div
+                                initial={{ opacity: 0, y: -50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                                className="flex items-center justify-between w-full">
+                                <div className="r-side">
+                                    <div className="name-cont">
+                                        {/* first letter of the name */}
+                                        {
+                                            data?.hotel_logo ?
+                                                <img src={data.hotel_logo} alt="profile" /> :
+                                                data?.ownerName ?
+                                                    data.ownerName.slice(0, 1) :
+                                                    <img src={profileActive} alt="profile" />
+                                        }
                                     </div>
-                                    <div className="l-side">
-                                        <i className="fa-solid fa-chevron-left"></i>
+                                    <div className="info">
+                                        <h3>{data.ownerName ? data.ownerName : "عميل ســـي"} <img src={img2} alt="" /></h3>
+                                        <div className="dets"><p><i className="fa-solid fa-star"></i> <span>{Number(data.ownerRating).toFixed(1)}</span></p> <div className="fasel"> <p><i className="fa-solid fa-house"></i> <span>{data.rentalPeriod}</span></p></div></div>
                                     </div>
-                                </motion.div>
+                                </div>
+                                <div className="l-side">
+                                    <i className="fa-solid fa-chevron-left"></i>
+                                </div>
+                            </motion.div>
 
-                            </AccordionTrigger>
-                            <AccordionContent className="flex flex-col gap-4 text-balance mt-4">
-                                <p>
-                                  {data.caption}
-                                </p>
-                                
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
+                        </AccordionTrigger>
+                        <AccordionContent className="flex flex-col gap-4 text-balance mt-4">
+                            <p>
+                                {data.caption}
+                            </p>
 
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+                :
+                <div className="daman">
+
+                    <motion.div
+                        initial={{ opacity: 0, y: -50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="flex items-center justify-between w-full">
+                        <div className="r-side">
+                            <div className="name-cont">
+                                {/* first letter of the name */}
+                                {
+                                    data?.hotel_logo ?
+                                        <img src={data.hotel_logo} alt="profile" /> :
+                                        data?.ownerName ?
+                                            data.ownerName.slice(0, 1) :
+                                            <img src={profileActive} alt="profile" />
+                                }
+                            </div>
+                            <div className="info">
+                                <h3>{data.ownerName ? data.ownerName : "عميل ســـي"} <img src={img2} alt="" /></h3>
+                                <div className="dets"><p><i className="fa-solid fa-star"></i> <span>{Number(data.ownerRating).toFixed(1)}</span></p> <div className="fasel"> <p><i className="fa-solid fa-house"></i> <span>{data.rentalPeriod}</span></p></div></div>
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
+                   }
                 </div>
             </div>
         </section>

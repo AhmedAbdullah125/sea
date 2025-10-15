@@ -6,11 +6,21 @@ import { toggleFavourates } from '../../pages/toggleFavourates'
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { motion } from "framer-motion";
-
+import {
+    AlertDialog,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Link } from 'react-router-dom'
 const HotelHeader = ({ data }) => {
     const [selectedImg, setselectedImg] = useState(data.images[0])
     const [lovedHotels, setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [])
     const [videosArr, setVideosArr] = useState([])
+    const token = sessionStorage.getItem('token')
     Fancybox.bind("[data-fancybox]", {
         // Your custom options
     });
@@ -27,6 +37,14 @@ const HotelHeader = ({ data }) => {
                 localStorage.setItem('lovedHotels', []);
             }
         }
+        // if data.images contains .mp4, .mov or .webm, make it the selectedImg
+        for (let i = 0; i < data.images.length; i++) {
+            if (data.images[i].includes('.mp4') || data.images[i].includes('.mov') || data.images[i].includes('.webm')) {
+                setselectedImg(data.images[i])
+                return
+            }
+
+        }
     }, [data])
     useEffect(() => {
         let vids = []
@@ -37,7 +55,7 @@ const HotelHeader = ({ data }) => {
 
         }
         setVideosArr(vids)
-    }, [data.videos]) 
+    }, [data.videos])
 
 
     return (
@@ -49,8 +67,8 @@ const HotelHeader = ({ data }) => {
                     viewport={{ once: true }}
                     transition={{ duration: 1 }}
                 >
-                <h2 className="detail-title">{data.title}</h2>
-                <span>كود الوحدة ( {data.code} ) </span>
+                    <h2 className="detail-title">{data.title}</h2>
+                    <span>كود الوحدة ( {data.code} ) </span>
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, x: 100 }}
@@ -67,47 +85,100 @@ const HotelHeader = ({ data }) => {
                             <i className="fa-solid fa-location-dot"></i>
                             <span>{data.address}</span>
                         </div>
-
-                        <div className="detail-info-item">
-                            <i className="fa-solid fa-location-crosshairs"></i>
-                            <span>مساحة الوحدة {data.area} م²</span>
-                        </div>
+                        {
+                            data.area ?
+                                <div className="detail-info-item">
+                                    <i className="fa-solid fa-location-crosshairs"></i>
+                                    <span>مساحة الوحدة {data.area} م²</span>
+                                </div>
+                                : null
+                        }
 
                         <div className="detail-info-item">
                             <i className="fa-solid fa-users"></i>
-                            <span>{data.advantages[0]}</span>
+                            <span>{data.advantages.map((adv, idx) => idx === data.advantages.length - 1 ? adv : adv + ', ')}</span>
                         </div>
                     </div>
                     <div className="detail-info-btn">
                         {/* make button copy the path of this site */}
-                        <button className="add-btn" onClick={() => {
-                            toast.success('تم نسخ الرابط')
-                            navigator.clipboard.writeText(window.location.href)
-                        }}>
-                            <i className="fa-solid fa-share-nodes"></i>
-                        </button>
+                        <AlertDialog className="sm:rounded-xl rounded-lg">
+                            <AlertDialogTrigger asChild >
+                                <span className="add-btn">
+                                    <i className="fa-solid fa-share-nodes"></i>
+                                </span>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent className="bg-white rounded-xl overflow-hidden">
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle >
+                                        <div className="dg-title w-full flex items-center justify-between border-b-2 border-gray-200 p-5">
+                                            <span>مشاركة الفندق</span>
+                                            <AlertDialogCancel><i className="fa-solid fa-xmark"></i></AlertDialogCancel>
+                                        </div>
+                                    </AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        <div className="pc-feats">
+                                            <h4>{data.title}</h4>
+                                            <h5>شارك {data.title} عبر </h5>
+                                            <div className="social-icns">
+                                                <Link target="_blank" to={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}>
+                                                    <i className="fa-brands fa-facebook"></i>
+                                                </Link>
+                                                <Link target="_blank" to={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`}>
+                                                    <i className="fa-brands fa-twitter"></i>
+                                                </Link>
+                                                <Link target="_blank" to={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}>
+                                                    <i className="fa-brands fa-linkedin"></i>
+                                                </Link>
+                                                {/* whatsapp */}
+                                                <Link target="_blank" to={`https://wa.me/?text=${encodeURIComponent(window.location.href)}`}>
+                                                    <i className="fa-brands fa-whatsapp"></i>
+                                                </Link>
+                                                <button onClick={() => {
+                                                    navigator.clipboard.writeText(window.location.href)
+                                                    toast.success('تم نسخ الرابط')
+                                                }}>
+                                                    <i className="fa-solid fa-copy"></i>
+                                                </button>
+                                             
+                                                
+                                            </div>
+
+                                        </div>
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                {/* <AlertDialogFooter>
+                                            <AlertDialogAction>Continue</AlertDialogAction>
+                                        </AlertDialogFooter> */}
+                            </AlertDialogContent>
+                        </AlertDialog>
+                       
                         {/* make button adding id of hotel to localstorage if it not exist and remove it if it exist */}
-                        <button className="add-btn"
-                            onClick={
-                                () => {
-                                    if (sessionStorage.getItem('token')) {
-                                        if (lovedHotels.includes(data.id)) {
-                                            setLovedHotels(lovedHotels.filter(id => id !== data.id))
-                                            localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== data.id)))
+                        {
+                            token ?
+                                <button className="add-btn"
+                                    onClick={
+                                        () => {
+                                            if (sessionStorage.getItem('token')) {
+                                                if (lovedHotels.includes(data.id)) {
+                                                    setLovedHotels(lovedHotels.filter(id => id !== data.id))
+                                                    localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== data.id)))
+                                                }
+                                                else {
+                                                    setLovedHotels([...lovedHotels, data.id])
+                                                    localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, data.id]))
+                                                }
+                                                toggleFavourates(data.id, 'Hotel');
+                                            }
+                                            else {
+                                                toast.error('يجب تسجيل الدخول اولا')
+                                                window.location.href = '/login'
+                                            }
                                         }
-                                        else {
-                                            setLovedHotels([...lovedHotels, data.id])
-                                            localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, data.id]))
-                                        }
-                                        toggleFavourates(data.id, 'Hotel');
                                     }
-                                    else {
-                                        toast.error('يجب تسجيل الدخول اولا')
-                                        window.location.href = '/login'
-                                    }
-                                }
-                            }
-                        ><i className={`fa-heart ${lovedHotels.includes(data.id) ? 'fa-solid text-[#A71755]' : 'fa-regular'}`}></i></button>
+                                ><i className={`fa-heart ${lovedHotels.includes(data.id) ? 'fa-solid text-[#A71755]' : 'fa-regular'}`}></i></button>
+                                : null
+                        }
+
                     </div>
                 </motion.div>
                 <motion.div
@@ -126,7 +197,7 @@ const HotelHeader = ({ data }) => {
                             )}
                         </figure>
                         <div className="detail-img-btn">
-                            <a href={data.images[0]} data-caption={data.title} data-fancybox="gallery"  className="single-img">
+                            <a href={data.images[0]} data-caption={data.title} data-fancybox="gallery" className="single-img">
                                 <button className="add-btn">
                                     <img src={imgicon1} alt="icon" />
                                 </button>
@@ -161,17 +232,17 @@ const HotelHeader = ({ data }) => {
                                                 <img src={mediaUrl} className="img-fluid" alt="detail-img" />
                                             :
                                             isVideo ? (
-                                                <a href={mediaUrl} data-caption={data.title} data-fancybox="gallery"  className="single-img">
+                                                <a href={mediaUrl} data-caption={data.title} data-fancybox="gallery" className="single-img">
                                                     <video src={mediaUrl} className="img-fluid" muted preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
                                                 </a>
                                             ) : (
                                                 isVideo ? (
-                                                    <a href={mediaUrl} data-caption={data.title} data-fancybox="gallery"  className="single-img">
+                                                    <a href={mediaUrl} data-caption={data.title} data-fancybox="gallery" className="single-img">
                                                         <img src={mediaUrl} className="img-fluid" alt="detail-img" />
                                                     </a>
                                                 ) :
                                                     (
-                                                        <a href={mediaUrl} data-caption={data.title} data-fancybox="gallery"  className="single-img">
+                                                        <a href={mediaUrl} data-caption={data.title} data-fancybox="gallery" className="single-img">
                                                             <img src={mediaUrl} className="img-fluid" alt="detail-img" />
                                                         </a>
                                                     )

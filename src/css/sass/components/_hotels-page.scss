@@ -27,7 +27,14 @@
     height: 100%;
   }
 }
-
+.rooms-grid{
+  .card-item{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+  }
+}
 .swiper {
   width: 100%;
   height: 100%;

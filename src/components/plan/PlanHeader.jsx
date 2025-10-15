@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import detailImg from '../../assets/detail.jpg'
+import img1 from '../../assets/s.svg'
+import img2 from '../../assets/check.svg'
 import imgicon1 from '../../assets/imgIcon-1.svg'
 import imgicon2 from '../../assets/imgIcon-2.svg'
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { toast } from 'sonner'
 import { toggleFavourates } from '../../pages/toggleFavourates'
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"
 const PlanHeader = ({ data }) => {
-    const [selectedImg, setselectedImg] = useState(data.images[0])
     const [lovedPlans, setLovedPlans] = useState(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : [])
     Fancybox.bind("[data-fancybox]", {
         // Your custom options
@@ -49,19 +56,29 @@ const PlanHeader = ({ data }) => {
         }
         setVideosArr(vids)
     }, [data.videos])
-
+    console.log(data)
     return (
         <section className="content-section">
             <div className="container">
-                <motion.div
-                initial={{ opacity: 0, x: 100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1 }}
-                >
-                <h2 className="detail-title">{data.title}</h2>
-                <div className="detail-time">{data.durationDays} أيـــــــــام</div>
-                </motion.div>
+                <div className="flex justify-between">
+                    <motion.div
+                        initial={{ opacity: 0, x: 100 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1 }}
+                    >
+                        <h2 className="detail-title">{data.title}</h2>
+                        <div className="detail-time">{data.durationDays} أيـــــــــام</div>
+                    </motion.div>
+                    <motion.div
+                        inherit
+                        initial={{ opacity: 0, x: 100 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1 }}>
+                        <h4 className='text-main-navy text-3xl font-bold'>#{data.id}</h4>
+                    </motion.div>
+                </div>
                 <motion.div
                     initial={{ opacity: 0, x: 100 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -118,10 +135,10 @@ const PlanHeader = ({ data }) => {
                             <div className="detail-box">
 
                                 <figure className="detail-img">
-                                    {/\.(mp4|mov|webm)$/i.test(selectedImg) ? (
-                                        <video src={selectedImg} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                                    {/\.(mp4|mov|webm)$/i.test(data.thumbnail) ? (
+                                        <video src={data.thumbnail} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
                                     ) : (
-                                        <img src={selectedImg} className="img-fluid" alt="detail-img" />
+                                        <img src={data.thumbnail} className="img-fluid" alt="detail-img" />
                                     )}
                                 </figure>
                                 <div className="detail-img-btn">
@@ -149,7 +166,6 @@ const PlanHeader = ({ data }) => {
                                     <div className="detail-box" key={idx}>
                                         <figure
                                             className="detail-img"
-                                            onClick={() => setselectedImg(mediaUrl)}
                                         >
                                             {
                                                 idx == 3 ?
@@ -189,6 +205,96 @@ const PlanHeader = ({ data }) => {
                         </motion.div>
                         : null
                 }
+                <div className="damans">
+                    <motion.div
+                        initial={{ opacity: 0, y: -50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                        className="daman">
+                        <div className="r-side">
+                            <div className="img-cont">
+                                <img src={img1} alt="" />
+                            </div>
+                            <div className="info">
+                                <h3>ضمــــــــان سي / SEA. <img src={img2} alt="" /></h3>
+                                <span>نضمن لك صحة المعلومات ونظافة المكان</span>
+                            </div>
+                        </div>
+
+                    </motion.div>
+                    {
+                        data.ownerComment ?
+                            <Accordion
+                                type="single"
+                                collapsible
+                                className="w-full daman"
+                                defaultValue="item-1"
+                            >
+                                <AccordionItem value="item-2" className="daman-accordion w-full">
+                                    <AccordionTrigger className=" p-0">
+                                        <motion.div
+                                            initial={{ opacity: 0, y: -50 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.5, delay: 0.2 }}
+                                            className="flex items-center justify-between w-full">
+                                            <div className="r-side">
+                                                <div className="name-cont">
+                                                    {
+
+                                                        data?.ownerName ?
+                                                            data.ownerName.slice(0, 1) :
+                                                            <img src={profileActive} alt="profile" />
+                                                    }
+                                                </div>
+                                                <div className="info">
+                                                    <h3>{data.ownerName ? data.ownerName : "عميل ســـي"} <span className='fasla'></span> {data?.ownerCompanyName ? data.ownerCompanyName : null}  <img src={img2} alt="" /></h3>
+                                                    <p className='text-base text-[#6F6F6F] font-medium text-start'>{data.companyCaption}</p>
+                                                </div>
+                                            </div>
+                                            <div className="l-side">
+                                                <i className="fa-solid fa-chevron-left"></i>
+                                            </div>
+                                        </motion.div>
+
+                                    </AccordionTrigger>
+                                    <AccordionContent className="flex flex-col gap-4 text-balance mt-4">
+                                        <p className='text-base text-[#6F6F6F] font-medium'> 
+                                            {data.ownerComment}
+                                        </p>
+
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
+                            :
+                            <div className="daman">
+
+                            <motion.div
+                                initial={{ opacity: 0, y: -50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                                className="flex items-center justify-between w-full">
+                                <div className="r-side">
+                                    <div className="name-cont">
+                                        {
+
+                                            data?.ownerName ?
+                                                data.ownerName.slice(0, 1) :
+                                                <img src={profileActive} alt="profile" />
+                                        }
+                                    </div>
+                                    <div className="info">
+                                        <h3>{data.ownerName ? data.ownerName : "عميل ســـي"} <span className='fasla'></span> {data?.ownerCompanyName ? data.ownerCompanyName : null}  <img src={img2} alt="" /></h3>
+                                        <p className='text-base text-[#6F6F6F] font-medium'>{data.companyCaption}</p>
+                                    </div>
+                                </div>
+                                
+                            </motion.div>
+                            </div>
+                    }
+                </div>
             </div>
         </section>
     )

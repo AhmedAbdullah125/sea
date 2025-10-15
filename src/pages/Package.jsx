@@ -10,7 +10,10 @@ import PlanPrices from '../components/plan/PlanPrices'
 import PlanMarq from '../components/plan/PlanMarq'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import PlanFaqs from '../components/plan/PlanFaqs'
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
+import PlanComments from '../components/plan/PlanComments'
+import PlanRateForm from '../components/plan/PlanRateForm'
+
 const Package = () => {
     const { id } = useParams();
     const [data, setData] = useState([]);
@@ -57,8 +60,8 @@ const Package = () => {
                         <PlanHeader data={data} />
                         <PlanPrices data={data} settings={settings} />
                         <PlanMarq data={data} />
-                        <PlanFaqs data={data} />
-                        <section className="package-section">
+                        {/* <PlanFaqs data={data} /> */}
+                        {/* <section className="package-section">
                             <div className="container">
                                 <motion.div
                                     initial={{ opacity: 0, y: -50 }}
@@ -90,7 +93,11 @@ const Package = () => {
                                     </ul>
                                 </motion.div>
                             </div>
-                        </section>
+                        </section> */}
+                        <PlanComments data={data} />
+                        <div className="container">
+                            <PlanRateForm id={data.id} />
+                        </div>
                     </>
             }
 

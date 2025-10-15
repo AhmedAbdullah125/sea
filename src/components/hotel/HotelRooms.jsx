@@ -110,7 +110,7 @@ const HotelRooms = ({ data }) => {
                                             }}
                                         >
                                             {
-                                                room.image.map((img, index) => {
+                                                room?.images?.map((img, index) => {
                                                     const isVideo = /\.(mp4|mov|webm)$/i.test(img);
 
                                                     return (

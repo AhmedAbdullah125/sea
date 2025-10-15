@@ -145,13 +145,7 @@
       @include tr;
     }
 
-    &::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.5);
-    }
+
 
     &:hover img {
       transform: scale(1.05);
@@ -274,4 +268,119 @@
       color: #808080;
     }
   }
+}
+
+.transport-form {
+  .serv-cont {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 17px;
+
+    @include max-767 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .serv-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 30px;
+      background-color: #F5F5F5;
+      border-radius: 35px;
+      //transition: all 0.3s ease-in-out;
+      @include tr;
+      &:hover{
+        background-color: $main;
+        color: $white;
+
+      }
+
+      @media screen and (max-width: 1200px) {
+        padding: 20px;
+        border-radius: 12px;
+        flex-direction: column;
+      }
+      img{
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+
+        @media screen and (max-width: 767px) {
+          width: 80px;
+          height: 80px;
+        }
+
+      }
+      h3 {
+        font-weight: 800;
+        font-size: 14px;
+        margin-bottom: 0;
+        @media screen and (max-width: 767px) {
+          font-size: 12px;
+          font-family: 500;
+
+        }
+      }
+      .l-side{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: flex-end;
+        @media screen and (max-width: 1200px) {
+          gap: 5px;
+          flex-direction: row-reverse;
+        }
+        a{
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease-in-out;
+          @include tr;
+          &:hover{
+            background-color: #ffffff30;
+            //blur(10px);
+            color: $white;
+          }
+        }
+        img{
+          width: 8px;
+          height: 8px;
+          object-fit: contain;
+        }
+        h3{
+          text-align: end;
+        }
+      }
+    }
+  }
+}
+.app-go-to{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: $white;
+  font-weight: 700;
+  font-size: 14px;
+  background-color: #2FB08A;
+  height: 48px;
+  border-radius: 24px;
+  padding: 0 35px;
+  transition: all 0.3s ease-in-out;
+  @include tr;
+  width: fit-content;
+  margin: 25px auto 0;
+  &:hover{
+    background-color: $main;
+    color: $white;
+  }
+}
+.fasla{
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #D9D9D9;
+  display: inline-block;
 }
