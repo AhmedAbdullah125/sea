@@ -61,7 +61,7 @@ const Header = () => {
                     <div className="noqta"></div>
                     <NavLink to='/hotels'>فــنادق وشقــق</NavLink>
                     <div className="noqta"></div>
-                    <NavLink to='/visa'>التــأشيــرات</NavLink>
+                    <NavLink to='/previsa'>التــأشيــرات</NavLink>
                     {/* <div className="noqta"></div>
                     <NavLink to='/privite-tours'>النقل و المــواصلات</NavLink> */}
                     <div className="noqta"></div>
@@ -93,7 +93,7 @@ const Header = () => {
                                 <NavLink className="w-full text-white" to="/hotels">فــنادق وشقــق</NavLink>
                             </DropdownMenuItem>
                             <DropdownMenuItem>
-                                <NavLink className="w-full text-white" to="/visa">التــأشيــرات</NavLink>
+                                <NavLink className="w-full text-white" to="/previsa">التــأشيــرات</NavLink>
                             </DropdownMenuItem>
                             {/* <DropdownMenuItem>
                                 <NavLink className="w-full text-white" to="/privite-tours">النقل و المــواصلات</NavLink>

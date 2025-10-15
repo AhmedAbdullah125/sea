@@ -105,7 +105,7 @@ const MainHeader = () => {
                                         <NavLink className="w-full text-white" to='/privite-tours'>النقل و المــواصلات</NavLink>
                                     </DropdownMenuItem> */}
                         <DropdownMenuItem>
-                            <NavLink className="w-full text-white" to='/visa'>التــأشيــرات</NavLink>
+                            <NavLink className="w-full text-white" to='/previsa'>التــأشيــرات</NavLink>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                             <NavLink className="w-full text-white" to='/table'>جدولك علينا</NavLink>
@@ -127,7 +127,7 @@ const MainHeader = () => {
                     {/* <div className="noqta"></div>
                                 <NavLink to='/privite-tours'>النقل و المــواصلات</NavLink> */}
                     <div className="noqta"></div>
-                    <NavLink to='/visa'>التــأشيــرات</NavLink>
+                    <NavLink to='/previsa'>التــأشيــرات</NavLink>
                     <div className="noqta"></div>
                     <NavLink to='/table'>جدولك علينا</NavLink>
                     <div className="noqta"></div>

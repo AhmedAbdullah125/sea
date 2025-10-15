@@ -1,11 +1,9 @@
 import { useParams } from 'react-router-dom'
 import Header from '../components/header/Header'
 import Footer from '../components/footer/Footer'
-import Breadcrumbs from '../components/home/BreadCrumbs'
 import { useQuery } from '@tanstack/react-query'
 import { fetchFromApi } from '../api/utils/fetchData'
 import BlogsSection from '../components/blogs/BlogsSection'
-import NewsletterBody from '../components/blogs/NewsletterBody'
 
 const SingleBlogPage = () => {
   const { slug } = useParams()

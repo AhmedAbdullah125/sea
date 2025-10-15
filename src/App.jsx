@@ -35,6 +35,7 @@ import Blogs from './pages/Blogs';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import PaymentMaintenance from './components/hotel/PaymentMaintenance';
+import PreVisa from './pages/PreVisa';
 
 export const AppContext = createContext();
 function App() {
@@ -46,6 +47,7 @@ function App() {
 			{ path: "/privite-tours", element: <PrivteTours></PrivteTours> },
 			{ path: "/tours/:id", element: <SingleTourPage></SingleTourPage> },
 			{ path: "visa", element: <VisaPage></VisaPage> },
+			{ path: "previsa", element: <PreVisa></PreVisa> },
 			{ path: "/visa/:id", element: <SingleVisaPage></SingleVisaPage> },
 			{ path: "/gate", element: <ProtectedRoute><VisaGatePage></VisaGatePage></ProtectedRoute> },
 			{ path: "/table", element: <Table></Table> },
