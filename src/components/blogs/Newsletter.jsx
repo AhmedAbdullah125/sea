@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchFromApi } from '../../api/utils/fetchData'
 import Loader from '../loader/Loader'
 import { motion } from 'framer-motion'
-const Newsletter = () => {
+const Newsletter = ({ lang }) => {
   const colors = [
     "#C69E9E",
     "#FB7830",
@@ -13,7 +13,7 @@ const Newsletter = () => {
     "#DCE0BB"
   ]
   const { data, isLoading } = useQuery({
-    queryKey: ["newsletters"],
+    queryKey: ["newsletters" + lang],
     queryFn: async () => {
       const res = await fetchFromApi("/newsletters");
       return res?.data?.data;
@@ -29,12 +29,12 @@ const Newsletter = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue max-xl:text-center'>نشــرات بريديّــة مميّــزة.</motion.h2>
+          className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue max-xl:text-center'>{lang === 'ar' ? 'نشــرات بريديّــة مميّــزة.' : 'Special Newsletters'}</motion.h2>
         <div className='grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 '>
           {data.map((item, index) => {
-            const color = colors[index % colors.length]; 
+            const color = colors[index % colors.length];
             return (
-              <NewsletterCard item={item} key={index} bgColor={color} />
+              <NewsletterCard item={item} key={index} bgColor={color} lang={lang} />
             )
           })}
         </div>

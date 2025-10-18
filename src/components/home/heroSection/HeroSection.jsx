@@ -7,18 +7,14 @@ import styles from "./heroSection.module.css";
 import Loading from "../../loading/Loading";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { motion } from "framer-motion";
-const counters = [
-  {
-    number: "10k",
-    title: "فــندق مبــاشر",
-  },
-  {
-    number: "47k",
-    title: "عميــل سعيد!",
-  },
-];
-
+import { MorphingText } from "../../ui/morphing-text";
+import { ReactTyped } from "react-typed";
 const HeroSection = () => {
+  const texts = [
+    " إحجــز بثقة ..",
+    " إحجــز بموثوقــية ..",
+    " إحجــز بأمــان ..",
+  ]
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -62,7 +58,19 @@ const HeroSection = () => {
                   <div className=" xl:max-w-[45rem] me-auto  space-y-4">
                     <h1 className={`${styles.title} text-4xl md:text-5xl xl:text-6xl font-semibold`} >
                       رحلتك تبدأ من هنـــــا...
-                      إحجــز بثقة.
+                      <br />
+                      {/* إحجــز بثقة. */}
+                      {/* <MorphingText texts={texts} loop  /> */}
+                      <div>
+                        <ReactTyped strings={[
+                          " إحجــز بثقة ..",
+                          "  إحـجــز بموثوقــية ..",
+                          " إحجــز بأمــان ..",
+                        ]} loop typeSpeed={100} />
+                        <br />
+
+
+                      </div>
                     </h1>
                     <p className="text-sm font-light xl:max-w-[70%] ">
                       منصة إلكترونية أوفلاين معتمدة للحجوزات الفندقية و الباقات السياحية
