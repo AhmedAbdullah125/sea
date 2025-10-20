@@ -22,7 +22,6 @@ const Hotel = () => {
         window.scrollTo(0, 0);
         const getData = async () => {
             try {
-
                 const response = await axios.get(`${API_BASE_URL}/hotel/${id}`, {});
                 setData(response.data.data);
                 setLoading(false);

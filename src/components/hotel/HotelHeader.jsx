@@ -133,14 +133,18 @@ const HotelHeader = ({ data }) => {
                                                 <Link target="_blank" to={`https://wa.me/?text=${encodeURIComponent(window.location.href)}`}>
                                                     <i className="fa-brands fa-whatsapp"></i>
                                                 </Link>
-                                                <button onClick={() => {
-                                                    navigator.clipboard.writeText(window.location.href)
-                                                    toast.success('تم نسخ الرابط')
-                                                }}>
+                                                <button
+                                                    onClick={() => {
+                                                        const decodedUrl = decodeURIComponent(window.location.href);
+                                                        navigator.clipboard.writeText(decodedUrl);
+                                                        toast.success('تم نسخ الرابط');
+                                                    }}
+                                                >
                                                     <i className="fa-solid fa-copy"></i>
                                                 </button>
-                                             
-                                                
+
+
+
                                             </div>
 
                                         </div>
@@ -151,7 +155,7 @@ const HotelHeader = ({ data }) => {
                                         </AlertDialogFooter> */}
                             </AlertDialogContent>
                         </AlertDialog>
-                       
+
                         {/* make button adding id of hotel to localstorage if it not exist and remove it if it exist */}
                         {
                             token ?

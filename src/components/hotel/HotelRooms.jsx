@@ -155,10 +155,13 @@ const HotelRooms = ({ data }) => {
                                         <div className="features">
                                             {
                                                 room.features.map((feature) => (
-                                                    <div key={feature.id} className="feature">
-                                                        <img src={feature.icon} alt="room feature" />
-                                                        <span>{feature.name}</span>
-                                                    </div>
+
+                                                    feature.name && feature.icon ?
+                                                        <div key={feature.id} className="feature">
+                                                            <img src={feature.icon} alt="room feature" />
+                                                            <span>{feature.name}</span>
+                                                        </div> : null
+
                                                 ))
                                             }
                                         </div>
