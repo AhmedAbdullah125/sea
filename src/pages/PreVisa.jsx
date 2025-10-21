@@ -10,13 +10,13 @@ import AlertWarning from "../components/alerts/AlertWarning"
 import AlertError from "../components/alerts/AlertError"
 import { motion } from "framer-motion"
 import bg from "../assets/visabg.jpg"
+import { PrevisaQuery } from "./PrevisaQuery"
 const PreVisa = () => {
     const [searchParams] = useSearchParams();
     const type = searchParams.get("type");
-
-
-
-
+    const preVisas = PrevisaQuery();
+    const preVisaData = preVisas.data; 
+    console.log(preVisaData);
     return (
         <main>
             <Header />
@@ -53,7 +53,7 @@ const PreVisa = () => {
 
                         </div>
                         {/* link */}
-                        <Link to="/visa?type=sa" className="text-white text-sm  font-semibold bg-[#006C35] w-full p-3 rounded-full flex items-center justify-between border-2 border-[#006C35] hover:bg-white hover:text-[#006C35]">احصل على تأشيرتك الآن
+                        <Link to={`/visa/${preVisaData?.sa?.id}`} className="text-white text-sm  font-semibold bg-[#006C35] w-full p-3 rounded-full flex items-center justify-between border-2 border-[#006C35] hover:bg-white hover:text-[#006C35]">احصل على تأشيرتك الآن
                             <FiArrowUpLeft size={20} />
                         </Link>
 
@@ -77,7 +77,7 @@ const PreVisa = () => {
 
                         </div>
                         {/* link */}
-                        <Link to="/visa?type=uae" className="text-white text-sm  font-semibold bg-main-purple w-full p-3 rounded-full flex items-center justify-between border-2 border-main-purple hover:bg-white hover:text-main-purple ">احصل على تأشيرتك الآن
+                        <Link to={`/visa/${preVisaData?.uae?.id}`} className="text-white text-sm  font-semibold bg-main-purple w-full p-3 rounded-full flex items-center justify-between border-2 border-main-purple hover:bg-white hover:text-main-purple ">احصل على تأشيرتك الآن
                             <FiArrowUpLeft size={20} />
                         </Link>
 

@@ -21,7 +21,7 @@ const VisaPage = () => {
     }
   })
 
-
+  console.log(data);
   if (isLoading) return <Loading />
   if (isError) return <div className="container">
     <AlertError>
@@ -77,9 +77,9 @@ const VisaPage = () => {
 
         </motion.div>
         {/* grid */}
-        {data?.data?.data?.length > 0 ?
+        {data?.data?.data?.otherVisas?.length > 0 ?
           <div className="grid grid-cols-12 gap-4  mt-16">
-            {data?.data?.data?.map((item, index) => (
+            {data?.data?.data?.otherVisas?.map((item, index) => (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}

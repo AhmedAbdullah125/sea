@@ -52,7 +52,7 @@ function safeDateParse(input) {
   return new Date(input);
 }
 
-const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
+const FilterPanel = ({ defaultValues, setMainData, setLoading }) => {
   const [seletedCountry, setSelectedCountry] = useState(String(defaultValues.destination) || '');
   const [selectedFlat, setSelectedFlat] = useState(defaultValues.flat || '');
   const [selectedCity, setSelectedCity] = useState(defaultValues.city || '');
@@ -62,9 +62,8 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
   const [selectedDate, setSelectedDate] = useState(defaultValues.start || '');
   const [selectedDateTo, setSelectedDateTo] = useState(defaultValues.end || '');
   const [selectedPlace, setSelectedPlace] = useState('');
-  const [selectedView , setSelectedView] = useState('');
+  const [selectedView, setSelectedView] = useState('');
   const [data, setData] = useState([]);
-  const [filters, setFilters] = useState([]);
   const [cities, setCities] = useState([]);
   useEffect(() => {
     const getData = async () => {
@@ -73,7 +72,6 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
         const response = await axios.get(`${API_BASE_URL}/all-filters`);
         const response2 = await axios.get(`${API_BASE_URL}/cities`);
         setData(response.data.data);
-        setFilters(response.data.data);
         setCities(response2.data.data);
       } catch (error) {
         console.error('Error retrieving data:', error);
@@ -86,7 +84,8 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
     const getHotels = async () => {
       setLoading(true);
       try {
-        const query = `${API_BASE_URL}/filter-hotels?country_id=${seletedCountry}` +
+        const query = `
+        ${API_BASE_URL}/filter-hotels?country_id=${seletedCountry}` +
           `${selectedDate ? `&available_from=${formatDate(selectedDate)}` : ""}` +
           `${selectedDateTo ? `&available_to=${formatDate(selectedDateTo)}` : ""}` +
           `${selectedPlace ? `&place_id=${selectedPlace}` : ""}` +
@@ -120,48 +119,6 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData, setLoading }) => {
   const values = watch();
 
   const t = { "flat": "شقق فندقية", "room": "غرفة", "hotel": "⁠فنادق بتوصية ســـي", "villa": "فلل وشاليهات ", "huts": "أكواخ خشبية", "hotel_suites": "أجنحة فندقية" }
-  const rooms = [
-    {
-      id: 1,
-      numberOfBeds: 3,
-      name: "غرفـــة مع إطلالـــة على الأتريــــــوم.",
-      childBedEnabled: false, //true or false
-      numberOfBedsChild: 0, //number of child beds
-      price: 200,
-      currency: "EGP", //EGP or USD ...
-      option: [
-        { id: 1, name: "مكيف", icon: "https://www.iconpacks.net/icons/2/free-air-conditioner-icon-1838-thumb.png" },
-        { id: 2, name: "واي فاي لا محدود", icon: "https://www.iconpacks.net/icons/2/free-air-conditioner-icon-1838-thumb.png" },
-
-      ],
-      paymentMethods: [
-        { id: 1, name: "كاش", icon: "https://www.svgrepo.com/show/75156/hand-cash-circular-symbol.svg" },
-        { id: 2, name: "Visa", icon: "https://logolook.net/wp-content/uploads/2023/09/Visa-Logo.png" },
-        { id: 3, name: "Master Card", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/2560px-MasterCard_Logo.svg.png" },
-        { id: 4, name: "Tabby", icon: "https://www.pfgrowth.com/wp-content/uploads/2023/03/tabby-logo-1.png" },
-      ]
-    },
-    {
-      id: 2,
-      numberOfBeds: 3,
-      name: "غرفـــة مع إطلالـــة على الأتريــــــوم.",
-      childBedEnabled: true, //true or false
-      numberOfBedsChild: 2, //number of child beds
-      price: 200,
-      currency: "EGP", //EGP or USD ...
-      option: [
-        { id: 1, name: "مكيف", icon: "https://www.iconpacks.net/icons/2/free-air-conditioner-icon-1838-thumb.png" },
-        { id: 2, name: "واي فاي لا محدود", icon: "https://www.iconpacks.net/icons/2/free-air-conditioner-icon-1838-thumb.png" },
-
-      ],
-      paymentMethods: [
-        { id: 1, name: "كاش", icon: "https://www.svgrepo.com/show/75156/hand-cash-circular-symbol.svg" },
-        { id: 2, name: "Visa", icon: "https://logolook.net/wp-content/uploads/2023/09/Visa-Logo.png" },
-        { id: 3, name: "Master Card", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/2560px-MasterCard_Logo.svg.png" },
-        { id: 4, name: "Tabby", icon: "https://www.pfgrowth.com/wp-content/uploads/2023/03/tabby-logo-1.png" },
-      ]
-    }
-  ]
   function clearFilter() {
     setValue("start", "");
     setValue("end", "");
