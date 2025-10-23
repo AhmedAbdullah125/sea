@@ -12,7 +12,6 @@ const BlogCard = ({ blog, lang }) => {
       year: 'numeric'
     });
   };
-  console.log(blog)
   return (
     <motion.div
       initial={{ opacity: 0, y: 20, scale: 0.95 }}

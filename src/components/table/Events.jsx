@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import img1 from '../../assets/related.png'
 import parse from 'html-react-parser'
 const Events = ({ data }) => {
     const [cats, setCats] = useState([]);
@@ -14,7 +13,6 @@ const Events = ({ data }) => {
         setCats(arr);
     }, [data]);
     
-    console.log(data);
     return (
         <section className="places-section">
             <div className="container">

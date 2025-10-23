@@ -45,7 +45,6 @@ const HotelRooms = ({ data }) => {
         }
         setFavouratesRooms(favs)
     }, []);
-    console.log(data);
     return (
         <section className="hotel-room">
             {
@@ -152,7 +151,37 @@ const HotelRooms = ({ data }) => {
                                         </Swiper>
                                     </div>
                                     <div className="info">
-                                        <div className="features">
+                                    <div className="flex flex-col justify-between h-full">
+                                            <h3 className="room-name">{room.name}</h3>
+                                            {
+                                                room.childBedEnabled ? <span className="child-bed">أسرة أطفال / رضع مجانًا</span> : null
+                                            }
+                                            <div className="details">
+                                                <div className="r-side">
+                                                    {
+                                                        room.price && Number(room.price > 0) ?
+                                                            <div className="price">
+                                                                <span>{Number(room.price).toFixed(1)}</span>
+                                                                <span className="currency">{data.currencyName}</span>
+                                                            </div>
+                                                            : null
+                                                    }
+                                                    <span className="price-per-night">المجموع ل (1) غرفة</span>
+                                                </div>
+                                                <div className="l-side">
+                                                    <div className="methods">
+                                                        {
+                                                            room.paymentMethods.map((method, index) => (
+                                                                <img key={index} src={method.image} alt="payment method" />
+                                                            ))
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {
+                                            room.features.length > 0 ?
+                                            <div className="features">
                                             {
                                                 room.features.map((feature) => (
 
@@ -165,32 +194,9 @@ const HotelRooms = ({ data }) => {
                                                 ))
                                             }
                                         </div>
-                                        <h3 className="room-name">{room.name}</h3>
-                                        {
-                                            room.childBedEnabled ? <span className="child-bed">أسرة أطفال / رضع مجانًا</span> : null
+                                        :null
                                         }
-                                        <div className="details">
-                                            <div className="r-side">
-                                                {
-                                                    room.price && Number(room.price > 0) ?
-                                                        <div className="price">
-                                                            <span>{Number(room.price).toFixed(1)}</span>
-                                                            <span className="currency">{data.currencyName}</span>
-                                                        </div>
-                                                        : null
-                                                }
-                                                <span className="price-per-night">المجموع ل (1) غرفة</span>
-                                            </div>
-                                            <div className="l-side">
-                                                <div className="methods">
-                                                    {
-                                                        room.paymentMethods.map((method, index) => (
-                                                            <img key={index} src={method.image} alt="payment method" />
-                                                        ))
-                                                    }
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                         <Link className="btn-wa" to={`https://wa.me/${settings.whatsapp}?text=اريد مناقشتكم عن غرفة ${room.name} في ${data.title}`}>
                                             <span>تخصيص الغرفة</span>
                                             <img src={waImage} alt="whatsapp" />

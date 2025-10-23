@@ -16,7 +16,6 @@ const PreVisa = () => {
     const type = searchParams.get("type");
     const preVisas = PrevisaQuery();
     const preVisaData = preVisas.data; 
-    console.log(preVisaData);
     return (
         <main>
             <Header />

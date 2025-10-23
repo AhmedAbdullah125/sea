@@ -20,7 +20,6 @@ const TotalHotelsSection = () => {
   if (isError) return <div className="container my-12"><AlertError>
     هناك خطاء ما
   </AlertError></div>
-  console.log(data?.data?.data);
   return (
     <section className="my-16 xl:my-24 container  xl:space-y-12 space-y-8">
       {/* title */}

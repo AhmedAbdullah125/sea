@@ -16,6 +16,7 @@ const Hotel = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [trigger, setTrigger] = useState(false);
+    console.log(data)
     useEffect(() => {
         setLoading(true);
         //scroll to the top of page 

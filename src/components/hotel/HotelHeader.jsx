@@ -19,7 +19,6 @@ import { Link } from 'react-router-dom'
 const HotelHeader = ({ data }) => {
     const [selectedImg, setselectedImg] = useState(data.images[0])
     const [lovedHotels, setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [])
-    const [videosArr, setVideosArr] = useState([])
     const token = sessionStorage.getItem('token')
     Fancybox.bind("[data-fancybox]", {
         // Your custom options
@@ -38,24 +37,10 @@ const HotelHeader = ({ data }) => {
             }
         }
         // if data.images contains .mp4, .mov or .webm, make it the selectedImg
-        for (let i = 0; i < data.images.length; i++) {
-            if (data.images[i].includes('.mp4') || data.images[i].includes('.mov') || data.images[i].includes('.webm')) {
-                setselectedImg(data.images[i])
-                return
-            }
 
-        }
     }, [data])
-    useEffect(() => {
-        let vids = []
-        for (let i = 0; i < data.images.length; i++) {
-            if (data.images[i].includes('.mp4') || data.images[i].includes('.mov') || data.images[i].includes('.webm')) {
-                vids = [...vids, data.images[i]]
-            }
-
-        }
-        setVideosArr(vids)
-    }, [data.videos])
+    //merge data.images with data.vedios in single array
+    const images = [...data?.vedios, ...data?.images]
 
 
     return (
@@ -194,10 +179,10 @@ const HotelHeader = ({ data }) => {
                     <div className="detail-box">
 
                         <figure className="detail-img">
-                            {/\.(mp4|mov|webm)$/i.test(selectedImg) ? (
-                                <video src={selectedImg} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                            {data?.vedios?.length > 0 ? (
+                                <video src={data.vedios[0]} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
                             ) : (
-                                <img src={selectedImg} className="img-fluid" alt="detail-img" />
+                                <img src={data.images[0]} className="img-fluid" alt="detail-img" />
                             )}
                         </figure>
                         <div className="detail-img-btn">
@@ -207,8 +192,8 @@ const HotelHeader = ({ data }) => {
                                 </button>
                             </a>
                             {
-                                videosArr.length > 0 ?
-                                    <a href={videosArr[0]} data-caption={data.title} data-fancybox="vids" className="single-img">
+                                data.vedios.length > 0 ?
+                                    <a href={data.vedios[0]} data-caption={data.title} data-fancybox="vids" className="single-img">
                                         <button className="add-btn">
                                             <img src={imgicon2} alt="icon" />
                                         </button>
@@ -218,42 +203,26 @@ const HotelHeader = ({ data }) => {
                             }
                         </div>
                     </div>
-                    {data.images.map((mediaUrl, idx) => {
-                        const isVideo = /\.(mp4|mov|webm)$/i.test(mediaUrl);
-
+                    {images.map((mediaUrl, idx) => {
                         return (
                             <div className="detail-box" key={idx}>
-                                <figure
-                                    className="detail-img"
-                                    onClick={() => setselectedImg(mediaUrl)}
-                                >
+                                <figure className="detail-img">
                                     {
                                         idx == 3 ?
-                                            isVideo ? (
-                                                <video src={mediaUrl} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
-                                            )
-                                                :
-                                                <img src={mediaUrl} className="img-fluid" alt="detail-img" />
+                                            <img src={mediaUrl} className="img-fluid" alt="detail-img" />
                                             :
-                                            isVideo ? (
-                                                <a href={mediaUrl} data-caption={data.title} data-fancybox="gallery" className="single-img">
-                                                    <video src={mediaUrl} className="img-fluid" muted preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
+                                            data.vedios.length > 0 && idx == 0 ? (
+                                                <a href={data.vedios[0]} data-caption={data.title} data-fancybox="gallery" className="single-img">
+                                                    <video src={data.vedios[0]} className="img-fluid" muted preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
                                                 </a>
                                             ) : (
-                                                isVideo ? (
-                                                    <a href={mediaUrl} data-caption={data.title} data-fancybox="gallery" className="single-img">
-                                                        <img src={mediaUrl} className="img-fluid" alt="detail-img" />
-                                                    </a>
-                                                ) :
-                                                    (
-                                                        <a href={mediaUrl} data-caption={data.title} data-fancybox="gallery" className="single-img">
-                                                            <img src={mediaUrl} className="img-fluid" alt="detail-img" />
-                                                        </a>
-                                                    )
+                                                <a href={mediaUrl} data-caption={data.title} data-fancybox="gallery" className="single-img">
+                                                    <img src={mediaUrl} className="img-fluid" alt="detail-img" />
+                                                </a>
                                             )
                                     }
                                     {
-                                        idx == 3 ?
+                                        idx == 3 && data.images.length > 3 ?
                                             <div className="rest"><a href={mediaUrl} data-caption={data.title} data-fancybox="gallery">+{data.images.length - 3}</a></div>
                                             : null
                                     }

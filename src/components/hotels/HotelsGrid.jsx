@@ -10,9 +10,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_BASE_URL } from '../../lib/apiConfig';
 import { motion } from "framer-motion";
-
 const HotelsGrid = ({ mainData }) => {
-
     const [lovedHotels, setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [])
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -24,18 +22,14 @@ const HotelsGrid = ({ mainData }) => {
             }
         }
     }, [mainData])
-    const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     useEffect(() => {
         const getData = async () => {
-            setLoading(true);
             try {
                 const response = await axios.get(`${API_BASE_URL}/settings`, {});
                 setData(response.data.data);
-                setLoading(false);
             } catch (error) {
                 console.error('Error retrieving data:', error);
-                setLoading(false);
                 throw new Error('Could not get data');
             }
         };
@@ -44,16 +38,16 @@ const HotelsGrid = ({ mainData }) => {
     return (
         <>
             {
-                mainData.length > 0 ?
+                mainData?.data.length > 0 ?
                     <div className="grid-cont">
                         {
-                            mainData.map((item, index) =>
+                            mainData?.data.map((item, index) =>
 
                                 <motion.div
                                     initial={{ opacity: 0, x: -50 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                                    transition={{ duration: 0.5, delay: 0.1 }}
                                     className="card-item" key={index}>
                                     <Link to={`/hotel/${item.slug}`} className="related-item block">
                                         <Swiper

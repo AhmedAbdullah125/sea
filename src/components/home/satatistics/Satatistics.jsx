@@ -25,7 +25,6 @@ const Satatistics = () => {
       if (!text) return ''
       return decode(decode(text))
     }
-    console.log(data?.data?.data);
   return (
     <motion.section
     initial={{ opacity: 0, y: 30 }}

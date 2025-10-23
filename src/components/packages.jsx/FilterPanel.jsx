@@ -79,7 +79,6 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
     };
     getData();
   }, []);
-  console.log(continents)
   useEffect(() => {
     setLoading(true);
     const getData = async () => {
@@ -104,7 +103,6 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
   });
   const { watch, setValue } = form;
   const values = watch();
-  console.log(selectedContinents)
   return (
     <>
       {

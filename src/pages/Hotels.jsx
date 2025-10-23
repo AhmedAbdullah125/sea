@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
 import { useSearchParams } from 'react-router-dom';
@@ -6,13 +6,16 @@ import FilterPanel from '../components/hotels/FilterPanel';
 import HotelsGrid from '../components/hotels/HotelsGrid';
 import Loading from '../components/loading/Loading';
 import { ChevronDown } from "lucide-react"
+import HotelsPagination from '../components/hotels/HotelsPagination';
 
 const Hotels = () => {
     // state for search params
-    
+
     const [searchParams, setSearchParams] = useSearchParams();
     const [mainData, setMainData] = useState([])
+    const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
+    console.log(page)
     const filters = {
         start: searchParams.get("start") || "",
         end: searchParams.get("end") || "",
@@ -31,17 +34,19 @@ const Hotels = () => {
 
         setSearchParams(params);
     };
-    
+
     return (
         <section>
             <Header />
             {/* Start Page Content */}
             <div className="container">
-                <FilterPanel defaultValues={filters} onFilter={updateFilters} setMainData={setMainData} setLoading={setLoading} />
+                <FilterPanel defaultValues={filters} page={page} onFilter={updateFilters} setMainData={setMainData} setLoading={setLoading} />
                 {
                     loading ? <Loading /> :
                         <HotelsGrid mainData={mainData} />
                 }
+                {/* pagination */}
+                <HotelsPagination data={mainData.pagination} setPage={setPage} />
             </div>
 
             {/* End Page Content */}

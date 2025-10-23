@@ -21,7 +21,6 @@ const VisaPage = () => {
     }
   })
 
-  console.log(data);
   if (isLoading) return <Loading />
   if (isError) return <div className="container">
     <AlertError>

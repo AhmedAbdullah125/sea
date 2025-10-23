@@ -52,7 +52,7 @@ function safeDateParse(input) {
   return new Date(input);
 }
 
-const FilterPanel = ({ defaultValues, setMainData, setLoading }) => {
+const FilterPanel = ({ defaultValues, setMainData, setLoading, page }) => {
   const [seletedCountry, setSelectedCountry] = useState(String(defaultValues.destination) || '');
   const [selectedFlat, setSelectedFlat] = useState(defaultValues.flat || '');
   const [selectedCity, setSelectedCity] = useState(defaultValues.city || '');
@@ -79,27 +79,27 @@ const FilterPanel = ({ defaultValues, setMainData, setLoading }) => {
     };
     getData();
   }, []);
-
+  console.log(page)
   useEffect(() => {
     const getHotels = async () => {
       setLoading(true);
       try {
         const query = `
-        ${API_BASE_URL}/filter-hotels?country_id=${seletedCountry}` +
+        ${API_BASE_URL}/filter-hotels?page=${page}&country_id=${seletedCountry}` +
           `${selectedDate ? `&available_from=${formatDate(selectedDate)}` : ""}` +
           `${selectedDateTo ? `&available_to=${formatDate(selectedDateTo)}` : ""}` +
           `${selectedPlace ? `&place_id=${selectedPlace}` : ""}` +
           `${selectedView ? `&view_id=${selectedView}` : ""}` +
           `&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`;
         const response = await axios.get(query);
-        setMainData(response.data.data);
+        setMainData(response.data);
       } catch (error) {
         console.error('Error retrieving hotels:', error);
       }
       setLoading(false);
     };
     getHotels();
-  }, [seletedCountry, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer, selectedDateTo, selectedPlace, selectedView]);
+  }, [page, seletedCountry, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer, selectedDateTo, selectedPlace, selectedView]);
 
   const form = useForm({
     resolver: zodResolver(filterSchema),

@@ -27,14 +27,16 @@
     height: 100%;
   }
 }
-.rooms-grid{
-  .card-item{
+
+.rooms-grid {
+  .card-item {
     display: flex;
     flex-direction: column;
     height: 100%;
-    justify-content: space-between;
+    // justify-content: space-between;
   }
 }
+
 .swiper {
   width: 100%;
   height: 100%;
@@ -538,9 +540,11 @@
   flex-direction: column;
   gap: 20px;
   margin-bottom: 35px;
-  .daman-accordion{
+
+  .daman-accordion {
     border-bottom: none;
-    svg{
+
+    svg {
       display: none;
     }
   }
@@ -586,7 +590,8 @@
         font-size: 22px;
         font-weight: 800;
         border: 2px solid $hover;
-        img{
+
+        img {
           width: 100%;
           height: 100%;
           object-fit: cover;
@@ -1081,6 +1086,12 @@
       width: 100%;
       overflow: hidden;
 
+      .info {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
       .img-cont {
         position: relative;
         width: 100%;
@@ -1102,6 +1113,7 @@
           width: 100%;
           height: 100%;
           z-index: 2;
+
           &:hover {
             background-color: rgba(0, 0, 0, 0.0);
           }
@@ -1138,6 +1150,7 @@
           -ms-overflow-style: none;
           scrollbar-width: none;
           margin-bottom: 25px;
+          flex-shrink: 0;
 
           .feature {
             display: flex;
@@ -1170,6 +1183,13 @@
           font-size: 20px;
           color: $main;
           margin-bottom: 20px;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          height: 48px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          height: 100%;
         }
 
         .child-bed {
@@ -1184,6 +1204,7 @@
           justify-content: space-between;
           gap: 10px;
           margin-bottom: 20px;
+          flex-shrink: 0;
 
           .r-side {
             display: flex;
@@ -1219,15 +1240,17 @@
           .l-side {
             width: 100%;
             overflow: hidden;
+
             .methods {
               display: flex;
-              overflow:scroll;
+              overflow: scroll;
               align-items: center;
               justify-content: flex-end;
               width: 100%;
               max-width: 200px;
+              margin-bottom: 0 !important;
               //hidden scrollbar
-             
+
               flex-wrap: nowrap;
               margin-bottom: 25px;
 
@@ -1245,6 +1268,7 @@
     }
   }
 }
+
 .btn-wa {
   width: 100%;
   height: 58px;
@@ -1258,9 +1282,64 @@
   font-size: 12px;
   padding: 0 25px;
   color: $white;
+  flex-shrink: 0;
+
   @media screen and (max-width: 767px) {
     font-size: 10px;
     padding: 0 15px;
     height: 48px;
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 50px 0;
+  flex-wrap: wrap;
+
+  @media screen and (max-width:1025px) {
+    margin: 20px 0;
+    gap: 10px;
+  }
+
+  @media screen and (max-width: 767px) {
+    gap: 5px;
+  }
+
+  button,
+  span {
+    font-weight: 700;
+    font-size: 16px;
+    color: $white;
+    background-color: $sec;
+    width: 58px;
+    height: 58px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    @media screen and (max-width: 1025px) {
+      font-size: 12px;
+      width: 48px;
+      height: 48px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 10px;
+      width: 38px;
+      height: 38px;
+    }
+
+    @media screen and (max-width: 1025px) {
+      font-size: 10px;
+    }
+  }
+
+  span {
+    background-color: $hover;
   }
 }

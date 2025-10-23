@@ -30,7 +30,6 @@ const TransportForm = () => {
     };
     getData();
   }, []);
-  console.log(data);
   return (
     <section className="transport-form">
       <div className="text-main-navy flex items-center gap-1 mb-5">

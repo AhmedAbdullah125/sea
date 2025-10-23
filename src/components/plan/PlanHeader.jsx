@@ -56,7 +56,6 @@ const PlanHeader = ({ data }) => {
         }
         setVideosArr(vids)
     }, [data.videos])
-    console.log(data)
     return (
         <section className="content-section">
             <div className="container">

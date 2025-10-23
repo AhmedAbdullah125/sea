@@ -1086,15 +1086,6 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   transform: scale(1.05);
 }
 
-.detail-img::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  z-index: 2;
-  background: rgba(0, 0, 0, 0.5019607843);
-}
-
 .detail-img-btn {
   position: absolute;
   bottom: 40px;
@@ -1492,6 +1483,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   overflow: hidden;
   position: relative;
   border-radius: 60px;
+  flex-shrink: 0;
 }
 .related-item figure {
   width: 100%;
@@ -1994,7 +1986,6 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: space-between;
 }
 
 .swiper {
@@ -2988,6 +2979,11 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   width: 100%;
   overflow: hidden;
 }
+.hotel-room .rooms-grid .room-item .info {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 .hotel-room .rooms-grid .room-item .img-cont {
   position: relative;
   width: 100%;
@@ -3039,6 +3035,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   -ms-overflow-style: none;
   scrollbar-width: none;
   margin-bottom: 25px;
+  flex-shrink: 0;
 }
 .hotel-room .rooms-grid .room-item .info .features .feature {
   display: flex;
@@ -3067,6 +3064,13 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   font-size: 20px;
   color: var(--main-color);
   margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  height: 48px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 100%;
 }
 .hotel-room .rooms-grid .room-item .info .child-bed {
   font-size: 12px;
@@ -3079,6 +3083,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   justify-content: space-between;
   gap: 10px;
   margin-bottom: 20px;
+  flex-shrink: 0;
 }
 .hotel-room .rooms-grid .room-item .info .details .r-side {
   display: flex;
@@ -3117,6 +3122,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   justify-content: flex-end;
   width: 100%;
   max-width: 200px;
+  margin-bottom: 0 !important;
   flex-wrap: nowrap;
   margin-bottom: 25px;
 }
@@ -3141,6 +3147,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   font-size: 12px;
   padding: 0 25px;
   color: var(--white-color);
+  flex-shrink: 0;
 }
 @media screen and (max-width: 767px) {
   .btn-wa {
@@ -3148,6 +3155,65 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
     padding: 0 15px;
     height: 48px;
   }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 50px 0;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 1025px) {
+  .pagination {
+    margin: 20px 0;
+    gap: 10px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .pagination {
+    gap: 5px;
+  }
+}
+.pagination button,
+.pagination span {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--white-color);
+  background-color: var(--sec-color);
+  width: 58px;
+  height: 58px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+@media screen and (max-width: 1025px) {
+  .pagination button,
+  .pagination span {
+    font-size: 12px;
+    width: 48px;
+    height: 48px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .pagination button,
+  .pagination span {
+    font-size: 10px;
+    width: 38px;
+    height: 38px;
+  }
+}
+@media screen and (max-width: 1025px) {
+  .pagination button,
+  .pagination span {
+    font-size: 10px;
+  }
+}
+.pagination span {
+  background-color: var(--main-hover);
 }
 
 footer .upperfooter {

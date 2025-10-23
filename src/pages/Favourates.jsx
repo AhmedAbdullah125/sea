@@ -28,7 +28,6 @@ export default function Favourates() {
     const [selectedChildrenNumber, setSelectedChildrenNumber] = useState(0);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedDateTo, setSelectedDateTo] = useState(null);
-    console.log(selectedChildrenNumber, selectedPersonsNumber, selectedDate, selectedDateTo)
     useEffect(() => {
         setLoading(true);
         //scroll to the top of page 
@@ -65,7 +64,6 @@ export default function Favourates() {
         }
         getSettings();
     }, [])
-    console.log(data)
     function formatArabicDate(dateStr) {
         const date = new Date(dateStr);
         const formatter = new Intl.DateTimeFormat('ar-EG', {
