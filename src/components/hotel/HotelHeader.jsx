@@ -6,20 +6,13 @@ import { toggleFavourates } from '../../pages/toggleFavourates'
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { motion } from "framer-motion";
-import {
-    AlertDialog,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"
 import { Link } from 'react-router-dom'
 const HotelHeader = ({ data }) => {
-    const [selectedImg, setselectedImg] = useState(data.images[0])
     const [lovedHotels, setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [])
     const token = sessionStorage.getItem('token')
+    const [images, setImages] = useState([])
+
     Fancybox.bind("[data-fancybox]", {
         // Your custom options
     });
@@ -40,7 +33,14 @@ const HotelHeader = ({ data }) => {
 
     }, [data])
     //merge data.images with data.vedios in single array
-    const images = [...data?.vedios, ...data?.images]
+    useEffect(() => {
+        if (data.vedios.length > 0 && data.vedios[0] !== "https://panel.seatourism.sa/storage") {
+            setImages([...data?.vedios, ...data?.images])
+        }
+        else {
+            setImages(data?.images)
+        }   
+    },[])
 
 
     return (
@@ -179,7 +179,7 @@ const HotelHeader = ({ data }) => {
                     <div className="detail-box">
 
                         <figure className="detail-img">
-                            {data?.vedios?.length > 0 ? (
+                            {data?.vedios?.length > 0 && data.vedios[0] !== "https://panel.seatourism.sa/storage" ? (
                                 <video src={data.vedios[0]} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
                             ) : (
                                 <img src={data.images[0]} className="img-fluid" alt="detail-img" />
@@ -192,7 +192,7 @@ const HotelHeader = ({ data }) => {
                                 </button>
                             </a>
                             {
-                                data.vedios.length > 0 ?
+                                data.vedios.length > 0 && data.vedios[0] != "https://panel.seatourism.sa/storage" ?
                                     <a href={data.vedios[0]} data-caption={data.title} data-fancybox="vids" className="single-img">
                                         <button className="add-btn">
                                             <img src={imgicon2} alt="icon" />
@@ -211,7 +211,7 @@ const HotelHeader = ({ data }) => {
                                         idx == 3 ?
                                             <img src={mediaUrl} className="img-fluid" alt="detail-img" />
                                             :
-                                            data.vedios.length > 0 && idx == 0 ? (
+                                            data.vedios.length > 0 && idx == 0 && data.vedios[0] != "https://panel.seatourism.sa/storage" ? (
                                                 <a href={data.vedios[0]} data-caption={data.title} data-fancybox="gallery" className="single-img">
                                                     <video src={data.vedios[0]} className="img-fluid" muted preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
                                                 </a>
