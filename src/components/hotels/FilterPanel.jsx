@@ -18,6 +18,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { API_BASE_URL } from "../../lib/apiConfig";
 import { motion } from "framer-motion";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"
+
 // Zod schema
 export const filterSchema = z.object({
   start: z.string().optional(),
@@ -52,7 +54,7 @@ function safeDateParse(input) {
   return new Date(input);
 }
 
-const FilterPanel = ({ defaultValues, setMainData, setLoading, page }) => {
+const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page }) => {
   const [seletedCountry, setSelectedCountry] = useState(String(defaultValues.destination) || '');
   const [selectedFlat, setSelectedFlat] = useState(defaultValues.flat || '');
   const [selectedCity, setSelectedCity] = useState(defaultValues.city || '');
@@ -64,22 +66,27 @@ const FilterPanel = ({ defaultValues, setMainData, setLoading, page }) => {
   const [selectedPlace, setSelectedPlace] = useState('');
   const [selectedView, setSelectedView] = useState('');
   const [data, setData] = useState([]);
-  const [cities, setCities] = useState([]);
+  const [Views, setViews] = useState([]);
+  const [keyWord, setKeyWord] = useState('');
+  const [selectedCountryCities, setSelectedCountryCities] = useState([])
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
       try {
         const response = await axios.get(`${API_BASE_URL}/all-filters`);
-        const response2 = await axios.get(`${API_BASE_URL}/cities`);
         setData(response.data.data);
-        setCities(response2.data.data);
       } catch (error) {
         console.error('Error retrieving data:', error);
       }
+      // const newViews = [...Views];
+      // for (let i = 0; i < mainData.length; i++) {
+      //   if (mainData[i].views === "view") {
+
+      //   }
+      // }
     };
     getData();
   }, []);
-  console.log(page)
   useEffect(() => {
     const getHotels = async () => {
       setLoading(true);
@@ -90,6 +97,7 @@ const FilterPanel = ({ defaultValues, setMainData, setLoading, page }) => {
           `${selectedDateTo ? `&available_to=${formatDate(selectedDateTo)}` : ""}` +
           `${selectedPlace ? `&place_id=${selectedPlace}` : ""}` +
           `${selectedView ? `&view_id=${selectedView}` : ""}` +
+          `${keyWord ? `&name=${keyWord}` : ""}` +
           `&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`;
         const response = await axios.get(query);
         setMainData(response.data);
@@ -99,7 +107,7 @@ const FilterPanel = ({ defaultValues, setMainData, setLoading, page }) => {
       setLoading(false);
     };
     getHotels();
-  }, [page, seletedCountry, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer, selectedDateTo, selectedPlace, selectedView]);
+  }, [page, keyWord, seletedCountry, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer, selectedDateTo, selectedPlace, selectedView]);
 
   const form = useForm({
     resolver: zodResolver(filterSchema),
@@ -116,8 +124,6 @@ const FilterPanel = ({ defaultValues, setMainData, setLoading, page }) => {
   });
 
   const { watch, setValue } = form;
-  const values = watch();
-
   const t = { "flat": "شقق فندقية", "room": "غرفة", "hotel": "⁠فنادق بتوصية ســـي", "villa": "فلل وشاليهات ", "huts": "أكواخ خشبية", "hotel_suites": "أجنحة فندقية" }
   function clearFilter() {
     setValue("start", "");
@@ -140,6 +146,11 @@ const FilterPanel = ({ defaultValues, setMainData, setLoading, page }) => {
     setSelectedView('');
     form.reset();
   }
+  useEffect(() => {
+    const selectedCountryCites = data?.countries?.filter((country) => country.id === Number(seletedCountry))[0]?.cities;
+    setSelectedCountryCities(selectedCountryCites);
+    console.log(selectedCountryCites)
+  }, [seletedCountry])
 
   return (
     <Form {...form}>
@@ -149,7 +160,7 @@ const FilterPanel = ({ defaultValues, setMainData, setLoading, page }) => {
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.5 }}
         className="space-y-4 mb-10">
-        <div className="flex gap-4 xl:flex-nowrap flex-wrap">
+        <div className="flex gap-4 xl:flex-nowrap flex-wrap items-end">
           {/* start */}
           <FormField
             control={form.control}
@@ -199,7 +210,9 @@ const FilterPanel = ({ defaultValues, setMainData, setLoading, page }) => {
                 </FormLabel>
                 <Select dir="rtl"
                   defaultValue={String(defaultValues.city || "")}
-                  onValueChange={(val) => setSelectedCity(val)} >
+                  onValueChange={(val) => setSelectedCity(val)}
+                  disabled={!seletedCountry}
+                >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
@@ -208,7 +221,7 @@ const FilterPanel = ({ defaultValues, setMainData, setLoading, page }) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {cities.map((option) => (
+                    {selectedCountryCities?.map((option) => (
                       <SelectItem key={option.name} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
                         {option.name}
                       </SelectItem>
@@ -290,7 +303,50 @@ const FilterPanel = ({ defaultValues, setMainData, setLoading, page }) => {
               </FormItem>
             )}
           />
+          <div className="important-dir-rtl">
+            <AlertDialog >
+              <AlertDialogTrigger asChild>
+                <div className="search-icon h-12 w-12 flex items-center justify-center text-white bg-main-navy/90 rounded-full shrink-0">
+                  <i className="fa-solid fa-magnifying-glass "></i>
+                </div>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="bg-white rounded-xl border-none shadow-md items-center">
+                <AlertDialogHeader>
+                  <AlertDialogTitle className="text-[#A71755] font-semibold direction-rtl">ابحث الان عن فنـــدقك المفـــضل</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    <div className="w-full flex flex-col items-center gap-3">
+                      <input type="text" placeholder="ابحث الان عن فنـــدقك المفـــضل" id="searchInputt" className="w-full h-12 px-9 py-2 text-[#797979] text-xs font-semibold border-none rounded-full placeholder:text-[#797979] bg-body"
+                        //if enter submit
+                        onKeyUp={(e) => {
+                          if (e.key === "Enter") {
+                            setKeyWord(document.getElementById("searchInputt").value);
+                            document.getElementById("searchInputt").value = "";
+                          }
+                        }}
+                      />
+                      <button
+                        type="submit"
+                        onClick={() => {
+                          setKeyWord(document.getElementById("searchInputt").value);
+                          document.getElementById("searchInputt").value = "";
+                          //exit alert
+                          document.getElementById("ccccccc").click();
 
+                        }}
+
+                        className="flex-shrink-0 h-12 py-0 px-9 mt-7 bg-[#A71755] text-white font-semibold rounded-full"
+                      >
+                        بحث
+                      </button>
+                    </div>
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel id="ccccccc">إلغاء</AlertDialogCancel>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
         </div>
         <div className="flex gap-4 xl:flex-nowrap flex-wrap">
           {/* rate */}

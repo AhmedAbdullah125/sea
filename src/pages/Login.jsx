@@ -4,7 +4,7 @@ import SendOtp from '../components/login/SendOtp'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
-
+import loginIamge from '../../public/login/login.png'
 const Login = () => {
     const [phone, setPhone] = useState("");
     const [isOtpSent, setIsOtpSent] = useState(false);
@@ -28,7 +28,7 @@ const Login = () => {
                     </div>
                     {/* image */}
                     <div className="xl:col-span-7  max-xl:hidden h-full">
-                        <LazyLoadImage src={'/login/login.png'} alt="logo" loading='lazy' className="h-full w-full " />
+                        <LazyLoadImage src={loginIamge} alt="logo" loading='lazy' className="h-full w-full " />
                     </div>
                 </div>
             </div>

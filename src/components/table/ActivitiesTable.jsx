@@ -115,7 +115,7 @@ const ActivitiesTable = ({ title, description, data }) => {
                                                 </span>
                                             </div>
                                             <div className="item-period">
-                                                {item.period} ليالي
+                                                {item.nameEvents} 
                                             </div>
                                             <div className="item-price">
                                                 يبدأ من {item.price} {item.currencyName}

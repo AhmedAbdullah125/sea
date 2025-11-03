@@ -53,69 +53,60 @@
 .offer-item {
   width: 100%;
   overflow: hidden;
+  padding: 40px;
+  border-radius: 40px;
+  background-color: #F6F6F6;
+  display: flex;
+  flex-direction: column;
+  gap: 33px;
 
-  .offer-img {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 560/406;
-    border-radius: 50px;
-    overflow: hidden;
-    margin-bottom: 35px;
-
-    &::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      z-index: 2;
-      background: #00000080;
+  @include max-991 {
+    padding: 20px;
+    gap: 20px;
+    border-radius: 20px;
+  }
+  .icon-cont{
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background-color: #2DB08A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    //hover
+    &:hover{
+      background-color: $main;
+      color: $white;
+    }
+    @include tr;
+    img{
+      width: 24px;
+      height: 24px;
+      object-fit: contain
     }
   }
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .offer-img:hover img {
-    transform: scale(1.05);
-  }
-
-  .offer-head {
-    font-weight: 800;
+  h4{
     font-size: 28px;
+    font-weight: 700;
     color: $hover;
-    text-align: start;
-    margin-bottom: 28px;
-
+    max-width: 248px;
     @include max-991 {
-      font-style: 24px;
+      font-size: 20px;
+      line-height: 24px;
     }
   }
 
-  .offer-pargh {
-    font-weight: 500;
+  p{
     font-size: 14px;
-    color: #4d4d4d;
-    line-height: 35px;
-    margin-bottom: 0;
-
-    @include max-991 {
-      line-height: 25px;
-    }
+    font-weight: 600px;
+    color: #4D4D4D;
   }
 
-  .offer-content {
-    @include max-991 {
-      padding: 0 10px;
-    }
-  }
 }
 
 .housing-ancor {
   background-color: $sec;
+  width: fit-content;
 }
 
 .trip-item {

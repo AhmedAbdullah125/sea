@@ -40,7 +40,7 @@ const Hotels = () => {
             <Header />
             {/* Start Page Content */}
             <div className="container">
-                <FilterPanel defaultValues={filters} page={page} onFilter={updateFilters} setMainData={setMainData} setLoading={setLoading} />
+                <FilterPanel mainData={mainData} defaultValues={filters} page={page} onFilter={updateFilters} setMainData={setMainData} setLoading={setLoading} />
                 {
                     loading ? <Loading /> :
                         <HotelsGrid mainData={mainData} />

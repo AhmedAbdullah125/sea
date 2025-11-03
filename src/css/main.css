@@ -1972,6 +1972,13 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   }
 }
 
+.important-dir-rtl {
+  direction: rtl !important;
+}
+.important-dir-rtl * {
+  direction: rtl !important;
+}
+
 .card-item {
   width: 100%;
   overflow: hidden;
@@ -3465,65 +3472,62 @@ footer .lowerfooter {
 .offer-item {
   width: 100%;
   overflow: hidden;
+  padding: 40px;
+  border-radius: 40px;
+  background-color: #F6F6F6;
+  display: flex;
+  flex-direction: column;
+  gap: 33px;
 }
-.offer-item .offer-img {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 560/406;
-  border-radius: 50px;
-  overflow: hidden;
-  margin-bottom: 35px;
+@media only screen and (max-width: 1025px) {
+  .offer-item {
+    padding: 20px;
+    gap: 20px;
+    border-radius: 20px;
+  }
 }
-.offer-item .offer-img::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  z-index: 2;
-  background: rgba(0, 0, 0, 0.5019607843);
-}
-.offer-item img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+.offer-item .icon-cont {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: #2DB08A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.3s ease-in-out;
 }
-.offer-item .offer-img:hover img {
-  transform: scale(1.05);
+.offer-item .icon-cont:hover {
+  background-color: var(--main-color);
+  color: var(--white-color);
 }
-.offer-item .offer-head {
-  font-weight: 800;
+.offer-item .icon-cont img {
+  width: 24px;
+  height: 24px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.offer-item h4 {
   font-size: 28px;
+  font-weight: 700;
   color: var(--main-hover);
-  text-align: start;
-  margin-bottom: 28px;
+  max-width: 248px;
 }
 @media only screen and (max-width: 1025px) {
-  .offer-item .offer-head {
-    font-style: 24px;
+  .offer-item h4 {
+    font-size: 20px;
+    line-height: 24px;
   }
 }
-.offer-item .offer-pargh {
-  font-weight: 500;
+.offer-item p {
   font-size: 14px;
-  color: #4d4d4d;
-  line-height: 35px;
-  margin-bottom: 0;
-}
-@media only screen and (max-width: 1025px) {
-  .offer-item .offer-pargh {
-    line-height: 25px;
-  }
-}
-@media only screen and (max-width: 1025px) {
-  .offer-item .offer-content {
-    padding: 0 10px;
-  }
+  font-weight: 600px;
+  color: #4D4D4D;
 }
 
 .housing-ancor {
   background-color: var(--sec-color);
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .trip-item {

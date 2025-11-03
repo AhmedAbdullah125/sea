@@ -36,6 +36,7 @@ const Table = () => {
     };
     getData();
   }, []);
+  console.log(events);
 
   return (
     <section>

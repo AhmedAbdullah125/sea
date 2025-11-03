@@ -8,15 +8,16 @@ import p3 from '../assets/housing/p3.svg'
 import p4 from '../assets/housing/p4.svg'
 import p5 from '../assets/housing/p5.svg'
 import p6 from '../assets/housing/p6.svg'
-import detail0 from '../assets/housing/det0.jpg'
-import detail1 from '../assets/housing/det1.jpg'
-import detail2 from '../assets/housing/det2.jpg'
 import detail4 from '../assets/housing/house-icon.svg'
+import offer_d from '../../public/table/offer_d.svg'
+import offer_tr from '../../public/table/offer_tr.svg'
+import offer_m from '../../public/table/offer_m.svg'
 import axios from 'axios'
 import { API_BASE_URL } from '../lib/apiConfig';
+import AppSection from '../components/home/appSection/AppSection'
 const AddHouse = () => {
 
-    const[data, setData] = useState([])
+    const [data, setData] = useState([])
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         setLoading(true);
@@ -32,7 +33,7 @@ const AddHouse = () => {
             }
         };
         getData();
-    },[])
+    }, [])
     return (
         <section>
             <Header />
@@ -74,54 +75,37 @@ const AddHouse = () => {
                     <h6 className="package-head">تفاصيل ادق !.</h6>
                     <h3 className="package-title">وش نقدم لك في منصة ســـي</h3>
                     <p className="package-text">أنشر وأضف مصدر دخل جديـــد !.</p>
+                    <a href={`https://wa.me/${data.whatsapp}?text=Hello, I am interested to add my house`} className="custom-link housing-ancor"
+                    ><span>سجل سكنك الان</span> <img src={detail4} alt="house" /></a>
                     <div className="offer-cont">
                         <div className="offer-item">
-                            <figure className="offer-img">
-                                <img src={detail0} alt="" />
-                            </figure>
-                            <div className="offer-content">
-                                <h3 className="offer-head">دخــل إضــافي بمجهـــود بسيـــط !</h3>
-                                <p className="offer-pargh">
-                                    من خلال هذا الموقع، تقدر تضيف سكنك بكل سهولة وتخليه متاح للكراء
-                                    أو المشاركة. سواء كان عندك شقة، غرفة، أو حتى دار كاملة، تقدر
-                                    تحقق دخل إضافي بدون تعقيدات. ما تحتاجش تكون خبير، فقط صوّر
-                                    السكن، حمّل الصور، وحدد التفاصيل، والباقي علينا!
-                                </p>
+                            <div className="icon-cont">
+                                <img src={offer_d} alt="sea" />
                             </div>
+                            <h4>دخــل إضــافي بمجهـــود بسيـــط !</h4>
+                            <p>أضف سكنك بسهولة على الموقع وابدأ تحقق دخل إضافي، سواء عندك شقة أو غرفة أو بيت كامل، بدون خبرة ولا تعقيدات — صوّر، أضف التفاصيل، والباقي علينا.</p>
                         </div>
                         <div className="offer-item">
-                            <figure className="offer-img">
-                                <img src={detail1} alt="" />
-                            </figure>
-                            <div className="offer-content">
-                                <h3 className="offer-head">ضمــــــــان سي</h3>
-                                <p className="offer-pargh">
-                                    من خلال هذا الموقع، تقدر تضيف سكنك بكل سهولة وتخليه متاح للكراء
-                                    أو المشاركة. سواء كان عندك شقة، غرفة، أو حتى دار كاملة، تقدر
-                                    تحقق دخل إضافي بدون تعقيدات. ما تحتاجش تكون خبير، فقط صوّر
-                                    السكن، حمّل الصور، وحدد التفاصيل، والباقي علينا!
-                                </p>
+                            <div className="icon-cont">
+                                <img src={offer_tr} alt="sea" />
                             </div>
+                            <h4>ضمـــــــــــان سي / SEA !</h4>
+                            <p>أضف سكنك بسهولة على الموقع وابدأ تحقق دخل إضافي، سواء عندك شقة أو غرفة أو بيت كامل، بدون خبرة ولا تعقيدات — صوّر، أضف التفاصيل، والباقي علينا.</p>
                         </div>
                         <div className="offer-item">
-                            <figure className="offer-img">
-                                <img src={detail2} alt="" />
-                            </figure>
-                            <div className="offer-content">
-                                <h3 className="offer-head">حمـــاية لممتلكاتك</h3>
-                                <p className="offer-pargh">
-                                    من خلال هذا الموقع، تقدر تضيف سكنك بكل سهولة وتخليه متاح للكراء
-                                    أو المشاركة. سواء كان عندك شقة، غرفة، أو حتى دار كاملة، تقدر
-                                    تحقق دخل إضافي بدون تعقيدات. ما تحتاجش تكون خبير، فقط صوّر
-                                    السكن، حمّل الصور، وحدد التفاصيل، والباقي علينا!
-                                </p>
+                            <div className="icon-cont">
+                                <img src={offer_m} alt="sea" />
                             </div>
+                            <h4>حمـــاية كــاملة لممتلكاتك !</h4>
+                            <p>أضف سكنك بسهولة على الموقع وابدأ تحقق دخل إضافي، سواء عندك شقة أو غرفة أو بيت كامل، بدون خبرة ولا تعقيدات — صوّر، أضف التفاصيل، والباقي علينا.</p>
                         </div>
+
                     </div>
-                    <a href={`https://wa.me/${data.whatsapp}?text=Hello, I am interested to add my house`} className="custom-link housing-ancor"
-                    ><span>أسجل سكنك الان</span> <img src={detail4} alt="house" /></a>
+
                 </div>
             </section>
+            <AppSection />
+
             <Footer />
         </section>
     )

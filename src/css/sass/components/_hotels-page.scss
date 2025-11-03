@@ -17,6 +17,14 @@
   }
 }
 
+.important-dir-rtl {
+  direction: rtl !important;
+
+  * {
+    direction: rtl !important;
+  }
+}
+
 .card-item {
   width: 100%;
   overflow: hidden;
