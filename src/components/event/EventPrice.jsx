@@ -3,7 +3,7 @@ const EventPrice = () => {
     return (
         <section className="package-section">
             <div className="container">
-                <h6 className="package-head">البـــاقة !.</h6>
+                <h6 className="package-head">البـــاقة !</h6>
                 <h3 className="package-title">أسعــــــار البــاقة</h3>
                 <p className="package-text">قد تكون هذه البـــاقة ممتعةً لك !</p>
                 <div className="package-cont">

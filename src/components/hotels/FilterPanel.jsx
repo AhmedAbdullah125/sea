@@ -66,24 +66,21 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
   const [selectedPlace, setSelectedPlace] = useState('');
   const [selectedView, setSelectedView] = useState('');
   const [data, setData] = useState([]);
-  const [Views, setViews] = useState([]);
+  const [views, setViews] = useState([]);
   const [keyWord, setKeyWord] = useState('');
   const [selectedCountryCities, setSelectedCountryCities] = useState([])
+  console.log(mainData)
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
       try {
         const response = await axios.get(`${API_BASE_URL}/all-filters`);
         setData(response.data.data);
+        setLoading(false);
       } catch (error) {
         console.error('Error retrieving data:', error);
+        setLoading(false);
       }
-      // const newViews = [...Views];
-      // for (let i = 0; i < mainData.length; i++) {
-      //   if (mainData[i].views === "view") {
-
-      //   }
-      // }
     };
     getData();
   }, []);
@@ -101,6 +98,17 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
           `&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`;
         const response = await axios.get(query);
         setMainData(response.data);
+        if (response?.data?.data?.length > 0) {
+          const newViews = [];
+          for (let i = 0; i < response?.data?.data?.length; i++) {
+            console.log(response?.data?.data[i]?.view_name)
+            if (!newViews.some((view) => view.id === response?.data?.data[i]?.view_id)) {
+              newViews.push({ id: response?.data?.data[i]?.view_id, name: response?.data?.data[i]?.view_name });
+            }
+          }
+          setViews(newViews);
+          console.log(newViews)
+        }
       } catch (error) {
         console.error('Error retrieving hotels:', error);
       }
@@ -171,7 +179,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                 <FormLabel className="flex items-center gap-1">
                   <BsFillSendFill size={16} className="text-main-purple" />
                   <p className="text-main-blue font-bold text-sm">
-                    إختــــــر الوجهـــة
+                    اختــــــر الوجهـــة
                   </p>
                 </FormLabel>
                 <Select dir="rtl"
@@ -205,7 +213,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                 <FormLabel className="flex items-center gap-1">
                   <BsFillSendFill size={16} className="text-main-purple" />
                   <p className="text-main-blue font-bold text-sm">
-                    إختــــــر المديــنة
+                    اختــــــر المديــنة
                   </p>
                 </FormLabel>
                 <Select dir="rtl"
@@ -430,7 +438,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {data?.views?.map((option) => (
+                    {views?.map((option) => (
                       <SelectItem key={option.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
                         {option.name}
                       </SelectItem>

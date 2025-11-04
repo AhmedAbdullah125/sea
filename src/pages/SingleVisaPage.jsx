@@ -113,7 +113,7 @@ const SingleVisaPage = () => {
 
                         <div  >
                           <h3 className="text-sm font-bold pb-3 mb-3 border-b">
-                            الدول المؤهلة للحصول على التأشيرة السيــاحية !.
+                            الدول المؤهلة للحصول على التأشيرة السيــاحية !
                           </h3>
                           <ul>
                             {visa?.countries?.map((ele, index) => (

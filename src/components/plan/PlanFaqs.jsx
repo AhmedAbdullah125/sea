@@ -16,7 +16,7 @@ const PlanFaqs = ({ data }) => {
                     viewport={{ once: true }}
                     transition={{ duration: 1 }}
                 >
-                <h6 className="package-head">تفـــاصيل البـاقة !.</h6>
+                <h6 className="package-head">تفـــاصيل البـاقة !</h6>
                 <h3 className="package-title">وش نــوفر لك في الرحلــــة</h3>
                 <p className="package-text">نسهل عليك لتستمتع في رحلتك !</p>
                 </motion.div>

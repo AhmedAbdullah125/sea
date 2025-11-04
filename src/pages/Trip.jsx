@@ -22,7 +22,7 @@ const Trip = () => {
             {/* pay-section */}
             <section className="package-section">
                 <div className="container">
-                    <h6 className="package-head">الدفع !.</h6>
+                    <h6 className="package-head">الدفع !</h6>
                     <h3 className="package-title">نوفـــر لك أفضــل وســـائل الدفع</h3>
                     <p className="package-text">نسهل عليك لتستمتع في رحلتك !</p>
                 </div>
@@ -37,7 +37,7 @@ const Trip = () => {
             {/* package-detail-section */}
             <section className="package-section">
                 <div className="container">
-                    <h6 className="package-head">تفـــاصيل البـاقة !.</h6>
+                    <h6 className="package-head">تفـــاصيل البـاقة !</h6>
                     <h3 className="package-title">وش نــوفر لك في الرحلــــة</h3>
                     <p className="package-text">نسهل عليك لتستمتع في رحلتك !</p>
                 </div>
@@ -45,7 +45,7 @@ const Trip = () => {
 
             <section className="package-section">
                 <div className="container">
-                    <h6 className="package-head">ماذا يوجد في الباقة !.</h6>
+                    <h6 className="package-head">ماذا يوجد في الباقة !</h6>
                     <h3 className="package-title">تشمل البــــــاقة</h3>
                     <p className="package-text">نسهل عليك لتستمتع في رحلتك !</p>
                     <div className="package-list">

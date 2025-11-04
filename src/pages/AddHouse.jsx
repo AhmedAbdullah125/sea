@@ -39,9 +39,9 @@ const AddHouse = () => {
             <Header />
             <section className="package-section">
                 <div className="container">
-                    <h6 className="package-head">أنشر الان !.</h6>
+                    <h6 className="package-head">أنشر الان !</h6>
                     <h3 className="package-title">كيف تنشــــر في ســي</h3>
-                    <p className="package-text">أنشر وأضف مصدر دخل جديـــد !.</p>
+                    <p className="package-text">أنشر وأضف مصدر دخل جديـــد !</p>
                     <div className="publishing-features">
                         <div className="publish-item">
                             <figure><LazyLoadImage src={p1} alt="icon" /></figure>
@@ -72,9 +72,9 @@ const AddHouse = () => {
             </section>
             <section className="package-section">
                 <div className="container">
-                    <h6 className="package-head">تفاصيل ادق !.</h6>
+                    <h6 className="package-head">تفاصيل ادق !</h6>
                     <h3 className="package-title">وش نقدم لك في منصة ســـي</h3>
-                    <p className="package-text">أنشر وأضف مصدر دخل جديـــد !.</p>
+                    <p className="package-text">أنشر وأضف مصدر دخل جديـــد !</p>
                     <a href={`https://wa.me/${data.whatsapp}?text=Hello, I am interested to add my house`} className="custom-link housing-ancor"
                     ><span>سجل سكنك الان</span> <img src={detail4} alt="house" /></a>
                     <div className="offer-cont">

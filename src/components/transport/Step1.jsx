@@ -54,7 +54,7 @@ const Step1 = ({ nextStep, alerts }) => {
         {/* title */}
         <p className="text-main-navy font-bold flex items-center gap-1">
           <PiWarningOctagonFill />
-          تنبيــــه !.
+          تنبيــــه !
         </p>
         {/* cards */}
         {alerts?.length > 0 ?
@@ -77,7 +77,7 @@ const Step1 = ({ nextStep, alerts }) => {
         {/* title */}
         <p className="text-main-navy font-bold flex items-center gap-1">
           <PiWarningOctagonFill />
-          نقطة الالتقـــاء والانطلاق !.
+          نقطة الالتقـــاء والانطلاق !
         </p>
         {/* points details */}
         <div className="text-xs font-semibold space-y-2">

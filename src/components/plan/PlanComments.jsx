@@ -41,8 +41,8 @@ const PlanComments = ({ data }) => {
                     viewport={{ once: true }}
                     transition={{ duration: 1 }}
                 >
-                    <h6 className="package-head">التقييمات !.</h6>
-                    <h3 className="package-title">التقييمات !.</h3>
+                    <h6 className="package-head">التقييمات !</h6>
+                    <h3 className="package-title">التقييمات !</h3>
                     <p className="package-text">ماذا يقول ضيوفنا عناا ...</p>
                 </motion.div>
             </div>

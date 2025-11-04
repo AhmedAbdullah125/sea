@@ -44,7 +44,7 @@ const HotelCard = ({ hotel, data }) => {
           </div >
         </CardContent>
       </Link>
-      <Link to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم حول ${hotel.title}`} className="mb-4 block">تواصل الآن واحصل علي عرض سعر</Link>
+      <Link to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم حول ${hotel.title}`} className="mb-4 block">تواصل الآن واحصل على عرض سعر</Link>
       <Link to={`/hotel/${hotel?.slug}`} className="block" >
         <div className="size-12 bg-main-navy   !text-white hover:bg-main-purple transition-all duration-300  flex items-center justify-center rounded-full">
 

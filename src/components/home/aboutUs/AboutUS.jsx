@@ -54,7 +54,7 @@ const AboutUS = () => {
             <div className='xl:max-w-[80%]'>
 
               <div className=' text-center xl:text-start space-y-3 '>
-                <div className=' font-bold text-main-navy' >لمــــاذا نحن !.</div>
+                <div className=' font-bold text-main-navy' >لمــــاذا نحن ؟</div>
 
                 <div className='text-main-blue max-w-[300px] font-bold xl:text-4xl text-2xl xl:leading-relaxed text-center xl:text-start m-auto xl:m-0'
                   dangerouslySetInnerHTML={{ __html: doubleDecode(data?.data?.data?.mainDescription) }}>
@@ -63,7 +63,7 @@ const AboutUS = () => {
                 <div className='text-main-navy ' dangerouslySetInnerHTML={{ __html: doubleDecode(data?.data?.data?.mainTitle) }}></div>
               </div>
               <div className=" mt-4 flex items-center max-xl:justify-center  gap-2 w-full">
-                <a href={`https://wa.me/${whatsapp?.whatsapp}`} target='_blank' className="h-8  rounded-full   bg-main-purple !text-white e hover:bg-main-blue transation-all duration-300  text-xs font-semibold px-6 flex items-center justify-center">إحجـــز رحلتك الان</a>
+                <a href={`https://wa.me/${whatsapp?.whatsapp}`} target='_blank' className="h-8  rounded-full   bg-main-purple !text-white e hover:bg-main-blue transation-all duration-300  text-xs font-semibold px-6 flex items-center justify-center">احجـــز رحلتك الآن</a>
                 <a href={`https://wa.me/${whatsapp?.whatsapp2}`} target='_blank' className="group size-8 bg-main-purple e hover:bg-main-blue transation-all duration-300  rounded-full flex items-center justify-center">
                   <svg
                     className="text-white  "

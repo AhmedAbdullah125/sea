@@ -69,7 +69,7 @@ const Package = () => {
                                     viewport={{ once: true }}
                                     transition={{ duration: 1 }}
                                 >
-                                <h6 className="package-head">ماذا يوجد في الباقة !.</h6>
+                                <h6 className="package-head">ماذا يوجد في الباقة !</h6>
                                 <h3 className="package-title">تشمل البــــــاقة</h3>
                                 <p className="package-text">نسهل عليك لتستمتع في رحلتك !</p>
                                 </motion.div>

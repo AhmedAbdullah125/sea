@@ -34,7 +34,7 @@ const TransportForm = () => {
     <section className="transport-form">
       <div className="text-main-navy flex items-center gap-1 mb-5">
         <MdStars className="xl:text-xl text-base" />
-        <h2 className=" font-bold max-xl:text-sm">إخــتر خدمتــك !.</h2>
+        <h2 className=" font-bold max-xl:text-sm">إخــتر خدمتــك !</h2>
       </div>
       {
         loading ? <Loading /> :

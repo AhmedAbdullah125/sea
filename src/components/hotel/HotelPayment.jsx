@@ -242,7 +242,7 @@ const HotelPayment = ({ data }) => {
                                             {/* WhatsApp Link */}
                                             {
 
-                                                < button className="offerLink" to={`https://wa.me/${settings.whatsapp}?text= اريد مناقشتكم عن عرض سعر علي فندق  ${data?.title}`}
+                                                < button className="offerLink" to={`https://wa.me/${settings.whatsapp}?text= اريد مناقشتكم عن عرض سعر على فندق  ${data?.title}`}
                                                     onClick={() => {
                                                         if (days > 0 && !displayPrice) {
                                                             setDisplayPrice(true);
@@ -309,7 +309,7 @@ const HotelPayment = ({ data }) => {
                                                 احجز الان
                                             </label>
 
-                                            <Link className="flex-shrink-0 h-12 py-0 px-9  bg-[#29b62a] text-white hover:text-main-blue font-semibold flex items-center justify-center rounded-full" to={`https://wa.me/${settings.whatsapp}?text= اريد مناقشتكم عن عرض سعر علي فندق  ${data?.title}`}>
+                                            <Link className="flex-shrink-0 h-12 py-0 px-9  bg-[#29b62a] text-white hover:text-main-blue font-semibold flex items-center justify-center rounded-full" to={`https://wa.me/${settings.whatsapp}?text= اريد مناقشتكم عن عرض سعر على فندق  ${data?.title}`}>
                                                 <span >حجز عن طريق الواتساب </span>
                                             </Link>
                                         </div>

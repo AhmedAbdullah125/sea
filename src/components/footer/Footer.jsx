@@ -47,7 +47,7 @@ const Footer = () => {
                                 <LazyLoadImage src={footerlogo} alt="logo" loading='lazy' />
                                 <p>منصّتنا تسهّل عليك حجز أماكن الإقامة حول العالم بأسعار منافسة، صور حقيقية، وخدمة موثوقة.</p>
                                 <div className="social-cont">
-                                    <h3>تـــابعنا على __</h3>
+                                    <h3>تـــابعنا على :</h3>
                                     <div className="ies">
                                         {data.facebook && <Link to="#"><i className="fa-brands fa-facebook-f"></i></Link>}
                                         {data.instagram && <Link to="#"><i className="fa-brands fa-instagram"></i></Link>}
@@ -85,7 +85,7 @@ const Footer = () => {
                                         <Link to="#">من نحــــن ؟</Link>
                                         <Link to="/blogs">المدونة</Link>
                                         <Link to="#">تســـوق معنــا</Link>
-                                        <Link to="/#whySee">لماذا سي !</Link>
+                                        <Link to="/#whySee">لماذا سي ؟</Link>
                                     </div>
 
                                 </div>
@@ -120,7 +120,7 @@ const Footer = () => {
                             </div>
                         </div>
                         <div className="lowerfooter">
-                            <Link to="/terms">الشروط و الأحكام</Link>
+                            <Link to="/terms">الشروط والأحكام</Link>
                             <p >جميع الحقوق محفوظة لشركة ســـي - SEA</p>
                             <Link to="/privacy">سياسة الشركة</Link>
                         </div>

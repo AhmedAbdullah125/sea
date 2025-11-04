@@ -29,20 +29,18 @@ const HotelHeader = ({ data }) => {
                 localStorage.setItem('lovedHotels', []);
             }
         }
-        // if data.images contains .mp4, .mov or .webm, make it the selectedImg
+        // if data?.images contains .mp4, .mov or .webm, make it the selectedImg
 
     }, [data])
-    //merge data.images with data.vedios in single array
+    //merge data?.images with data?.vedios in single array
     useEffect(() => {
-        if (data.vedios.length > 0 && data.vedios[0] !== "https://panel.seatourism.sa/storage") {
+        if (data?.vedios?.length > 0 && data?.vedios[0] !== "https://panel.seatourism.sa/storage") {
             setImages([...data?.vedios, ...data?.images])
         }
         else {
             setImages(data?.images)
         }   
-    },[])
-
-
+    },[data])
     return (
         <section className="content-section">
             <div className="container">
@@ -52,8 +50,8 @@ const HotelHeader = ({ data }) => {
                     viewport={{ once: true }}
                     transition={{ duration: 1 }}
                 >
-                    <h2 className="detail-title">{data.title}</h2>
-                    <span>كود الوحدة ( {data.code} ) </span>
+                    <h2 className="detail-title">{data?.title}</h2>
+                    <span>كود الوحدة ( {data?.code} ) </span>
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, x: 100 }}
@@ -64,24 +62,24 @@ const HotelHeader = ({ data }) => {
                     <div className="detail-info">
                         <div className="detail-info-item rate">
                             <i className="fa-solid fa-star"></i>
-                            <span>{Number(data.rating).toFixed(1)} <span>( {data.reviewsCount} )</span></span>
+                            <span>{Number(data?.rating).toFixed(1)} <span>( {data?.reviewsCount} )</span></span>
                         </div>
                         <div className="detail-info-item">
                             <i className="fa-solid fa-location-dot"></i>
-                            <span>{data.address}</span>
+                            <span>{data?.address}</span>
                         </div>
                         {
-                            data.area ?
+                            data?.area ?
                                 <div className="detail-info-item">
                                     <i className="fa-solid fa-location-crosshairs"></i>
-                                    <span>مساحة الوحدة {data.area} م²</span>
+                                    <span>مساحة الوحدة {data?.area} م²</span>
                                 </div>
                                 : null
                         }
 
                         <div className="detail-info-item">
                             <i className="fa-solid fa-users"></i>
-                            <span>{data.advantages.map((adv, idx) => idx === data.advantages.length - 1 ? adv : adv + ', ')}</span>
+                            <span>{data?.advantages.map((adv, idx) => idx === data?.advantages.length - 1 ? adv : adv + ', ')}</span>
                         </div>
                     </div>
                     <div className="detail-info-btn">
@@ -102,8 +100,8 @@ const HotelHeader = ({ data }) => {
                                     </AlertDialogTitle>
                                     <AlertDialogDescription>
                                         <div className="pc-feats">
-                                            <h4>{data.title}</h4>
-                                            <h5>شارك {data.title} عبر </h5>
+                                            <h4>{data?.title}</h4>
+                                            <h5>شارك {data?.title} عبر </h5>
                                             <div className="social-icns">
                                                 <Link target="_blank" to={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}>
                                                     <i className="fa-brands fa-facebook"></i>
@@ -148,15 +146,15 @@ const HotelHeader = ({ data }) => {
                                     onClick={
                                         () => {
                                             if (sessionStorage.getItem('token')) {
-                                                if (lovedHotels.includes(data.id)) {
-                                                    setLovedHotels(lovedHotels.filter(id => id !== data.id))
-                                                    localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== data.id)))
+                                                if (lovedHotels.includes(data?.id)) {
+                                                    setLovedHotels(lovedHotels.filter(id => id !== data?.id))
+                                                    localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== data?.id)))
                                                 }
                                                 else {
-                                                    setLovedHotels([...lovedHotels, data.id])
-                                                    localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, data.id]))
+                                                    setLovedHotels([...lovedHotels, data?.id])
+                                                    localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, data?.id]))
                                                 }
-                                                toggleFavourates(data.id, 'Hotel');
+                                                toggleFavourates(data?.id, 'Hotel');
                                             }
                                             else {
                                                 toast.error('يجب تسجيل الدخول اولا')
@@ -164,7 +162,7 @@ const HotelHeader = ({ data }) => {
                                             }
                                         }
                                     }
-                                ><i className={`fa-heart ${lovedHotels.includes(data.id) ? 'fa-solid text-[#A71755]' : 'fa-regular'}`}></i></button>
+                                ><i className={`fa-heart ${lovedHotels.includes(data?.id) ? 'fa-solid text-[#A71755]' : 'fa-regular'}`}></i></button>
                                 : null
                         }
 
@@ -179,21 +177,21 @@ const HotelHeader = ({ data }) => {
                     <div className="detail-box">
 
                         <figure className="detail-img">
-                            {data?.vedios?.length > 0 && data.vedios[0] !== "https://panel.seatourism.sa/storage" ? (
-                                <video src={data.vedios[0]} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
-                            ) : (
-                                <img src={data.images[0]} className="img-fluid" alt="detail-img" />
-                            )}
+                            {data?.vedios?.length > 0 && data?.vedios[0] !== "https://panel.seatourism.sa/storage" ? 
+                                <video src={data?.vedios[0]} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                             : 
+                                <img src={data?.images[0]} className="img-fluid" alt="detail-img" />
+                            }
                         </figure>
                         <div className="detail-img-btn">
-                            <a href={data.images[0]} data-caption={data.title} data-fancybox="gallery" className="single-img">
+                            <a href={data?.images[0]} data-caption={data?.title} data-fancybox="gallery" className="single-img">
                                 <button className="add-btn">
                                     <img src={imgicon1} alt="icon" />
                                 </button>
                             </a>
                             {
-                                data.vedios.length > 0 && data.vedios[0] != "https://panel.seatourism.sa/storage" ?
-                                    <a href={data.vedios[0]} data-caption={data.title} data-fancybox="vids" className="single-img">
+                                data?.vedios?.length > 0 && data?.vedios[0] != "https://panel.seatourism.sa/storage" ?
+                                    <a href={data?.vedios[0]} data-caption={data?.title} data-fancybox="vids" className="single-img">
                                         <button className="add-btn">
                                             <img src={imgicon2} alt="icon" />
                                         </button>
@@ -211,19 +209,19 @@ const HotelHeader = ({ data }) => {
                                         idx == 3 ?
                                             <img src={mediaUrl} className="img-fluid" alt="detail-img" />
                                             :
-                                            data.vedios.length > 0 && idx == 0 && data.vedios[0] != "https://panel.seatourism.sa/storage" ? (
-                                                <a href={data.vedios[0]} data-caption={data.title} data-fancybox="gallery" className="single-img">
-                                                    <video src={data.vedios[0]} className="img-fluid" muted preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
+                                            data?.vedios?.length > 0 && idx == 0 && data?.vedios[0] != "https://panel.seatourism.sa/storage" ? (
+                                                <a href={data?.vedios[0]} data-caption={data?.title} data-fancybox="gallery" className="single-img">
+                                                    <video src={data?.vedios[0]} className="img-fluid" muted preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
                                                 </a>
                                             ) : (
-                                                <a href={mediaUrl} data-caption={data.title} data-fancybox="gallery" className="single-img">
+                                                <a href={mediaUrl} data-caption={data?.title} data-fancybox="gallery" className="single-img">
                                                     <img src={mediaUrl} className="img-fluid" alt="detail-img" />
                                                 </a>
                                             )
                                     }
                                     {
-                                        idx == 3 && data.images.length > 3 ?
-                                            <div className="rest"><a href={mediaUrl} data-caption={data.title} data-fancybox="gallery">+{data.images.length - 3}</a></div>
+                                        idx == 3 && data?.images.length > 3 ?
+                                            <div className="rest"><a href={mediaUrl} data-caption={data?.title} data-fancybox="gallery">+{data?.images.length - 3}</a></div>
                                             : null
                                     }
                                 </figure>

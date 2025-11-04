@@ -97,7 +97,7 @@ const PackagesGrid = ({ mainData }) => {
                                     {item.cost} {item.currencyName}  <span className="period"><span> / </span> للشخص الواحد </span>
                                 </div>
                                 <div className="item-btn">
-                                    <a href={`https://wa.me/${data.whatsapp}?text= مناقشتكم لإضافه لحجز الباقة ${item.title} `} className="book-ancor">إحجـــز رحلتك الان</a>
+                                    <a href={`https://wa.me/${data.whatsapp}?text= مناقشتكم لإضافه لحجز الباقة ${item.title} `} className="book-ancor">احجـــز رحلتك الآن</a>
                                     <a href={`https://wa.me/${data.whatsapp}?text= مناقشتكم لإضافه لحجز الباقة ${item.title} `} className="book-flight"><img src={plane} alt="icon" /></a>
                                 </div>
                             </a>

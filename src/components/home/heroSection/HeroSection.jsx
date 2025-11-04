@@ -11,9 +11,9 @@ import { MorphingText } from "../../ui/morphing-text";
 import { ReactTyped } from "react-typed";
 const HeroSection = () => {
   const texts = [
-    " إحجــز بثقة ..",
-    " إحجــز بموثوقــية ..",
-    " إحجــز بأمــان ..",
+    " احجــز بثقة ..",
+    " احجــز بموثوقــية ..",
+    " احجــز بأمــان ..",
   ]
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -59,13 +59,13 @@ const HeroSection = () => {
                     <h1 className={`${styles.title} text-4xl md:text-5xl xl:text-6xl font-semibold`} >
                       رحلتك تبدأ من هنـــــا...
                       <br />
-                      {/* إحجــز بثقة. */}
+                      {/* احجــز بثقة. */}
                       {/* <MorphingText texts={texts} loop  /> */}
                       <div>
                         <ReactTyped strings={[
-                          " إحجــز بثقة ..",
+                          " احجــز بثقة ..",
                           "  إحـجــز بموثوقــية ..",
-                          " إحجــز بأمــان ..",
+                          " احجــز بأمــان ..",
                         ]} loop typeSpeed={100} />
                         <br />
 
@@ -74,7 +74,7 @@ const HeroSection = () => {
                     </h1>
                     <p className="text-sm font-light xl:max-w-[70%] ">
                       منصة إلكترونية أوفلاين معتمدة للحجوزات الفندقية و الباقات السياحية
-                      حول العالم والتواصل المباشر مع العملاء .
+                      حول العالم والتواصل المباشر مع العملاء.
                     </p>
                   </div>
                   {/* counters */}

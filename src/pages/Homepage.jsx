@@ -1,6 +1,5 @@
 
 import Footer from '../components/footer/Footer';
-import MainHeader from '../components/header/MainHeader';
 import AboutUS from '../components/home/aboutUs/AboutUS';
 import AppSection from '../components/home/appSection/AppSection';
 import BigOffers from '../components/home/BigOffers';
@@ -9,7 +8,6 @@ import HotelsSection from '../components/home/hotelsSection/HotelsSection';
 import PakageSection from '../components/home/pakageSection/PakageSection';
 import Satatistics from '../components/home/satatistics/Satatistics';
 import TotalHotelsSection from '../components/home/totalHotels/TotalHotelsSection';
-import Loading from '../components/loading/Loading';
 export default function Homepage() {
     return (
         <div className="bodyCont">

@@ -29,7 +29,7 @@ const TotalHotelsSection = () => {
         viewport={{ once: true }}
         className="flex flex-col xl:flex-row items-center justify-between max-xl:space-y-8">
         <div className="text-center xl:text-start">
-          <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue '>أشهر الفنادق حول العالم !.</h2>
+          <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue '>أشهر الفنادق حول العالم !</h2>
           <p className="text-xs font-light text-main-navy mt-4">تتوزع أشهر الفنادق عالميًا لتمنحك تجارب إقامة لا تُنسى. تتميز هذه الفنادق بالفخامة، الخدمة الراقية...</p>
         </div>
         <p className="text-sm font-bold text-main-navy text-center xl:text-start">+{data?.data?.pagination?.total} فندق حــــول العالم</p>

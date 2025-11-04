@@ -51,8 +51,8 @@ const HotelRooms = ({ data }) => {
                 data.rooms.length > 0 ?
                     <div className="container">
                         <div className="room-head">
-                            <h3>الغـــرف !.</h3>
-                            <h2>حدد خيار الغرفة الأنسب لك !.</h2>
+                            <h3>الغـــرف !</h3>
+                            <h2>حدد خيار الغرفة الأنسب لك !</h2>
                             <h4>قد تكون هذه الغرف ممتعةً لك !</h4>
                         </div>
                         <div className="rooms-grid">

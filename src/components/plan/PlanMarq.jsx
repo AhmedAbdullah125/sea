@@ -19,7 +19,7 @@ const PlanMarq = ({ data }) => {
                     viewport={{ once: true }}
                     transition={{ duration: 1 }}
                 >
-                <h6 className="package-head">الدفع !.</h6>
+                <h6 className="package-head">الدفع !</h6>
                 <h3 className="package-title">نوفـــر لك أفضــل وســـائل الدفع</h3>
                 <p className="package-text">نسهل عليك لتستمتع في رحلتك !</p>
                 </motion.div>

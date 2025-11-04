@@ -71,7 +71,7 @@ const VisaPage = () => {
           transition={{ duration: 1 }}
           className="  text-center xl:space-y-8 md:space-y-6 space-y-4">
           <p className="font-bold text-xs">أنواع التأشيرات</p>
-          <h1 className="xl:text-6xl md:text-4xl text-3xl text-main-blue font-bold ">إختر نــوع تـــأشيرتك</h1>
+          <h1 className="xl:text-6xl md:text-4xl text-3xl text-main-blue font-bold ">اختر نــوع تـــأشيرتك</h1>
           <p className="text-xs font-semibold">جميع التأشيرات صالحة ومعتمدة  ويمكن استخدامها لجميع وسائل النقل.</p>
 
         </motion.div>

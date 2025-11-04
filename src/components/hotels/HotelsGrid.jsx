@@ -10,18 +10,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_BASE_URL } from '../../lib/apiConfig';
 import { motion } from "framer-motion";
-const HotelsGrid = ({ mainData }) => {
-    const [lovedHotels, setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [])
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            if (localStorage.getItem('lovedHotels')) {
-                setLovedHotels(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : []);
-            }
-            else {
-                localStorage.setItem('lovedHotels', []);
-            }
-        }
-    }, [mainData])
+const HotelsGrid = ({ mainData }) => {    
     const [data, setData] = useState([]);
     useEffect(() => {
         const getData = async () => {
@@ -38,8 +27,9 @@ const HotelsGrid = ({ mainData }) => {
     return (
         <>
             {
-                mainData?.data.length > 0 ?
+                mainData?.data?.length > 0 ?
                     <div className="grid-cont">
+                        
                         {
                             mainData?.data.map((item, index) =>
 
@@ -93,14 +83,6 @@ const HotelsGrid = ({ mainData }) => {
                                                     onClick={
                                                         () => {
                                                             if (sessionStorage.getItem('token')) {
-                                                                if (lovedHotels.includes(item.id)) {
-                                                                    setLovedHotels(lovedHotels.filter(id => id !== item.id))
-                                                                    localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== item.id)))
-                                                                }
-                                                                else {
-                                                                    setLovedHotels([...lovedHotels, item.id])
-                                                                    localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, item.id]))
-                                                                }
                                                                 toggleFavourates(item.id, 'Hotel');
                                                             }
                                                             else {
@@ -109,7 +91,7 @@ const HotelsGrid = ({ mainData }) => {
                                                             }
                                                         }
                                                     }
-                                                ><i className={`fa-heart ${lovedHotels.includes(item.id) ? 'fa-solid text-[#A71755]' : 'fa-regular '}`}></i></button>
+                                                ><i className={`fa-heart  fa-regular`}></i></button>
                                             </div>
                                         </div>
                                     </Link>

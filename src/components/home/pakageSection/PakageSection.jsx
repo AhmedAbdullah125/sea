@@ -28,7 +28,7 @@
 //       <Tabs defaultValue="all" className="w-full xl:space-y-12 space-y-8" dir="rtl">
 //         <div className="flex flex-col xl:flex-row items-center justify-between max-xl:space-y-8">
 //           <div className="text-center xl:text-start">
-//             <h2 className='xl:text-3xl md:text-2xl text-xl font-bold text-main-blue'>إختر بـــــاقتك حول العالم !.</h2>
+//             <h2 className='xl:text-3xl md:text-2xl text-xl font-bold text-main-blue'>اختر بـــــاقتك حول العالم !</h2>
 //             <p className="text-xs font-light text-main-navy mt-4">
 //               سواء كنت تحلم بالسفر إلى أوروبا، آسيا، إفريقيا، أستراليا أو أمريكا، نوفر لك خيارات إقامة متنوعة بأسعار تناسب ميزانيتك.
 //             </p>
@@ -132,7 +132,7 @@ const PakageSection = () => {
       <Tabs defaultValue="all" className="w-full xl:space-y-12 space-y-8" dir="rtl">
         <div className="flex flex-col xl:flex-row items-center justify-between max-xl:space-y-8">
           <div className="text-center xl:text-start">
-            <h2 className='xl:text-3xl md:text-2xl text-xl font-bold text-main-blue'>إختر بـــــاقتك حول العالم !.</h2>
+            <h2 className='xl:text-3xl md:text-2xl text-xl font-bold text-main-blue'>اختر بـــــاقتك حول العالم !</h2>
             <p className="text-xs font-light text-main-navy mt-4">
               سواء كنت تحلم بالسفر إلى أوروبا، آسيا، إفريقيا، أستراليا أو أمريكا، نوفر لك خيارات إقامة متنوعة بأسعار تناسب ميزانيتك.
             </p>

@@ -15,7 +15,6 @@ const Hotels = () => {
     const [mainData, setMainData] = useState([])
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
-    console.log(page)
     const filters = {
         start: searchParams.get("start") || "",
         end: searchParams.get("end") || "",
@@ -31,10 +30,8 @@ const Hotels = () => {
         if (values.type) params.set("type", values.type);
         if (values.destination) params.set("destination", values.destination);
         if (values.city) params.set("destination", values.city);
-
         setSearchParams(params);
     };
-
     return (
         <section>
             <Header />

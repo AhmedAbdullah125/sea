@@ -34,6 +34,8 @@ const Hotel = () => {
         };
         getData();
     }, [trigger]);
+    
+    
         return (
         <section>
             <Header />
