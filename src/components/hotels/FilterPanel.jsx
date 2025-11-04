@@ -328,7 +328,6 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                         onKeyUp={(e) => {
                           if (e.key === "Enter") {
                             setKeyWord(document.getElementById("searchInputt").value);
-                            document.getElementById("searchInputt").value = "";
                           }
                         }}
                       />

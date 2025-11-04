@@ -57,7 +57,7 @@ const AddHouse = () => {
                         </div>
                         <div className="publish-item">
                             <figure><img src={p4} alt="icon" /></figure>
-                            <span>إحصـــل على مستحقــــاتك.</span>
+                            <span>احصـــل على مستحقــــاتك.</span>
                         </div>
                         <div className="publish-item">
                             <figure><img src={p5} alt="icon" /></figure>
