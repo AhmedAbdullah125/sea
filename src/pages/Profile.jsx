@@ -89,7 +89,6 @@ export default function EditPage() {
     const handleUpdateProfile = async (data) => {
         await updateProfile(data, setLoading);
     };
-    //setting default values of from 
     useEffect(() => {
         form.setValue('firstName', profile?.name || '');
         form.setValue('lastName', profile?.lastName || '');

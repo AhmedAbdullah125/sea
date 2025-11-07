@@ -5,29 +5,12 @@ import logo from '../../../public/home/seaLogo.svg'
 import LoginDialog from '../login/LoginDialog'
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
-import axios from 'axios'
-import { API_BASE_URL } from '../../lib/apiConfig'
-import Loading from '../loading/Loading'
 import { motion } from "framer-motion";
+import { useGetSettings } from '@/components/global/useGetSettings';
+
 const MainHeader = () => {
-    const [data, setData] = useState([])
-    const [loading, setLoading] = useState(true);
     const [scrolled, setScrolled] = useState(false);
-    useEffect(() => {
-        setLoading(true);
-        const getData = async () => {
-            try {
-                const response = await axios.get(`${API_BASE_URL}/settings`, {});
-                setData(response.data.data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error retrieving data:', error);
-                setLoading(false);
-                throw new Error('Could not get data');
-            }
-        };
-        getData();
-    }, [])
+    const { data, isLoading, isError } = useGetSettings();
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 50) {
@@ -36,7 +19,6 @@ const MainHeader = () => {
                 setScrolled(false);
             }
         };
-
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -54,12 +36,12 @@ const MainHeader = () => {
                 <div className="r-links">
                     <NavLink to="/add-house">أضف سكنـك</NavLink>
                    
-                            <NavLink to={`https://wa.me/${loading ? '' : data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>أضف بــاقتك</NavLink>
+                            <NavLink to={`https://wa.me/${isLoading ? '' : data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>أضف بــاقتك</NavLink>
                     <NavLink to="/packages">بـــاقات حــول العـالم</NavLink>
                 </div>
                 <div className="logo">
                     <Link to="/">
-                        <LazyLoadImage src={logo} alt="logo" loading='lazy' />
+                        <LazyLoadImage src={logo} alt="logo" isLoading='lazy' />
                     </Link>
                 </div>
                 <div className="l-links">

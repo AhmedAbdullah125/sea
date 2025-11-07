@@ -6,7 +6,8 @@ import axios from 'axios';
 import { API_BASE_URL } from '../../lib/apiConfig';
 import {motion} from "framer-motion";
 const PackagesGrid = ({ mainData }) => {
-    const [data, setData] = useState([])
+    const { data, isLoading, isError } = useGetSettings();
+
     const [lovedPlans, setLovedPlans] = useState(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : [])
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -18,22 +19,7 @@ const PackagesGrid = ({ mainData }) => {
             }
         }
     }, [data])
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        setLoading(true);
-        const getData = async () => {
-            try {
-                const response = await axios.get(`${API_BASE_URL}/settings`, {});
-                setData(response.data.data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error retrieving data:', error);
-                setLoading(false);
-                throw new Error('Could not get data');
-            }
-        };
-        getData();
-    }, [])
+ 
     function formatArabicDate(dateStr) {
         const date = new Date(dateStr);
         const formatter = new Intl.DateTimeFormat('ar-EG', {

@@ -13,6 +13,8 @@ import waImage from '../../assets/wa.svg'
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { toggleFavourates } from "../../pages/toggleFavourates";
+import { useGetSettings } from '@/components/global/useGetSettings';
+
 
 const HotelRooms = ({ data }) => {
     const [favouratesRooms, setFavouratesRooms] = useState([])
@@ -23,18 +25,10 @@ const HotelRooms = ({ data }) => {
     Fancybox.bind("[data-fancybox-video]", {
         // Your custom options
     });
-    const [settings, setSettings] = useState([]);
+    const { data: settings } = useGetSettings();
+
     useEffect(() => {
         //getting settings from api
-        const getData = async () => {
-            try {
-                const response = await axios.get(`${API_BASE_URL}/settings`);
-                setSettings(response.data.data);
-            } catch (error) {
-                console.error('Error retrieving data:', error);
-            }
-        };
-        getData();
         // adding favourates rooms ids to favouratesRooms state
         let favs = []
         for (let index = 0; index < data.rooms.length; index++) {

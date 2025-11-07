@@ -10,6 +10,8 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../../../lib/apiConfig";
+import { useGetSettings } from '@/components/global/useGetSettings';
+
 
 const HotelsSection = () => {
   const { data, isLoading, isError } = useQuery({
@@ -19,25 +21,10 @@ const HotelsSection = () => {
       return res;
     }
   })
-  const [loading, setLoading] = useState(true);
-  const [settings, setSettings] = useState([]);
-  useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(`${API_BASE_URL}/settings`, {});
-        setSettings(response.data.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error retrieving data:', error);
-        setLoading(false);
-        throw new Error('Could not get data');
-      }
-    };
-    getData();
-  }, []);
+  const { data: settings, isLoading: settingsLoading } = useGetSettings();
+
   
-  if (isLoading) return <Loader />
+  if (isLoading || settingsLoading) return <Loader />
   if (isError) return <div className="container my-12"><AlertError>
     هناك خطاء ما
   </AlertError></div>

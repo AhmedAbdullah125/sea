@@ -18,7 +18,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { API_BASE_URL } from "../../lib/apiConfig";
 import { motion } from "framer-motion";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"
+import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"
 
 // Zod schema
 export const filterSchema = z.object({
@@ -53,7 +53,6 @@ function safeDateParse(input) {
   }
   return new Date(input);
 }
-
 const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page }) => {
   const [seletedCountry, setSelectedCountry] = useState(String(defaultValues.destination) || '');
   const [selectedFlat, setSelectedFlat] = useState(defaultValues.flat || '');
@@ -67,6 +66,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
   const [selectedView, setSelectedView] = useState('');
   const [data, setData] = useState([]);
   const [views, setViews] = useState([]);
+  const [places, setPlaces] = useState([]);
   const [keyWord, setKeyWord] = useState('');
   const [selectedCountryCities, setSelectedCountryCities] = useState([])
   console.log(mainData)
@@ -100,13 +100,19 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
         setMainData(response.data);
         if (response?.data?.data?.length > 0) {
           const newViews = [];
+          const newPlaces = [];
           for (let i = 0; i < response?.data?.data?.length; i++) {
-            console.log(response?.data?.data[i]?.view_name)
-            if (!newViews.some((view) => view.id === response?.data?.data[i]?.view_id)) {
+            console.log(response?.data?.data[i].place_name)
+            if (!newViews.some((view) => view.id === response?.data?.data[i]?.view_id) && response?.data?.data[i]?.view_name) {
               newViews.push({ id: response?.data?.data[i]?.view_id, name: response?.data?.data[i]?.view_name });
             }
+            if (!newPlaces.some((palce) => palce.id === response?.data?.data[i]?.place_id) && response?.data?.data[i]?.place_name) {
+              newPlaces.push({ id: response?.data?.data[i]?.place_id, name: response?.data?.data[i]?.place_name });
+            }
+
           }
           setViews(newViews);
+          setPlaces(newPlaces);
           console.log(newViews)
         }
       } catch (error) {
@@ -116,7 +122,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
     };
     getHotels();
   }, [page, keyWord, seletedCountry, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer, selectedDateTo, selectedPlace, selectedView]);
-
+  console.log(places)
   const form = useForm({
     resolver: zodResolver(filterSchema),
     defaultValues: {
@@ -407,7 +413,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                    {data?.places?.map((option) => (
+                    {places?.map((option) => (
                       <SelectItem key={option.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
                         {option.name}
                       </SelectItem>

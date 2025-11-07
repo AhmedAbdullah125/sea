@@ -7,29 +7,18 @@ import "swiper/css/pagination";
 import { toast } from 'sonner';
 import { toggleFavourates } from '../../pages/toggleFavourates';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { API_BASE_URL } from '../../lib/apiConfig';
 import { motion } from "framer-motion";
-const HotelsGrid = ({ mainData }) => {    
-    const [data, setData] = useState([]);
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const response = await axios.get(`${API_BASE_URL}/settings`, {});
-                setData(response.data.data);
-            } catch (error) {
-                console.error('Error retrieving data:', error);
-                throw new Error('Could not get data');
-            }
-        };
-        getData();
-    }, []);
+import { useGetSettings } from '@/components/global/useGetSettings';
+
+const HotelsGrid = ({ mainData }) => {
+    const { data } = useGetSettings();
+
     return (
         <>
             {
                 mainData?.data?.length > 0 ?
                     <div className="grid-cont">
-                        
+
                         {
                             mainData?.data.map((item, index) =>
 
@@ -117,9 +106,9 @@ const HotelsGrid = ({ mainData }) => {
                                                 </div>
                                                 :
                                                 null
-                                            }
+                                        }
                                     </Link>
-                                            <Link to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم حول ${item.title}`} className='card-content'>تواصل الآن واحصل علي عرض سعر</Link>
+                                    <Link to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم حول ${item.title}`} className='card-content'>تواصل الآن واحصل علي عرض سعر</Link>
                                 </motion.div>
                             )
                         }

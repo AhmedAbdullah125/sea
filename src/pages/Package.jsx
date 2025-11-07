@@ -8,16 +8,12 @@ import PlanHeader from '../components/plan/PlanHeader'
 import Loading from '../components/loading/Loading'
 import PlanPrices from '../components/plan/PlanPrices'
 import PlanMarq from '../components/plan/PlanMarq'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
-import PlanFaqs from '../components/plan/PlanFaqs'
-import { motion } from "framer-motion";
 import PlanComments from '../components/plan/PlanComments'
 import PlanRateForm from '../components/plan/PlanRateForm'
 
 const Package = () => {
     const { id } = useParams();
     const [data, setData] = useState([]);
-    const [settings, setSettings] = useState({});
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         setLoading(true);
@@ -36,26 +32,14 @@ const Package = () => {
         };
         getData();
     }, []);
-    useEffect(() => {
-        //scroll to the top of page 
-        window.scrollTo(0, 0);
-        const getData = async () => {
-            try {
-                const response = await axios.get(`${API_BASE_URL}/settings`, {});
-                setSettings(response.data.data);
-            } catch (error) {
-                console.error('Error retrieving data:', error);
-                throw new Error('Could not get data');
-            }
-        };
-        getData();
-    }, []);
+    const { data: settings, isLoading, isError } = useGetSettings();
+
 
     return (
         <section>
             <Header />
             {
-                loading ? <Loading /> :
+                loading || isLoading ? <Loading /> :
                     <>
                         <PlanHeader data={data} />
                         <PlanPrices data={data} settings={settings} />

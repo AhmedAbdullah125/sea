@@ -1502,6 +1502,10 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
 .related-item figure:hover::after {
   background: rgba(0, 0, 0, 0);
 }
+.related-item figure::after {
+  content: "";
+  display: none;
+}
 .related-item img {
   width: 100%;
   height: 100%;
@@ -1599,7 +1603,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
 }
 
 .related-into {
-  padding: 20px 35px 0;
+  padding: 20px 10px 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1663,14 +1667,14 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
 
 .related-text {
   font-weight: 400;
-  font-size: 20px;
+  font-size: 14px;
   color: var(--main-color);
   margin-bottom: 50px;
 }
 @media only screen and (max-width: 1025px) {
   .related-text {
     font-size: 16px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
   }
 }
 
@@ -1720,8 +1724,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   padding: 50px;
   border-radius: 40px;
   background-color: #F5F5F5;
-  height: -moz-fit-content;
-  height: fit-content;
+  height: auto;
 }
 @media only screen and (max-width: 767px) {
   .trip-things-section .things .r-side {
@@ -1885,7 +1888,7 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.1019607843);
+  background-color: rgba(1, 1, 1, 0.4);
   height: 27px;
   border-radius: 14px;
   width: 40px;

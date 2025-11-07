@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react'
 import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
@@ -12,28 +11,13 @@ import detail4 from '../assets/housing/house-icon.svg'
 import offer_d from '../../public/table/offer_d.svg'
 import offer_tr from '../../public/table/offer_tr.svg'
 import offer_m from '../../public/table/offer_m.svg'
-import axios from 'axios'
-import { API_BASE_URL } from '../lib/apiConfig';
 import AppSection from '../components/home/appSection/AppSection'
+import { useGetSettings } from '@/components/global/useGetSettings';
+
 const AddHouse = () => {
 
-    const [data, setData] = useState([])
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        setLoading(true);
-        const getData = async () => {
-            try {
-                const response = await axios.get(`${API_BASE_URL}/settings`, {});
-                setData(response.data.data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error retrieving data:', error);
-                setLoading(false);
-                throw new Error('Could not get data');
-            }
-        };
-        getData();
-    }, [])
+    const { data } = useGetSettings();
+
     return (
         <section>
             <Header />

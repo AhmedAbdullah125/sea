@@ -615,7 +615,11 @@
       }
     }
   }
-
+  figure::after {
+    content: "";
+    display: none;
+  }
+  
   img {
     width: 100%;
     height: 100%;
@@ -708,7 +712,7 @@
 }
 
 .related-into {
-  padding: 20px 35px 0;
+  padding: 20px 10px 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -773,13 +777,12 @@
 
 .related-text {
   font-weight: 400;
-  font-size: 20px;
+  font-size: 14px;
   color: $main;
   margin-bottom: 50px;
-
   @include max-991 {
     font-size: 16px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
   }
 }
 
@@ -828,7 +831,7 @@
       padding: 50px;
       border-radius: 40px;
       background-color: #F5F5F5;
-      height: fit-content;
+      height: auto;
 
       @include max-767 {
         width: 100%;
@@ -996,7 +999,7 @@
     top: 17.5px;
     inset-inline-start: 17.5px;
     @include flexCenter;
-    background-color: #ffffff1a;
+    background-color: rgba(1, 1,1, 0.4);
     height: 27px;
     border-radius: 14px;
     width: 40px;

@@ -45,24 +45,10 @@ const Table = () => {
         <Loading />
       ) : (
         <>
-          <BreadCrumb
-            data={[
-              { title: "الرئيــسية", href: "/" },
-              { title: "جدول عليـــنا", href: "#" },
-              { title: "إسطنبــول", href: "#" },
-            ]}
-          />
-          <ActivitiesTable
-            data={events}
-            title="فعاليات الشهر الحالي."
-            description="يُقدم الموقع فعاليات الشهر الحالي ليستمتع المسافر بتجارب سياحية مميزة تشمل مهرجانات، جولات ثقافية، وعروض ترفيهية محلية حية."
-          />
-          <HotelsTable
-            data={hotels}
-            title={`أشهــر فنــــادق ${localStorage.getItem('userCountry') || 'تركيـــــا'}.`}
-            description="قدم الموقع قائمة 'توب عشرة' لأفضل الأنشطة والفعاليات السياحية لتسهيل اختيار المسافر لأجمل التجارب في وجهته."
-          />
+          <BreadCrumb data={[   { title: "الرئيــسية", href: "/" },   { title: "جدول عليـــنا", href: "#" },   { title: "إسطنبــول", href: "#" }, ]}/>
+          <ActivitiesTable data={events} title="فعاليات الشهر الحالي." description="يُقدم الموقع فعاليات الشهر الحالي ليستمتع المسافر بتجارب سياحية مميزة تشمل مهرجانات، جولات ثقافية، وعروض ترفيهية محلية حية."/>
           <Events data={activities} />
+          <HotelsTable data={hotels} title={`أشهــر فنــــادق ${localStorage.getItem('userCountry') || 'تركيـــــا'}.`} description="قدم الموقع قائمة 'توب عشرة' لأفضل الأنشطة والفعاليات السياحية لتسهيل اختيار المسافر لأجمل التجارب في وجهته."/>
           <Things />
         </>
       )}

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import footerlogo from '../../../public/home/footerLogo.svg'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import apple from '../../../public/home/apple.svg'
 import google from '../../../public/home/google.svg'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { API_BASE_URL } from '../../lib/apiConfig'
 import Loading from '../loading/Loading'
 import { motion } from "framer-motion";
 import payImg1 from '../../assets/pay-img/01.svg'
@@ -13,25 +11,9 @@ import payImg2 from '../../assets/pay-img/02.svg'
 import payImg3 from '../../assets/pay-img/03.svg'
 import payImg4 from '../../assets/pay-img/04.svg'
 import payImg5 from '../../assets/pay-img/05.svg'
+import { useGetSettings } from '@/components/global/useGetSettings';
 const Footer = () => {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const getData = async () => {
-            setLoading(true);
-            try {
-                const response = await axios.get(`${API_BASE_URL}/settings`, {});
-                setData(response.data.data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error retrieving data:', error);
-                setLoading(false);
-                throw new Error('Could not get data');
-            }
-        };
-        getData();
-    }, []);
+    const { data, isLoading, isError } = useGetSettings();
     return (
         <motion.footer
             initial={{ opacity: 0, y: 30 }}
@@ -40,7 +22,7 @@ const Footer = () => {
             transition={{ duration: 0.5 }}
             className='footer'>
             {
-                loading ? <Loading /> :
+                isLoading ? <Loading /> :
                     <div className="container">
                         <div className="upperfooter">
                             <div className="logo-cont">

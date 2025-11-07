@@ -9,6 +9,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
+import { useGetSettings } from '@/components/global/useGetSettings';
+
 import { Calendar } from "@/components/ui/calendar";
 function formatDate(d) {
     if (!d) return "";
@@ -23,11 +25,12 @@ function formatDate(d) {
 export default function Favourates() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
-    const [settings, setSettings] = useState([]);
     const [selectedPersonsNumber, setSelectedPersonsNumber] = useState(1);
     const [selectedChildrenNumber, setSelectedChildrenNumber] = useState(0);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedDateTo, setSelectedDateTo] = useState(null);
+    const { data: settings, isLoading, isError } = useGetSettings();
+
     useEffect(() => {
         setLoading(true);
         //scroll to the top of page 
@@ -50,20 +53,6 @@ export default function Favourates() {
         };
         getData();
     }, []);
-    useEffect(() => {
-        const getSettings = async () => {
-            try {
-                const response = await axios.get(`${API_BASE_URL}/settings`, {});
-                setSettings(response.data.data);
-            } catch (error) {
-                console.error('Error retrieving data:', error);
-                setLoading(false);
-                throw new Error('Could not get data');
-            }
-
-        }
-        getSettings();
-    }, [])
     function formatArabicDate(dateStr) {
         const date = new Date(dateStr);
         const formatter = new Intl.DateTimeFormat('ar-EG', {
@@ -167,7 +156,7 @@ export default function Favourates() {
                 }
             </div>
             {
-                loading ? <Loading /> :
+                loading || loading ? <Loading /> :
                     data.length == 0 ?
                         <div className="no-reservation">
                             <h2>لا يوجد عناصر مفضله</h2>

@@ -12,7 +12,7 @@ const Events = ({ data }) => {
         });
         setCats(arr);
     }, [data]);
-    
+    console.log(data)
     return (
         <section className="places-section">
             <div className="container">
@@ -33,12 +33,12 @@ const Events = ({ data }) => {
                                 <div className="places-item" key={idx}>
                                     <div className="places-content">
                                         <span className="place-type">{item.type}</span>
-                                        <span className="places-name">{item.title}</span>
-                                        <span className="places-info">{parse(item.description)}</span>
+                                        <span className="places-name">{item?.city || "اسطنبول"}</span>
+                                        <span className="places-info">{parse(item.title)}</span>
                                     </div>
                                     <figure>
                                         <img src={item.image} alt="img" />
-                                        <span className="places-status">متـــاح</span>
+                                        <span className="places-status">{item.isActive? "متـــاح" : "غير متاح"}</span>
                                     </figure>
                                 </div>
                                 : null

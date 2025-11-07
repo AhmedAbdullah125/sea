@@ -9,14 +9,15 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Link } from 'react-router-dom';
 import Loading from '../loading/Loading';
+import { useGetSettings } from '@/components/global/useGetSettings';
+
 
 const BigOffers = ({ mainData }) => {
     const [data, setData] = useState([])
-    const [Settings, setSettings] = useState([])
     const [loading, setLoading] = useState(true);
     const [fullParagraph, setFullParagraph] = useState([]);
     const swiperRef = useRef(null); // <-- Add ref to control Swiper autoplay
-
+    const { data: settings, isLoading, isError } = useGetSettings();
     function formatDate(dateString) {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
@@ -30,9 +31,7 @@ const BigOffers = ({ mainData }) => {
         const getData = async () => {
             try {
                 const response = await axios.get(`${API_BASE_URL}/offers`);
-                const responseSettings = await axios.get(`${API_BASE_URL}/settings`);
                 setData(response.data.data);
-                setSettings(responseSettings.data.data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error retrieving data:', error);
@@ -59,7 +58,7 @@ const BigOffers = ({ mainData }) => {
                     </div>
                 </div>
                 {
-                    loading ? <Loading /> :
+                    loading || isError || isLoading ? <Loading /> :
                         <div
                             onMouseEnter={() => swiperRef.current?.autoplay?.stop()}
                             onMouseLeave={() => swiperRef.current?.autoplay?.start()}
@@ -92,10 +91,10 @@ const BigOffers = ({ mainData }) => {
                                                 transition={{ duration: 0.5 }}
                                                 className="offer"
                                             >
-                                                <Link to={`https://wa.me/${Settings?.whatsapp}?text=اريد الاطلاع علي العرض ${item.title}`} className="offer-img">
+                                                <Link to={`https://wa.me/${settings?.whatsapp}?text=اريد الاطلاع علي العرض ${item.title}`} className="offer-img">
                                                     <img src={item.image} alt="img" />
                                                 </Link>
-                                                <Link to={`https://wa.me/${Settings?.whatsapp}?text=اريد الاطلاع علي العرض ${item.title}`} className="offer-info">
+                                                <Link to={`https://wa.me/${settings?.whatsapp}?text=اريد الاطلاع علي العرض ${item.title}`} className="offer-info">
                                                     <h3>{item.title}</h3>
                                                     <p style={
                                                         fullParagraph.includes(index)

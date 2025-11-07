@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 const HotelsTable = ({ title, description, data }) => {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
+    console.log(data)
     return (
         <section className="related-section">
             <div className="container">
@@ -107,21 +108,21 @@ const HotelsTable = ({ title, description, data }) => {
                                                     <button><i className="fa-regular fa-heart"></i></button>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
-                                        <div className="related-into">
-                                            <div className="item-location">
+                                        <div className="related-into w-full">
+                                            <div className="item-location w-full">
                                                 <i className="fa-solid fa-location-dot"></i>
-                                                <span>
+                                                <span className=' w-full flex justify-between'>
                                                     {item.address}
-                                                    <span>( خيارات ترفيهية )</span>
+                                                    <span>({item?.view_name ? item.view_name : ""} )</span>
                                                 </span>
                                             </div>
                                             <div className="item-period">
                                                 {item.title}
                                             </div>
                                             <div className="item-price">
-                                                يبدأ من {item.price} {item.currencyName}
+                                                {item.price ? ` يبدأ من ${item.price} ${item.currencyName}` : null}
                                             </div>
                                         </div>
                                     </Link>

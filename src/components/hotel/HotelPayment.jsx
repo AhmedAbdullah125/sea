@@ -19,6 +19,8 @@ import { bookHotel } from "./bookHotelF";
 import { toast } from "sonner";
 import { motion } from "framer-motion"
 import Loading from "../loading/Loading";
+import { useGetSettings } from '@/components/global/useGetSettings';
+
 export const filterSchema = z.object({
     date: z.date({
         required_error: "تاريخ الوصول مطلوب",
@@ -45,27 +47,13 @@ const HotelPayment = ({ data }) => {
     const { watch } = form;
     const arrivalDate = watch("date");
     const departureDate = watch("dateLeave");
-
-    const [settings, setSettings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [days, setDays] = useState(0);
     const [displayPrice, setDisplayPrice] = useState(false);
     const [trigger, setTrigger] = useState(false)
+    const { data: settings, isLoading, isError } = useGetSettings();
 
-    useEffect(() => {
-        setLoading(true);
-        const getData = async () => {
-            try {
-                const response = await axios.get(`${API_BASE_URL}/settings`);
-                setSettings(response.data.data);
-            } catch (error) {
-                console.error('Error retrieving data:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        getData();
-    }, [trigger]);
+
 
     // 🔢 Calculate number of days between dates
     useEffect(() => {

@@ -9,35 +9,21 @@ import { NumberTicker } from "@/components/magicui/number-ticker";
 import { motion } from "framer-motion";
 import { MorphingText } from "../../ui/morphing-text";
 import { ReactTyped } from "react-typed";
+import { useGetSettings } from '@/components/global/useGetSettings';
+
 const HeroSection = () => {
   const texts = [
     " احجــز بثقة ..",
     " احجــز بموثوقــية ..",
     " احجــز بأمــان ..",
   ]
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data, isLoading, isError } = useGetSettings();
 
-  useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(`${API_BASE_URL}/settings`, {});
-        setData(response.data.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error retrieving data:', error);
-        setLoading(false);
-        throw new Error('Could not get data');
-      }
-    };
-    getData();
-  }, []);
   return (
     <>
       {
 
-        loading ? <Loading /> :
+        isLoading ? <Loading /> :
           <motion.section
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
