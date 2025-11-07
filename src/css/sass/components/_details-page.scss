@@ -130,8 +130,10 @@
   :nth-child(4) {
     display: block;
   }
+
   :nth-child(5) {
     display: block;
+
     ::after {
       display: none;
     }
@@ -152,7 +154,8 @@
   width: 100%;
   height: 100%;
   aspect-ratio: 866/586;
-  a{
+
+  a {
     width: 100%;
     height: 100%;
   }
@@ -595,12 +598,13 @@
   position: relative;
   border-radius: 60px;
   flex-shrink: 0;
+
   figure {
     width: 100%;
     height: 100%;
     position: relative;
     @include tr;
-    
+
     &::after {
       content: "";
       position: absolute;
@@ -609,26 +613,31 @@
       background: rgba($color: #000, $alpha: 0.5);
       @include tr;
     }
+
     &:hover {
       &::after {
         background: rgba($color: #000, $alpha: 0);
       }
     }
   }
-  figure::after {
-    content: "";
-    display: none;
-  }
-  
+
+
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 }
-.fancybox__container{
+
+figure::after {
+  content: "" !important;
+  display: none !important;
+}
+
+.fancybox__container {
   direction: ltr;
 }
+
 .related-content {
   position: absolute;
   top: 0;
@@ -642,9 +651,6 @@
   padding: 30px;
   z-index: 2;
 
-  &:has(.related-btn) {
-    justify-content: flex-end;
-  }
 
   @include max-767 {
     padding: 20px;
@@ -780,6 +786,7 @@
   font-size: 14px;
   color: $main;
   margin-bottom: 50px;
+
   @include max-991 {
     font-size: 16px;
     margin-bottom: 25px;
@@ -999,7 +1006,7 @@
     top: 17.5px;
     inset-inline-start: 17.5px;
     @include flexCenter;
-    background-color: rgba(1, 1,1, 0.4);
+    background-color: rgba(1, 1, 1, 0.4);
     height: 27px;
     border-radius: 14px;
     width: 40px;
@@ -1071,13 +1078,15 @@
 //   -webkit-box-orient: vertical;
 // }
 
-.social-icns{
+.social-icns {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-top: 50px;
   justify-content: center;
-  a,button{
+
+  a,
+  button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1088,10 +1097,11 @@
     color: $white;
     @include tr;
 
-    &:hover{
+    &:hover {
       background-color: $hover;
     }
-    i{
+
+    i {
       font-size: 24px;
     }
   }

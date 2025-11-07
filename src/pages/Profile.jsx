@@ -15,15 +15,16 @@ import Loading from '../components/loading/Loading';
 import { updateProfile } from './updateProfileData';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChevronDown } from "lucide-react"
+import { useGetProfile } from "@/components/global/useGetProfile";
 
 import imgIcon from '../../public/profile/ddd.svg';
 export default function EditPage() {
-    const [profile, setProfile] = useState({});
     const [loading, setLoading] = useState(true);
+    const { data: profile, isLoading } = useGetProfile();
+
     const [countryData, setCountryData] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
     const [imageFile, setImageFile] = useState(null);
-    const [selectedCountry, setSelectedCountry] = useState(null);
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
@@ -39,9 +40,7 @@ export default function EditPage() {
         const getData = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`${API_BASE_URL}/user/profile`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
                 const response2 = await axios.get(API_BASE_URL + `/countries`, {});
-                setProfile(response.data.data);
                 let data = response2.data.data;
                 setCountryData(data)
                 setLoading(false);

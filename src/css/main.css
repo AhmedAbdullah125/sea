@@ -1502,15 +1502,16 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
 .related-item figure:hover::after {
   background: rgba(0, 0, 0, 0);
 }
-.related-item figure::after {
-  content: "";
-  display: none;
-}
 .related-item img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+figure::after {
+  content: "" !important;
+  display: none !important;
 }
 
 .fancybox__container {
@@ -1530,9 +1531,6 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   gap: 10px;
   padding: 30px;
   z-index: 2;
-}
-.related-content:has(.related-btn) {
-  justify-content: flex-end;
 }
 @media only screen and (max-width: 767px) {
   .related-content {
@@ -1935,7 +1933,8 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   margin-top: 50px;
   justify-content: center;
 }
-.social-icns a, .social-icns button {
+.social-icns a,
+.social-icns button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1946,10 +1945,12 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   color: var(--white-color);
   transition: all 0.3s ease-in-out;
 }
-.social-icns a:hover, .social-icns button:hover {
+.social-icns a:hover,
+.social-icns button:hover {
   background-color: var(--main-hover);
 }
-.social-icns a i, .social-icns button i {
+.social-icns a i,
+.social-icns button i {
   font-size: 24px;
 }
 

@@ -13,33 +13,15 @@ import { API_BASE_URL } from '../../lib/apiConfig'
 import { Link } from "react-router-dom";
 import profileImage from '../../../public/home/profile.svg'
 import loginImg from '../../../public/login/login.png'
+import { useGetProfile } from "../global/useGetProfile";
 
 const LoginDialog = ({ mainHeader = false }) => {
   const [phone, setPhone] = useState("");
   const [isOtpSent, setIsOtpSent] = useState(false);
   const { token, logout } = useContext(userContext);
-  const [loading, setLoading] = useState(true);
-  const [profile, setProfile] = useState({});
-  useEffect(() => {
-    setLoading(true);
-    //scroll to the top of page 
-    window.scrollTo(0, 0);
-    const getData = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/user/profile`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
-        const user = response.data.data;
-        localStorage.setItem('userCountry', user.countryName);
-        setProfile(user);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error retrieving data:', error);
-        setLoading(false);
-        throw new Error('Could not get data');
-      }
-    };
-    getData();
+  const { data: profile, isLoading } = useGetProfile();
 
-  }, []);
+
   const handleSendOtp = (enteredPhone) => {
     setPhone(enteredPhone);
     setIsOtpSent(true);
@@ -47,10 +29,10 @@ const LoginDialog = ({ mainHeader = false }) => {
 
   if (token) return (
 
-          <Link to="/account/profile" className='profile'>
-            <LazyLoadImage src={profile?.image || profileImage} alt="logo" loading='lazy' className='w-[45px] h-[45px] rounded-full m-auto object-cover header-profileImage border-2 border-white bg-white' />
-          </Link>
-  
+    <Link to="/account/profile" className='profile'>
+      <LazyLoadImage src={isLoading ? profileImage : profile?.image || profileImage} alt="logo" loading='lazy' className='w-[45px] h-[45px] rounded-full m-auto object-cover header-profileImage border-2 border-white bg-white' />
+    </Link>
+
   )
   return (
     <Dialog   >

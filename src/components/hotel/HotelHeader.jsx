@@ -9,37 +9,15 @@ import { motion } from "framer-motion";
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"
 import { Link } from 'react-router-dom'
 const HotelHeader = ({ data }) => {
-    const [lovedHotels, setLovedHotels] = useState(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : [])
     const token = sessionStorage.getItem('token')
     const [images, setImages] = useState([])
-
-    Fancybox.bind("[data-fancybox]", {
-        // Your custom options
-    });
-    Fancybox.bind("[data-fancybox-video]", {
-        // Your custom options
-    });
-    // Link swipers after both are ready
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            if (localStorage.getItem('lovedHotels')) {
-                setLovedHotels(localStorage.getItem('lovedHotels') ? JSON.parse(localStorage.getItem('lovedHotels')) : []);
-            }
-            else {
-                localStorage.setItem('lovedHotels', []);
-            }
-        }
-        // if data?.images contains .mp4, .mov or .webm, make it the selectedImg
-
-    }, [data])
-    //merge data?.images with data?.vedios in single array
+    Fancybox.bind("[data-fancybox]", {});
+    Fancybox.bind("[data-fancybox-video]", {});
     useEffect(() => {
         if (data?.vedios?.length > 0 && data?.vedios[0] !== "https://panel.seatourism.sa/storage") {
             setImages([...data?.vedios, ...data?.images])
         }
-        else {
-            setImages(data?.images)
-        }   
+        else { setImages(data?.images) }   
     },[data])
     return (
         <section className="content-section">
@@ -146,14 +124,6 @@ const HotelHeader = ({ data }) => {
                                     onClick={
                                         () => {
                                             if (sessionStorage.getItem('token')) {
-                                                if (lovedHotels.includes(data?.id)) {
-                                                    setLovedHotels(lovedHotels.filter(id => id !== data?.id))
-                                                    localStorage.setItem('lovedHotels', JSON.stringify(lovedHotels.filter(id => id !== data?.id)))
-                                                }
-                                                else {
-                                                    setLovedHotels([...lovedHotels, data?.id])
-                                                    localStorage.setItem('lovedHotels', JSON.stringify([...lovedHotels, data?.id]))
-                                                }
                                                 toggleFavourates(data?.id, 'Hotel');
                                             }
                                             else {
@@ -162,7 +132,7 @@ const HotelHeader = ({ data }) => {
                                             }
                                         }
                                     }
-                                ><i className={`fa-heart ${lovedHotels.includes(data?.id) ? 'fa-solid text-[#A71755]' : 'fa-regular'}`}></i></button>
+                                ><i className={`fa-heart ${data?.is_favourite ? 'fa-solid text-[#A71755]' : 'fa-regular'}`}></i></button>
                                 : null
                         }
 

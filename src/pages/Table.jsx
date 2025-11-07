@@ -15,13 +15,11 @@ const Table = () => {
   const [activities, setActivities] = useState([]);
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-
-
   useEffect(() => {
     setLoading(true);
     const getData = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/hotels`);
+        const response = await axios.get(`${API_BASE_URL}/filter-hotels?page=1`);
         const response2 = await axios.get(`${API_BASE_URL}/activities`);
         const response3 = await axios.get(`${API_BASE_URL}/events`);
         setHotels(response.data.data);
@@ -48,7 +46,7 @@ const Table = () => {
           <BreadCrumb data={[   { title: "الرئيــسية", href: "/" },   { title: "جدول عليـــنا", href: "#" },   { title: "إسطنبــول", href: "#" }, ]}/>
           <ActivitiesTable data={events} title="فعاليات الشهر الحالي." description="يُقدم الموقع فعاليات الشهر الحالي ليستمتع المسافر بتجارب سياحية مميزة تشمل مهرجانات، جولات ثقافية، وعروض ترفيهية محلية حية."/>
           <Events data={activities} />
-          <HotelsTable data={hotels} title={`أشهــر فنــــادق ${localStorage.getItem('userCountry') || 'تركيـــــا'}.`} description="قدم الموقع قائمة 'توب عشرة' لأفضل الأنشطة والفعاليات السياحية لتسهيل اختيار المسافر لأجمل التجارب في وجهته."/>
+          <HotelsTable data={hotels} title={`أشهــر فنــــادق تركيـــــا.`} description="قدم الموقع قائمة 'توب عشرة' لأفضل الأنشطة والفعاليات السياحية لتسهيل اختيار المسافر لأجمل التجارب في وجهته."/>
           <Things />
         </>
       )}

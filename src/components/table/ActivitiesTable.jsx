@@ -7,6 +7,8 @@ import "swiper/css/pagination";
 
 import { useRef } from "react";
 import { Link } from 'react-router-dom';
+import { toggleFavourates } from '../../pages/toggleFavourates';
+import { toast } from 'sonner';
 const ActivitiesTable = ({ title, description, data }) => {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
@@ -97,10 +99,30 @@ const ActivitiesTable = ({ title, description, data }) => {
                                                     </div>
                                                 </Swiper>
                                             </div>
-                                            <div className="related-content">
+                                            <div className="related-content flex justify-between">
                                                 <div className="related-date">
                                                     <span>{item.startDate}</span>
                                                     <span>{item.endDate}</span>
+                                                </div>
+                                                <div className="related-btn">{
+                                                    item.discount ? <span>{Number(item.discount)}%</span> : null
+                                                }
+
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.preventDefault();      // don't trigger <a> default
+                                                            e.stopPropagation();     // don't bubble to <Link>
+                                                            if (sessionStorage.getItem('token')) {
+                                                                toggleFavourates(item?.id, 'Event');
+                                                            }
+                                                            else {
+                                                                toast.error('يجب تسجيل الدخول اولا')
+                                                                window.location.href = '/login'
+                                                            }
+                                                        }}
+                                                        onMouseDown={(e) => e.stopPropagation()}   // extra guard for some browsers
+                                                        onTouchStart={(e) => e.stopPropagation()}  // mobile guard
+                                                    ><i className={`${item.is_favourite ? 'fa-solid' : 'fa-regular'} fa-heart`}></i></button>
                                                 </div>
 
                                             </div>
@@ -115,7 +137,7 @@ const ActivitiesTable = ({ title, description, data }) => {
                                                 </span>
                                             </div>
                                             <div className="item-period">
-                                                {item.nameEvents} 
+                                                {item.nameEvents}
                                             </div>
                                             <div className="item-price">
                                                 يبدأ من {item.price} {item.currencyName}
@@ -129,7 +151,7 @@ const ActivitiesTable = ({ title, description, data }) => {
                     </Swiper>
 
                 </div>
-                
+
             </div>
         </section>
     )

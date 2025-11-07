@@ -1,16 +1,30 @@
-import React from 'react'
+import React , { useEffect } from 'react'
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import img1 from '../../assets/related.png'
 import { useRef } from "react";
 import { Link } from 'react-router-dom';
+import { toggleFavourates } from '../../pages/toggleFavourates';
+import { toast } from 'sonner';
 const HotelsTable = ({ title, description, data }) => {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
-    console.log(data)
+    const swiperRef = useRef(null);
+
+    useEffect(() => {
+        const swiperEl = swiperRef.current?.el;
+
+        if (swiperEl) {
+            swiperEl.addEventListener("mouseenter", () => {
+                swiperRef.current?.autoplay?.stop();
+            });
+            swiperEl.addEventListener("mouseleave", () => {
+                swiperRef.current?.autoplay?.start();
+            });
+        }
+    }, []);
     return (
         <section className="related-section">
             <div className="container">
@@ -30,6 +44,7 @@ const HotelsTable = ({ title, description, data }) => {
             <div className="swiper-cont">
                 <div className="related-slider">
                     <Swiper
+                        ref={swiperRef}
                         pagination={false}
                         spaceBetween={20}
                         navigation={{
@@ -39,9 +54,13 @@ const HotelsTable = ({ title, description, data }) => {
                         onBeforeInit={(swiper) => {
                             swiper.params.navigation.prevEl = prevRef.current;
                             swiper.params.navigation.nextEl = nextRef.current;
+                            swiperRef.current = swiper;
                         }}
                         slidesPerView={4.2}
-                        autoplay={true}
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        }}
                         loop={true}
                         modules={[Autoplay, Navigation, Pagination]}
                         breakpoints={{
@@ -104,8 +123,24 @@ const HotelsTable = ({ title, description, data }) => {
                                                     <span>16 ينــاير 2025</span>
                                                 </div> */}
                                                 <div className="related-btn">
-                                                    <span>{Number(item.discount)}%</span>
-                                                    <button><i className="fa-regular fa-heart"></i></button>
+                                                    {
+                                                        item.discount ? <span>{Number(item.discount)}%</span> : null
+                                                    }
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.preventDefault();      // don't trigger <a> default
+                                                            e.stopPropagation();     // don't bubble to <Link>
+                                                            if (sessionStorage.getItem('token')) {
+                                                                toggleFavourates(item?.id, 'Hotel');
+                                                            }
+                                                            else {
+                                                                toast.error('يجب تسجيل الدخول اولا')
+                                                                window.location.href = '/login'
+                                                            }
+                                                        }}
+                                                        onMouseDown={(e) => e.stopPropagation()}   // extra guard for some browsers
+                                                        onTouchStart={(e) => e.stopPropagation()}  // mobile guard
+                                                    ><i className={`${item.isFavourite ? `fa-solid` : "fa-regular"} fa-heart`}></i></button>
                                                 </div>
                                             </div>
 

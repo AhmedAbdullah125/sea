@@ -19,6 +19,9 @@ import { z } from "zod";
 import { API_BASE_URL } from "../../lib/apiConfig";
 import { motion } from "framer-motion";
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"
+import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import Loading from "../loading/Loading";
 
 // Zod schema
 export const filterSchema = z.object({
@@ -69,6 +72,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
   const [places, setPlaces] = useState([]);
   const [keyWord, setKeyWord] = useState('');
   const [selectedCountryCities, setSelectedCountryCities] = useState([])
+  const [localLoading, setLocalLoading] = useState(false);
   console.log(mainData)
   useEffect(() => {
     const getData = async () => {
@@ -87,6 +91,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
   useEffect(() => {
     const getHotels = async () => {
       setLoading(true);
+      setLocalLoading(true);
       try {
         const query = `
         ${API_BASE_URL}/filter-hotels?page=${page}&country_id=${seletedCountry}` +
@@ -102,7 +107,6 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
           const newViews = [];
           const newPlaces = [];
           for (let i = 0; i < response?.data?.data?.length; i++) {
-            console.log(response?.data?.data[i].place_name)
             if (!newViews.some((view) => view.id === response?.data?.data[i]?.view_id) && response?.data?.data[i]?.view_name) {
               newViews.push({ id: response?.data?.data[i]?.view_id, name: response?.data?.data[i]?.view_name });
             }
@@ -119,6 +123,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
         console.error('Error retrieving hotels:', error);
       }
       setLoading(false);
+      setLocalLoading(false);
     };
     getHotels();
   }, [page, keyWord, seletedCountry, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer, selectedDateTo, selectedPlace, selectedView]);
@@ -148,6 +153,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
     setValue("country", "");
     setValue("rating", "");
     setValue("model", "");
+    setKeyWord('');
     setSelectedCountry('');
     setSelectedFlat('');
     setSelectedCity('');
@@ -165,6 +171,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
     setSelectedCountryCities(selectedCountryCites);
     console.log(selectedCountryCites)
   }, [seletedCountry])
+  console.log(mainData?.data)
 
   return (
     <Form {...form}>
@@ -324,32 +331,72 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                   <i className="fa-solid fa-magnifying-glass "></i>
                 </div>
               </AlertDialogTrigger>
-              <AlertDialogContent className="bg-white rounded-xl border-none shadow-md items-center">
+              <AlertDialogContent className="bg-white rounded-xl border-none shadow-md items-center max-w-[500px]">
                 <AlertDialogHeader>
                   <AlertDialogTitle className="text-[#A71755] font-semibold direction-rtl">ابحث الان عن فنـــدقك المفـــضل</AlertDialogTitle>
                   <AlertDialogDescription>
                     <div className="w-full flex flex-col items-center gap-3">
-                      <input type="text" placeholder="ابحث الان عن فنـــدقك المفـــضل" id="searchInputt" className="w-full h-12 px-9 py-2 text-[#797979] text-xs font-semibold border-none rounded-full placeholder:text-[#797979] bg-body"
-                        //if enter submit
-                        onKeyUp={(e) => {
-                          if (e.key === "Enter") {
-                            setKeyWord(document.getElementById("searchInputt").value);
-                          }
-                        }}
-                      />
-                      <button
-                        type="submit"
-                        onClick={() => {
-                          setKeyWord(document.getElementById("searchInputt").value);
-                          document.getElementById("searchInputt").value = "";
-                          //exit alert
-                          document.getElementById("ccccccc").click();
+                      <div className="input-contt w-full relative">
+                        <input type="text" placeholder="ابحث الان عن فنـــدقك المفـــضل" id="searchInputt" className="w-full h-12 px-9 py-2 text-[#797979] text-xs font-semibold border-none rounded-full placeholder:text-[#797979] bg-body"
+                          //if enter submit
+                          onKeyUp={(e) => {
+                            // if (e.key === "Enter") {
+                              setKeyWord(document.getElementById("searchInputt").value);
+                            // }
+                          }}
+                        />
+                        {
+                          keyWord.length > 0 &&
+                          <div className="absolute top-14 right-0 flex flex-col items-start w-full  gap-2 px-3 py-2 text-xs font-semibold text-gray-500 bg-gray-200 rounded-3xl">
+                            {
+                              localLoading ? <Loading /> :
+                                <div className="w-full flex flex-col gap-2 max-h-64 overflow-y-scroll">
+                                  {
+                                    mainData?.data?.slice(0, 5).map((hotel) => {
+                                      return (
+                                        <Link
+                                          to={`/hotel/${hotel.slug}`}
+                                          className="flex items-center gap-2 justify-between hover:bg-white rounded-xl px-3 py-2"
+                                          onClick={() => {
+                                            setKeyWord(hotel.title);
+                                            document.getElementById("searchInputt").value = hotel.title;
+                                            document.getElementById("ccccccc").click();
+                                          }}
+                                        >
+                                          <div className="r-side">
+                                            <LazyLoadImage src={hotel.main_image} alt="Sea" className="w-12 h-12 object-cover rounded-xl" />
+                                          </div>
+                                          <div className="h-full flex flex-col justify-between items-end">
+                                            <span className="text-xl text-main-navy text-end max-w-60">{hotel.title}</span>
+                                            <span className="text-primaryColor text-sm">{hotel.place_name}</span>
+                                          </div>
+                                        </Link>
+                                      )
+                                    })
+                                  }
+                                  {
+                                    mainData?.data?.length > 5 && keyWord.length > 0 &&
+                                    <button type="submit" onClick={() => {
+                                      setKeyWord(document.getElementById("searchInputt").value);
 
-                        }}
-
-                        className="flex-shrink-0 h-12 py-0 px-9 mt-7 bg-[#A71755] text-white font-semibold rounded-full"
-                      >
-                        بحث
+                                      //exit alert
+                                      document.getElementById("ccccccc").click();
+                                    }}
+                                      className="flex-shrink-0 h-12 py-0 px-9 mt-7 bg-[#A71755] text-white font-semibold rounded-full"> اظهار المزيد
+                                    </button>
+                                  }
+                                </div>
+                            }
+                          </div>
+                        }
+                      </div>
+                      <button type="submit" onClick={() => {
+                        setKeyWord(document.getElementById("searchInputt").value);
+                        document.getElementById("searchInputt").value = "";
+                        //exit alert
+                        document.getElementById("ccccccc").click();
+                      }}
+                        className="flex-shrink-0 h-12 py-0 px-9 mt-7 bg-[#A71755] text-white font-semibold rounded-full"> بحث
                       </button>
                     </div>
                   </AlertDialogDescription>
