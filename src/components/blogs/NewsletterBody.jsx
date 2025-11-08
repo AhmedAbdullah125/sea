@@ -28,7 +28,7 @@ const NewsletterBody = ({ slug }) => {
         <h1 className='xl:text-3xl md:text-2xl text-xl font-bold text-main-blue'>{data?.data?.data?.title}</h1>
         <div className='text-xs font-semibold  flex items-center gap-2'>
           <p className='text-main-purple'>{data?.data?.data?.period}</p>
-          <img src="/blogs/pepole.png" alt="pepole" />
+          <img src="/app/pepole.png" alt="pepole" />
         </div>
         <p className='text-sm font-medium leading-relaxed'>{data?.data?.data?.description}</p>
         <NewsletterForm id={data?.data?.data?.id} />

@@ -4,7 +4,7 @@ import { API_BASE_URL } from "@/lib/apiConfig";
 import { useQuery } from "@tanstack/react-query";
 const fetchProfile = async () => {
   const headers = {  };
-  if (localStorage.getItem("token")) headers.Authorization = `Bearer ${sessionStorage.getItem("token")}`;
+  if (sessionStorage.getItem("token")) headers.Authorization = `Bearer ${sessionStorage.getItem("token")}`;
   const response = await axios.get(
     `${API_BASE_URL}/user/profile`,
     { headers }

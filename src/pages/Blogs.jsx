@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchFromApi } from '../api/utils/fetchData'
 import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button"
-import blogimg from "../../public/blogs/blogs.png"
+import blogimg from "../../public/app/blogs.png"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 const Blogs = () => {

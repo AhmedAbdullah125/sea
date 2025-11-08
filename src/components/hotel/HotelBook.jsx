@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import img1 from '../../assets/s.svg'
 import img2 from '../../assets/check.svg'
 import { userContext } from '../../context/UserContext';
-import profileActive from '../../assets/profileActive.svg'
+import profileActive from '../../../public/app/profileActive.svg'
 import { motion } from "framer-motion";
 import {
     Accordion,

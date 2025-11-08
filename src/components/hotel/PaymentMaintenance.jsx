@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import payment from '../../../public/visa/payment.png';
+import payment from '../../../public/app/payment.png';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 

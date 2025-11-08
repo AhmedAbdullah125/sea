@@ -17,11 +17,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ChevronDown } from "lucide-react"
 import { useGetProfile } from "@/components/global/useGetProfile";
 
-import imgIcon from '../../public/profile/ddd.svg';
+import imgIcon from '../../public/app/ddd.svg';
 export default function EditPage() {
     const [loading, setLoading] = useState(true);
     const { data: profile, isLoading } = useGetProfile();
-
     const [countryData, setCountryData] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
     const [imageFile, setImageFile] = useState(null);

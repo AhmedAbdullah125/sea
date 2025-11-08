@@ -12,7 +12,7 @@ import axios from 'axios'
 import { API_BASE_URL } from '../../lib/apiConfig'
 import { Link } from "react-router-dom";
 import profileImage from '../../../public/home/profile.svg'
-import loginImg from '../../../public/login/login.png'
+import loginImg from '../../../public/app/login.png'
 import { useGetProfile } from "../global/useGetProfile";
 
 const LoginDialog = ({ mainHeader = false }) => {
@@ -30,7 +30,7 @@ const LoginDialog = ({ mainHeader = false }) => {
   if (token) return (
 
     <Link to="/account/profile" className='profile'>
-      <LazyLoadImage src={isLoading ? profileImage : profile?.image || profileImage} alt="logo" loading='lazy' className='w-[45px] h-[45px] rounded-full m-auto object-cover header-profileImage border-2 border-white bg-white' />
+      <LazyLoadImage src={isLoading ? profileImage : profile?.image || profileImage} alt="logo" loading='lazy' className='profile-img-login' />
     </Link>
 
   )

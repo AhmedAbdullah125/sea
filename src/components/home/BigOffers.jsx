@@ -44,7 +44,7 @@ const BigOffers = ({ mainData }) => {
     return (
         <section className="big-offers-section relative" >
             <div className="container">
-                <div className="relative">
+                <div className="relative" id='big-offers'>
                     <h2>عــروض رهيـبة ومميــزات كثيــرة</h2>
                     <p>سواء كنت تحلم بالسفر إلى أوروبا، آسيا، إفريقيا، أستراليا أو أمريكا، نوفر لك خيارات إقامة متنوعة بأسعار تناسب ميزانيتك.</p>
                     <div className="swiper-btn-cont swiper-btn-2" id={`swiper-btn-prev1a`}>

@@ -8,9 +8,9 @@ import p4 from '../assets/housing/p4.svg'
 import p5 from '../assets/housing/p5.svg'
 import p6 from '../assets/housing/p6.svg'
 import detail4 from '../assets/housing/house-icon.svg'
-import offer_d from '../../public/table/offer_d.svg'
-import offer_tr from '../../public/table/offer_tr.svg'
-import offer_m from '../../public/table/offer_m.svg'
+import offer_d from '../../public/app/offer_d.svg'
+import offer_tr from '../../public/app/offer_tr.svg'
+import offer_m from '../../public/app/offer_m.svg'
 import AppSection from '../components/home/appSection/AppSection'
 import { useGetSettings } from '@/components/global/useGetSettings';
 

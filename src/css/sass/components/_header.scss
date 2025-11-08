@@ -1,10 +1,11 @@
-.bars-dropdown{
+.bars-dropdown {
     display: none;
 
     @media screen and (max-width: 1025px) {
         display: block;
     }
 }
+
 .main-header-cont {
     width: 100%;
     display: flex;
@@ -39,8 +40,9 @@
 
             @media screen and (max-width: 1025px) {
                 display: none;
-                
+
             }
+
             @include max-1300 {
                 gap: 20px;
             }
@@ -68,10 +70,110 @@
                     color: $hover;
                 }
             }
-            
+
+        }
+
+        .join-cont {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            height: 48px;
+            background-color: rgba(255, 255, 255, 0.1);
+            //blur(10px);
+            padding: 0 25px;
+            border-radius: 32px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 800;
+            color: $white;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            /* translucent overlay */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            min-width: 200px;
+
+            .r-s {
+                display: flex;
+                align-items: center;
+                gap: 13px;
+                font-size: 14px;
+                font-weight: 700;
+                color: $white;
+                @include tr;
+
+                @include max-991 {
+                    font-size: 12px;
+                }
+
+                &:hover {
+                    color: $hover;
+                }
+            }
+
+            .sea-word {
+                position: relative;
+
+                .plus {
+                    position: absolute;
+                    top: -5px;
+                    inset-inline-start: -7px;
+                    font-size: 10px;
+                    color: $white;
+                    @include tr;
+                }
+            }
+        }
+
+        .r-sect {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 48px;
+            background-color: rgba(255, 255, 255, 0.1);
+            //blur(10px);
+            padding: 7px 11.5px;
+            border-radius: 32px;
+            font-size: 14px;
+            font-weight: 800;
+            color: $white;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            /* for Safari */
+            /* translucent overlay */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            @include tr;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.2);
+
+            }
+
+            @media screen and (max-width: 1025px) {
+                display: none;
+
+            }
+
+            a {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                //smoth scroll
+                scroll-behavior: smooth;
+                transition: all 0.3s ease-in-out;
+                @include tr;
+
+            }
+        }
+
+        .options-big {
+            @media screen and (max-width: 1025px) {
+                display: none;
+
+            }
         }
 
     }
+    
 
     .lower-nav-cont {
         .main-links {
@@ -80,9 +182,10 @@
             gap: 24px;
             margin: 0 auto;
             width: fit-content;
+
             @media screen and (max-width: 1025px) {
                 display: none;
-                
+
             }
 
             @include max-1300 {
@@ -130,11 +233,23 @@
 
 }
 
+.profile-img-login {
+    width: 34px;
+    height: 34px;
+    border-radius: 17px;
+    flex-shrink: 0;
+    margin: auto;
+    object-fit: cover;
+    border: 1px solid #ffffff;
+    background-color: #ffffff;
+
+}
 
 .header-cont {
     padding: 40px 0 50px;
     top: -200px;
     @include tr;
+
     @include max-767 {
         padding: 20px 0 30px;
     }
@@ -181,9 +296,10 @@
             align-items: center;
             gap: 18px;
             height: 48px;
+
             @media screen and (max-width: 1025px) {
                 display: none;
-                
+
             }
 
             @include max-1300 {
@@ -308,11 +424,13 @@
         }
     }
 }
-.header-profileImage{
-   &:hover{
-    border: 2px solid $sec;
-   }
+
+.header-profileImage {
+    &:hover {
+        border: 2px solid $sec;
+    }
 }
+
 .fixed-navbar {
     position: fixed;
     top: 0;
@@ -322,4 +440,86 @@
     background-color: #F1F1F1;
     width: 100%;
     padding: 10px 0 !important;
+}
+
+.dropdown-menu-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    //blur(10px);
+    padding: 7px 11.5px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 800;
+    border: none;
+    color: $white;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    max-height: 400px;
+    overflow-y: scroll;
+    /* for Safari */
+    /* translucent overlay */
+    @include tr;
+    width: 200px;
+    max-width: 200px;
+    padding: 20px;
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+
+    }
+
+    .option-drop-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: space-between;
+        background-color: $white;
+        color: $main;
+        width: 100%;
+        height: 38px;
+        padding: 0 7px; 
+        border-radius: 10px;
+        @include tr;
+        direction: rtl;
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+       
+    }
+    .option-drop-link-app{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        background-color: $white;
+        color: $main;
+        width: 100%;
+        padding: 24px; 
+        border-radius: 22px;
+        @include tr;
+        direction: rtl;
+        gap: 10px;
+        h3{
+            font-size: 14px;
+            font-weight: 700;
+            color: $main;
+            @include tr;
+        }
+        .h3-cont{
+            height: 40px;
+            @include flexCenter;
+            position: relative;
+            img{
+                width: 123px;
+                height: 37px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: rotate(4deg);
+
+            }
+        }
+    }
 }

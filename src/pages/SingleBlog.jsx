@@ -42,7 +42,7 @@ const SingleBlogPage = () => {
               <div className="flex items-center gap-4 justify-between flex-wrap">
                 <div className='font-semibold text-sm  flex items-center gap-2'>
                   <div className='flex items-center gap-2'>
-                    <img src={blog?.authorImage || "/blogs/blogs.png"} alt="author" className='size-6 rounded-full object-cover' />
+                    <img src={blog?.authorImage || "/app/blogs.png"} alt="author" className='size-6 rounded-full object-cover' />
                     <p className='text-main-purple font-bold'>{blog?.authorName || "موقع sea"}</p>
                   </div>
                   {

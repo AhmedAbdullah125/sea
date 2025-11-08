@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/carousel"
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md"
 
-const hotels = ["/hotels/hotel-2.png", "/hotels/hotel-1.png", "/hotels/hotel-2.png", "/hotels/hotel-3.png", "/hotels/hotel-4.png"]
 
 
 const FilterCuroasel = ({ images }) => {

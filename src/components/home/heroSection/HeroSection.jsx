@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { API_BASE_URL } from "../../../lib/apiConfig";
-import axios from "axios";
 import MainHeader from "../../header/MainHeader";
 import FilterTabs from "../filterTabs/FilterTabs";
 import styles from "./heroSection.module.css";
 import Loading from "../../loading/Loading";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { motion } from "framer-motion";
-import { MorphingText } from "../../ui/morphing-text";
 import { ReactTyped } from "react-typed";
 import { useGetSettings } from '@/components/global/useGetSettings';
 

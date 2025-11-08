@@ -6,7 +6,6 @@ import {
   CarouselItem
 } from "@/components/ui/carousel"
 
-const hotels = ["/hotels/hotel-2.png", "/hotels/hotel-1.png", "/hotels/hotel-2.png", "/hotels/hotel-3.png", "/hotels/hotel-4.png"]
 
 const HotelCardCarousel = ({images}) => {
   const [api, setApi] = useState()

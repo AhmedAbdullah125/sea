@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import React from 'react'
 import { Link } from 'react-router-dom'
-import fallbackImage from '../../../public/blogs/blogs.png'
+import fallbackImage from '../../../public/app/blogs.png'
 const BlogCard = ({ blog, lang }) => {
   const formatDateArabic = (isoDate) => {
     if (!isoDate) return '';

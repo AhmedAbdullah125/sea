@@ -3,11 +3,14 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../../../public/home/seaLogo.svg'
 import LoginDialog from '../login/LoginDialog'
-import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
 import { motion } from "framer-motion";
 import { useGetSettings } from '@/components/global/useGetSettings';
-
+import Vector1 from '../../../public/home/Vector1.svg'
+import Vector2 from '../../../public/home/Vector2.svg'
+import goog from '../../../public/home/goog.svg'
+import apl from '../../../public/home/apl.svg'
+import round from '../../../public/home/round.svg'
 const MainHeader = () => {
     const [scrolled, setScrolled] = useState(false);
     const { data, isLoading, isError } = useGetSettings();
@@ -30,70 +33,135 @@ const MainHeader = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.5 }}
             className={`main-header-cont  lg:fixed top-0 left-0 right-0 z-[9999] gap-3 py-5  transition-colors duration-500 ${scrolled ? 'bg-main-navy ' : 'bg-transparent'}`}>
-
-
             <div className="container upper-nav-cont">
-                <div className="r-links">
+                {/* <div className="r-links">
                     <NavLink to="/add-house">أضف سكنـك</NavLink>
-                   
-                            <NavLink to={`https://wa.me/${isLoading ? '' : data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>أضف بــاقتك</NavLink>
-                    <NavLink to="/packages">بـــاقات حــول العـالم</NavLink>
+                    <NavLink to={`https://wa.me/${isLoading ? '' : data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>أضف بــاقتك</NavLink>
+                </div>*/}
+                <div className="r-sect">
+                    <LoginDialog mainHeader />
+                    <a href="/#big-offers">
+                        <span>إبــدا مع سـي / SEA</span>
+                        {/* long arrow left */}
+                        <i className='fa-solid fa-arrow-left'></i>
+                    </a>
+
                 </div>
                 <div className="logo">
                     <Link to="/">
                         <LazyLoadImage src={logo} alt="logo" isLoading='lazy' />
                     </Link>
                 </div>
-                <div className="l-links">
-                    <LoginDialog mainHeader />
+                {/* <div className="l-links">
+
                     <NavLink to="/packages">تســـوق معنــا</NavLink>
                     <a href="#contactusinfos">حمل التطبيـــق من هنا</a>
+                </div> */}
+                <div className="options-big">
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <div className="join-cont">
+                                <div className="r-s">
+                                    <span>إنضم إليــنا</span>
+                                    <div className='sea-word'>
+                                        <span className='plus'>+</span>
+                                        <span>SEA</span>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </div>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="dropdown-menu-content" align="start">
+                            {/* <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                                <LoginDialog mainHeader />
+                            </DropdownMenuItem> */}
+                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                                <NavLink className="option-drop-link " to="/add-house">
+                                    <div className="flex items-center gap-3">
+                                        <LazyLoadImage src={Vector1} alt="logo" loading='lazy' />
+                                        <span> اضف سكنك</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </NavLink>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                                <NavLink className="option-drop-link " to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>
+                                    <div className="flex items-center gap-3">
+                                        <LazyLoadImage src={Vector2} alt="logo" loading='lazy' />
+                                        <span> أضف بـاقتك</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </NavLink>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                                <div className="option-drop-link-app" to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>
+                                    <LazyLoadImage src={Vector2} alt="logo" loading='lazy' />
+                                    <div className="h3-cont">
+                                        <h3>حمل تطبيـقنا الان</h3>
+                                        <LazyLoadImage src={round} alt="logo" loading='lazy' />
+                                    </div>
+                                    <Link to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>
+                                        <LazyLoadImage src={apl} alt="logo" loading='lazy' className='img-app' />
+                                    </Link>
+                                    <Link to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>
+                                        <LazyLoadImage src={goog} alt="logo" loading='lazy' className='img-app' />
+                                    </Link>
+                                </div>
+                            </DropdownMenuItem>
+
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
+
                 <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="bars-dropdown">
-                            <i className='fa-bars fa-solid text-white text-xl'></i>
-                        </Button>
+                    <DropdownMenuTrigger asChild className="bars-dropdown">
+                        <div className="join-cont">
+                            <div className="r-s">
+                                <span>إنضم إليــنا</span>
+                                <div className='sea-word'>
+                                    <span className='plus'>+</span>
+                                    <span>SEA</span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56 bg-[#016AB5] rounded-2xl" align="start">
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem>
+                    <DropdownMenuContent className="dropdown-menu-content" align="start">
+                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
                                 <LoginDialog mainHeader />
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <NavLink className="w-full text-white" to="/add-house">أضف سكنـك</NavLink>
+                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                                <NavLink className="option-drop-link " to="/add-house">أضف سكنـك</NavLink>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <NavLink className="w-full text-white" to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>أضف بــاقتك</NavLink>
+                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                                <NavLink className="option-drop-link " to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>أضف بــاقتك</NavLink>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <NavLink className="w-full text-white" to="/packages">بـــاقات حــول العـالم</NavLink>
+                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                                <NavLink className="option-drop-link " to="/packages">بـــاقات حــول العـالم</NavLink>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <NavLink className="w-full text-white" to="/packages">تســـوق معنــا</NavLink>
+                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                                <NavLink className="option-drop-link " to="/packages">تســـوق معنــا</NavLink>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <a className="w-full text-white" href="#contactusinfos">حمل التطبيـــق من هنا</a>
+                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                                <a className="option-drop-link " href="#contactusinfos">حمل التطبيـــق من هنا</a>
                             </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                            <NavLink className="w-full text-white" to='/hotels'>فــنادق وشقــق</NavLink>
+                        <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                            <NavLink className="option-drop-link " to='/hotels'>فــنادق وشقــق</NavLink>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <NavLink className="w-full text-white" to='/packages'>باقــات حـول العالم</NavLink>
+                        <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                            <NavLink className="option-drop-link " to='/packages'>باقــات حـول العالم</NavLink>
                         </DropdownMenuItem>
-                        {/* <DropdownMenuItem>
-                                        <NavLink className="w-full text-white" to='/privite-tours'>النقل و المــواصلات</NavLink>
+                        {/* <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                                        <NavLink className="option-drop-link " to='/privite-tours'>النقل و المــواصلات</NavLink>
                                     </DropdownMenuItem> */}
-                        <DropdownMenuItem>
-                            <NavLink className="w-full text-white" to='/previsa'>التــأشيــرات</NavLink>
+                        <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                            <NavLink className="option-drop-link " to='/previsa'>التــأشيــرات</NavLink>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <NavLink className="w-full text-white" to='/table'>جدولك علينا</NavLink>
+                        <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                            <NavLink className="option-drop-link " to='/table'>جدولك علينا</NavLink>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <NavLink className="w-full text-white" to='/blogs'>المدونـة</NavLink>
+                        <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                            <NavLink className="option-drop-link " to='/blogs'>المدونـة</NavLink>
                         </DropdownMenuItem>
 
                     </DropdownMenuContent>
@@ -116,11 +184,7 @@ const MainHeader = () => {
                     <NavLink to='/blogs'>المدونـة</NavLink>
                 </div>
             </div>
-
-
         </motion.section>
-
-
     )
 }
 export default MainHeader

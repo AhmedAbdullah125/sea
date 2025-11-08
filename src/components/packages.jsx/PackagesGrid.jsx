@@ -5,6 +5,7 @@ import { toggleFavourates } from '../../pages/toggleFavourates';
 import axios from 'axios';
 import { API_BASE_URL } from '../../lib/apiConfig';
 import {motion} from "framer-motion";
+import { useGetSettings } from '../global/useGetSettings';
 const PackagesGrid = ({ mainData }) => {
     const { data, isLoading, isError } = useGetSettings();
 

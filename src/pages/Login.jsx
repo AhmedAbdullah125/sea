@@ -4,7 +4,7 @@ import SendOtp from '../components/login/SendOtp'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
-import loginIamge from '../../public/login/login.png'
+import loginIamge from '../../public/app/login.png'
 const Login = () => {
     const [phone, setPhone] = useState("");
     const [isOtpSent, setIsOtpSent] = useState(false);

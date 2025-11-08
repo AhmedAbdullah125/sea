@@ -13,8 +13,6 @@ import { z } from "zod"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
-import { API_BASE_URL } from "../../lib/apiConfig";
-import axios from "axios";
 import { bookHotel } from "./bookHotelF";
 import { toast } from "sonner";
 import { motion } from "framer-motion"

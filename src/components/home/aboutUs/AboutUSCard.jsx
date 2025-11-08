@@ -14,7 +14,7 @@ const AboutUSCard = ({feature}) => {
         <img src={feature?.icon} alt="icon" loading="lazy" width={60} height={60} className="rounded-full size-16" />
       </CardHeader>
       <CardContent className="p-0 py-4 w-fit relative before:w-8 before:h-[5px] before:bg-main-blue before:rounded-full before:absolute before:start-0 before:bottom-0">
-        <img src="/aboutUs/about-victor.svg" alt="icon" loading="lazy" className="absolute -top-3 -end-4"/>
+        <img src="/app/about-victor.svg" alt="icon" loading="lazy" className="absolute -top-3 -end-4"/>
         <h3 className="font-semibold text-main-navy xl:text-2xl text-xl relative text-wrap">{feature?.title}</h3>
       </CardContent>
       <CardFooter className="p-0">

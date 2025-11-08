@@ -7,9 +7,6 @@ import Loader from "../../loader/Loader"
 import AlertError from "../../alerts/AlertError"
 import AlertWarning from "../../alerts/AlertWarning"
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { API_BASE_URL } from "../../../lib/apiConfig";
 import { useGetSettings } from '@/components/global/useGetSettings';
 
 
