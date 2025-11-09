@@ -34,6 +34,7 @@ export const filterSchema = z.object({
   city: z.string().optional(),
   model: z.string().optional(),
   type: z.string().optional(),
+  views: z.string().optional(),   // <- add this
 });
 
 // Utility: Normalize to YYYY-MM-DD format
@@ -131,40 +132,47 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
   const form = useForm({
     resolver: zodResolver(filterSchema),
     defaultValues: {
-      start: String(defaultValues.destination) || '',
-      end: defaultValues.city || '',
-      date: defaultValues.start || '',
-      dateTo: defaultValues.end || '',
-      lang: defaultValues.flat || '',
-      country: defaultValues.neighborhood || '',
-      rating: defaultValues.rate || '',
-      model: defaultValues.offer || '',
+      start: String(defaultValues.destination || ""),
+      end: String(defaultValues.city || ""),
+      date: defaultValues.start || "",
+      dateTo: defaultValues.end || "",
+      lang: String(defaultValues.flat || ""),
+      country: String(defaultValues.neighborhood || ""),
+      rating: String(defaultValues.rate || ""),
+      model: String(defaultValues.offer || ""),
+      views: String(defaultValues.view || ""),
+      places: String(defaultValues.place || ""),
     },
   });
 
-  const { watch, setValue } = form;
+
+  const { setValue } = form;
   const t = { "flat": "شقق فندقية", "room": "غرفة", "hotel": "⁠فنادق بتوصية ســـي", "villa": "فلل وشاليهات ", "huts": "أكواخ خشبية", "hotel_suites": "أجنحة فندقية" }
   function clearFilter() {
-    setValue("start", "");
-    setValue("end", "");
-    setValue("date", "");
-    setValue("dateTo", "");
-    setValue("lang", "");
-    setValue("country", "");
-    setValue("rating", "");
-    setValue("model", "");
-    setKeyWord('');
-    setSelectedCountry('');
-    setSelectedFlat('');
-    setSelectedCity('');
-    setSelectedNeighborhood('');
-    setSelectedRate('');
-    setSelectedOffer('');
-    setSelectedDate('');
-    setSelectedDateTo('');
-    setSelectedPlace('');
-    setSelectedView('');
-    form.reset();
+    form.reset({
+      start: "",
+      end: "",
+      date: "",
+      dateTo: "",
+      lang: "",
+      country: "",
+      rating: "",
+      model: "",
+      views: "",
+      places: "",
+    });
+
+    setKeyWord("");
+    setSelectedCountry("");
+    setSelectedFlat("");
+    setSelectedCity("");
+    setSelectedNeighborhood("");
+    setSelectedRate("");
+    setSelectedOffer("");
+    setSelectedDate("");
+    setSelectedDateTo("");
+    setSelectedPlace("");
+    setSelectedView("");
   }
   useEffect(() => {
     const selectedCountryCites = data?.countries?.filter((country) => country.id === Number(seletedCountry))[0]?.cities;
@@ -187,7 +195,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
             control={form.control}
             name={"start"}
             className="w-full "
-            render={() => (
+            render={({ field }) => (
               <FormItem className="xl:col-span-3 col-span-12 w-full">
                 <FormLabel className="flex items-center gap-1">
                   <BsFillSendFill size={16} className="text-main-purple" />
@@ -195,9 +203,14 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                     اختــــــر الوجهـــة
                   </p>
                 </FormLabel>
-                <Select dir="rtl"
-                  defaultValue={String(defaultValues.destination || "")}
-                  onValueChange={(val) => setSelectedCountry(val)} >
+                <Select
+                  dir="rtl"
+                  value={field.value ?? ""}                   // <-- controlled
+                  onValueChange={(val) => {
+                    field.onChange(val);                      // update RHF
+                    setSelectedCountry(val);                  // your local side-effect
+                  }}
+                >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
@@ -221,7 +234,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
             className="w-full "
             control={form.control}
             name={"end"}
-            render={() => (
+            render={({ field }) => (
               <FormItem className="xl:col-span-3 col-span-12 w-full ">
                 <FormLabel className="flex items-center gap-1">
                   <BsFillSendFill size={16} className="text-main-purple" />
@@ -230,8 +243,11 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                   </p>
                 </FormLabel>
                 <Select dir="rtl"
-                  defaultValue={String(defaultValues.city || "")}
-                  onValueChange={(val) => setSelectedCity(val)}
+                  value={field.value ?? ""}
+                  onValueChange={(val) => {
+                    field.onChange(val);                      // update RHF
+                    setSelectedCity(val);                  // your local side-effect
+                  }}
                   disabled={!seletedCountry}
                 >
                   <FormControl>
@@ -341,7 +357,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                           //if enter submit
                           onKeyUp={(e) => {
                             // if (e.key === "Enter") {
-                              setKeyWord(document.getElementById("searchInputt").value);
+                            setKeyWord(document.getElementById("searchInputt").value);
                             // }
                           }}
                         />
@@ -420,8 +436,11 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                   <p className="text-main-blue font-bold text-sm">فئة النجوم</p>
                 </FormLabel>
                 <Select dir="rtl"
-                  defaultValue={String(field.value || "")}
-                  onValueChange={(val) => setSelectedRate(val)} >
+                  value={field.value}
+                  onValueChange={(val) => {
+                    field.onChange(val);
+                    setSelectedRate(val);
+                  }} >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
@@ -450,8 +469,11 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                   <p className="text-main-blue font-bold text-sm">المكان</p>
                 </FormLabel>
                 <Select dir="rtl"
-                  defaultValue={String(field.value || "")}
-                  onValueChange={(val) => setSelectedPlace(val)} >
+                  value={field.value}
+                  onValueChange={(val) => {
+                    field.onChange(val);
+                    setSelectedPlace(val);
+                  }} >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />
@@ -472,26 +494,40 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
           />
           <FormField
             control={form.control}
-            name={"views"}
+            name="views"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel className="flex items-center gap-1">
                   <HiMiniViewfinderCircle size={16} className="text-main-purple" />
-                  <p className="text-main-blue font-bold text-sm"> نوع الإطلالة</p>
+                  <p className="text-main-blue font-bold text-sm">نوع الإطلالة</p>
                 </FormLabel>
-                <Select dir="rtl"
-                  defaultValue={String(field.value || "")}
-                  onValueChange={(val) => setSelectedView(val)} >
+
+                <Select
+                  dir="rtl"
+                  value={field.value ?? undefined}      // <- key line
+                  onValueChange={(val) => {
+                    field.onChange(val);
+                    setSelectedView(val);
+                  }}
+                >
                   <FormControl>
-                    <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
-                      <ChevronDown size={14} />
-                    </div>} className={`bg-body  text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
-                      <SelectValue placeholder={"اختر الإطلالة..."} className="text-[#797979]" />
+                    <SelectTrigger
+                      icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                        <ChevronDown size={14} />
+                      </div>}
+                      className="bg-body text-[#797979] text-xs font-semibold border-none rounded-full h-12"
+                    >
+                      <SelectValue placeholder="اختر الإطلالة..." />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+
+                  <SelectContent className="shadow border-none rounded-xl bg-white">
                     {views?.map((option) => (
-                      <SelectItem key={option.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
+                      <SelectItem
+                        key={option.id}
+                        value={String(option.id)}
+                        className="cursor-pointer focus:bg-body rounded-xl"
+                      >
                         {option.name}
                       </SelectItem>
                     ))}
@@ -500,6 +536,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name={"model"}
@@ -513,7 +550,12 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                     اختر نوع السكن
                   </p>
                 </FormLabel>
-                <Select dir="rtl" onValueChange={(val) => setSelectedFlat(val)} defaultValue={field.value} >
+                <Select dir="rtl"
+                  onValueChange={(val) => {
+                    field.onChange(val);
+                    setSelectedFlat(val);
+                  }}
+                  value={field.value} >
                   <FormControl>
                     <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
                       <ChevronDown size={14} />

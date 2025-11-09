@@ -8,10 +8,8 @@ import SendOtp from "./SendOtp";
 // import LoginDialog from '../login/LoginDialog'
 import VerfiyOtp from "./VerfiyOtp";
 import { userContext } from "../../context/UserContext";
-import axios from 'axios'
-import { API_BASE_URL } from '../../lib/apiConfig'
 import { Link } from "react-router-dom";
-import profileImage from '../../../public/home/profile.svg'
+import profileImage from '../../../public/app/profile.svg'
 import loginImg from '../../../public/app/login.png'
 import { useGetProfile } from "../global/useGetProfile";
 

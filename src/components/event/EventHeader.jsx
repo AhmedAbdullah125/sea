@@ -1,5 +1,4 @@
 import React, { useState,useEffect } from 'react'
-import img1 from '../../assets/detail.jpg'
 import imgicon1 from '../../assets/imgIcon-1.svg'
 import imgicon2 from '../../assets/imgIcon-2.svg'
 import { toggleFavourates } from '../../pages/toggleFavourates'

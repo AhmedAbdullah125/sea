@@ -1,8 +1,8 @@
 .bars-dropdown {
-    display: none;
+    display: none !important;
 
     @media screen and (max-width: 1025px) {
-        display: block;
+        display: flex !important;
     }
 }
 

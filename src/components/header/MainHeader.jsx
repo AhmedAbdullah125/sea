@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Link, NavLink } from 'react-router-dom'
-import logo from '../../../public/home/seaLogo.svg'
+import logo from '../../../public/app/seaLogo.svg'
 import LoginDialog from '../login/LoginDialog'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
 import { motion } from "framer-motion";
 import { useGetSettings } from '@/components/global/useGetSettings';
-import Vector1 from '../../../public/home/Vector1.svg'
-import Vector2 from '../../../public/home/Vector2.svg'
-import goog from '../../../public/home/goog.svg'
-import apl from '../../../public/home/apl.svg'
-import round from '../../../public/home/round.svg'
+import Vector1 from '../../../public/app/Vector1.svg'
+import Vector2 from '../../../public/app/Vector2.svg'
+import goog from '../../../public/app/goog.svg'
+import apl from '../../../public/app/apl.svg'
+import round from '../../../public/app/round.svg'
 const MainHeader = () => {
     const [scrolled, setScrolled] = useState(false);
     const { data, isLoading, isError } = useGetSettings();

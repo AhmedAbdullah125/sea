@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import detailImg from '../../assets/detail.jpg'
 import img1 from '../../assets/s.svg'
 import img2 from '../../assets/check.svg'
 import imgicon1 from '../../assets/imgIcon-1.svg'

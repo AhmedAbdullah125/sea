@@ -1,8 +1,8 @@
 import React from 'react'
-import footerlogo from '../../../public/home/footerLogo.svg'
+import footerlogo from '../../../public/app/footerLogo.svg'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import apple from '../../../public/home/apple.svg'
-import google from '../../../public/home/google.svg'
+import apple from '../../../public/app/apple.svg'
+import google from '../../../public/app/google.svg'
 import { Link } from 'react-router-dom'
 import Loading from '../loading/Loading'
 import { motion } from "framer-motion";

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Link, NavLink } from 'react-router-dom'
-import logo from '../../../public/home/footerLogo.svg'
+import logo from '../../../public/app/footerLogo.svg'
 import LoginDialog from '../login/LoginDialog'
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"

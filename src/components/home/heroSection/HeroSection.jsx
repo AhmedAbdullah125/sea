@@ -25,7 +25,7 @@ const HeroSection = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="min-h-[80vh] bg-[url('/home/hero.png')] bg-cover bg-center bg-no-repeat space-y-6 pb-6 flex flex-col lg:justify-end justify-between lg:pt-[210px]">
+            className="min-h-[80vh] bg-[url('/app/hero.png')] bg-cover bg-center bg-no-repeat space-y-6 pb-6 flex flex-col lg:justify-end justify-between lg:pt-[210px]">
             <MainHeader />
             <motion.div
               initial={{ opacity: 0, y: 20 }}

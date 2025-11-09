@@ -20,6 +20,7 @@ const Events = ({ data }) => {
                     <h2 className="section-title">الأنشطة في إسطنبـــول..</h2>
                 </div>
                 <div className="places-type">
+                    <span onClick={() => setSeletedCat(null)} className={seletedCat === null ? "active-cat" : ""}>الكل</span>
                     {
                         cats.map((item, idx) =>
                             <span key={idx} onClick={() => setSeletedCat(item.id)} className={seletedCat === item.id ? "active-cat" : ""}>{item.name}</span>
