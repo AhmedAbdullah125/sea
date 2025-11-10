@@ -20,6 +20,17 @@ import { useGetProfile } from "@/components/global/useGetProfile";
 import imgIcon from '../../public/app/ddd.svg';
 export default function EditPage() {
     const [loading, setLoading] = useState(true);
+    const token = sessionStorage.getItem('token');
+    useEffect(() => {
+        if (!token) {
+            toast('Please login first', { style: { borderColor: "#dc3545", boxShadow: '0px 0px 10px rgba(220, 53, 69, .5)', }, });
+            window.location.href = '/login';
+            return
+        }
+        setLoading(true);
+        //scroll to the top of page 
+        window.scrollTo(0, 0);
+    }, []);
     const { data: profile, isLoading } = useGetProfile();
     const [countryData, setCountryData] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);

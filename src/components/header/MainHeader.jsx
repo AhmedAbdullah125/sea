@@ -14,6 +14,7 @@ import round from '../../../public/app/round.svg'
 const MainHeader = () => {
     const [scrolled, setScrolled] = useState(false);
     const { data, isLoading, isError } = useGetSettings();
+    const token = sessionStorage.getItem('token');
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 50) {
@@ -38,15 +39,15 @@ const MainHeader = () => {
                     <NavLink to="/add-house">أضف سكنـك</NavLink>
                     <NavLink to={`https://wa.me/${isLoading ? '' : data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>أضف بــاقتك</NavLink>
                 </div>*/}
-                <div className="r-sect">
+                <a href={token ? "/profile" : "/login"} className="r-sect">
                     <LoginDialog mainHeader />
-                    <a href="/#big-offers">
+                    <div>
                         <span>إبــدا مع سـي / SEA</span>
                         {/* long arrow left */}
                         <i className='fa-solid fa-arrow-left'></i>
-                    </a>
+                    </div>
 
-                </div>
+                </a>
                 <div className="logo">
                     <Link to="/">
                         <LazyLoadImage src={logo} alt="logo" isLoading='lazy' />

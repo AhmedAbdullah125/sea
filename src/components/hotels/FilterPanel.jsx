@@ -349,6 +349,12 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
               </AlertDialogTrigger>
               <AlertDialogContent className="bg-white rounded-xl border-none shadow-md items-center max-w-[500px]">
                 <AlertDialogHeader>
+                  {/* icon to close */}
+                  <div className="absolute top-2 right-2 cursor-pointer"
+                  onClick={() => {
+                    document.getElementById("ccccccc").click();
+                  }}
+                  ><i className="fa-solid fa-xmark"></i></div>
                   <AlertDialogTitle className="text-[#A71755] font-semibold direction-rtl">ابحث الان عن فنـــدقك المفـــضل</AlertDialogTitle>
                   <AlertDialogDescription>
                     <div className="w-full flex flex-col items-center gap-3">
@@ -368,6 +374,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                               localLoading ? <Loading /> :
                                 <div className="w-full flex flex-col gap-2 max-h-64 overflow-y-scroll">
                                   {
+                                    mainData?.data?.length > 0 && keyWord.length > 0 ?
                                     mainData?.data?.slice(0, 5).map((hotel) => {
                                       return (
                                         <Link
@@ -389,6 +396,8 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                                         </Link>
                                       )
                                     })
+                                    :
+                                    <p className="text-center text-xs font-semibold text-gray-500">لا يوجد نتائج</p>
                                   }
                                   {
                                     mainData?.data?.length > 5 && keyWord.length > 0 &&
@@ -401,6 +410,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                                       className="flex-shrink-0 h-12 py-0 px-9 mt-7 bg-[#A71755] text-white font-semibold rounded-full"> اظهار المزيد
                                     </button>
                                   }
+
                                 </div>
                             }
                           </div>
@@ -418,7 +428,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel id="ccccccc">إلغاء</AlertDialogCancel>
+                  <AlertDialogCancel id="ccccccc" className="hidden">إلغاء</AlertDialogCancel>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
