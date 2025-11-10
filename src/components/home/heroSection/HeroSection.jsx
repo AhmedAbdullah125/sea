@@ -8,17 +8,12 @@ import { ReactTyped } from "react-typed";
 import { useGetSettings } from '@/components/global/useGetSettings';
 
 const HeroSection = () => {
-  const texts = [
-    " احجــز بثقة ..",
-    " احجــز بموثوقــية ..",
-    " احجــز بأمــان ..",
-  ]
+
   const { data, isLoading, isError } = useGetSettings();
 
   return (
     <>
       {
-
         isLoading ? <Loading /> :
           <motion.section
             initial={{ opacity: 0 }}
