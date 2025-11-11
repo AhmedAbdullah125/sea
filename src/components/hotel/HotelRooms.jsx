@@ -14,13 +14,14 @@ import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { toggleFavourates } from "../../pages/toggleFavourates";
 import { useGetSettings } from '@/components/global/useGetSettings';
+import { toast } from "sonner";
 
 
 const HotelRooms = ({ data }) => {
-    const [favouratesRooms, setFavouratesRooms] = useState([])
+    const [favouratesRooms, setFavouratesRooms] = useState([]);
+    const [images, setImages] = useState([]);
     Fancybox.bind("[data-fancybox]", {
         dirction: "ltr",
-
     });
     Fancybox.bind("[data-fancybox-video]", {
         // Your custom options
@@ -28,17 +29,17 @@ const HotelRooms = ({ data }) => {
     const { data: settings } = useGetSettings();
 
     useEffect(() => {
-        //getting settings from api
-        // adding favourates rooms ids to favouratesRooms state
-        let favs = []
-        for (let index = 0; index < data.rooms.length; index++) {
-            if (data.rooms[index].is_favourate) {
-                favs.push(data.rooms[index].id)
-            }
-
+        // Only run when data and data.rooms exist
+        if (!data || !data.rooms || data.rooms.length === 0) {
+            return;
         }
-        setFavouratesRooms(favs)
-    }, []);
+        const favs = data.rooms
+            .filter(room => room.is_favourite)
+            .map(room => room.id);
+        setFavouratesRooms(favs);
+
+    }, [data?.rooms]);
+
     return (
         <section className="hotel-room">
             {
@@ -64,7 +65,6 @@ const HotelRooms = ({ data }) => {
                                             <div className="related-btn">
                                                 {/* <span>{Number(item.discount)}%</span> */}
                                                 <button
-
                                                     onClick={
                                                         () => {
                                                             if (sessionStorage.getItem('token')) {
@@ -103,35 +103,45 @@ const HotelRooms = ({ data }) => {
                                             }}
                                         >
                                             {
-                                                room?.images?.map((img, index) => {
-                                                    const isVideo = /\.(mp4|mov|webm)$/i.test(img);
 
+                                                room?.vedios?.map((video, index) => {                                                    
                                                     return (
                                                         <SwiperSlide key={index}>
                                                             <figure className="img-cont">
-                                                                <a data-fancybox="room" href={img} data-caption={room.name}>
+                                                                <a data-fancybox={`room${room.id}`} href={video} data-caption={room.name}>
                                                                     <div className="overlay"></div>
                                                                     {room.numberOfBeds > 1 && (
                                                                         <span className="beds">إجمــــالي الضيـوف : {room.numberOfBeds}</span>
                                                                     )}
-                                                                    {isVideo ? (
-                                                                        <video
-                                                                            src={img}
-                                                                            controls
-                                                                            preload="metadata"
-                                                                            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-                                                                        >
-                                                                            Your browser does not support the video tag.
-                                                                        </video>
-                                                                    ) : (
-                                                                        <img src={img} alt={room.name} />
-                                                                    )}
+                                                                    <video src={video} controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }}>
+                                                                        Your browser does not support the video tag.
+                                                                    </video>
                                                                 </a>
                                                             </figure>
                                                         </SwiperSlide>
                                                     );
                                                 })
                                             }
+                                            {
+                                                room?.images?.map((img, index) => {
+                                                    return (
+                                                        <SwiperSlide key={index}>
+                                                            <figure className="img-cont">
+                                                                <a data-fancybox={`room${room.id}`} href={img} data-caption={room.name}>
+                                                                    <div className="overlay"></div>
+                                                                    {room.numberOfBeds > 1 && (
+                                                                        <span className="beds">إجمــــالي الضيـوف : {room.numberOfBeds}</span>
+                                                                    )}
+
+                                                                    <img src={img} alt={room.name} />
+                                                                </a>
+                                                            </figure>
+                                                        </SwiperSlide>
+                                                    );
+                                                })
+                                            }
+                                            
+
 
                                             <div className="swiper-btn-cont swiper-btn-2" id={`swiper-btn-prev1a`}>
                                                 <div className="swiper-btn-prev swiper-btn">
@@ -145,7 +155,7 @@ const HotelRooms = ({ data }) => {
                                         </Swiper>
                                     </div>
                                     <div className="info">
-                                    <div className="flex flex-col justify-between h-full">
+                                        <div className="flex flex-col justify-between h-full">
                                             <h3 className="room-name">{room.name}</h3>
                                             {
                                                 room.childBedEnabled ? <span className="child-bed">أسرة أطفال / رضع مجانًا</span> : null
@@ -175,22 +185,22 @@ const HotelRooms = ({ data }) => {
                                         </div>
                                         {
                                             room.features.length > 0 ?
-                                            <div className="features">
-                                            {
-                                                room.features.map((feature) => (
+                                                <div className="features">
+                                                    {
+                                                        room.features.map((feature) => (
 
-                                                    feature.name && feature.icon ?
-                                                        <div key={feature.id} className="feature">
-                                                            <img src={feature.icon} alt="room feature" />
-                                                            <span>{feature.name}</span>
-                                                        </div> : null
+                                                            feature.name && feature.icon ?
+                                                                <div key={feature.id} className="feature">
+                                                                    <img src={feature.icon} alt="room feature" />
+                                                                    <span>{feature.name}</span>
+                                                                </div> : null
 
-                                                ))
-                                            }
-                                        </div>
-                                        :null
+                                                        ))
+                                                    }
+                                                </div>
+                                                : null
                                         }
-                                        
+
                                         <Link className="btn-wa" to={`https://wa.me/${settings.whatsapp}?text=اريد مناقشتكم عن غرفة ${room.name} في ${data.title}`}>
                                             <span>تخصيص الغرفة</span>
                                             <img src={waImage} alt="whatsapp" />

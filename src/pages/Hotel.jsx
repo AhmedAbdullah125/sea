@@ -10,38 +10,19 @@ import HotelTabs from '../components/hotel/HotelTabs';
 import HotelPayment from '../components/hotel/HotelPayment';
 import Loading from '../components/loading/Loading';
 import HotelRooms from '../components/hotel/HotelRooms';
+import { useGetHotel } from './useGetHotel';
 const Hotel = () => {
     // state for search params
     const { id } = useParams();
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [trigger, setTrigger] = useState(false);
-    console.log(data)
-    useEffect(() => {
-        setLoading(true);
-        //scroll to the top of page 
-        window.scrollTo(0, 0);
-        const getData = async () => {
-            try {
-                const response = await axios.get(`${API_BASE_URL}/hotel/${id}`, {});
-                setData(response.data.data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error retrieving data:', error);
-                setLoading(false);
-                throw new Error('Could not get data');
-            }
-        };
-        getData();
-    }, [trigger]);
-    
-    
+    const { data,isLoading } = useGetHotel(id);
+
         return (
         <section>
             <Header />
             {/* Start Page Content */}
             {
-                loading ? (
+                isLoading ? (
                     <Loading />
                 ) : (
                     <div>

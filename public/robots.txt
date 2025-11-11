@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /static/
+Disallow: /private/
+Disallow: /assets/
+Disallow: /server/
+Disallow: /node_modules/
+Disallow: /temp/
+Disallow: /test/
+Disallow: /drafts/
+
+Sitemap: https://seatourism.sa/sitemap.xml

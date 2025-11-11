@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://seatourism.sa/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://seatourism.sa/images/home-banner.jpg</image:loc>
+      <image:caption>صورة بانر الصفحة الرئيسية</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://seatourism.sa/table</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://seatourism.sa/hotels</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://seatourism.sa/images/hotel1.jpg</image:loc>
+      <image:caption>فندق فاخر في الرياض</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://seatourism.sa/images/hotel2.jpg</image:loc>
+      <image:caption>فندق فاخر في جدة</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://seatourism.sa/previsa</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://seatourism.sa/blogs</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://seatourism.sa/images/blog1.jpg</image:loc>
+      <image:caption>مقال عن السياحة في السعودية</image:caption>
+    </image:image>
+  </url>
+
+</urlset>
