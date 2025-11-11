@@ -1012,7 +1012,11 @@
     }
   }
 }
-
+.hagez_beltoot{
+  width: 1px;
+  height: 100%;
+  background-color: #0000001A;
+}
 .hotel-payment-grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);

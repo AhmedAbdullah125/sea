@@ -19,86 +19,8 @@ footer {
             padding: 50px 0;
         }
 
-        .logo-cont {
-            display: flex;
-            flex-direction: column;
-            gap: 35px;
-            width: 100%;
-            max-width: 380px;
 
-            @include max-1300 {
-                max-width: 280px;
-            }
 
-            @include max-991 {
-                margin: 0 auto;
-                max-width: 400px;
-            }
-
-            @include max-767 {
-                gap: 20px;
-            }
-
-            img {
-                width: 100%;
-                height: auto;
-            }
-
-            p {
-                font-size: 22px;
-                font-weight: 500;
-                color: $main;
-                line-height: 40px;
-
-                @include max-991 {
-                    font-size: 16px;
-                    text-align: center;
-                }
-            }
-
-            .social-cont {
-                display: flex;
-                flex-direction: column;
-                gap: 30px;
-
-                h3 {
-                    font-size: 18px;
-                    font-weight: 800;
-                    color: $main;
-
-                    @include max-991 {
-                        text-align: center;
-                    }
-                }
-
-                .ies {
-                    display: flex;
-                    gap: 10px;
-                    width: 100%;
-                    justify-content: space-between;
-
-                    @include max-991 {
-                        gap: 5px;
-                    }
-
-                    a {
-                        width: 50px;
-                        height: 50px;
-                        border-radius: 50%;
-                        background-color: $sec;
-                        display: flex;
-                        align-items: center;
-                        flex-shrink: 0;
-                        justify-content: center;
-
-                        i {
-                            color: $white;
-                            font-size: 16px;
-                        }
-                    }
-                }
-            }
-        }
 
         .links-cont {
             display: flex;
@@ -107,7 +29,8 @@ footer {
             width: 100%;
 
             @include max-991 {
-                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: center;
                 gap: 30px;
             }
 
@@ -115,6 +38,11 @@ footer {
                 display: flex;
                 flex-direction: column;
                 gap: 45px;
+
+                @include max-991 {
+                    gap: 30px;
+                    align-items: center;
+                }
 
                 .title {
                     display: flex;
@@ -124,7 +52,7 @@ footer {
                     h3 {
                         font-size: 25px;
                         font-weight: 700;
-                        color: $sec;
+                        color: $main;
 
                         @media screen and (max-width: 1450px) {
                             font-size: 20px;
@@ -147,33 +75,43 @@ footer {
 
                     @include max-991 {
                         gap: 20px;
-                    }
+                        align-items: center;
 
-                    a {
-                        font-size: 16px;
-                        font-weight: 600;
-                        color: $black;
-                        transition: all 0.3s ease-in-out;
-                        @include tr;
-
-                        @include max-1300 {
-                            font-size: 14px;
-                        }
-
-                        &:hover {
-                            color: $sec;
-                        }
-
-                        &:hover {
-                            color: $sec;
-                        }
-                        @include max-991 {
-                            font-size: 14px;
+                        i {
+                            display: none;
                         }
                     }
 
+                    
                 }
             }
+        }
+    }
+    .footer-link {
+        font-size: 14px;
+        font-weight: 500;
+        color: $black;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        color: #4D4D4D;
+        transition: all 0.3s ease-in-out;
+        @include tr;
+
+        @include max-1300 {
+            font-size: 14px;
+        }
+
+        &:hover {
+            color: $sec;
+        }
+
+        &:hover {
+            color: $sec;
+        }
+
+        @include max-991 {
+            font-size: 14px;
         }
     }
 
@@ -183,11 +121,114 @@ footer {
         justify-content: space-between;
         align-items: center;
         border-top: 1px solid rgba(9, 27, 60, 0.08);
-
+        @include max-991 {
+            padding: 20px 0;
+            flex-direction: column;
+            gap: 20px;
+        }
         @include max-767 {
             padding: 20px 0;
             flex-direction: column;
             gap: 20px;
         }
     }
+
+    .ies {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        justify-content: space-between;
+
+        @include max-991 {
+            gap: 5px;
+            display: flex;
+        }
+
+        a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: $sec;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            justify-content: center;
+
+            i {
+                color: $white;
+                font-size: 16px;
+                @include tr;
+
+                @include max-991 {
+                    display: block !important;
+
+                }
+            }
+        }
+    }
+}
+
+.logo-cont {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    width: 100%;
+    max-width: 380px;
+
+    @include max-1300 {
+        max-width: 280px;
+    }
+
+    @include max-991 {
+        margin: 0 auto;
+        max-width: 400px;
+    }
+
+    @include max-767 {
+        gap: 20px;
+    }
+
+    img {
+        width: 220px;
+        height: auto;
+    }
+
+    p {
+        font-size: 18px;
+        font-weight: 500;
+        color: $main;
+        line-height: 40px;
+        max-width: 380px;
+
+        @include max-991 {
+            font-size: 16px;
+            text-align: center;
+        }
+    }
+    
+    .social-cont {
+        
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: $main;
+
+            @include max-991 {
+                text-align: center;
+            }
+        }
+
+    }
+    
+}
+
+.bullet {
+    width: 5px;
+    height: 5px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
 }

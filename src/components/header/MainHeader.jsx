@@ -3,7 +3,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../../../public/app/seaLogo.svg'
 import LoginDialog from '../login/LoginDialog'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
 import { motion } from "framer-motion";
 import { useGetSettings } from '@/components/global/useGetSettings';
 import Vector1 from '../../../public/app/Vector1.svg'
@@ -35,17 +35,15 @@ const MainHeader = () => {
             transition={{ duration: 0.5, delay: 0.5 }}
             className={`main-header-cont  lg:fixed top-0 left-0 right-0 z-[9999] gap-3 py-5  transition-colors duration-500 ${scrolled ? 'bg-main-navy ' : 'bg-transparent'}`}>
             <div className="container upper-nav-cont">
-                {/* <div className="r-links">
-                    <NavLink to="/add-house">أضف سكنـك</NavLink>
-                    <NavLink to={`https://wa.me/${isLoading ? '' : data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>أضف بــاقتك</NavLink>
-                </div>*/}
                 <a href={token ? "/profile" : "/login"} className="r-sect">
                     <LoginDialog mainHeader />
-                    <div>
-                        <span>إبــدا مع سـي / SEA</span>
-                        {/* long arrow left */}
-                        <i className='fa-solid fa-arrow-left'></i>
-                    </div>
+                    {
+                        token ? <div className="flex gap-2">
+                            <span>المـــلف الشخصي</span>
+                            {/* long arrow left */}
+                            <i className='fa-solid fa-arrow-left'></i>
+                        </div> : ""
+                    }
 
                 </a>
                 <div className="logo">
@@ -53,11 +51,6 @@ const MainHeader = () => {
                         <LazyLoadImage src={logo} alt="logo" isLoading='lazy' />
                     </Link>
                 </div>
-                {/* <div className="l-links">
-
-                    <NavLink to="/packages">تســـوق معنــا</NavLink>
-                    <a href="#contactusinfos">حمل التطبيـــق من هنا</a>
-                </div> */}
                 <div className="options-big">
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -128,24 +121,24 @@ const MainHeader = () => {
                         </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="dropdown-menu-content" align="start">
-                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
-                                <LoginDialog mainHeader />
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
-                                <NavLink className="option-drop-link " to="/add-house">أضف سكنـك</NavLink>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
-                                <NavLink className="option-drop-link " to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>أضف بــاقتك</NavLink>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
-                                <NavLink className="option-drop-link " to="/packages">بـــاقات حــول العـالم</NavLink>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
-                                <NavLink className="option-drop-link " to="/packages">تســـوق معنــا</NavLink>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
-                                <a className="option-drop-link " href="#contactusinfos">حمل التطبيـــق من هنا</a>
-                            </DropdownMenuItem>
+                        <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                            <LoginDialog mainHeader />
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                            <NavLink className="option-drop-link " to="/add-house">أضف سكنـك</NavLink>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                            <NavLink className="option-drop-link " to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>أضف بــاقتك</NavLink>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                            <NavLink className="option-drop-link " to="/packages">بـــاقات حــول العـالم</NavLink>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                            <NavLink className="option-drop-link " to="/packages">تســـوق معنــا</NavLink>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
+                            <a className="option-drop-link " href="#contactusinfos">حمل التطبيـــق من هنا</a>
+                        </DropdownMenuItem>
                         <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
                             <NavLink className="option-drop-link " to='/hotels'>فــنادق وشقــق</NavLink>
                         </DropdownMenuItem>

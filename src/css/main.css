@@ -3095,6 +3095,12 @@ figure::after {
   margin-bottom: 0;
 }
 
+.hagez_beltoot {
+  width: 1px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1019607843);
+}
+
 .hotel-payment-grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -3437,85 +3443,6 @@ footer .upperfooter {
     padding: 50px 0;
   }
 }
-footer .upperfooter .logo-cont {
-  display: flex;
-  flex-direction: column;
-  gap: 35px;
-  width: 100%;
-  max-width: 380px;
-}
-@media only screen and (max-width: 1299px) {
-  footer .upperfooter .logo-cont {
-    max-width: 280px;
-  }
-}
-@media only screen and (max-width: 1025px) {
-  footer .upperfooter .logo-cont {
-    margin: 0 auto;
-    max-width: 400px;
-  }
-}
-@media only screen and (max-width: 767px) {
-  footer .upperfooter .logo-cont {
-    gap: 20px;
-  }
-}
-footer .upperfooter .logo-cont img {
-  width: 100%;
-  height: auto;
-}
-footer .upperfooter .logo-cont p {
-  font-size: 22px;
-  font-weight: 500;
-  color: var(--main-color);
-  line-height: 40px;
-}
-@media only screen and (max-width: 1025px) {
-  footer .upperfooter .logo-cont p {
-    font-size: 16px;
-    text-align: center;
-  }
-}
-footer .upperfooter .logo-cont .social-cont {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-footer .upperfooter .logo-cont .social-cont h3 {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--main-color);
-}
-@media only screen and (max-width: 1025px) {
-  footer .upperfooter .logo-cont .social-cont h3 {
-    text-align: center;
-  }
-}
-footer .upperfooter .logo-cont .social-cont .ies {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-  justify-content: space-between;
-}
-@media only screen and (max-width: 1025px) {
-  footer .upperfooter .logo-cont .social-cont .ies {
-    gap: 5px;
-  }
-}
-footer .upperfooter .logo-cont .social-cont .ies a {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: var(--sec-color);
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  justify-content: center;
-}
-footer .upperfooter .logo-cont .social-cont .ies a i {
-  color: var(--white-color);
-  font-size: 16px;
-}
 footer .upperfooter .links-cont {
   display: flex;
   justify-content: space-between;
@@ -3524,7 +3451,8 @@ footer .upperfooter .links-cont {
 }
 @media only screen and (max-width: 1025px) {
   footer .upperfooter .links-cont {
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     gap: 30px;
   }
 }
@@ -3532,6 +3460,12 @@ footer .upperfooter .links-cont .links-group {
   display: flex;
   flex-direction: column;
   gap: 45px;
+}
+@media only screen and (max-width: 1025px) {
+  footer .upperfooter .links-cont .links-group {
+    gap: 30px;
+    align-items: center;
+  }
 }
 footer .upperfooter .links-cont .links-group .title {
   display: flex;
@@ -3541,7 +3475,7 @@ footer .upperfooter .links-cont .links-group .title {
 footer .upperfooter .links-cont .links-group .title h3 {
   font-size: 25px;
   font-weight: 700;
-  color: var(--sec-color);
+  color: var(--main-color);
 }
 @media screen and (max-width: 1450px) {
   footer .upperfooter .links-cont .links-group .title h3 {
@@ -3563,28 +3497,36 @@ footer .upperfooter .links-cont .links-group .links {
 @media only screen and (max-width: 1025px) {
   footer .upperfooter .links-cont .links-group .links {
     gap: 20px;
+    align-items: center;
+  }
+  footer .upperfooter .links-cont .links-group .links i {
+    display: none;
   }
 }
-footer .upperfooter .links-cont .links-group .links a {
-  font-size: 16px;
-  font-weight: 600;
+footer .footer-link {
+  font-size: 14px;
+  font-weight: 500;
   color: var(--black-color);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #4D4D4D;
   transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
 @media only screen and (max-width: 1299px) {
-  footer .upperfooter .links-cont .links-group .links a {
+  footer .footer-link {
     font-size: 14px;
   }
 }
-footer .upperfooter .links-cont .links-group .links a:hover {
+footer .footer-link:hover {
   color: var(--sec-color);
 }
-footer .upperfooter .links-cont .links-group .links a:hover {
+footer .footer-link:hover {
   color: var(--sec-color);
 }
 @media only screen and (max-width: 1025px) {
-  footer .upperfooter .links-cont .links-group .links a {
+  footer .footer-link {
     font-size: 14px;
   }
 }
@@ -3595,12 +3537,114 @@ footer .lowerfooter {
   align-items: center;
   border-top: 1px solid rgba(9, 27, 60, 0.08);
 }
+@media only screen and (max-width: 1025px) {
+  footer .lowerfooter {
+    padding: 20px 0;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
 @media only screen and (max-width: 767px) {
   footer .lowerfooter {
     padding: 20px 0;
     flex-direction: column;
     gap: 20px;
   }
+}
+footer .ies {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  justify-content: space-between;
+}
+@media only screen and (max-width: 1025px) {
+  footer .ies {
+    gap: 5px;
+    display: flex;
+  }
+}
+footer .ies a {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--sec-color);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  justify-content: center;
+}
+footer .ies a i {
+  color: var(--white-color);
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+}
+@media only screen and (max-width: 1025px) {
+  footer .ies a i {
+    display: block !important;
+  }
+}
+
+.logo-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  width: 100%;
+  max-width: 380px;
+}
+@media only screen and (max-width: 1299px) {
+  .logo-cont {
+    max-width: 280px;
+  }
+}
+@media only screen and (max-width: 1025px) {
+  .logo-cont {
+    margin: 0 auto;
+    max-width: 400px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .logo-cont {
+    gap: 20px;
+  }
+}
+.logo-cont img {
+  width: 220px;
+  height: auto;
+}
+.logo-cont p {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--main-color);
+  line-height: 40px;
+  max-width: 380px;
+}
+@media only screen and (max-width: 1025px) {
+  .logo-cont p {
+    font-size: 16px;
+    text-align: center;
+  }
+}
+.logo-cont .social-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.logo-cont .social-cont h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--main-color);
+}
+@media only screen and (max-width: 1025px) {
+  .logo-cont .social-cont h3 {
+    text-align: center;
+  }
+}
+
+.bullet {
+  width: 5px;
+  height: 5px;
+  background-color: #D9D9D9;
+  border-radius: 50%;
 }
 
 .publishing-features {
