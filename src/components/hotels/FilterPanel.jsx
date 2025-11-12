@@ -101,7 +101,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
           `${selectedPlace ? `&place_id=${selectedPlace}` : ""}` +
           `${selectedView ? `&view_id=${selectedView}` : ""}` +
           `${keyWord ? `&name=${keyWord}` : ""}` +
-          `&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rating=${seletedRate}`;
+          `&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rate_id=${seletedRate}`;
         const response = await axios.get(query);
         setMainData(response.data);
         if (response?.data?.data?.length > 0) {

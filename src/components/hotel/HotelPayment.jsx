@@ -90,7 +90,7 @@ const HotelPayment = ({ data }) => {
 
 
             {
-                offerLoading ? <Loading /> :
+                offerLoading ? <div className="w-full flex items-center justify-center h-56 text-center text-2xl font-bold"> جار المعـــالجة ...</div> :
                     <>
                         <div className="price-discount">
                             {
@@ -232,6 +232,7 @@ const HotelPayment = ({ data }) => {
 
                                         <button
                                          style={displayPrice ? { display: "none" } : { display: "flex" }}
+                                         type="submit"
                                             className="offerLink"
                                             onClick={() => {
                                                 if (days > 0 && !displayPrice) {
