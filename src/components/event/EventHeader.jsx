@@ -36,7 +36,7 @@ const EventHeader = ({data}) => {
                         </div>
                         <div className="detail-info-item">
                             <i className="fa-solid fa-users"></i>
-                            <span>مخصص لعوائل وعزاب</span>
+                            <span>{data.targetAudience}</span>
                         </div>
                     </div>
                     <div className="detail-info-btn">

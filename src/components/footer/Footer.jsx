@@ -29,7 +29,7 @@ const Footer = () => {
                             <div className="links-cont relative">
                                 <div className="links-group">
                                     <div className="title">
-                                        <h3>خدمـــــاتنا :</h3>
+                                        <h3>خدمـــــاتنا:</h3>
                                         <div className="dashh"></div>
                                     </div>
                                     <div className="links">
@@ -42,38 +42,38 @@ const Footer = () => {
                                 <div className="hagez_beltoot"></div>
                                 <div className="links-group">
                                     <div className="title">
-                                        <h3>روابط سريعة :</h3>
+                                        <h3>روابط سريعة:</h3>
                                         <div className="dashh"></div>
                                     </div>
                                     <div className="links">
                                         <Link to="/add-house" className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>أضف بــاقتك / سكنك</Link>
-                                        <Link to="/blogs" className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>المدونه</Link>
+                                        <Link to="/blogs" className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>المدونة</Link>
                                     </div>
 
                                 </div>
                                 <div className="hagez_beltoot"></div>
                                 <div className="links-group">
                                     <div className="title">
-                                        <h3>عن ســي :</h3>
+                                        <h3>عن ســي:</h3>
                                         <div className="dashh"></div>
                                     </div>
                                     <div className="links">
-                                        <Link to="/#about" className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>من نحــــن ؟</Link>
-                                        <Link to="/#whySee" className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>لماذا سي ؟</Link>
-                                        <Link to="/#bigoffers" className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>اعــرف عن عــروض SEA + !</Link>
+                                        <Link to="/#about" className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>من نحــــن؟</Link>
+                                        <Link to="/#whySee" className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>لماذا سي؟</Link>
+                                        <Link to="/#bigoffers" className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>اعــرف عن عــروض SEA +</Link>
                                     </div>
                                 </div>
                                 <div className="hagez_beltoot"></div>
 
                                 <div className="links-group">
                                     <div className="title">
-                                        <h3>تواصل معنا وخلك قريب :</h3>
+                                        <h3>تواصل معنا وخلك قريب:</h3>
                                         <div className="dashh"></div>
                                     </div>
                                     <div className="links">
                                         <Link to={`mailto:${data.email}`} className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>{data.email}</Link>
                                         <Link to={`tel:${data.whatsapp}`} className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>{data.whatsapp}</Link>
-                                        <div className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>تــابعنا !</div>
+                                        <div className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>تــابعنا:</div>
                                         <div className="ies">
                                             {data.facebook && <Link to="#"><i className="fa-brands fa-facebook-f"></i></Link>}
                                             {data.instagram && <Link to="#"><i className="fa-brands fa-instagram"></i></Link>}
@@ -88,7 +88,7 @@ const Footer = () => {
                                 <div className="hagez_beltoot"></div>
                                 <div className="links-group">
                                     <div className="title" id='contactusinfos'>
-                                        <h3>حمل التطبيق الآن : </h3>
+                                        <h3>حمل التطبيق الآن:</h3>
                                         <div className="dashh"></div>
                                     </div>
                                     <div className="links">
@@ -110,7 +110,7 @@ const Footer = () => {
                             </div>
                             {/* payments */}
                             <div className='flex items-center gap-4 flex-wrap justify-center'>
-                                <div className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>طــرق دفــع آمنــة :</div>
+                                <div className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>طــرق دفــع آمنــة:</div>
                                 <div className="bullet"></div><img src={payImg1} alt="pay-img" className='w-14' /><div className="bullet"></div>
                                 <img src={payImg2} alt="pay-img" className='w-14' /><div className="bullet"></div>
                                 <img src={payImg3} alt="pay-img" className='w-14' /><div className="bullet"></div>

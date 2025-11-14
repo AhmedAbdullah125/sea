@@ -56,7 +56,7 @@ const MainHeader = () => {
                         <DropdownMenuTrigger asChild>
                             <div className="join-cont">
                                 <div className="r-s">
-                                    <span>إنضم إليــنا</span>
+                                    <span>انضم إليــنا</span>
                                     <div className='sea-word'>
                                         <span className='plus'>+</span>
                                         <span>SEA</span>
@@ -111,7 +111,7 @@ const MainHeader = () => {
                     <DropdownMenuTrigger asChild className="bars-dropdown">
                         <div className="join-cont">
                             <div className="r-s">
-                                <span>إنضم إليــنا</span>
+                                <span>انضم إليــنا</span>
                                 <div className='sea-word'>
                                     <span className='plus'>+</span>
                                     <span>SEA</span>

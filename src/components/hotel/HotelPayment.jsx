@@ -18,6 +18,8 @@ import { toast } from "sonner";
 import { motion } from "framer-motion"
 import Loading from "../loading/Loading";
 import { useGetSettings } from '@/components/global/useGetSettings';
+import { ReactTyped } from "react-typed";
+
 
 export const filterSchema = z.object({
     date: z.date({
@@ -90,7 +92,14 @@ const HotelPayment = ({ data }) => {
 
 
             {
-                offerLoading ? <div className="w-full flex items-center justify-center h-56 text-center text-2xl font-bold"> جار المعـــالجة ...</div> :
+                offerLoading ? <div className="w-full flex items-center flex-col justify-center h-56 text-center text-2xl font-bold text-primary">
+                    <ReactTyped strings={[
+                        "جار المعالجة ....",
+                        "جـار المعالجة ....",
+                    ]} loop typeSpeed={100} />
+                    <br />
+                    <Loading />
+                </div> :
                     <>
                         <div className="price-discount">
                             {
@@ -217,7 +226,7 @@ const HotelPayment = ({ data }) => {
                                                         </SelectTrigger>
                                                     </FormControl>
                                                     <SelectContent className="shadow border-none rounded-xl bg-white">
-                                                        {Array.from({ length: 10 }, (_, i) => (
+                                                        {Array.from({ length: 50 }, (_, i) => (
                                                             <SelectItem key={i} value={String(i + 1)} className="cursor-pointer focus:bg-body rounded-xl">
                                                                 {i + 1}
                                                             </SelectItem>
@@ -231,8 +240,8 @@ const HotelPayment = ({ data }) => {
                                     {
 
                                         <button
-                                         style={displayPrice ? { display: "none" } : { display: "flex" }}
-                                         type="submit"
+                                            style={displayPrice ? { display: "none" } : { display: "flex" }}
+                                            type="submit"
                                             className="offerLink"
                                             onClick={() => {
                                                 if (days > 0 && !displayPrice) {

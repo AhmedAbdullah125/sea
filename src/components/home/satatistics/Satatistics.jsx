@@ -44,7 +44,7 @@ const Satatistics = () => {
                 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, }}
-                className=" font-bold text-main-navy" >من نحــــن ؟</motion.p>
+                className=" font-bold text-main-navy" >من نحــــن؟</motion.p>
               <motion.h3
                 initial={{ opacity: 0, y: -30, x: -30 }}
                 whileInView={{

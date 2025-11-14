@@ -40,7 +40,7 @@ const HotelHeader = ({ data }) => {
                     <div className="detail-info">
                         <div className="detail-info-item rate">
                             <i className="fa-solid fa-star"></i>
-                            <span>{Number(data?.rating).toFixed(1)} <span>( {data?.reviewsCount} )</span></span>
+                            <span>{data?.rating_category? data?.rating_category : "5.0"} <span>( {data?.reviewsCount? data?.reviewsCount : "+10"} )</span></span>
                         </div>
                         <div className="detail-info-item">
                             <i className="fa-solid fa-location-dot"></i>

@@ -4,7 +4,7 @@ import { FaCalendarDays } from "react-icons/fa6";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MdPlace } from "react-icons/md";
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import { HiMiniViewfinderCircle } from "react-icons/hi2";
 import { MdStarRate } from "react-icons/md";
 import { BsFillSendFill } from "react-icons/bs";
@@ -57,7 +57,8 @@ function safeDateParse(input) {
   }
   return new Date(input);
 }
-const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page }) => {
+const FilterPanel = ({ mainData, setIsFilterOpen, defaultValues, setMainData, setLoading, page, mainSelectedCity , setMainSelectedCity }) => {
+  console.log(mainSelectedCity)
   const [seletedCountry, setSelectedCountry] = useState(String(defaultValues.destination) || '');
   const [selectedFlat, setSelectedFlat] = useState(defaultValues.flat || '');
   const [selectedCity, setSelectedCity] = useState(defaultValues.city || '');
@@ -75,6 +76,12 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
   const [selectedCountryCities, setSelectedCountryCities] = useState([])
   const [localLoading, setLocalLoading] = useState(false);
   console.log(mainData)
+  if (seletedCountry || selectedFlat || mainSelectedCity || selectedCity || seletedNeighborhood || seletedRate || selectedOffer || selectedDate || selectedDateTo || selectedPlace || selectedView || keyWord) {
+    setIsFilterOpen(true)
+  }
+  else {
+    setIsFilterOpen(false)
+  }
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
@@ -101,7 +108,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
           `${selectedPlace ? `&place_id=${selectedPlace}` : ""}` +
           `${selectedView ? `&view_id=${selectedView}` : ""}` +
           `${keyWord ? `&name=${keyWord}` : ""}` +
-          `&offer=${selectedOffer}&city_id=${selectedCity}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rate_id=${seletedRate}`;
+          `&offer=${selectedOffer}&city_id=${selectedCity ? selectedCity : mainSelectedCity ? mainSelectedCity : ""}&type=${selectedFlat}&neighborhood=${seletedNeighborhood}&rate_id=${seletedRate}`;
         const response = await axios.get(query);
         setMainData(response.data);
         if (response?.data?.data?.length > 0) {
@@ -127,7 +134,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
       setLocalLoading(false);
     };
     getHotels();
-  }, [page, keyWord, seletedCountry, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer, selectedDateTo, selectedPlace, selectedView]);
+  }, [page, keyWord, seletedCountry, mainSelectedCity, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer, selectedDateTo, selectedPlace, selectedView]);
   console.log(places)
   const form = useForm({
     resolver: zodResolver(filterSchema),
@@ -160,6 +167,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
       model: "",
       views: "",
       places: "",
+      
     });
 
     setKeyWord("");
@@ -173,6 +181,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
     setSelectedDateTo("");
     setSelectedPlace("");
     setSelectedView("");
+    setMainSelectedCity("");
   }
   useEffect(() => {
     const selectedCountryCites = data?.countries?.filter((country) => country.id === Number(seletedCountry))[0]?.cities;
@@ -351,9 +360,9 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                 <AlertDialogHeader>
                   {/* icon to close */}
                   <div className="absolute top-2 right-2 cursor-pointer"
-                  onClick={() => {
-                    document.getElementById("ccccccc").click();
-                  }}
+                    onClick={() => {
+                      document.getElementById("ccccccc").click();
+                    }}
                   ><i className="fa-solid fa-xmark"></i></div>
                   <AlertDialogTitle className="text-[#A71755] font-semibold direction-rtl">ابحث الان عن فنـــدقك المفـــضل</AlertDialogTitle>
                   <AlertDialogDescription>
@@ -375,29 +384,29 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                                 <div className="w-full flex flex-col gap-2 max-h-64 overflow-y-scroll">
                                   {
                                     mainData?.data?.length > 0 && keyWord.length > 0 ?
-                                    mainData?.data?.slice(0, 5).map((hotel) => {
-                                      return (
-                                        <Link
-                                          to={`/hotel/${hotel.slug}`}
-                                          className="flex items-center gap-2 justify-between hover:bg-white rounded-xl px-3 py-2"
-                                          onClick={() => {
-                                            setKeyWord(hotel.title);
-                                            document.getElementById("searchInputt").value = hotel.title;
-                                            document.getElementById("ccccccc").click();
-                                          }}
-                                        >
-                                          <div className="r-side">
-                                            <LazyLoadImage src={hotel.main_image} alt="Sea" className="w-12 h-12 object-cover rounded-xl" />
-                                          </div>
-                                          <div className="h-full flex flex-col justify-between items-end">
-                                            <span className="text-xl text-main-navy text-end max-w-60">{hotel.title}</span>
-                                            <span className="text-primaryColor text-sm">{hotel.place_name}</span>
-                                          </div>
-                                        </Link>
-                                      )
-                                    })
-                                    :
-                                    <p className="text-center text-xs font-semibold text-gray-500">لا يوجد نتائج</p>
+                                      mainData?.data?.slice(0, 5).map((hotel) => {
+                                        return (
+                                          <Link
+                                            to={`/hotel/${hotel.slug}`}
+                                            className="flex items-center gap-2 justify-between hover:bg-white rounded-xl px-3 py-2"
+                                            onClick={() => {
+                                              setKeyWord(hotel.title);
+                                              document.getElementById("searchInputt").value = hotel.title;
+                                              document.getElementById("ccccccc").click();
+                                            }}
+                                          >
+                                            <div className="r-side">
+                                              <LazyLoadImage src={hotel.main_image} alt="Sea" className="w-12 h-12 object-cover rounded-xl" />
+                                            </div>
+                                            <div className="h-full flex flex-col justify-between items-end">
+                                              <span className="text-xl text-main-navy text-end max-w-60">{hotel.title}</span>
+                                              <span className="text-primaryColor text-sm">{hotel.place_name}</span>
+                                            </div>
+                                          </Link>
+                                        )
+                                      })
+                                      :
+                                      <p className="text-center text-xs font-semibold text-gray-500">لا يوجد نتائج</p>
                                   }
                                   {
                                     mainData?.data?.length > 5 && keyWord.length > 0 &&
@@ -446,7 +455,7 @@ const FilterPanel = ({ mainData, defaultValues, setMainData, setLoading, page })
                   <p className="text-main-blue font-bold text-sm">فئة النجوم</p>
                 </FormLabel>
                 <Select dir="rtl"
-                  value={field.value}
+                  value={field.value || ""}
                   onValueChange={(val) => {
                     field.onChange(val);
                     setSelectedRate(val);

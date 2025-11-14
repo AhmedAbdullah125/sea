@@ -46,7 +46,7 @@ const HotelsSection = () => {
           className="w-full space-y-8  "
         >
           <div className=' flex items-center justify-between gap-2'>
-            <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue  '>أشهــر فنــــادق تركيـــــا.</h2>
+            <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue  '>أشهــر فنــــادق تركيـــــا</h2>
             <div className='flex gap-2 items-center justify-between w-[120px] '>
               <CarouselPrevious className="flex items-center justify-center rounded-full transition-all duration-300 ease-in-out text-white w-11 h-11 text-[10px] bg-[rgba(0,0,0,0.25)] shadow-[0_0_1px_1px_rgba(255,255,255,0.25)] backdrop-blur-[10px] relative top-[unset] bottom-[unset] left-[unset] right-[unset] translate-x-0 translate-y-0" icon={<MdArrowForwardIos />} />
               <CarouselNext className="flex items-center justify-center rounded-full transition-all duration-300 ease-in-out text-white w-11 h-11 text-[10px] bg-[rgba(0,0,0,0.25)] shadow-[0_0_1px_1px_rgba(255,255,255,0.25)] backdrop-blur-[10px] relative top-[unset] bottom-[unset] left-[unset] right-[unset] translate-x-0 translate-y-0" icon={<MdArrowBackIos />} />

@@ -7,6 +7,7 @@ import HotelsGrid from '../components/hotels/HotelsGrid';
 import Loading from '../components/loading/Loading';
 import { ChevronDown } from "lucide-react"
 import HotelsPagination from '../components/hotels/HotelsPagination';
+import FamousCities from '../components/hotels/FamousCities';
 
 const Hotels = () => {
     // state for search params
@@ -15,7 +16,7 @@ const Hotels = () => {
     const [mainData, setMainData] = useState([])
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
-    
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
     const filters = {
         start: searchParams.get("start") || "",
         end: searchParams.get("end") || "",
@@ -33,19 +34,22 @@ const Hotels = () => {
         if (values.city) params.set("destination", values.city);
         setSearchParams(params);
     };
+    const [mainSelectedCity, setMainSelectedCity] = useState(null);
+    console.log(mainData);
     return (
         <section>
             <Header />
             {/* Start Page Content */}
             <div className="container">
-                <FilterPanel mainData={mainData} defaultValues={filters} page={page} onFilter={updateFilters} setMainData={setMainData} setLoading={setLoading} />
+                <FilterPanel mainData={mainData} mainSelectedCity={mainSelectedCity} setMainSelectedCity={setMainSelectedCity} setIsFilterOpen={setIsFilterOpen} defaultValues={filters} page={page} onFilter={updateFilters} setMainData={setMainData} setLoading={setLoading} />
                 {
                     loading ? <Loading /> :
-                        <HotelsGrid mainData={mainData} />
+                        <HotelsGrid isFilterOpen={isFilterOpen} mainData={mainData} mainSelectedCity={mainSelectedCity} setMainSelectedCity={setMainSelectedCity} />
                 }
                 {/* pagination */}
                 <HotelsPagination data={mainData.pagination} setPage={setPage} />
             </div>
+                <FamousCities />
 
             {/* End Page Content */}
             <Footer />

@@ -34,7 +34,7 @@ const HeroSection = () => {
                   {/* title */}
                   <div className=" xl:max-w-[45rem] me-auto  space-y-4">
                     <h1 className={`${styles.title} text-4xl md:text-5xl xl:text-6xl font-semibold`} >
-                      رحلتك تبدأ من هنـــــا...
+                      رحلتك تبدأ من هنـــــا..
                       <br />
                       {/* احجــز بثقة. */}
                       {/* <MorphingText texts={texts} loop  /> */}

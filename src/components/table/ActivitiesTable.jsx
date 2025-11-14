@@ -9,6 +9,7 @@ import { useRef } from "react";
 import { Link } from 'react-router-dom';
 import { toggleFavourates } from '../../pages/toggleFavourates';
 import { toast } from 'sonner';
+import RotatingTitle from './RotatingTitle';
 const ActivitiesTable = ({ title, description, data }) => {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
@@ -16,7 +17,8 @@ const ActivitiesTable = ({ title, description, data }) => {
         <section className="related-section">
             <div className="container">
                 <div className="section-header-cont">
-                    <h2 className="section-title">{title}</h2>
+                    {/* <h2 className="section-title">{title}</h2> */}
+                    <RotatingTitle />
                     <div className="swiper-btn-cont swiper-btn-1">
                         <div className="swiper-btn-prev swiper-btn" ref={prevRef}>
                             <i className="fa-solid fa-chevron-right"></i>
@@ -133,14 +135,17 @@ const ActivitiesTable = ({ title, description, data }) => {
                                                 <i className="fa-solid fa-location-dot"></i>
                                                 <span>
                                                     {item.location}
-                                                    <span>( خيارات ترفيهية )</span>
+                                                    {
+                                                        item.type &&
+                                                        <span>( {item.type} )</span>
+                                                    }
                                                 </span>
                                             </div>
                                             <div className="item-period">
                                                 {item.nameEvents}
                                             </div>
                                             <div className="item-price">
-                                                يبدأ من {item.price} {item.currencyName}
+                                                {item.description}
                                             </div>
                                         </div>
                                     </Link>

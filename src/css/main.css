@@ -990,6 +990,20 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
     font-size: 24px;
   }
 }
+.big-offers-section h6 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+  margin: 0 auto 39px;
+  text-align: center;
+  max-width: 750px;
+  text-align: center;
+}
+@media screen and (max-width: 767px) {
+  .big-offers-section h6 {
+    font-size: 12px;
+  }
+}
 .big-offers-section p {
   font-size: 15px;
   font-weight: 600;
@@ -1083,6 +1097,114 @@ html[dir=rtl] ol.breadcrumb li:not(:last-of-type):after {
   -o-object-fit: cover;
      object-fit: cover;
   transition: all 0.3s ease-in-out;
+}
+
+.lower-hotels .grid-item {
+  width: 100%;
+  position: relative;
+  height: -moz-fit-content;
+  height: fit-content;
+  cursor: pointer;
+}
+.lower-hotels .grid-item img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: all 0.3s ease-in-out;
+}
+@media screen and (max-width: 767px) {
+  .lower-hotels .grid-item .item-cont {
+    border-radius: 40px;
+  }
+}
+.lower-hotels .grid-item .img-cont {
+  overflow: hidden;
+  border-radius: 60px;
+  overflow: hidden;
+  aspect-ratio: 414/343;
+  position: relative;
+  margin-bottom: 25px;
+  max-width: 410px;
+}
+.lower-hotels .grid-item .img-cont .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%);
+  z-index: 10;
+  padding: 60px 40px;
+}
+.lower-hotels .grid-item .img-cont .overlay:hover {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
+}
+.lower-hotels .grid-item .img-cont .overlay h4 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 15px;
+  text-align: start;
+}
+@media screen and (max-width: 767px) {
+  .lower-hotels .grid-item .img-cont .overlay h4 {
+    font-size: 24px;
+  }
+}
+.lower-hotels .grid-item .img-cont .overlay p {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.lower-hotels .grid-item .img-cont .overlay i {
+  font-size: 14px;
+  color: #FFBE33;
+}
+.lower-hotels .grid-item .arrow-cont {
+  position: absolute;
+  bottom: 0;
+  left: -20px;
+  z-index: 11;
+  width: 80px;
+  height: 80px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white-color);
+}
+@media screen and (max-width: 767px) {
+  .lower-hotels .grid-item .arrow-cont {
+    width: 55px;
+    height: 55px;
+    border-radius: 15px;
+  }
+}
+.lower-hotels .grid-item .arrow-cont .i-cint {
+  width: 55px;
+  height: 55px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-hover);
+}
+@media screen and (max-width: 767px) {
+  .lower-hotels .grid-item .arrow-cont .i-cint {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+}
+.lower-hotels .grid-item .arrow-cont i {
+  font-size: 14px;
+  color: #fff;
+  transform: rotate(45deg);
 }
 
 .detail-title {
@@ -3418,6 +3540,66 @@ figure::after {
 }
 .pagination span {
   background-color: var(--main-hover);
+}
+
+.city-card {
+  height: 205px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 24px;
+  margin-bottom: 24px;
+}
+.city-card img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.city-card .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #FCFCFC;
+  padding: 25px;
+}
+.city-card .overlay h2 {
+  font-size: 14px;
+  font-weight: 700;
+}
+.city-card .overlay p {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.cities-section {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 25px;
+}
+.cities-section .swiper-btn-2 {
+  position: relative;
+  width: unset;
+  padding: 0;
+}
+.cities-section h2 {
+  color: var(--main-hover);
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.cities-section p {
+  color: #434343;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 footer .upperfooter {

@@ -102,9 +102,8 @@ const HotelRooms = ({ data }) => {
 
                                             }}
                                         >
-                                            {
-
-                                                room?.vedios?.map((video, index) => {                                                    
+                                            {room?.vedios[0] == "https://panel.seatourism.sa/storage" ? null :
+                                                room?.vedios?.map((video, index) => {
                                                     return (
                                                         <SwiperSlide key={index}>
                                                             <figure className="img-cont">
@@ -140,7 +139,7 @@ const HotelRooms = ({ data }) => {
                                                     );
                                                 })
                                             }
-                                            
+
 
 
                                             <div className="swiper-btn-cont swiper-btn-2" id={`swiper-btn-prev1a`}>
