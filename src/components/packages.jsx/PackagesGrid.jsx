@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import plane from '../../assets/housing/plane-icon.svg'
+import plane from '../../../public/app/plane-icon.svg'
 import { toast } from 'sonner';
 import { toggleFavourates } from '../../pages/toggleFavourates';
-import axios from 'axios';
-import { API_BASE_URL } from '../../lib/apiConfig';
 import {motion} from "framer-motion";
 import { useGetSettings } from '../global/useGetSettings';
 const PackagesGrid = ({ mainData }) => {

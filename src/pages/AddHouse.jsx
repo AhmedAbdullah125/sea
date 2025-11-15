@@ -1,18 +1,19 @@
 import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import p1 from '../assets/housing/p1.svg'
-import p2 from '../assets/housing/p2.svg'
-import p3 from '../assets/housing/p3.svg'
-import p4 from '../assets/housing/p4.svg'
-import p5 from '../assets/housing/p5.svg'
-import p6 from '../assets/housing/p6.svg'
-import detail4 from '../assets/housing/house-icon.svg'
+import p1 from '../../public/app/p1.svg'
+import p2 from '../../public/app/p2.svg'
+import p3 from '../../public/app/p3.svg'
+import p4 from '../../public/app/p4.svg'
+import p5 from '../../public/app/p5.svg'
+import p6 from '../../public/app/p6.svg'
+import detail4 from '../../public/app/house-icon.svg'
 import offer_d from '../../public/app/offer_d.svg'
 import offer_tr from '../../public/app/offer_tr.svg'
 import offer_m from '../../public/app/offer_m.svg'
 import AppSection from '../components/home/appSection/AppSection'
 import { useGetSettings } from '@/components/global/useGetSettings';
+import { Link } from 'react-router-dom'
 
 const AddHouse = () => {
 
@@ -59,8 +60,7 @@ const AddHouse = () => {
                     <h6 className="package-head">تفاصيل ادق !</h6>
                     <h3 className="package-title">وش نقدم لك في منصة ســـي</h3>
                     <p className="package-text">أنشر وأضف مصدر دخل جديـــد !</p>
-                    <a href={`https://wa.me/${data.whatsapp}?text=Hello, I am interested to add my house`} className="custom-link housing-ancor"
-                    ><span>سجل سكنك الان</span> <img src={detail4} alt="house" /></a>
+                    <Link to={`/add-steps`} className="custom-link housing-ancor" ><span>سجل سكنك الان</span> <img src={detail4} alt="house" /></Link>
                     <div className="offer-cont">
                         <div className="offer-item">
                             <div className="icon-cont">

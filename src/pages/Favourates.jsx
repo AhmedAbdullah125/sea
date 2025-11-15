@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../lib/apiConfig";
 import Loading from "../components/loading/Loading";
-import waImage from '../assets/wa.svg'
+import waImage from '../../public/app/wa.svg'
 import { ChevronDown } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "framer-motion";

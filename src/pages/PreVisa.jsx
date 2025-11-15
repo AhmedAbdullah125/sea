@@ -1,15 +1,8 @@
-import { useQuery } from "@tanstack/react-query"
 import Footer from "../components/footer/Footer"
 import Header from "../components/header/Header"
-import VisaCard from "../components/visa/VisaCard"
-import { fetchFromApi } from "../api/utils/fetchData"
 import { Link, useSearchParams } from "react-router-dom"
 import { FiArrowUpLeft } from "react-icons/fi";
-import Loading from "../components/loading/Loading"
-import AlertWarning from "../components/alerts/AlertWarning"
-import AlertError from "../components/alerts/AlertError"
 import { motion } from "framer-motion"
-import bg from "../assets/visabg.jpg"
 import { PrevisaQuery } from "./PrevisaQuery"
 const PreVisa = () => {
     const [searchParams] = useSearchParams();

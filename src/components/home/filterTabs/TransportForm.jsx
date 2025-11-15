@@ -4,8 +4,8 @@ import axios from 'axios'
 import { MdStars } from "react-icons/md";
 import { API_BASE_URL } from '../../../lib/apiConfig';
 import Loading from '../../loading/Loading';
-import arrowTopLeft from '../../../assets/arrToLf.svg'
-import appLogo from '../../../assets/app-logo.png'
+import arrowTopLeft from '../../../../public/app/arrToLf.svg'
+import appLogo from '../../../../public/app/app-logo.png'
 import { Link } from 'react-router-dom';
 
 const TransportForm = () => {

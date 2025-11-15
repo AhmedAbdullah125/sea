@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import imgicon1 from '../../assets/imgIcon-1.svg'
-import imgicon2 from '../../assets/imgIcon-2.svg'
+import imgicon1 from '../../../public/app/imgIcon-1.svg'
+import imgicon2 from '../../../public/app/imgIcon-2.svg'
 import { toast } from 'sonner'
 import { toggleFavourates } from '../../pages/toggleFavourates'
 import { Fancybox } from "@fancyapps/ui";

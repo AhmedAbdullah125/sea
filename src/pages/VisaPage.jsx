@@ -8,7 +8,7 @@ import Loading from "../components/loading/Loading"
 import AlertWarning from "../components/alerts/AlertWarning"
 import AlertError from "../components/alerts/AlertError"
 import { motion } from "framer-motion"
-import bg from "../assets/visabg.jpg"
+import bg from "../../public/app/visabg.jpg"
 const VisaPage = () => {
   const [searchParams] = useSearchParams();
   const type = searchParams.get("type");
@@ -42,24 +42,24 @@ const VisaPage = () => {
           backgroundImage: `url(${bg})`,
           backgroundColor: "rgba(0, 0, 0, 0.5)"
         }}
-        >
-          <div className="py-16 bg-black/50">
+      >
+        <div className="py-16 bg-black/50">
 
-        {/* content  */}
-        <div className="container text-white text-center">
-          {type ?
-            <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">تأشيرات {type == "sa" ? "السعودية" : "الإمارات العربية المتحدة"} الإلكترونية </h1>
-            :
-            <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">التأشيرات الإلكترونية</h1>
-          }
+          {/* content  */}
+          <div className="container text-white text-center">
+            {type ?
+              <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">تأشيرات {type == "sa" ? "السعودية" : "الإمارات العربية المتحدة"} الإلكترونية </h1>
+              :
+              <h1 className="xl:text-5xl md:text-4xl text-3xl font-bold ">التأشيرات الإلكترونية</h1>
+            }
 
-          <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">
-            يمكن لأي شخص يَحمل جواز سفر الحصول على التأشيرة الإلكترونية وفقًا للشروط الموضوعة .
-          </p>
-          <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">
-            يتم معالجة الطلب من 3 إلى 5 أيام عمل.          </p>
-        </div>
+            <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">
+              يمكن لأي شخص يَحمل جواز سفر الحصول على التأشيرة الإلكترونية وفقًا للشروط الموضوعة .
+            </p>
+            <p className="  md:text-base text-sm m-auto font-light leading-relaxed mt-6">
+              يتم معالجة الطلب من 3 إلى 5 أيام عمل.          </p>
           </div>
+        </div>
       </motion.div>
       {/* content */}
       <section className="my-16 container">
@@ -85,9 +85,9 @@ const VisaPage = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: index * 0.1 }}
                 key={index}
-              className="col-span-12 md:col-span-6 xl:col-span-3  bg-body rounded-[50px]  p-6 h-full"
+                className="col-span-12 md:col-span-6 xl:col-span-3  bg-body rounded-[50px]  p-6 h-full"
               >
-                <VisaCard  item={item} />
+                <VisaCard item={item} />
               </motion.div>
             ))}
           </div>

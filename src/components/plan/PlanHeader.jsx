@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import img1 from '../../assets/s.svg'
-import img2 from '../../assets/check.svg'
-import imgicon1 from '../../assets/imgIcon-1.svg'
-import imgicon2 from '../../assets/imgIcon-2.svg'
+import img1 from '../../../public/app/s.svg'
+import img2 from '../../../public/app/check.svg'
+import imgicon1 from '../../../public/app/imgIcon-1.svg'
+import imgicon2 from '../../../public/app/imgIcon-2.svg'
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { toast } from 'sonner'

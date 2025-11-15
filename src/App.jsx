@@ -36,6 +36,7 @@ import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import PaymentMaintenance from './components/hotel/PaymentMaintenance';
 import PreVisa from './pages/PreVisa';
+import AddSteps from './pages/AddSteps';
 export const AppContext = createContext();
 function App() {
 	const queryClient = new QueryClient()
@@ -59,6 +60,7 @@ function App() {
 			{ path: "/package/:id", element: <Package></Package> },
 			{ path: "/terms", element: <Terms></Terms> },
 			{ path: "/privacy", element: <Privacy></Privacy> },
+			{ path: "/add-steps", element: <AddSteps></AddSteps> },
 			{ path: "/login", element: <Login></Login> },
 			{ path: "/blogs", element: <Blogs></Blogs> },
 			{ path: "/paymentMaintenance", element: <PaymentMaintenance></PaymentMaintenance> },

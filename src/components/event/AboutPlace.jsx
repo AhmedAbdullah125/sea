@@ -1,5 +1,5 @@
 import React from 'react'
-import ticketimg from '../../assets/ticket.svg'
+import ticketimg from '../../../public/app/ticket.svg'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 const AboutPlace = ({ data }) => {
     return (

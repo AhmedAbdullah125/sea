@@ -1,7 +1,5 @@
-import React, { useContext, useState } from 'react'
-import img1 from '../../assets/s.svg'
-import img2 from '../../assets/check.svg'
-import { userContext } from '../../context/UserContext';
+import img1 from '../../../public/app/s.svg'
+import img2 from '../../../public/app/check.svg'
 import profileActive from '../../../public/app/profileActive.svg'
 import { motion } from "framer-motion";
 import {

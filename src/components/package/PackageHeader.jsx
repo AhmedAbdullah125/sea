@@ -1,7 +1,7 @@
 import React from 'react'
-import img1 from '../../assets/detail.jpg'
-import imgicon1 from '../../assets/imgIcon-1.svg'
-import imgicon2 from '../../assets/imgIcon-2.svg'
+import img1 from '../../../public/app/detail.jpg'
+import imgicon1 from '../../../public/app/imgIcon-1.svg'
+import imgicon2 from '../../../public/app/imgIcon-2.svg'
 const PackageHeader = () => {
     return (
         <section className="content-section">

@@ -6,11 +6,11 @@ import google from '../../../public/app/google.svg'
 import { Link } from 'react-router-dom'
 import Loading from '../loading/Loading'
 import { motion } from "framer-motion";
-import payImg1 from '../../assets/pay-img/01.svg'
-import payImg2 from '../../assets/pay-img/02.svg'
-import payImg3 from '../../assets/pay-img/03.svg'
-import payImg4 from '../../assets/pay-img/04.svg'
-import payImg5 from '../../assets/pay-img/05.svg'
+    import payImg1 from '../../../public/app/01.svg'
+    import payImg2 from '../../../public/app/02.svg'
+    import payImg3 from '../../../public/app/03.svg'
+    import payImg4 from '../../../public/app/04.svg'
+    import payImg5 from '../../../public/app/05.svg'
 import { useGetSettings } from '@/components/global/useGetSettings';
 const Footer = () => {
     const { data, isLoading, isError } = useGetSettings();

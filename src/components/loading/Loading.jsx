@@ -1,6 +1,6 @@
 import React from 'react'
-import largeLoading from '../../assets/loading/lLarge.gif'
-import smallLoading from '../../assets/loading/lSmall.gif'
+import largeLoading from '../../../public/app/lLarge.gif'
+import smallLoading from '../../../public/app/lSmall.gif'
 const Loading = () => {
     return (
         <section className="w-full h-screen flex items-center justify-center  bg-white ">

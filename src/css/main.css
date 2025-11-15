@@ -5093,4 +5093,455 @@ footer .ies a i {
 .dets .rating i {
   color: #FFBE33;
   font-size: 20px;
+}
+
+.add-main-cont {
+  background-color: #F5F5F5;
+  padding-block: 55px;
+}
+.add-main-cont .add-cont {
+  padding: 55px;
+  border-radius: 40px;
+  background-color: var(--white-color);
+}
+@media screen and (max-width: 991px) {
+  .add-main-cont .add-cont {
+    padding: 20px;
+  }
+}
+.add-main-cont .navigate {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+.add-main-cont .navigate img {
+  height: 30px;
+  width: auto;
+}
+.add-main-cont .navigate i {
+  font-size: 12px;
+}
+.add-main-cont .navigate span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #787878;
+}
+.add-main-cont .navigate button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.add-main-cont .steps_progress {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.add-main-cont .steps_progress .step {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.add-main-cont .steps_progress .step h5 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #787878;
+}
+.add-main-cont .steps_progress .step .line-inder {
+  width: 100%;
+  height: 5px;
+  background-color: #F3F3F3;
+  border-radius: 5px;
+}
+.add-main-cont .steps_progress .step .active-line {
+  background-color: var(--sec-color);
+}
+.add-main-cont .house-type h2 {
+  font-size: 42px;
+  font-weight: 600;
+  color: var(--main-hover);
+  margin-bottom: 20px;
+  text-align: center;
+}
+@media screen and (max-width: 991px) {
+  .add-main-cont .house-type h2 {
+    font-size: 28px;
+  }
+}
+.add-main-cont .house-type p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #4D4D4D;
+  margin-bottom: 55px;
+  text-align: center;
+}
+.add-main-cont .house-type .typs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+@media screen and (max-width: 991px) {
+  .add-main-cont .house-type .typs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.add-main-cont .house-type .typs-grid .typs-item {
+  padding: 85px 20px;
+  border-radius: 50px;
+  background-color: #F5F5F5;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+.add-main-cont .house-type .typs-grid .typs-item:hover {
+  background-color: var(--main-color);
+  color: var(--white-color);
+}
+@media screen and (max-width: 991px) {
+  .add-main-cont .house-type .typs-grid .typs-item {
+    padding: 32px 20px;
+  }
+}
+.add-main-cont .house-type .typs-grid .typs-item .arr-cont {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
+.add-main-cont .house-type .typs-grid .typs-item .arr-cont i {
+  font-size: 12px;
+  transition: all 0.3s ease-in-out;
+  transform: rotate(45deg);
+}
+.add-main-cont .house-type .typs-grid .typs-item .arr-cont i:hover {
+  color: var(--main-color);
+}
+.add-main-cont .house-type .typs-grid .typs-item .img-cont {
+  width: 115px;
+  height: 115px;
+  background-color: var(--white-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (max-width: 767px) {
+  .add-main-cont .house-type .typs-grid .typs-item .img-cont {
+    width: 85px;
+    height: 85px;
+  }
+}
+.add-main-cont .house-type .typs-grid .typs-item .img-cont img {
+  width: 33px;
+  height: 33px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.add-main-cont .house-type .typs-grid .typs-item h3 {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+}
+@media screen and (max-width: 767px) {
+  .add-main-cont .house-type .typs-grid .typs-item h3 {
+    font-size: 18px;
+  }
+}
+.add-main-cont .house-type .typs-grid .typs-item span {
+  font-size: 14px;
+  font-weight: 300;
+  text-align: center;
+}
+@media screen and (max-width: 767px) {
+  .add-main-cont .house-type .typs-grid .typs-item span {
+    font-size: 12px;
+  }
+}
+.add-main-cont .house-type .typs-grid .active-item {
+  background-color: var(--main-color);
+  color: var(--white-color);
+}
+.add-main-cont .house-type.building-details {
+  text-align: center;
+}
+.add-main-cont .house-type.building-details h2 {
+  margin-bottom: 12px;
+}
+.add-main-cont .house-type.building-details p {
+  margin-bottom: 45px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #4D4D4D;
+}
+.add-main-cont .house-type.building-details .details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media screen and (max-width: 1199px) {
+  .add-main-cont .house-type.building-details .details-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.add-main-cont .house-type.building-details .details-card {
+  background-color: #F6F6F6;
+  border-radius: 45px;
+  padding: 35px 40px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+@media screen and (max-width: 767px) {
+  .add-main-cont .house-type.building-details .details-card {
+    padding: 25px 20px;
+  }
+}
+.add-main-cont .house-type.building-details .details-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--main-color);
+  margin: 0;
+}
+.add-main-cont .house-type.building-details .options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.add-main-cont .house-type.building-details .option-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #4D4D4D;
+}
+.add-main-cont .house-type.building-details .option-item span {
+  line-height: 1.6;
+}
+
+.address-step {
+  text-align: center;
+}
+.address-step h2 {
+  margin-bottom: 12px;
+}
+.address-step p {
+  margin-bottom: 45px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #4D4D4D;
+}
+.address-step .address-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr 1.4fr;
+  gap: 24px;
+  align-items: stretch;
+}
+@media screen and (max-width: 1199px) {
+  .address-step .address-layout {
+    grid-template-columns: 1fr;
+  }
+}
+.address-step .details-toggle {
+  background-color: #F6F6F6;
+  border-radius: 45px;
+  padding: 35px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  text-align: right;
+}
+.address-step .details-toggle .toggle-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--main-color);
+}
+.address-step .details-toggle .toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #4D4D4D;
+}
+.address-step .details-toggle .toggle-row .form-control {
+  display: flex;
+  align-items: center;
+}
+.address-step .confirmation-card {
+  background-color: #F6F6F6;
+  border-radius: 45px;
+  padding: 35px 32px;
+  text-align: right;
+}
+.address-step .confirmation-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--main-color);
+  margin-bottom: 20px;
+}
+.address-step .confirmation-card .address-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+.address-step .confirmation-card .address-form .address-field {
+  text-align: right;
+}
+.address-step .confirmation-card .address-form .address-field .address-input {
+  border-radius: 999px;
+  height: 48px;
+  padding-inline: 24px;
+  background: var(--white-color);
+  border: none;
+  font-size: 14px;
+}
+.address-step .confirmation-card .address-form .address-field label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1A2F6A;
+}
+.address-step .confirmation-card .address-form .address-field label span {
+  color: #E11D48;
+}
+.address-step .map-card {
+  background-color: #F6F6F6;
+  border-radius: 45px;
+  padding: 35px 32px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.address-step .map-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--main-color);
+}
+.address-step .map-card .map-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--white-color);
+  border-radius: 999px;
+  padding-inline: 20px;
+  height: 50px;
+}
+.address-step .map-card .map-search .address-input {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 14px;
+  color: #4D4D4D;
+}
+.address-step .map-card .map-search svg {
+  color: #4D4D4D;
+}
+.address-step .map-card .map-wrapper {
+  position: relative;
+  border-radius: 35px;
+  overflow: hidden;
+}
+.address-step .map-card .map-wrapper iframe {
+  width: 100%;
+  height: 280px;
+  border: none;
+}
+.address-step .map-card .map-wrapper .map-controls {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.address-step .map-card .map-wrapper .map-controls .map-round-btn {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.92);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.address-step .map-card .map-wrapper .map-controls .map-round-btn:hover {
+  transform: translateY(-2px);
+}
+.address-step .map-card .location-btn {
+  background-color: #0D1214;
+  color: var(--white-color);
+  border-radius: 999px;
+  height: 58px;
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.address-step .map-card .location-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.steps-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 55px;
+  gap: 20px;
+}
+.steps-footer p {
+  font-size: 14px;
+  color: #4D4D4D;
+  margin: 0;
+}
+@media screen and (max-width: 767px) {
+  .steps-footer p {
+    display: none;
+  }
+}
+.steps-footer .steps-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 115px;
+  height: 58px;
+  padding: 10px 25px;
+  border-radius: 32px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.steps-footer .steps-btn i {
+  font-size: 18px;
+}
+.steps-footer .steps-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+.steps-footer .prev-btn {
+  background-color: var(--black-color);
+  color: var(--white-color);
+}
+.steps-footer .next-btn {
+  background-color: var(--sec-color);
+  color: var(--white-color);
 }/*# sourceMappingURL=main.css.map */

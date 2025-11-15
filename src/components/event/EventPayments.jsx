@@ -1,9 +1,9 @@
 import React from 'react'
-import pay1img from '../../assets/pay-img/01.svg'
-import pay2img from '../../assets/pay-img/02.svg'
-import pay3img from '../../assets/pay-img/03.svg'
-import pay4img from '../../assets/pay-img/04.svg'
-import pay5img from '../../assets/pay-img/05.svg'
+import pay1img from '../../../public/app/01.svg'
+import pay2img from '../../../public/app/02.svg'
+import pay3img from '../../../public/app/03.svg'
+import pay4img from '../../../public/app/04.svg'
+import pay5img from '../../../public/app/05.svg'
 const EventPayments = () => {
     const payimggs = [pay1img, pay2img, pay3img, pay4img, pay5img]
     return (
