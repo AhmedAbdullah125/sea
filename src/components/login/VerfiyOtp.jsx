@@ -4,8 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import CustomInput from "../home/filterTabs/CustomInput"
-import { postToApi } from "../../api/utils/postData"
-import { toast } from "sonner"
 import { useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import { userContext } from "../../context/UserContext"
@@ -13,6 +11,7 @@ import { FaCommentSms } from "react-icons/fa6"
 import { verifyEmail } from "./verifyEmail"
 import { useState } from "react"
 import Loading from "../loading/Loading"
+import { resendOTP } from "./resendOTP"
 
 // validation
 const formSchema = z.object({
@@ -37,7 +36,7 @@ const VerfiyOtp = ({ phone }) => {
   }
   //resend otp
   const resendOtp = () => {
-    
+    resendOTP(phone, setLoading)
   }
   return (
     <>
@@ -77,7 +76,10 @@ const VerfiyOtp = ({ phone }) => {
             </svg>
           </Button> */}
                 <Button
-                  className="group h-12 px-6 text-white  bg-main-blue hover:bg-main-purple transtion-all duration-300 w-full text-xs font-bold   rounded-full flex items-center justify-between  hover:text-white  ">
+                  className="group h-12 px-6 text-white  bg-main-blue hover:bg-main-purple transtion-all duration-300 w-full text-xs font-bold   rounded-full flex items-center justify-between  hover:text-white  "
+                  onClick={resendOtp}
+                  disabled={loading}
+                  >
                   إعادة إرسال
                   <FaCommentSms size={20} className="text-white" />
                 </Button>

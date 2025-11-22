@@ -21,7 +21,7 @@ import { AiFillDollarCircle } from "react-icons/ai";
 import { MdStarRate } from "react-icons/md";
 import { API_BASE_URL } from "../../lib/apiConfig";
 import Loading from "../loading/Loading";
-import {motion} from "framer-motion"
+import { motion } from "framer-motion"
 const countOptions = Array.from({ length: 10 }, (_, i) => {
   const num = (i + 1).toString();
   return { label: num, value: num };
@@ -44,7 +44,7 @@ export const filterSchema = z.object({
   type: z.string().optional(),
 });
 
-const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
+const FilterPanel = ({ defaultValues, setMainData, setLoading }) => {
   function formatDate(input) {
     const date = new Date(input);
     const year = date.getFullYear();
@@ -53,7 +53,6 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
     return `${year}-${month}-${day}`;
   }
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [continents, setContinents] = useState([])
   const [seletedCountry, setSelectedCountry] = useState(defaultValues.destination || '');
   const [guests, setGuests] = useState(defaultValues.guest || '');
@@ -88,8 +87,8 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
         setLoading(false);
       } catch (error) {
         console.error('Error retrieving data:', error);
-        setLoading(false);
         throw new Error('Could not get data');
+        setLoading(false);
       }
     };
     getData();
@@ -104,294 +103,293 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
   const { watch, setValue } = form;
   const values = watch();
   return (
-    <>
-      {
-        loading ? <Loading /> :
-          <Form {...form}>
-            <motion.form
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5}} className="space-y-4 mb-10">
-              <div className="flex gap-4 xl:flex-nowrap flex-wrap">
-                {/* end */}
-                <FormField
-                  className="w-full "
-                  control={form.control}
-                  name={"end"}
-                  render={() => (
-                    <FormItem className="xl:col-span-3 col-span-12 w-full ">
-                      <FormLabel className="flex items-center gap-1">
-                        <BsFillSendFill size={16} className="text-main-purple" />
-                        <p className="text-main-blue font-bold text-sm">
-                          إختــــــر القــــارة
-                        </p>
-                      </FormLabel>
-                      <Select dir="rtl"
-                        onValueChange={(val) => {
-                          setSelectedCountry(""); setSelectedContinents(val)}} >
-                        <FormControl>
-                          <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
-                            <ChevronDown size={14} />
-                          </div>} className={`bg-body  text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
-                            <SelectValue placeholder={"إدخـــال نقطة الانطلاق من هنــا..."} className="text-[#797979]" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                          {continents.map((option) => (
-                            <SelectItem key={option.name} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
-                              {option.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormItem>
-                  )}
-                />
-                {/* start */}
-                <FormField
-                  control={form.control}
-                  name={"start"}
-                  className="w-full "
-                  render={() => (
-                    <FormItem className="xl:col-span-3 col-span-12 w-full">
-                      <FormLabel className="flex items-center gap-1">
-                        <BsFillSendFill size={16} className="text-main-purple" />
-                        <p className="text-main-blue font-bold text-sm">
-                        إختـــر الدولـــة
-                        </p>
-                      </FormLabel>
-                      <Select dir="rtl"
-                        defaultValue={values.destination}
-                        disabled={selectedContinents ? false : true}
-                        onValueChange={(val) => setSelectedCountry(val)} >
-                        <FormControl>
-                          <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
-                            <ChevronDown size={14} />
-                          </div>} className={`bg-body  text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
-                            <SelectValue placeholder={"إدخـــال نقطة الانطلاق من هنــا..."} className="text-[#797979]" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                          {
-                            continents.find((cont) => String(cont.id) === selectedContinents)?.countries?.map((option) => (
-                              <SelectItem key={option.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
-                                {option.name}
-                              </SelectItem>
-                            ))
-                          }
-                         
-                        </SelectContent>
-                      </Select>
-                    </FormItem>
-                  )}
-                />
 
-                {/* number */}
-                {/* date */}
-                <FormField
-                  control={form.control}
-                  name={"date"}
-                  className="w-full "
-                  render={({ field }) => (
-                    <FormItem className={`xl:col-span-3 col-span-12  w-full flex flex-col`}>
-                      <FormLabel className="flex items-center gap-1">
-                        <FaCalendarDays size={16} className="text-main-purple" />
-                        <p className="text-main-blue font-bold text-sm">
-                          موعـــد الوصول 
-                        </p>
-                      </FormLabel>
-                      <Popover className="w-full">
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              className={cn(
-                                "bg-body h-12 w-full px-3  font-xs font-semibold text-main-gray  rounded-full border-none hover:bg-body  flex items-center justify-between",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value ? (
-                                format(field.value, "PPP")
-                              ) : (
-                                <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>
-                              )}
-                              <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
-                                <ChevronDown size={14} />
-                              </div>
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value ? new Date(field.value) : undefined}
-                            // onChange={field.onChange}
-                            onSelect={(date) => setSelectedDate(date)}
-                            className="w-full"
-                          // fromDate={new Date()} // ⬅️ This prevents selecting past dates
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage className="text-red-500  text-xs " />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={"dateTo"}
-                  className="w-full "
-                  render={({ field }) => (
-                    <FormItem className={`xl:col-span-3 col-span-12  w-full flex flex-col`}>
-                      <FormLabel className="flex items-center gap-1">
-                        <FaCalendarDays size={16} className="text-main-purple" />
-                        <p className="text-main-blue font-bold text-sm">
-                          موعـــد العودة
-                        </p>
-                      </FormLabel>
-                      <Popover className="w-full">
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              className={cn(
-                                "bg-body h-12 w-full px-3  font-xs font-semibold text-main-gray  rounded-full border-none hover:bg-body  flex items-center justify-between",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value ? (
-                                format(field.value, "PPP")
-                              ) : (
-                                <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>
-                              )}
-                              <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
-                                <ChevronDown size={14} />
-                              </div>
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value ? new Date(field.value) : undefined}
-                            // onChange={field.onChange}
-                            onSelect={(date) => setSelectedDateTo(date)}
-                            className="w-full"
-                          // fromDate={new Date()} // ⬅️ This prevents selecting past dates
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage className="text-red-500  text-xs " />
-                    </FormItem>
-                  )}
-                />
-                {/* <button type="button" className="flex-shrink-0 xl:col-span-2 col-span-12 h-12 py-0 px-9 mt-7 bg-[#A71755]  text-white hover:text-red-500  font-semibold flex items-center justify-center rounded-full xl:order-[unset] order-1">عرض النــــتائج</button> */}
-              </div>
-              <div className="grid grid-cols-6 gap-4">
-                {/* lang */}
-                <FormField
-                  control={form.control}
-                  name={"lang"}
-                  render={() => (
-                    <FormItem className="xl:col-span-2 col-span-12">
-                      <Select dir="rtl"
-                        defaultValue={values.lang}
-                        onValueChange={(val) => setGuests(val)} >
-                        <FormControl>
-                          <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
-                            <ChevronDown size={14} />
-                          </div>}
-                            className={`bg-main-navy  text-white text-xs font-semibold border-none  rounded-full h-12`}>
-                            <SelectValue placeholder={
-                              <div className=" text-white flex items-center gap-1">
-                                <IoLanguage size={16} />
-                                <p >عدد الــــزوار</p>
-                              </div>} />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                          {Array.from({ length: 50 }, (_, index) => index + 1).map((option) => (
-                            <SelectItem key={option} value={option} className=" cursor-pointer focus:bg-body rounded-xl">
-                              {option}
-                            </SelectItem>
-                          ))
-                          }
-                        </SelectContent>
-                      </Select>
-                    </FormItem>
-                  )}
-                />
-                {/* min price */}
-                <FormField
-                  control={form.control}
-                  name={"min_price"}
-                  render={() => (
-                    <FormItem className="xl:col-span-2 col-span-12">
-                      <Select dir="rtl"
-                        defaultValue={values.country}
-                        onValueChange={(val) => setMinPrice(Number(val))} >
-                        <FormControl>
-                          <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
-                            <ChevronDown size={14} />
-                          </div>}
-                            className={`bg-main-navy  text-white text-xs font-semibold border-none  rounded-full h-12`}>
-                            <SelectValue placeholder={
-                              <div className=" text-white flex items-center gap-1">
-                                <LuBadgeDollarSign size={16} />
-                                <p >الاقل سعـــرا</p>
-                              </div>} />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                          {Array.from({ length: 50 }, (_, index) => index + 1).map((option) => (
+    <Form {...form}>
+      <motion.form
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }} className="space-y-4 mb-10">
+        <div className="flex gap-4 xl:flex-nowrap flex-wrap">
+          {/* end */}
+          <FormField
+            className="w-full "
+            control={form.control}
+            name={"end"}
+            render={() => (
+              <FormItem className="xl:col-span-3 col-span-12 w-full ">
+                <FormLabel className="flex items-center gap-1">
+                  <BsFillSendFill size={16} className="text-main-purple" />
+                  <p className="text-main-blue font-bold text-sm">
+                    إختــــــر القــــارة
+                  </p>
+                </FormLabel>
+                <Select dir="rtl"
+                  onValueChange={(val) => {
+                    setSelectedCountry(""); setSelectedContinents(val)
+                  }} >
+                  <FormControl>
+                    <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                      <ChevronDown size={14} />
+                    </div>} className={`bg-body  text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
+                      <SelectValue placeholder={"إدخـــال نقطة الانطلاق من هنــا..."} className="text-[#797979]" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                    {continents.map((option) => (
+                      <SelectItem key={option.name} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
+                        {option.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            )}
+          />
+          {/* start */}
+          <FormField
+            control={form.control}
+            name={"start"}
+            className="w-full "
+            render={() => (
+              <FormItem className="xl:col-span-3 col-span-12 w-full">
+                <FormLabel className="flex items-center gap-1">
+                  <BsFillSendFill size={16} className="text-main-purple" />
+                  <p className="text-main-blue font-bold text-sm">
+                    إختـــر الدولـــة
+                  </p>
+                </FormLabel>
+                <Select dir="rtl"
+                  defaultValue={values.destination}
+                  disabled={selectedContinents ? false : true}
+                  onValueChange={(val) => setSelectedCountry(val)} >
+                  <FormControl>
+                    <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                      <ChevronDown size={14} />
+                    </div>} className={`bg-body  text-[#797979]  text-xs font-semibold border-none  rounded-full h-12`}>
+                      <SelectValue placeholder={"إدخـــال نقطة الانطلاق من هنــا..."} className="text-[#797979]" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                    {
+                      continents.find((cont) => String(cont.id) === selectedContinents)?.countries?.map((option) => (
+                        <SelectItem key={option.id} value={String(option.id)} className=" cursor-pointer focus:bg-body rounded-xl">
+                          {option.name}
+                        </SelectItem>
+                      ))
+                    }
 
-                            option ?
-                              <SelectItem key={option} value={String(option * 100)} className=" cursor-pointer focus:bg-body rounded-xl">
-                                {option * 100}
-                              </SelectItem> : null
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            )}
+          />
 
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={"max_price"}
-                  render={() => (
-                    <FormItem className="xl:col-span-2 col-span-12">
-                      <Select dir="rtl"
-                        defaultValue={values.country}
-                        onValueChange={(val) => setMaxPrice(Number(val))} >
-                        <FormControl>
-                          <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
-                            <ChevronDown size={14} />
-                          </div>}
-                            className={`bg-main-navy  text-white text-xs font-semibold border-none  rounded-full h-12`}>
-                            <SelectValue placeholder={
-                              <div className=" text-white flex items-center gap-1">
-                                <LuBadgeDollarSign size={16} />
-                                <p >الاعلي سعـــرا</p>
-                              </div>} />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className=" shadow border-none rounded-xl bg-white  ">
-                          {Array.from({ length: 50 }, (_, index) => index + 1).map((option) => (
+          {/* number */}
+          {/* date */}
+          <FormField
+            control={form.control}
+            name={"date"}
+            className="w-full "
+            render={({ field }) => (
+              <FormItem className={`xl:col-span-3 col-span-12  w-full flex flex-col`}>
+                <FormLabel className="flex items-center gap-1">
+                  <FaCalendarDays size={16} className="text-main-purple" />
+                  <p className="text-main-blue font-bold text-sm">
+                    موعـــد الوصول
+                  </p>
+                </FormLabel>
+                <Popover className="w-full">
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "bg-body h-12 w-full px-3  font-xs font-semibold text-main-gray  rounded-full border-none hover:bg-body  flex items-center justify-between",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>
+                        )}
+                        <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                          <ChevronDown size={14} />
+                        </div>
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value ? new Date(field.value) : undefined}
+                      // onChange={field.onChange}
+                      onSelect={(date) => setSelectedDate(date)}
+                      className="w-full"
+                    // fromDate={new Date()} // ⬅️ This prevents selecting past dates
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormMessage className="text-red-500  text-xs " />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name={"dateTo"}
+            className="w-full "
+            render={({ field }) => (
+              <FormItem className={`xl:col-span-3 col-span-12  w-full flex flex-col`}>
+                <FormLabel className="flex items-center gap-1">
+                  <FaCalendarDays size={16} className="text-main-purple" />
+                  <p className="text-main-blue font-bold text-sm">
+                    موعـــد العودة
+                  </p>
+                </FormLabel>
+                <Popover className="w-full">
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "bg-body h-12 w-full px-3  font-xs font-semibold text-main-gray  rounded-full border-none hover:bg-body  flex items-center justify-between",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span className="text-[#797979] text-xs font-semibold">مثل 22 / 05 / 2025. 10: 48 صباحا </span>
+                        )}
+                        <div className="size-6 flex items-center justify-center text-white bg-main-navy rounded-full">
+                          <ChevronDown size={14} />
+                        </div>
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0 bg-white rounded-xl border-none shadow-md" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value ? new Date(field.value) : undefined}
+                      // onChange={field.onChange}
+                      onSelect={(date) => setSelectedDateTo(date)}
+                      className="w-full"
+                    // fromDate={new Date()} // ⬅️ This prevents selecting past dates
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormMessage className="text-red-500  text-xs " />
+              </FormItem>
+            )}
+          />
+          {/* <button type="button" className="flex-shrink-0 xl:col-span-2 col-span-12 h-12 py-0 px-9 mt-7 bg-[#A71755]  text-white hover:text-red-500  font-semibold flex items-center justify-center rounded-full xl:order-[unset] order-1">عرض النــــتائج</button> */}
+        </div>
+        <div className="grid grid-cols-6 gap-4">
+          {/* lang */}
+          <FormField
+            control={form.control}
+            name={"lang"}
+            render={() => (
+              <FormItem className="xl:col-span-2 col-span-12">
+                <Select dir="rtl"
+                  defaultValue={values.lang}
+                  onValueChange={(val) => setGuests(val)} >
+                  <FormControl>
+                    <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
+                      <ChevronDown size={14} />
+                    </div>}
+                      className={`bg-main-navy  text-white text-xs font-semibold border-none  rounded-full h-12`}>
+                      <SelectValue placeholder={
+                        <div className=" text-white flex items-center gap-1">
+                          <IoLanguage size={16} />
+                          <p >عدد الــــزوار</p>
+                        </div>} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                    {Array.from({ length: 50 }, (_, index) => index + 1).map((option) => (
+                      <SelectItem key={option} value={option} className=" cursor-pointer focus:bg-body rounded-xl">
+                        {option}
+                      </SelectItem>
+                    ))
+                    }
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            )}
+          />
+          {/* min price */}
+          <FormField
+            control={form.control}
+            name={"min_price"}
+            render={() => (
+              <FormItem className="xl:col-span-2 col-span-12">
+                <Select dir="rtl"
+                  defaultValue={values.country}
+                  onValueChange={(val) => setMinPrice(Number(val))} >
+                  <FormControl>
+                    <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
+                      <ChevronDown size={14} />
+                    </div>}
+                      className={`bg-main-navy  text-white text-xs font-semibold border-none  rounded-full h-12`}>
+                      <SelectValue placeholder={
+                        <div className=" text-white flex items-center gap-1">
+                          <LuBadgeDollarSign size={16} />
+                          <p >الاقل سعـــرا</p>
+                        </div>} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                    {Array.from({ length: 50 }, (_, index) => index + 1).map((option) => (
 
-                            option ?
-                              <SelectItem key={option} value={String(option * 100)} className=" cursor-pointer focus:bg-body rounded-xl">
-                                {option * 100}
-                              </SelectItem> : null
+                      option ?
+                        <SelectItem key={option} value={String(option * 100)} className=" cursor-pointer focus:bg-body rounded-xl">
+                          {option * 100}
+                        </SelectItem> : null
 
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormItem>
-                  )}
-                />
-                {/* offers */}
-                {/* <FormField
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name={"max_price"}
+            render={() => (
+              <FormItem className="xl:col-span-2 col-span-12">
+                <Select dir="rtl"
+                  defaultValue={values.country}
+                  onValueChange={(val) => setMaxPrice(Number(val))} >
+                  <FormControl>
+                    <SelectTrigger icon={<div className="size-6 flex items-center justify-center text-white ">
+                      <ChevronDown size={14} />
+                    </div>}
+                      className={`bg-main-navy  text-white text-xs font-semibold border-none  rounded-full h-12`}>
+                      <SelectValue placeholder={
+                        <div className=" text-white flex items-center gap-1">
+                          <LuBadgeDollarSign size={16} />
+                          <p >الاعلي سعـــرا</p>
+                        </div>} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className=" shadow border-none rounded-xl bg-white  ">
+                    {Array.from({ length: 50 }, (_, index) => index + 1).map((option) => (
+
+                      option ?
+                        <SelectItem key={option} value={String(option * 100)} className=" cursor-pointer focus:bg-body rounded-xl">
+                          {option * 100}
+                        </SelectItem> : null
+
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            )}
+          />
+          {/* offers */}
+          {/* <FormField
                   control={form.control}
                   name={"offers"}
                   render={() => (
@@ -422,14 +420,13 @@ const FilterPanel = ({ defaultValues, onFilter, setMainData }) => {
                     </FormItem>
                   )}
                 /> */}
-                {/* tating */}
+          {/* tating */}
 
-              </div>
+        </div>
 
-            </motion.form>
-          </Form>
-      }
-    </>
+      </motion.form>
+    </Form>
+
   )
 }
 

@@ -23,7 +23,8 @@ export const verifyEmail = async (data, phone, setLoading,navigate) => {
             })
             setLoading(false); // Reset loading state
             sessionStorage.setItem("token", response.data.data.token);
-            navigate("/")
+            navigate("/");
+            window.location.reload();
         }
         else {      
             toast(response?.data?.status, {

@@ -46,7 +46,7 @@ const RegisterSendOtp = ({ handleSendOtp }) => {
                   أهلاً بك !
                 </h2>
                 <p className="text-sm font-semibold">
-                  أدخل رقم هاتفك الجوال لإنشاء حساب أو تسجيل الدخول.
+                  أدخل رقم بياناتك لإنشاء حساب جديد.
                 </p>
               </div>
               {/* mobile Field */}

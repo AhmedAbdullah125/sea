@@ -36,7 +36,7 @@ const TotalHotelsSection = () => {
       </motion.div>
       {data?.data?.data?.length > 0 ?
         <div className='grid grid-cols-12 xl:gap-x-4 xl:gap-y-10 gap-4'>
-          {data?.data?.data?.map((hotel, index) => (
+          {data?.data?.data?.slice(0, 8)?.map((hotel, index) => (
             <motion.div
               initial={{ opacity: 0, scale: 1.05, x: 20 }}
               whileInView={{ opacity: 1, scale: 1, x: 0 }}

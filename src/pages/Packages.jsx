@@ -6,10 +6,12 @@ import Header from '../components/header/Header'
 import { useSearchParams } from 'react-router-dom';
 import PackagesGrid from '../components/packages.jsx/PackagesGrid';
 import FilterPanel from '../components/packages.jsx/FilterPanel';
+import Loading from '../components/loading/Loading';
 const Packages = () => {
     // state for search params
     const [searchParams, setSearchParams] = useSearchParams();
     const [mainData, setMainData] = useState([])
+    const [loading, setLoading] = useState(false)
     const filters = {
         start: searchParams.get("start") || "",
         end: searchParams.get("end") || "",
@@ -31,8 +33,11 @@ const Packages = () => {
             <Header />
             {/* Start Page Content */}
             <div className="container">
-                <FilterPanel defaultValues={filters} onFilter={updateFilters} setMainData={setMainData} />
-                <PackagesGrid mainData={mainData} />
+                <FilterPanel defaultValues={filters} setMainData={setMainData} setLoading={setLoading} />
+                {
+                    loading ? <Loading /> :
+                        <PackagesGrid mainData={mainData} loading={loading} />
+                }
             </div>
 
             {/* End Page Content */}
