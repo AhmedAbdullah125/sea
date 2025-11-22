@@ -14,7 +14,7 @@ const HotelsSection = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['hotels'],
     queryFn: async () => {
-      const res = await fetchFromApi("/hotels");
+      const res = await fetchFromApi("/filter-hotels?countery_id=1&page=1");
       return res;
     }
   })
@@ -46,7 +46,7 @@ const HotelsSection = () => {
           className="w-full space-y-8  "
         >
           <div className=' flex items-center justify-between gap-2'>
-            <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue  '>أشهــر فنــــادق تركيـــــا</h2>
+            <h2 className='xl:text-3xl md:text-2xl text-xl  font-bold text-main-blue  '> فنــــادق تركيـــــا بتوصــية ســـي</h2>
             <div className='flex gap-2 items-center justify-between w-[120px] '>
               <CarouselPrevious className="flex items-center justify-center rounded-full transition-all duration-300 ease-in-out text-white w-11 h-11 text-[10px] bg-[rgba(0,0,0,0.25)] shadow-[0_0_1px_1px_rgba(255,255,255,0.25)] backdrop-blur-[10px] relative top-[unset] bottom-[unset] left-[unset] right-[unset] translate-x-0 translate-y-0" icon={<MdArrowForwardIos />} />
               <CarouselNext className="flex items-center justify-center rounded-full transition-all duration-300 ease-in-out text-white w-11 h-11 text-[10px] bg-[rgba(0,0,0,0.25)] shadow-[0_0_1px_1px_rgba(255,255,255,0.25)] backdrop-blur-[10px] relative top-[unset] bottom-[unset] left-[unset] right-[unset] translate-x-0 translate-y-0" icon={<MdArrowBackIos />} />
@@ -61,7 +61,7 @@ const HotelsSection = () => {
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
                   >
                     <HotelCard hotel={hotel} data= {settings} />
                   </motion.div>

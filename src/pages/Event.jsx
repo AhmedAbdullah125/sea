@@ -43,12 +43,13 @@ const Event = () => {
             {
                 loading ?
                     <Loading />
-                    : <>
+                    :
+                    <>
                         {/* Start Page Content */}
                         <EventHeader data={data} />
                         <AboutPlace data={data} />
                         <div className="container">
-                        <EventRateForm id={id} />
+                            <EventRateForm id={id} />
                         </div>
                         <ActivitiesTable data={events} title="إكتشــف المزيــد." description={'نقدّم لكم مجموعة مختارة بعناية من الأماكن السياحية التي تستحق الزيارة، وأفضل المطاعم والمقاهي، إضافةً إلى نصائح تساعدكم على خوض تجربة سفر أسهل وأمتع.'} />
                         {/* End Page Content */}

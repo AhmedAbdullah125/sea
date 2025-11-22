@@ -1413,3 +1413,19 @@
     font-weight: 500;
   }
 }
+
+.have-animation{
+  animation: have-animation 2s ease-in-out infinite; //loop
+}
+
+@keyframes have-animation {
+  0% {
+   transform: translate(0px,-20px);
+  }
+  50% {
+    transform: translate(0px,0px);
+  }
+  100% {
+    transform: translate(0px,-20px);
+  }
+}

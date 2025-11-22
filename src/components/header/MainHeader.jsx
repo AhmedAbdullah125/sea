@@ -11,6 +11,7 @@ import Vector2 from '../../../public/app/Vector2.svg'
 import goog from '../../../public/app/goog.svg'
 import apl from '../../../public/app/apl.svg'
 import round from '../../../public/app/round.svg'
+import ogBlogs from '../../../public/og-blogs.svg'
 const MainHeader = () => {
     const [scrolled, setScrolled] = useState(false);
     const { data, isLoading, isError } = useGetSettings();
@@ -33,9 +34,9 @@ const MainHeader = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className={`main-header-cont  lg:fixed top-0 left-0 right-0 z-[9999] gap-3 py-5  transition-colors duration-500 ${scrolled ? 'bg-main-navy ' : 'bg-transparent'}`}>
+            className={`main-header-cont  lg:fixed top-0 left-0 right-0 z-[9999] gap-3 py-5  transition-colors duration-500 ${scrolled ? 'scrolledNav' : 'bg-transparent'}`}>
             <div className="container upper-nav-cont">
-                <a href={token ? "/profile" : "/login"} className="r-sect">
+                <a href={token ? "/account/profile" : "/login"} className="r-sect">
                     <LoginDialog mainHeader />
                     {
                         token ? <div className="flex gap-2">
@@ -46,10 +47,58 @@ const MainHeader = () => {
                     }
 
                 </a>
-                <div className="logo">
-                    <Link to="/">
-                        <LazyLoadImage src={logo} alt="logo" isLoading='lazy' />
-                    </Link>
+                <div className="flex items-center justify-center gap-14">
+
+                    {
+                        scrolled ?
+                            <>
+                                <div
+                                    initial={{ opacity: 0, x: 20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: false }}
+                                    transition={{ duration: 0.5, delay: 0.5 }}
+                                    className="logo">
+                                    <motion.a
+                                        initial={{ opacity: 0, x: 20 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.5, delay: 0.5 }}
+                                        className="inline-block"
+                                        href="/">
+                                        <LazyLoadImage src={logo} alt="logo" isLoading='lazy' />
+                                    </motion.a>
+                                </div>
+                                <motion.div
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: 0.5 }}
+                                    className="main-links flex align-center justify-center gap-2 text-white">
+                                    <NavLink to='/'>الرئيسية</NavLink>
+                                    <div className="noqta"></div>
+                                    <NavLink to='/hotels'>فنادق وشقــق</NavLink>
+                                    <div className="noqta"></div>
+                                    <NavLink to='/packages'>الباقات </NavLink>
+                                    {/* <div className="noqta"></div>
+                                <NavLink to='/privite-tours'>النقل و المــواصلات</NavLink> */}
+                                    <div className="noqta"></div>
+                                    <NavLink to='/previsa'>التـأشيــرات</NavLink>
+                                    <div className="noqta"></div>
+                                    <NavLink to='/table'>جدولك علينا</NavLink>
+                                    {/* <div className="noqta"></div>
+                            <NavLink to='/blogs'>المدونـة</NavLink> */}
+                                </motion.div>
+                            </> : <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.5 }}
+                                className="logo">
+                                <Link to="/">
+                                    <LazyLoadImage src={logo} alt="logo" isLoading='lazy' />
+                                </Link>
+                            </motion.div>
+                    }
                 </div>
                 <div className="options-big">
                     <DropdownMenu>
@@ -178,7 +227,7 @@ const MainHeader = () => {
                     <NavLink to='/blogs'>المدونـة</NavLink>
                 </div>
             </div>
-        </motion.section>
+        </motion.section >
     )
 }
 export default MainHeader

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const TotalHotelCard = ({ hotel }) => {
   return (
     <div className={` relative w-full`}>
-      <div className={`${styles.inverted} bg-no-repeat bg-center bg-cover rounded-[40px] overflow-hidden`} style={{ backgroundImage: `url(${hotel?.images[0]}) ` }}>
+      <div className={`${styles.inverted} bg-no-repeat bg-center bg-cover rounded-[40px] overflow-hidden`} style={{ backgroundImage: `url(${hotel?.main_image}) ` }}>
         <div className="w-full h-full bg-black/30 flex flex-col justify-between" >
           {/* content */}
           <div className='flex flex-col gap-3 text-white  h-full p-8'>

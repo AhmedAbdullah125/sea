@@ -18,14 +18,16 @@ const Header = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, []);
 
     return (
         <motion.section
-            initial={{ opacity: 0}}
-            whileInView={{ opacity: 1}}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1}}
+            transition={{ duration: 1 }}
             className={`header-cont ${isFixed ? 'fixed-navbar' : ''}`}>
             <div className="container nav-cont">
                 <div className="logo">

@@ -9,22 +9,22 @@ import { API_BASE_URL } from '../lib/apiConfig';
 import axios from 'axios';
 import ActivitiesTable from '../components/table/ActivitiesTable';
 import Loading from '../components/loading/Loading';
+import FilterPanel from '../components/table/FilterPanel';
 
 const Table = () => {
+
   const [hotels, setHotels] = useState([]);
-  const [activities, setActivities] = useState([]);
-  const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [countryName, setCountryName] = useState("");
+  const [selectedCity, setSelectedCity] = useState('');
+  const [cityName, setCityName] = useState("");
   useEffect(() => {
     setLoading(true);
     const getData = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/filter-hotels?page=1`);
-        const response2 = await axios.get(`${API_BASE_URL}/activities`);
-        const response3 = await axios.get(`${API_BASE_URL}/events`);
+        const response = await axios.get(`${API_BASE_URL}/filter-hotels?page=1&country_id=${selectedCountry}&city_id=${selectedCity}`);
         setHotels(response.data.data);
-        setActivities(response2.data.data);
-        setEvents(response3.data.data);
         setLoading(false);
       } catch (error) {
         console.error('خطأ في استرجاع البيانات:', error);
@@ -33,23 +33,27 @@ const Table = () => {
       }
     };
     getData();
-  }, []);
-  console.log(events);
+  }, [selectedCountry, selectedCity]);
+
+  console.log(selectedCountry, selectedCity);
+  console.log(countryName, cityName);
+
 
   return (
     <section>
       <Header />
-      {loading ? (
+      <BreadCrumb data={[{ title: "الرئيــسية", href: "/" }, { title: "جدول عليـــنا", href: "#" }, { title: "خدمـــاتنا!", href: "#" },]} />
+      <FilterPanel selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} selectedCity={selectedCity} setSelectedCity={setSelectedCity} setCityName={setCityName} setCountryName={setCountryName} />
+      {loading ?
         <Loading />
-      ) : (
+        :
         <>
-          <BreadCrumb data={[   { title: "الرئيــسية", href: "/" },   { title: "جدول عليـــنا", href: "#" },   { title: "خدمـــاتنا!", href: "#" }, ]}/>
-          <ActivitiesTable data={events} title="اقتراحاتنا لتستكشفوا أكثر!" description="نقدّم لكم مجموعة مختارة بعناية من الأماكن السياحية التي تستحق الزيارة، وأفضل المطاعم والمقاهي، إضافةً إلى نصائح تساعدكم على خوض تجربة سفر أسهل وأمتع."/>
-          <Events data={activities} />
-          <HotelsTable data={hotels} title={`أشهــر فنــــادق تركيـــــا`} description="قدم الموقع قائمة 'توب عشرة' لأفضل الأنشطة والفعاليات السياحية لتسهيل اختيار المسافر لأجمل التجارب في وجهته."/>
-          <Things />
+          <ActivitiesTable selectedCountry={selectedCountry} selectedCity={selectedCity} cityName={cityName} countryName={countryName} description="نقدّم لكم مجموعة مختارة بعناية من الأماكن السياحية التي تستحق الزيارة، وأفضل المطاعم والمقاهي، إضافةً إلى نصائح تساعدكم على خوض تجربة سفر أسهل وأمتع." />
+          <Events selectedCountry={selectedCountry} selectedCity={selectedCity} cityName={cityName} countryName={countryName} />
+          <HotelsTable selectedCountry={selectedCountry} selectedCity={selectedCity} cityName={cityName} countryName={countryName} description="قدم الموقع قائمة 'توب عشرة' لأفضل الأنشطة والفعاليات السياحية لتسهيل اختيار المسافر لأجمل التجارب في وجهته." />
         </>
-      )}
+      }
+      <Things />
       <Footer />
     </section>
   );

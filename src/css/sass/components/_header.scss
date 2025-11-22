@@ -6,12 +6,27 @@
     }
 }
 
+.scrolledNav {
+    background-color: rgba($color: #091b3c, $alpha: 0.8);
+    //blur(10px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 12px 0 !important;
+
+    .r-sect {
+        span {
+            display: none;
+        }
+    }
+}
+
 .main-header-cont {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 60px;
     padding: 30px 0;
+    transition: all 0.3s ease-in-out;
 
     @include max-991 {
         gap: 30px;
@@ -173,7 +188,7 @@
         }
 
     }
-    
+
 
     .lower-nav-cont {
         .main-links {
@@ -466,6 +481,7 @@
     width: 200px;
     max-width: 200px;
     padding: 20px;
+
     &:hover {
         background-color: rgba(255, 255, 255, 0.2);
 
@@ -480,38 +496,43 @@
         color: $main;
         width: 100%;
         height: 38px;
-        padding: 0 7px; 
+        padding: 0 7px;
         border-radius: 10px;
         @include tr;
         direction: rtl;
+
         &:hover {
             background-color: rgba(255, 255, 255, 0.3);
         }
-       
+
     }
-    .option-drop-link-app{
+
+    .option-drop-link-app {
         display: flex;
         align-items: center;
         flex-direction: column;
         background-color: $white;
         color: $main;
         width: 100%;
-        padding: 24px; 
+        padding: 24px;
         border-radius: 22px;
         @include tr;
         direction: rtl;
         gap: 10px;
-        h3{
+
+        h3 {
             font-size: 14px;
             font-weight: 700;
             color: $main;
             @include tr;
         }
-        .h3-cont{
+
+        .h3-cont {
             height: 40px;
             @include flexCenter;
             position: relative;
-            img{
+
+            img {
                 width: 123px;
                 height: 37px;
                 position: absolute;

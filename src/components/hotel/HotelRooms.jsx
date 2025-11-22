@@ -18,8 +18,7 @@ import { toast } from "sonner";
 
 
 const HotelRooms = ({ data }) => {
-    const [favouratesRooms, setFavouratesRooms] = useState([]);
-    const [images, setImages] = useState([]);
+    const [favouratesRooms, setFavouratesRooms] = useState([]);    
     Fancybox.bind("[data-fancybox]", {
         dirction: "ltr",
     });
@@ -56,7 +55,7 @@ const HotelRooms = ({ data }) => {
                                     initial={{ opacity: 0, y: -50 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ duration: 0.5, delay: index * 0.2 }}
+                                    transition={{ duration: 0.5, delay:  0.2 }}
                                     className="room-item card-item"
                                     key={index}
                                 >
@@ -102,7 +101,7 @@ const HotelRooms = ({ data }) => {
 
                                             }}
                                         >
-                                            {room?.vedios[0] == "https://panel.seatourism.sa/storage" ? null :
+                                            {/* {room?.vedios[0] == "https://panel.seatourism.sa/storage" ? null :
                                                 room?.vedios?.map((video, index) => {
                                                     return (
                                                         <SwiperSlide key={index}>
@@ -120,7 +119,7 @@ const HotelRooms = ({ data }) => {
                                                         </SwiperSlide>
                                                     );
                                                 })
-                                            }
+                                            } */}
                                             {
                                                 room?.images?.map((img, index) => {
                                                     return (

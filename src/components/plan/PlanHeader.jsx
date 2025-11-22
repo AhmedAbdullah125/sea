@@ -7,6 +7,7 @@ import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { toast } from 'sonner'
 import { toggleFavourates } from '../../pages/toggleFavourates'
+import profileActive from '../../../public/app/profileActive.svg'
 import { motion } from "framer-motion";
 import {
     Accordion,

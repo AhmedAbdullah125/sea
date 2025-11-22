@@ -6,7 +6,7 @@ import Header from '../components/header/Header'
 import { useSearchParams } from 'react-router-dom';
 import PackagesGrid from '../components/packages.jsx/PackagesGrid';
 import FilterPanel from '../components/packages.jsx/FilterPanel';
-const Hotels = () => {
+const Packages = () => {
     // state for search params
     const [searchParams, setSearchParams] = useSearchParams();
     const [mainData, setMainData] = useState([])
@@ -41,4 +41,4 @@ const Hotels = () => {
     )
 }
 
-export default Hotels
+export default Packages

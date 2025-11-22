@@ -60,7 +60,7 @@ const Footer = () => {
                                     <div className="links">
                                         <Link to="/#about" className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>من نحــــن؟</Link>
                                         <Link to="/#whySee" className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>لماذا سي؟</Link>
-                                        <Link to="/#bigoffers" className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>اعــرف عن عــروض SEA +</Link>
+                                        <Link to="/#bigoffers" className='footer-link'> <i className="fa-solid fa-chevron-left text-xs text-[#4D4D4D]"></i>اعــرف أكثر عن عضوية  SEA +</Link>
                                     </div>
                                 </div>
                                 <div className="hagez_beltoot"></div>

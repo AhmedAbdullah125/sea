@@ -11,8 +11,6 @@ const AddSteps = () => {
     const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({})
-    console.log(formData);
-
     return (
         <section>
             <Header />

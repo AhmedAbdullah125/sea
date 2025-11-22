@@ -17,7 +17,7 @@ const HotelsPagination = ({ data, setPage }) => {
   const visible = getVisiblePages();
 
   return (
-    <div className="flex items-center gap-2 justify-center py-6">
+    <div className="flex items-center gap-2 justify-center py-14">
       {/* Prev Button */}
       <button
         disabled={current === 1}

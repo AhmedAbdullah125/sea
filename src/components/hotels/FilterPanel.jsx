@@ -58,7 +58,6 @@ function safeDateParse(input) {
   return new Date(input);
 }
 const FilterPanel = ({ mainData, setIsFilterOpen, defaultValues, setMainData, setLoading, page, mainSelectedCity , setMainSelectedCity }) => {
-  console.log(mainSelectedCity)
   const [seletedCountry, setSelectedCountry] = useState(String(defaultValues.destination) || '');
   const [selectedFlat, setSelectedFlat] = useState(defaultValues.flat || '');
   const [selectedCity, setSelectedCity] = useState(defaultValues.city || '');
@@ -75,7 +74,6 @@ const FilterPanel = ({ mainData, setIsFilterOpen, defaultValues, setMainData, se
   const [keyWord, setKeyWord] = useState('');
   const [selectedCountryCities, setSelectedCountryCities] = useState([])
   const [localLoading, setLocalLoading] = useState(false);
-  console.log(mainData)
   if (seletedCountry || selectedFlat || mainSelectedCity || selectedCity || seletedNeighborhood || seletedRate || selectedOffer || selectedDate || selectedDateTo || selectedPlace || selectedView || keyWord) {
     setIsFilterOpen(true)
   }
@@ -125,7 +123,6 @@ const FilterPanel = ({ mainData, setIsFilterOpen, defaultValues, setMainData, se
           }
           setViews(newViews);
           setPlaces(newPlaces);
-          console.log(newViews)
         }
       } catch (error) {
         console.error('Error retrieving hotels:', error);
@@ -135,7 +132,6 @@ const FilterPanel = ({ mainData, setIsFilterOpen, defaultValues, setMainData, se
     };
     getHotels();
   }, [page, keyWord, seletedCountry, mainSelectedCity, selectedCity, selectedDate, selectedFlat, seletedNeighborhood, seletedRate, selectedOffer, selectedDateTo, selectedPlace, selectedView]);
-  console.log(places)
   const form = useForm({
     resolver: zodResolver(filterSchema),
     defaultValues: {
@@ -186,10 +182,7 @@ const FilterPanel = ({ mainData, setIsFilterOpen, defaultValues, setMainData, se
   useEffect(() => {
     const selectedCountryCites = data?.countries?.filter((country) => country.id === Number(seletedCountry))[0]?.cities;
     setSelectedCountryCities(selectedCountryCites);
-    console.log(selectedCountryCites)
   }, [seletedCountry])
-  console.log(mainData?.data)
-
   return (
     <Form {...form}>
       <motion.form

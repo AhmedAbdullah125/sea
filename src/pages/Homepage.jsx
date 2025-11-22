@@ -3,6 +3,7 @@ import Footer from '../components/footer/Footer';
 import AboutUS from '../components/home/aboutUs/AboutUS';
 import AppSection from '../components/home/appSection/AppSection';
 import BigOffers from '../components/home/BigOffers';
+import CustomerReviewsSection from '../components/home/CustomerReviewsSection';
 import HeroSection from '../components/home/heroSection/HeroSection';
 import HotelsSection from '../components/home/hotelsSection/HotelsSection';
 import PakageSection from '../components/home/pakageSection/PakageSection';
@@ -20,6 +21,7 @@ export default function Homepage() {
                 <PakageSection />
                 <TotalHotelsSection />
                 <AboutUS />
+                <CustomerReviewsSection />
                 <AppSection />
                 <Satatistics/>
                 <Footer />

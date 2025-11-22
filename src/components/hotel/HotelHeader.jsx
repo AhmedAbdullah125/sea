@@ -10,9 +10,10 @@ import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescript
 import { Link } from 'react-router-dom'
 const HotelHeader = ({ data }) => {
     const token = sessionStorage.getItem('token')
-    const [images, setImages] = useState([])
+    
     Fancybox.bind("[data-fancybox]", {});
     Fancybox.bind("[data-fancybox-video]", {});
+    const [images, setImages] = useState([])
     useEffect(() => {
         if (data?.vedios?.length > 0 && data?.vedios[0] !== "https://panel.seatourism.sa/storage") {
             setImages([...data?.vedios, ...data?.images])

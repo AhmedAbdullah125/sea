@@ -4,9 +4,7 @@ import { useGetSettings } from '@/components/global/useGetSettings';
 
 
 const Things = () => {
-    const { data, isLoading, isError } = useGetSettings();
-    console.log(data);
-    
+    const { data, isLoading, isError } = useGetSettings();    
     return (
 
         <section className="trip-things-section">

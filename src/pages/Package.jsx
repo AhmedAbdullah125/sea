@@ -10,7 +10,7 @@ import PlanPrices from '../components/plan/PlanPrices'
 import PlanMarq from '../components/plan/PlanMarq'
 import PlanComments from '../components/plan/PlanComments'
 import PlanRateForm from '../components/plan/PlanRateForm'
-
+import { useGetSettings } from '../components/global/useGetSettings'
 const Package = () => {
     const { id } = useParams();
     const [data, setData] = useState([]);

@@ -19,7 +19,6 @@ const Login = () => {
             <div className="container">
                 <div className="grid grid-cols-12 items-center gap-6">
                     <div className="xl:col-span-5  col-span-12 xl:space-y-12 space-y-6">
-
                         {/* form */}
                         {isOtpSent ?
                             <VerfiyOtp phone={phone} /> :

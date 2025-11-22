@@ -9,6 +9,7 @@ import { FaCommentSms } from "react-icons/fa6";
 import { toast } from "sonner"
 import { useState } from "react"
 import { postToApi } from "../../api/utils/postData"
+import { Link } from "react-router-dom"
 
 // validation
 const formSchema = z.object({
@@ -117,6 +118,9 @@ const SendOtp = ({ handleSendOtp }) => {
             إعادة إرسال بواسطة SMS
             <FaCommentSms size={20} className="text-white" />
           </Button> */}
+          <Link to="/register" className="text-main-blue font-bold text-sm py-4 flex">
+            انشاء حساب جديد
+          </Link>
         </div>
 
       </form>

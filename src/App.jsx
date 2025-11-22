@@ -37,6 +37,8 @@ import Privacy from './pages/Privacy';
 import PaymentMaintenance from './components/hotel/PaymentMaintenance';
 import PreVisa from './pages/PreVisa';
 import AddSteps from './pages/AddSteps';
+import Register from './pages/register';
+
 export const AppContext = createContext();
 function App() {
 	const queryClient = new QueryClient()
@@ -62,6 +64,7 @@ function App() {
 			{ path: "/privacy", element: <Privacy></Privacy> },
 			{ path: "/add-steps", element: <AddSteps></AddSteps> },
 			{ path: "/login", element: <Login></Login> },
+			{ path: "/register", element: <Register></Register> },
 			{ path: "/blogs", element: <Blogs></Blogs> },
 			{ path: "/paymentMaintenance", element: <PaymentMaintenance></PaymentMaintenance> },
 			{ path: "/blogs/:slug", element: <SingleBlogPage></SingleBlogPage> },

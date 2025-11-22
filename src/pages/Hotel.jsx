@@ -16,7 +16,7 @@ const Hotel = () => {
     const { id } = useParams();
     const [trigger, setTrigger] = useState(false);
     const { data,isLoading } = useGetHotel(id);
-
+    
         return (
         <section>
             <Header />

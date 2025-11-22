@@ -107,10 +107,11 @@ const HotelPayment = ({ data }) => {
                                 <div className="r-side">
                                     <p className='price-details'>
                                         <span className='old-price'>
-                                            {pricePerNight * (Number(data.discount) + 100) / 100}
+                                            {pricePerNight}
+                                            {data.currencyName}
                                         </span>
                                         <span className='new-price'>
-                                            {pricePerNight}
+                                            {pricePerNight - (pricePerNight * (Number(data.discount)) / 100)}
                                         </span>
                                         <div className="rs-t">
                                             {data.currencyName} / لليلة الواحــــدة

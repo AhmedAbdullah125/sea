@@ -35,7 +35,6 @@ const Hotels = () => {
         setSearchParams(params);
     };
     const [mainSelectedCity, setMainSelectedCity] = useState(null);
-    console.log(mainData);
     return (
         <section>
             <Header />

@@ -14,10 +14,8 @@ import Loading from "../loading/Loading";
 
 const HotelsGrid = ({ isFilterOpen, mainData, mainSelectedCity, setMainSelectedCity }) => {
     const { data } = useGetSettings();
-    console.log(isFilterOpen);
     const { data: cities, isLoading } = useGetCities()
     const swiperRef = useRef(null); // <-- Add ref to control Swiper autoplay
-    console.log(cities);
     return (
         <>
             {
@@ -76,8 +74,8 @@ const HotelsGrid = ({ isFilterOpen, mainData, mainSelectedCity, setMainSelectedC
                                                 >
                                                     <img src={item.image} alt="img" />
                                                     <div className="overlay">
-                                                        <h2>{item.name}</h2>
-                                                        <p>{item.description}</p>
+                                                        <h2 className="ma-3 text-sm font-semibold">{item.name}</h2>
+                                                        <p className="text-xs font-normal">{item.descripton}</p>
                                                     </div>
                                                 </motion.div>
                                             </SwiperSlide>
@@ -85,6 +83,8 @@ const HotelsGrid = ({ isFilterOpen, mainData, mainSelectedCity, setMainSelectedC
                                     }
                                 </Swiper>
                             </div>
+
+                            <h2 className="my-6 text-2xl font-bold text-main-blue">اكتشف الخيارات المميزة والعروض اليومية.</h2>
                         </>
             }
 
@@ -160,7 +160,7 @@ const HotelsGrid = ({ isFilterOpen, mainData, mainSelectedCity, setMainSelectedC
                                     <Link to={`/hotel/${item.slug}`} className="card-content">
                                         <div className="detail-info-item rate">
                                             <i className="fa-solid fa-star"></i>
-                                            <span>{item.rating_category ? item.rating_category : "5.0"} <span>( {item.likes ? item.likes : "+10"} )</span></span>
+                                            <span>{item?.tate_name ? item?.tate_name : "0"} <span>( {item?.likes ? item?.likes : "0"} )</span></span>
                                         </div>
                                         <div className="card-desc">
                                             <span className="card-span"
@@ -181,7 +181,7 @@ const HotelsGrid = ({ isFilterOpen, mainData, mainSelectedCity, setMainSelectedC
                                                 null
                                         }
                                     </Link>
-                                    <Link to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم حول ${item.title}`} className='card-content'>تواصل الآن واحصل علي عرض سعر</Link>
+                                    <Link to={`https://wa.me/${data?.whatsapp ? data.whatsapp : ""}?text=اريد مناقشتكم حول ${item.title}`} className='card-content'>تواصل الآن واحصل علي عرض سعر</Link>
                                 </motion.div>
                             )
                         }
