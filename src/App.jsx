@@ -37,7 +37,7 @@ import Privacy from './pages/Privacy';
 import PaymentMaintenance from './components/hotel/PaymentMaintenance';
 import PreVisa from './pages/PreVisa';
 import AddSteps from './pages/AddSteps';
-import Register from './pages/register';
+import Register from './pages/Register';
 
 export const AppContext = createContext();
 function App() {
