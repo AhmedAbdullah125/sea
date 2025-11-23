@@ -53,7 +53,7 @@ const PackagesGrid = ({ mainData }) => {
                                     transition={{ duration: 0.5, delay: index * 0.1 }} className="trip-item" key={index}>
                                     <a href={`package/${item.slug}`} className="card-content" style={{ padding: "0px" }}>
                                         <div className="trip-img">
-                                            {/* <Swiper
+                                            <Swiper
                                         pagination={{ clickable: true }}
                                         spaceBetween={0}
                                         navigation={{ nextEl: `#swiper-btn-next1a`, prevEl: `#swiper-btn-prev1a`, }}
@@ -87,10 +87,10 @@ const PackagesGrid = ({ mainData }) => {
                                                 <i className="fa-solid fa-chevron-left"></i>
                                             </div>
                                         </div>
-                                    </Swiper> */}
-                                            <figure>
+                                    </Swiper>
+                                            {/* <figure>
                                                 <img src={item.thumbnail} alt="img" />
-                                            </figure>
+                                            </figure> */}
                                             <button className="fav-btn" onClick={
                                                 () => {
                                                     if (sessionStorage.getItem('token')) {
