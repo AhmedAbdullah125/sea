@@ -16,9 +16,7 @@ import { useGetSettings } from '@/components/global/useGetSettings';
 import { Link } from 'react-router-dom'
 
 const AddHouse = () => {
-
     const { data } = useGetSettings();
-
     return (
         <section>
             <Header />
