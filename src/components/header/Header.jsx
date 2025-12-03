@@ -38,7 +38,7 @@ const Header = () => {
                 <div className="main-links">
                     <NavLink to='/'>الرئيسية</NavLink>
                     <div className="noqta"></div>
-                    <NavLink to='/table'>خدمـــاتنا</NavLink>
+                    <NavLink to='/your_plan'>خدمـــاتنا</NavLink>
                     <div className="noqta"></div>
                     <NavLink to='/hotels'>فــنادق وشقــق</NavLink>
                     <div className="noqta"></div>
@@ -68,7 +68,7 @@ const Header = () => {
                     <DropdownMenuContent className="w-56 bg-[#016AB5] rounded-2xl" align="start">
                         <DropdownMenuGroup>
                             <DropdownMenuItem>
-                                <NavLink className="w-full text-white" to="/table">خدمـــاتنا</NavLink>
+                                <NavLink className="w-full text-white" to="/your_plan">خدمـــاتنا</NavLink>
                             </DropdownMenuItem>
                             <DropdownMenuItem>
                                 <NavLink className="w-full text-white" to="/hotels">فــنادق وشقــق</NavLink>

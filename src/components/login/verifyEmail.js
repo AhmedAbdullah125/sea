@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 
 
-export const verifyEmail = async (data, phone, setLoading,navigate) => {
+export const verifyEmail = async (data, phone, setLoading,navigate,link) => {
     setLoading(true); // Set loading state    
     const formData = new FormData();
     formData.append('email', phone);
@@ -23,7 +23,7 @@ export const verifyEmail = async (data, phone, setLoading,navigate) => {
             })
             setLoading(false); // Reset loading state
             sessionStorage.setItem("token", response.data.data.token);
-            navigate("/");
+            navigate(link);
             window.location.reload();
         }
         else {      

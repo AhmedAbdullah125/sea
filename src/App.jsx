@@ -38,7 +38,9 @@ import PaymentMaintenance from './components/hotel/PaymentMaintenance';
 import PreVisa from './pages/PreVisa';
 import AddSteps from './pages/AddSteps';
 import Register from './pages/Register';
-
+import YourPlane from './pages/YourPlane';
+import ForgetPassword from './pages/ForgetPassword';
+import ResetPassword from './pages/ResetPassword';
 export const AppContext = createContext();
 function App() {
 	const queryClient = new QueryClient()
@@ -54,6 +56,7 @@ function App() {
 			{ path: "/gate", element: <ProtectedRoute><VisaGatePage></VisaGatePage></ProtectedRoute> },
 			{ path: "/table", element: <Table></Table> },
 			{ path: "/trip", element: <Trip></Trip> },
+			{ path: "/your_plan", element: <YourPlane></YourPlane> },
 			{ path: "/event", element: <Event></Event> },
 			{ path: "/hotels", element: <Hotels></Hotels> },
 			{ path: "/hotel/:id", element: <Hotel></Hotel> },
@@ -64,8 +67,10 @@ function App() {
 			{ path: "/privacy", element: <Privacy></Privacy> },
 			{ path: "/add-steps", element: <AddSteps></AddSteps> },
 			{ path: "/login", element: <Login></Login> },
+			{ path: "/forget-password", element: <ForgetPassword></ForgetPassword> },
 			{ path: "/register", element: <Register></Register> },
 			{ path: "/blogs", element: <Blogs></Blogs> },
+			{ path: "/reset-password", element: <ResetPassword></ResetPassword> },
 			{ path: "/paymentMaintenance", element: <PaymentMaintenance></PaymentMaintenance> },
 			{ path: "/blogs/:slug", element: <SingleBlogPage></SingleBlogPage> },
 			{ path: "/newsletter/:slug", element: <SingleNewsletter></SingleNewsletter> },
@@ -78,7 +83,7 @@ function App() {
 					{ path: "logout", element: <Logout /> }
 				]
 			}
-			
+
 		]
 	}
 	])

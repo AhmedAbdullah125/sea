@@ -59,7 +59,7 @@ const BuildingDetails = ({ formData, setFormData }) => {
                                             <Switch
                                                 checked={Boolean(details[key])}
                                                 onCheckedChange={handleToggle(sectionIndex, optionIndex)}
-                                                className="data-[state=checked]:bg-[#03a26d] data-[state=unchecked]:bg-[#BFC3C7]"
+                                                className="data-[state=checked]:bg-[#03a26d] data-[state=unchecked]:bg-[#BFC3C7] ps-[2px]"
                                             />
                                         </div>
                                     </label>

@@ -18,7 +18,8 @@ const AddSteps = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
   const [showSuccess, setShowSuccess] = useState(false);
-
+  console.log(formData);
+  
   const MAX_STEP = 8;
 
   const handleNext = () => {

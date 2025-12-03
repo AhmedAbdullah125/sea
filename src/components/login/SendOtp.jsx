@@ -116,6 +116,9 @@ const SendOtp = ({ handleSendOtp }) => {
                 />
               </div>
               <div className="space-y-4">
+                <Link to="/forget-password" className="text-main-blue font-bold text-sm flex">
+                  نسيت كلمة المرور؟
+                </Link>
                 <Button
                   // onClick={() => setSubmitMethod("whatsapp")}
                   type="submit"

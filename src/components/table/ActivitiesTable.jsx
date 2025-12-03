@@ -12,10 +12,10 @@ import { toast } from 'sonner';
 import RotatingTitle from './RotatingTitle';
 import { useGetEvents } from '../global/useGetEvents';
 import Loading from '../loading/Loading';
-const ActivitiesTable = ({ selectedCountry, selectedCity, cityName, countryName, description, data }) => {
+const ActivitiesTable = ({ selectedCountry, selectedCity, cityName, countryName, description }) => {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
-    const { data: events, isLoading } = useGetEvents(selectedCountry, selectedCity);
+    const { data: events, isLoading } = useGetEvents(selectedCountry, selectedCity, 1);
     console.log(events);
 
 
@@ -37,10 +37,13 @@ const ActivitiesTable = ({ selectedCountry, selectedCity, cityName, countryName,
                                     </div>
                                 </div>
                             </div>
-                            <p className="related-text">{description}</p>
+                            <div className="section-header-cont">
+                                <p className="related-text">{description}</p>
+                                <Link to="/your_plan" className="btn btn-primary swiper-btn-next swiper-btn">عرض الكل</Link>
+                            </div>
                         </div>
                         {
-                            events?.length > 0 ?
+                            events.data?.length > 0 ?
                                 <div className="swiper-cont">
                                     <div className="related-slider">
                                         <Swiper
@@ -67,7 +70,7 @@ const ActivitiesTable = ({ selectedCountry, selectedCity, cityName, countryName,
                                             }}
                                         >
                                             {
-                                                events?.map((item, idx) => (
+                                                events.data?.map((item, idx) => (
 
                                                     <SwiperSlide key={idx}>
                                                         <Link to={`/event?id=${item.id}`} className="related-item-cont" key={idx}>
@@ -137,7 +140,7 @@ const ActivitiesTable = ({ selectedCountry, selectedCity, cityName, countryName,
                                                                             onTouchStart={(e) => e.stopPropagation()}  // mobile guard
                                                                         >
                                                                             <i className={`${item.is_favourite ? 'fa-solid' : 'fa-regular'} fa-heart`}></i></button>
-                                                                        {item?.rating ? <button className='flex items-center gap-1 px-1'><p className='leading-[40px] translate-y-[2px] text-sm'> {item?.reviewsCount ? `(${item?.reviewsCount})` : null} {Number(item?.rating).toFixed()}</p><i className="fa-solid fa-star text-[#FFD700] leading-[40px]"></i></button> : null}
+                                                                        {item?.rating ? <button className='flex items-center gap-1 px-1 glassy'><p className='leading-[40px] translate-y-[2px] text-sm'> {item?.reviewsCount ? `(${item?.reviewsCount})` : null} {Number(item?.rating).toFixed()}</p><i className="fa-solid fa-star text-[#FFD700] leading-[40px]"></i></button> : null}
                                                                     </div>
 
                                                                 </div>
@@ -181,7 +184,7 @@ const ActivitiesTable = ({ selectedCountry, selectedCity, cityName, countryName,
                                 </div>
                                 :
                                 <div className="container rounded-3xl bg-black/20 p-4 text-center">
-                                    لا يوجد نشاطات حالية في {cityName}
+                                    لا يوجد نشاطات حالية في {cityName ? cityName : (countryName || 'الموقع')}
                                 </div>
                         }
                     </section>

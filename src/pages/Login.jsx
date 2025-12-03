@@ -21,7 +21,7 @@ const Login = () => {
                     <div className="xl:col-span-5  col-span-12 xl:space-y-12 space-y-6">
                         {/* form */}
                         {isOtpSent ?
-                            <VerfiyOtp phone={phone} /> :
+                            <VerfiyOtp phone={phone} link="/" /> :
                             <SendOtp handleSendOtp={handleSendOtp} />
                         }
                     </div>

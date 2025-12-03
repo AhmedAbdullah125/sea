@@ -1,40 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Footer from '../components/footer/Footer';
 import Header from '../components/header/Header';
 import HotelsTable from '../components/table/HotelsTable';
 import Events from '../components/table/Events';
 import BreadCrumb from '../components/global/BreadCrumb';
 import Things from '../components/table/Things';
-import { API_BASE_URL } from '../lib/apiConfig';
-import axios from 'axios';
 import ActivitiesTable from '../components/table/ActivitiesTable';
 import Loading from '../components/loading/Loading';
 import FilterPanel from '../components/table/FilterPanel';
 
 const Table = () => {
-
-  const [hotels, setHotels] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [countryName, setCountryName] = useState("");
   const [selectedCity, setSelectedCity] = useState('');
   const [cityName, setCityName] = useState("");
-  useEffect(() => {
-    setLoading(true);
-    const getData = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/filter-hotels?page=1&country_id=${selectedCountry}&city_id=${selectedCity}`);
-        setHotels(response.data.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('خطأ في استرجاع البيانات:', error);
-        setLoading(false);
-        throw new Error('لا يمكن الحصول على البيانات');
-      }
-    };
-    getData();
-  }, [selectedCountry, selectedCity]);
-
   console.log(selectedCountry, selectedCity);
   console.log(countryName, cityName);
 
@@ -43,7 +23,7 @@ const Table = () => {
     <section>
       <Header />
       <BreadCrumb data={[{ title: "الرئيــسية", href: "/" }, { title: "جدول عليـــنا", href: "#" }, { title: "خدمـــاتنا!", href: "#" },]} />
-      <FilterPanel selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} selectedCity={selectedCity} setSelectedCity={setSelectedCity} setCityName={setCityName} setCountryName={setCountryName} />
+      <FilterPanel setLoading={setLoading}  selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} selectedCity={selectedCity} setSelectedCity={setSelectedCity} setCityName={setCityName} setCountryName={setCountryName} />
       {loading ?
         <Loading />
         :

@@ -236,7 +236,8 @@
     &:hover {
       background-color: $main;
     }
-    img{
+
+    img {
       width: 25px;
       height: 25px;
       object-fit: cover;
@@ -446,6 +447,26 @@
   justify-content: space-between;
   margin-bottom: 40px;
   gap: 10px;
+
+  .related-text {
+    margin-bottom: 0;
+  }
+
+  a {
+    background-color: $sec;
+    color: $white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+
+    &:hover {
+      background-color: $hover;
+      transform: translateY(-2px);
+    }
+  }
 }
 
 .section-title {
@@ -703,6 +724,14 @@ figure::after {
     color: $white;
     font-weight: 700;
     font-size: 10px;
+    backdrop-filter: blur(10px);
+    //background
+    background-color: rgba($color: #fff, $alpha: 0.5);
+
+    &:hover {
+      background-color: $sec;
+      color: $white;
+    }
   }
 
   button {
@@ -717,9 +746,12 @@ figure::after {
     background-color: $white;
     color: $black;
     @include tr;
+    backdrop-filter: blur(10px);
+    //background
+    background-color: rgba($color: #fff, $alpha: 0.5);
 
     i {
-      font-size: 17px;
+      font-size: 13px;
       line-height: 40px;
     }
 
@@ -727,6 +759,13 @@ figure::after {
       background-color: $sec;
       color: $white;
     }
+  }
+
+  .glassy {
+    //blur
+    backdrop-filter: blur(10px);
+    //background
+    background-color: rgba($color: #fff, $alpha: 0.5);
   }
 }
 
@@ -763,6 +802,12 @@ figure::after {
   font-weight: 800;
   font-size: 18px;
   color: $main;
+  //max 2 lines
+  max-height: 48px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .item-price {
@@ -771,6 +816,11 @@ figure::after {
   color: $hover;
   display: flex;
   align-items: center;
+  //max 2 lines
+  max-height: 48px;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 
   span {
     color: $sec;

@@ -8,7 +8,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select";
-import Loading from "../loading/Loading";
 import axios from "axios";
 import { API_BASE_URL } from "@/lib/apiConfig";
 
@@ -18,10 +17,8 @@ export const filterSchema = z.object({
   city: z.string().optional(),
 });
 
-const FilterPanel = ({ selectedCountry, setSelectedCountry, selectedCity, setSelectedCity, setCityName, setCountryName, }) => {
+const FilterPanel = ({ setLoading, selectedCountry, setSelectedCountry, selectedCity, setSelectedCity, setCityName, setCountryName, }) => {
   const [countries, setCountries] = useState([]);
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
@@ -46,8 +43,8 @@ const FilterPanel = ({ selectedCountry, setSelectedCountry, selectedCity, setSel
   });
   return (
     <div className="container">
-      {
-        loading ? <Loading /> : (
+  
+       
           <Form {...form}>
             <motion.form
               initial={{ opacity: 0, x: 50 }}
@@ -75,7 +72,7 @@ const FilterPanel = ({ selectedCountry, setSelectedCountry, selectedCity, setSel
                       <Select
                         dir="rtl"
                         value={field.value ?? ""}
-                        disabled={loading}
+                       
                         onValueChange={(val) => {
                           field.onChange(val);          // tell RHF
                           setSelectedCountry(val);      // update parent
@@ -130,7 +127,7 @@ const FilterPanel = ({ selectedCountry, setSelectedCountry, selectedCity, setSel
 
                       <Select
                         dir="rtl"
-                        disabled={!selectedCountry || loading}
+                        disabled={!selectedCountry}
                         value={field.value ?? ""}
                         onValueChange={(val) => {
                           field.onChange(val);
@@ -171,9 +168,7 @@ const FilterPanel = ({ selectedCountry, setSelectedCountry, selectedCity, setSel
               </div>
             </motion.form>
           </Form>
-        )
-
-      }
+     
     </div>
   );
 };

@@ -57,7 +57,7 @@ function safeDateParse(input) {
   }
   return new Date(input);
 }
-const FilterPanel = ({ mainData, setIsFilterOpen, defaultValues, setMainData, setLoading, page, mainSelectedCity , setMainSelectedCity }) => {
+const FilterPanel = ({ mainData, setIsFilterOpen, defaultValues, setMainData, setLoading, page, mainSelectedCity, setMainSelectedCity }) => {
   const [seletedCountry, setSelectedCountry] = useState(String(defaultValues.destination) || '');
   const [selectedFlat, setSelectedFlat] = useState(defaultValues.flat || '');
   const [selectedCity, setSelectedCity] = useState(defaultValues.city || '');
@@ -163,7 +163,7 @@ const FilterPanel = ({ mainData, setIsFilterOpen, defaultValues, setMainData, se
       model: "",
       views: "",
       places: "",
-      
+
     });
 
     setKeyWord("");
@@ -590,9 +590,9 @@ const FilterPanel = ({ mainData, setIsFilterOpen, defaultValues, setMainData, se
           <button
             type="button"
             onClick={clearFilter}
-            className="flex-shrink-0 h-12 py-0 px-9 mt-7 bg-[#A71755] text-white font-semibold rounded-full"
+            className="flex-shrink-0 h-12 py-0 mt-7 bg-[#A71755] w-12 flex items-center justify-center text-white font-semibold rounded-full"
           >
-            مسح النتائج
+            <i className="fa-regular fa-trash-can"></i>
           </button>
         </div>
       </motion.form>

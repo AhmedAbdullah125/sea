@@ -160,7 +160,7 @@ const HotelsGrid = ({ isFilterOpen, mainData, mainSelectedCity, setMainSelectedC
                                     <Link to={`/hotel/${item.slug}`} className="card-content">
                                         <div className="detail-info-item rate">
                                             <i className="fa-solid fa-star"></i>
-                                            <span>{item?.tate_name ? item?.tate_name : "0"} <span>( {item?.likes ? item?.likes : "0"} )</span></span>
+                                            <span>{item?.rate_name ? item?.rate_name : "0"} </span>
                                         </div>
                                         <div className="card-desc">
                                             <span className="card-span"

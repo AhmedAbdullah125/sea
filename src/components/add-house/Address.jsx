@@ -262,7 +262,7 @@ const Address = ({ formData, setFormData }) => {
                                             <Switch
                                                 checked={field.value ?? false}
                                                 onCheckedChange={(value) => field.onChange(value)}
-                                                className="data-[state=checked]:bg-[#03a26d] data-[state=unchecked]:bg-[#BFC3C7]"
+                                                className="data-[state=checked]:bg-[#03a26d] data-[state=unchecked]:bg-[#BFC3C7] ps-[2px]"
                                             />
                                         </div>
                                     </FormControl>

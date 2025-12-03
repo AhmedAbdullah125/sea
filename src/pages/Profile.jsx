@@ -265,6 +265,10 @@ export default function EditPage() {
                                                             </div>
                                                 }
                                             </div>
+                                            <div className="icon">
+                                                <i className='fas fa-camera'></i>
+                                                <span>تغيير الصورة</span>
+                                            </div>
                                         </label>
                                         <input id="IDImage" type="file" value="" accept="image/*" style={{ display: 'none' }} className="border mx-auto px-2  py-7 text-lg rounded-md" onChange={handleImageChange} />
                                     </div>

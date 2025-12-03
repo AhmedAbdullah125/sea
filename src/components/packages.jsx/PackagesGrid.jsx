@@ -54,40 +54,40 @@ const PackagesGrid = ({ mainData }) => {
                                     <a href={`package/${item.slug}`} className="card-content" style={{ padding: "0px" }}>
                                         <div className="trip-img">
                                             <Swiper
-                                        pagination={{ clickable: true }}
-                                        spaceBetween={0}
-                                        navigation={{ nextEl: `#swiper-btn-next1a`, prevEl: `#swiper-btn-prev1a`, }}
-                                        slidesPerView={1}
-                                        autoplay={true}
-                                        loop={true}
-                                        modules={[Autoplay, Navigation, Pagination]}
-                                        breakpoints={{
-                                            1400: {
-                                                slidesPerView: 1,
-                                            },
+                                                pagination={{ clickable: true }}
+                                                spaceBetween={0}
+                                                navigation={{ nextEl: `#swiper-btn-next1a`, prevEl: `#swiper-btn-prev1a`, }}
+                                                slidesPerView={1}
+                                                autoplay={true}
+                                                loop={true}
+                                                modules={[Autoplay, Navigation, Pagination]}
+                                                breakpoints={{
+                                                    1400: {
+                                                        slidesPerView: 1,
+                                                    },
 
-                                        }}
-                                    >
+                                                }}
+                                            >
 
-                                        {
-                                            item.images.map((img, index) => (
-                                                <SwiperSlide key={index}>
-                                                    <figure>
-                                                        <img src={img} alt="img" />
-                                                    </figure>
-                                                </SwiperSlide>
-                                            ))
-                                        }
-                                        <div className="swiper-btn-cont swiper-btn-2" id={`swiper-btn-prev1a`}>
-                                            <div className="swiper-btn-prev swiper-btn">
-                                                <i className="fa-solid fa-chevron-right"></i>
-                                            </div>
+                                                {
+                                                    item.images.map((img, index) => (
+                                                        <SwiperSlide key={index}>
+                                                            <figure>
+                                                                <img src={img} alt="img" />
+                                                            </figure>
+                                                        </SwiperSlide>
+                                                    ))
+                                                }
+                                                <div className="swiper-btn-cont swiper-btn-2" id={`swiper-btn-prev1a`}>
+                                                    <div className="swiper-btn-prev swiper-btn">
+                                                        <i className="fa-solid fa-chevron-right"></i>
+                                                    </div>
 
-                                            <div className="swiper-btn-next swiper-btn" id={`swiper-btn-next1a`}>
-                                                <i className="fa-solid fa-chevron-left"></i>
-                                            </div>
-                                        </div>
-                                    </Swiper>
+                                                    <div className="swiper-btn-next swiper-btn" id={`swiper-btn-next1a`}>
+                                                        <i className="fa-solid fa-chevron-left"></i>
+                                                    </div>
+                                                </div>
+                                            </Swiper>
                                             {/* <figure>
                                                 <img src={item.thumbnail} alt="img" />
                                             </figure> */}
@@ -124,8 +124,10 @@ const PackagesGrid = ({ mainData }) => {
                                         </div>
                                         <div className="card-item-name">{item.title}</div>
                                         <div className="card-place">سارية في {formatArabicDate(item.arrivalTime)}</div>
-                                        <div className="item-price">
-                                            {item.cost} {item.currencyName}  <span className="period"><span> / </span> {item.numberOfPerson > 1 ? `${item.numberOfPerson} شخص` : " للشخص الواحد "}</span>
+                                        <div className="item-price flex items-center gap-2">
+                                            <p> {item.cost} {item.currencyName}</p>
+
+                                            <span className="period">/ {item.numberOfPerson > 1 ? `${item.numberOfPerson} شخص` : " للشخص الواحد "}</span>
                                         </div>
                                         <div className="item-btn">
                                             <a href={`https://wa.me/${data?.whatsapp}?text= مناقشتكم لإضافه لحجز الباقة ${item.title} `} className="book-ancor">احجـــز رحلتك الآن</a>

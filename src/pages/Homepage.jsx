@@ -5,6 +5,7 @@ import AppSection from '../components/home/appSection/AppSection';
 import BigOffers from '../components/home/BigOffers';
 import CustomerReviewsSection from '../components/home/CustomerReviewsSection';
 import HeroSection from '../components/home/heroSection/HeroSection';
+import FlatsSection from '../components/home/hotelsSection/FlatsSection';
 import HotelsSection from '../components/home/hotelsSection/HotelsSection';
 import PakageSection from '../components/home/pakageSection/PakageSection';
 import Satatistics from '../components/home/satatistics/Satatistics';
@@ -18,6 +19,7 @@ export default function Homepage() {
                 <HeroSection />
                 <BigOffers />
                 <HotelsSection />
+                <FlatsSection />
                 <PakageSection />
                 <TotalHotelsSection />
                 <AboutUS />

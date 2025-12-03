@@ -78,7 +78,7 @@ const HouseFeatures = ({ formData, setFormData }) => {
                           section.key,
                           option.key
                         )}
-                        className="data-[state=checked]:bg-[#03a26d] data-[state=unchecked]:bg-[#BFC3C7]"
+                        className="data-[state=checked]:bg-[#03a26d] data-[state=unchecked]:bg-[#BFC3C7] ps-[2px]"
                       />
                     </div>
                   </label>
