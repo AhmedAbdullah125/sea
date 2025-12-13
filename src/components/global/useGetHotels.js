@@ -12,7 +12,6 @@ const fetchHotels = async (selectedCountry, selectedCity) => {
   return response.data.data;
 }
 export const useGetHotels = (selectedCountry, selectedCity) => {
-  console.log(selectedCountry);
 
   const query = useQuery({
     queryKey: ["hotels", selectedCountry, selectedCity],

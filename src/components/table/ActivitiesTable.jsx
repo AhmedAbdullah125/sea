@@ -16,7 +16,6 @@ const ActivitiesTable = ({ selectedCountry, selectedCity, cityName, countryName,
     const prevRef = useRef(null);
     const nextRef = useRef(null);
     const { data: events, isLoading } = useGetEvents(selectedCountry, selectedCity, 1);
-    console.log(events);
 
 
     return (

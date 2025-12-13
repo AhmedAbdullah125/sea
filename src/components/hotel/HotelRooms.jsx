@@ -18,7 +18,7 @@ import { toast } from "sonner";
 
 
 const HotelRooms = ({ data }) => {
-    const [favouratesRooms, setFavouratesRooms] = useState([]);    
+    const [favouratesRooms, setFavouratesRooms] = useState([]);
     Fancybox.bind("[data-fancybox]", {
         dirction: "ltr",
     });
@@ -55,7 +55,7 @@ const HotelRooms = ({ data }) => {
                                     initial={{ opacity: 0, y: -50 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ duration: 0.5, delay:  0.2 }}
+                                    transition={{ duration: 0.5, delay: 0.2 }}
                                     className="room-item card-item"
                                     key={index}
                                 >
@@ -199,7 +199,7 @@ const HotelRooms = ({ data }) => {
                                                 : null
                                         }
 
-                                        <Link className="btn-wa" to={`https://wa.me/${settings.whatsapp}?text=اريد مناقشتكم عن غرفة ${room.name} في ${data.title}`}>
+                                        <Link className="btn-wa" to={`https://wa.me/${settings?.whatsapp}?text=اريد مناقشتكم عن غرفة ${room.name} في ${data.title}`}>
                                             <span>تخصيص الغرفة</span>
                                             <img src={waImage} alt="whatsapp" />
                                         </Link>

@@ -23,7 +23,6 @@ const ForgetPasswordPage= ({ handleSendOtp }) => {
   })
   // 2. Define a submit handler.
   async function onSubmit(values) {
-    console.log("values", values);
     forgetPassword(values, setLoading, handleSendOtp)
 
   }

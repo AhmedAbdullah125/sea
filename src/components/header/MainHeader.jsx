@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import logo from '../../../public/app/seaLogo.svg'
 import LoginDialog from '../login/LoginDialog'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
@@ -12,7 +12,10 @@ import goog from '../../../public/app/goog.svg'
 import apl from '../../../public/app/apl.svg'
 import round from '../../../public/app/round.svg'
 import ogBlogs from '../../../public/og-blogs.svg'
+import { toast } from 'sonner'
+
 const MainHeader = () => {
+    const navigate = useNavigate();
     const [scrolled, setScrolled] = useState(false);
     const { data, isLoading, isError } = useGetSettings();
     const token = sessionStorage.getItem('token');
@@ -119,13 +122,23 @@ const MainHeader = () => {
                                 <LoginDialog mainHeader />
                             </DropdownMenuItem> */}
                             <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
-                                <NavLink className="option-drop-link " to="/add-house">
+                                <button
+                                    className="option-drop-link w-full"
+                                    onClick={() => {
+                                        if (token) {
+                                            navigate('/add-house');
+                                        } else {
+                                            toast.error('يجب تسجيل الدخول أولاً');
+                                            navigate('/login');
+                                        }
+                                    }}
+                                >
                                     <div className="flex items-center gap-3">
                                         <LazyLoadImage src={Vector1} alt="logo" loading='lazy' />
                                         <span> اضف سكنك</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-left"></i>
-                                </NavLink>
+                                </button>
                             </DropdownMenuItem>
                             <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
                                 <NavLink className="option-drop-link " to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>
@@ -174,7 +187,19 @@ const MainHeader = () => {
                             <LoginDialog mainHeader />
                         </DropdownMenuItem>
                         <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
-                            <NavLink className="option-drop-link " to="/add-house">أضف سكنـك</NavLink>
+                            <button
+                                className="option-drop-link w-full"
+                                onClick={() => {
+                                    if (token) {
+                                        navigate('/add-house');
+                                    } else {
+                                        toast.error('يجب تسجيل الدخول أولاً');
+                                        navigate('/login');
+                                    }
+                                }}
+                            >
+                                أضف سكنـك
+                            </button>
                         </DropdownMenuItem>
                         <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
                             <NavLink className="option-drop-link " to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>أضف بــاقتك</NavLink>

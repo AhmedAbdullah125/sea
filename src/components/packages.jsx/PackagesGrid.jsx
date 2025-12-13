@@ -12,7 +12,6 @@ import "swiper/css/pagination";
 
 const PackagesGrid = ({ mainData }) => {
     const { data, isLoading, isError } = useGetSettings();
-    console.log(mainData);
 
     const [lovedPlans, setLovedPlans] = useState(localStorage.getItem('lovedPlans') ? JSON.parse(localStorage.getItem('lovedPlans')) : [])
     useEffect(() => {

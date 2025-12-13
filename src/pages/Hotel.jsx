@@ -1,24 +1,27 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState } from 'react'
 import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
 import { useParams } from 'react-router-dom';
 import HotelHeader from '../components/hotel/HotelHeader';
-import { API_BASE_URL } from '../lib/apiConfig';
 import HotelBook from '../components/hotel/HotelBook';
 import HotelTabs from '../components/hotel/HotelTabs';
 import HotelPayment from '../components/hotel/HotelPayment';
 import Loading from '../components/loading/Loading';
 import HotelRooms from '../components/hotel/HotelRooms';
 import { useGetHotel } from './useGetHotel';
+import { Helmet } from 'react-helmet-async';
 const Hotel = () => {
     // state for search params
     const { id } = useParams();
     const [trigger, setTrigger] = useState(false);
-    const { data,isLoading } = useGetHotel(id);
-    
-        return (
+    const { data, isLoading } = useGetHotel(id);
+
+    return (
         <section>
+            <Helmet>
+                <title>{data?.meta?.meta_title || 'Sea - Hotel'}</title>
+                <meta name="description" content={data?.meta?.meta_description || 'منصة رقمية لحجز الإقامة بسهولة وأمان'} />
+            </Helmet>
             <Header />
             {/* Start Page Content */}
             {

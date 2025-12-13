@@ -313,7 +313,7 @@ const HotelPayment = ({ data }) => {
                         <Link
                             style={displayPrice ? { display: "flex" } : { display: "none" }}
                             className="h-12 px-6 text-white  bg-main-blue hover:bg-main-purple transtion-all duration-300 w-full text-xs font-bold   rounded-full flex items-center justify-between  hover:text-white  "
-                            to={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(
+                            to={`https://wa.me/${settings?.whatsapp}?text=${encodeURIComponent(
                                 `اريد مناقشتكم عن عرض سعر على فندق "${data?.title}"\n` +
                                 `من يوم ${arrivalDate ? format(arrivalDate, "yyyy-MM-dd") : "?"} ` +
                                 `إلى يوم ${departureDate ? format(departureDate, "yyyy-MM-dd") : "?"} \n` +

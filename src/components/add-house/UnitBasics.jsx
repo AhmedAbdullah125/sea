@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import unitPlanImg from "../../../public/app/houseImage.png";
 
-const UnitBasics = ({ formData, setFormData }) => {
+const UnitBasics = ({ formData, setFormData, setStepDone }) => {
   const [hoveredKey, setHoveredKey] = useState(null);
 
   const updateField = (field, delta, min = 0) => {
@@ -19,6 +19,16 @@ const UnitBasics = ({ formData, setFormData }) => {
     { key: "beds", label: "عدد الأسرة !" },
     { key: "bathrooms", label: "عدد الحمامات !" },
   ];
+
+  useEffect(() => {
+    const hasAnyCounter = counters.some(
+      counter => (formData?.[counter.key] ?? 0) > 0
+    );
+
+    if (hasAnyCounter) {
+      setStepDone(4);
+    }
+  }, [formData, setStepDone]);
 
   return (
     <div className="unit-basics">
@@ -65,8 +75,8 @@ const UnitBasics = ({ formData, setFormData }) => {
         <div className="unit-basics-plan">
           <img src={unitPlanImg} alt="مخطط الوحدة" />
           <div
-            className= 
-            {`plan-tooltip tooltip-${hoveredKey}`} 
+            className=
+            {`plan-tooltip tooltip-${hoveredKey}`}
           >
             <span>أبرز التفاصيل التي تميزك !</span>
           </div>

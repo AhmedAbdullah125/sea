@@ -10,7 +10,6 @@ const Events = ({ selectedCountry, selectedCity, countryName, cityName }) => {
         if (!data) return;
         let arr = [];
         data.forEach((item) => {
-            console.log(item);
 
             if (!arr.some(cat => cat.id === item.categoryId)) {
                 arr.push({ id: item.categoryId, name: item.categoryName });
@@ -18,7 +17,6 @@ const Events = ({ selectedCountry, selectedCity, countryName, cityName }) => {
         });
         setCats(arr);
     }, [data]);
-    console.log(data);
 
 
     return (

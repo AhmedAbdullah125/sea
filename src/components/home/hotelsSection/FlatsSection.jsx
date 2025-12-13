@@ -14,7 +14,6 @@ import { useGetFlats } from "../../global/useGetFlats";
 const FlatsSection = () => {
   const { data, isLoading, isError } = useGetFlats();
   const { data: settings, isLoading: settingsLoading } = useGetSettings();
-  console.log(data);
 
   if (isLoading || settingsLoading) return <Loader />
   if (isError) return <div className="container my-12"><AlertError>

@@ -19,7 +19,7 @@ const addressSchema = z.object({
     longitude: z.string().optional().nullable(),
 })
 
-const Address = ({ formData, setFormData }) => {
+const Address = ({ formData, setFormData, setStepDone }) => {
     const [isLocating, setIsLocating] = useState(false)
 
     const defaultValues = useMemo(
@@ -59,10 +59,16 @@ const Address = ({ formData, setFormData }) => {
         })
 
         return () => subscription.unsubscribe()
-    }, [form, formData])
+    }, [form, formData, setStepDone])
 
     const watchedValues = form.watch()
-
+    // Add after line 66:
+    useEffect(() => {
+        const { isValid } = form.formState
+        if (isValid) {
+            setStepDone(3)
+        }
+    }, [form.formState.isValid, setStepDone])
     const mapQuery = useMemo(() => {
         if (watchedValues.latitude && watchedValues.longitude) {
             return `${watchedValues.latitude},${watchedValues.longitude}`

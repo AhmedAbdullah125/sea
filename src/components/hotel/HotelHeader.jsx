@@ -3,23 +3,19 @@ import imgicon1 from '../../../public/app/imgIcon-1.svg'
 import imgicon2 from '../../../public/app/imgIcon-2.svg'
 import { toast } from 'sonner'
 import { toggleFavourates } from '../../pages/toggleFavourates'
-import { Fancybox } from "@fancyapps/ui";
-import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import FancyboxWrapper from "@/components/ui/FancyboxWrapper";
 import { motion } from "framer-motion";
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"
 import { Link } from 'react-router-dom'
 const HotelHeader = ({ data }) => {
     const token = sessionStorage.getItem('token')
-    
-    Fancybox.bind("[data-fancybox]", {});
-    Fancybox.bind("[data-fancybox-video]", {});
     const [images, setImages] = useState([])
     useEffect(() => {
         if (data?.vedios?.length > 0 && data?.vedios[0] !== "https://panel.seatourism.sa/storage") {
             setImages([...data?.vedios, ...data?.images])
         }
-        else { setImages(data?.images) }   
-    },[data])
+        else { setImages(data?.images) }
+    }, [data])
     return (
         <section className="content-section">
             <div className="container">
@@ -41,7 +37,7 @@ const HotelHeader = ({ data }) => {
                     <div className="detail-info">
                         <div className="detail-info-item rate">
                             <i className="fa-solid fa-star"></i>
-                            <span>{data?.rating_category? data?.rating_category : "5.0"} <span>( {data?.reviewsCount? data?.reviewsCount : "+10"} )</span></span>
+                            <span>{data?.rating_category ? data?.rating_category : "5.0"} <span>( {data?.reviewsCount ? data?.reviewsCount : "+10"} )</span></span>
                         </div>
                         <div className="detail-info-item">
                             <i className="fa-solid fa-location-dot"></i>
@@ -139,68 +135,70 @@ const HotelHeader = ({ data }) => {
 
                     </div>
                 </motion.div>
-                <motion.div
-                    initial={{ opacity: 0, x: -100 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1 }}
-                    className="detail-cont">
-                    <div className="detail-box">
+                <FancyboxWrapper>
+                    <motion.div
+                        initial={{ opacity: 0, x: -100 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1 }}
+                        className="detail-cont">
+                        <div className="detail-box">
 
-                        <figure className="detail-img">
-                            {data?.vedios?.length > 0 && data?.vedios[0] !== "https://panel.seatourism.sa/storage" ? 
-                                <video src={data?.vedios[0]} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
-                             : 
-                                <img src={data?.images[0]} className="img-fluid" alt="detail-img" />
-                            }
-                        </figure>
-                        <div className="detail-img-btn">
-                            <a href={data?.images[0]} data-caption={data?.title} data-fancybox="gallery" className="single-img">
-                                <button className="add-btn">
-                                    <img src={imgicon1} alt="icon" />
-                                </button>
-                            </a>
-                            {
-                                data?.vedios?.length > 0 && data?.vedios[0] != "https://panel.seatourism.sa/storage" ?
-                                    <a href={data?.vedios[0]} data-caption={data?.title} data-fancybox="vids" className="single-img">
-                                        <button className="add-btn">
-                                            <img src={imgicon2} alt="icon" />
-                                        </button>
-                                    </a>
-                                    : null
+                            <figure className="detail-img">
+                                {data?.vedios?.length > 0 && data?.vedios[0] !== "https://panel.seatourism.sa/storage" ?
+                                    <video src={data?.vedios[0]} className="img-fluid" controls preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                                    :
+                                    <img src={data?.images[0]} className="img-fluid" alt="detail-img" />
+                                }
+                            </figure>
+                            <div className="detail-img-btn">
+                                <a href={data?.images[0]} data-caption={data?.title} data-fancybox="gallery" data-src={data?.images[0]} data-thumb={data?.images[0]} className="single-img">
+                                    <button className="add-btn">
+                                        <img src={imgicon1} alt="icon" />
+                                    </button>
+                                </a>
+                                {
+                                    data?.vedios?.length > 0 && data?.vedios[0] != "https://panel.seatourism.sa/storage" ?
+                                        <a href={data?.vedios[0]} data-caption={data?.title} data-fancybox="vids" data-src={data?.vedios[0]} className="single-img">
+                                            <button className="add-btn">
+                                                <img src={imgicon2} alt="icon" />
+                                            </button>
+                                        </a>
+                                        : null
 
-                            }
-                        </div>
-                    </div>
-                    {images.map((mediaUrl, idx) => {
-                        return (
-                            <div className="detail-box" key={idx}>
-                                <figure className="detail-img">
-                                    {
-                                        idx == 3 ?
-                                            <img src={mediaUrl} className="img-fluid" alt="detail-img" />
-                                            :
-                                            data?.vedios?.length > 0 && idx == 0 && data?.vedios[0] != "https://panel.seatourism.sa/storage" ? (
-                                                <a href={data?.vedios[0]} data-caption={data?.title} data-fancybox="gallery" className="single-img">
-                                                    <video src={data?.vedios[0]} className="img-fluid" muted preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
-                                                </a>
-                                            ) : (
-                                                <a href={mediaUrl} data-caption={data?.title} data-fancybox="gallery" className="single-img">
-                                                    <img src={mediaUrl} className="img-fluid" alt="detail-img" />
-                                                </a>
-                                            )
-                                    }
-                                    {
-                                        idx == 3 && data?.images.length > 3 ?
-                                            <div className="rest"><a href={mediaUrl} data-caption={data?.title} data-fancybox="gallery">+{data?.images.length - 3}</a></div>
-                                            : null
-                                    }
-                                </figure>
+                                }
                             </div>
-                        );
-                    })}
+                        </div>
+                        {images.map((mediaUrl, idx) => {
+                            return (
+                                <div className="detail-box" key={idx}>
+                                    <figure className="detail-img">
+                                        {
+                                            idx == 3 ?
+                                                <img src={mediaUrl} className="img-fluid" alt="detail-img" />
+                                                :
+                                                data?.vedios?.length > 0 && idx == 0 && data?.vedios[0] != "https://panel.seatourism.sa/storage" ? (
+                                                    <a href={data?.vedios[0]} data-caption={data?.title} data-fancybox="gallery" className="single-img">
+                                                        <video src={data?.vedios[0]} className="img-fluid" muted preload="metadata" style={{ objectFit: 'cover', width: '100%', height: '100%' }} onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
+                                                    </a>
+                                                ) : (
+                                                    <a href={mediaUrl} data-caption={data?.title} data-fancybox="gallery" className="single-img">
+                                                        <img src={mediaUrl} className="img-fluid" alt="detail-img" />
+                                                    </a>
+                                                )
+                                        }
+                                        {
+                                            idx == 3 && data?.images.length > 3 ?
+                                                <div className="rest"><a href={mediaUrl} data-caption={data?.title} data-fancybox="gallery">+{data?.images.length - 3}</a></div>
+                                                : null
+                                        }
+                                    </figure>
+                                </div>
+                            );
+                        })}
 
-                </motion.div>
+                    </motion.div>
+                </FancyboxWrapper>
             </div>
         </section>
     )

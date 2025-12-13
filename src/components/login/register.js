@@ -25,9 +25,7 @@ export const register = async (data, setLoading,handleSendOtp) => {
             setLoading(false); // Reset loading state
             handleSendOtp(data.email);
         }
-        else {      
-            console.log("sss");
-            
+        else {                  
             toast(response?.data?.status, {
                 style: {
                     borderColor: "#dc3545",

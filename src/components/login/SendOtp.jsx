@@ -27,7 +27,6 @@ const SendOtp = ({ handleSendOtp }) => {
   })
   // 2. Define a submit handler.
   async function onSubmit(values) {
-    console.log("values", values);
     login(values, setLoading, handleSendOtp)
   }
   return (

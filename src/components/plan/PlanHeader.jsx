@@ -259,7 +259,7 @@ const PlanHeader = ({ data }) => {
 
                                     </AccordionTrigger>
                                     <AccordionContent className="flex flex-col gap-4 text-balance mt-4">
-                                        <p className='text-base text-[#6F6F6F] font-medium'> 
+                                        <p className='text-base text-[#6F6F6F] font-medium'>
                                             {data.ownerComment}
                                         </p>
 
@@ -269,28 +269,28 @@ const PlanHeader = ({ data }) => {
                             :
                             <div className="daman">
 
-                            <motion.div
-                                initial={{ opacity: 0, y: -50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: 0.2 }}
-                                className="flex items-center justify-between w-full">
-                                <div className="r-side">
-                                    <div className="name-cont">
-                                        {
+                                <motion.div
+                                    initial={{ opacity: 0, y: -50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: 0.2 }}
+                                    className="flex items-center justify-between w-full">
+                                    <div className="r-side">
+                                        <div className="name-cont">
+                                            {
 
-                                            data?.ownerName ?
-                                                data.ownerName.slice(0, 1) :
-                                                <img src={profileActive} alt="profile" />
-                                        }
+                                                data?.ownerName ?
+                                                    data.ownerName.slice(0, 1) :
+                                                    <img src={profileActive} alt="profile" />
+                                            }
+                                        </div>
+                                        <div className="info">
+                                            <h3>{data.ownerName ? data.ownerName : "عميل ســـي"} <span className='fasla'></span> {data?.ownerCompanyName ? data.ownerCompanyName : null}  <img src={img2} alt="" /></h3>
+                                            <p className='text-base text-[#6F6F6F] font-medium'>{data.companyCaption}</p>
+                                        </div>
                                     </div>
-                                    <div className="info">
-                                        <h3>{data.ownerName ? data.ownerName : "عميل ســـي"} <span className='fasla'></span> {data?.ownerCompanyName ? data.ownerCompanyName : null}  <img src={img2} alt="" /></h3>
-                                        <p className='text-base text-[#6F6F6F] font-medium'>{data.companyCaption}</p>
-                                    </div>
-                                </div>
-                                
-                            </motion.div>
+
+                                </motion.div>
                             </div>
                     }
                 </div>

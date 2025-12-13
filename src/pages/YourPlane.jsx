@@ -12,8 +12,6 @@ const YourPlane = () => {
     const [countryName, setCountryName] = useState("");
     const [selectedCity, setSelectedCity] = useState('');
     const [cityName, setCityName] = useState("");
-    console.log(selectedCountry, selectedCity);
-    console.log(countryName, cityName);
 
 
     return (

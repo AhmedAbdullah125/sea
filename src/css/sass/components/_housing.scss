@@ -97,12 +97,12 @@
         }
 
         .typs-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            display: flex;
+            // grid-template-columns: repeat(4, 1fr);
             gap: 20px;
 
             @media screen and (max-width: 991px) {
-                grid-template-columns: repeat(2, 1fr);
+                flex-wrap: wrap;
             }
 
             .typs-item {
@@ -115,6 +115,7 @@
                 flex-direction: column;
                 gap: 20px;
                 align-items: center;
+                width: 100%;
 
                 &:hover {
                     background-color: $main;
@@ -580,9 +581,11 @@
     0% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-5px);
     }
+
     100% {
         transform: translateY(0);
     }
@@ -627,25 +630,29 @@
     transform: none;
     /* لو عايز تشيل translateX */
 }
+
 .plan-tooltip.tooltip-children {
     top: 70%;
     left: 32%;
     transform: none;
     /* لو عايز تشيل translateX */
 }
+
 .plan-tooltip.tooltip-bedrooms,
-.plan-tooltip.tooltip-beds{
+.plan-tooltip.tooltip-beds {
     top: 25%;
     left: 33%;
     transform: none;
     /* لو عايز تشيل translateX */
 }
+
 .plan-tooltip.tooltip-bathrooms {
     top: 23%;
     left: 49%;
     transform: none;
     /* لو عايز تشيل translateX */
 }
+
 .unit-basics-box h3 {
     font-size: 20px;
     font-weight: 600;
@@ -751,7 +758,9 @@
         display: flex;
         flex-direction: column-reverse;
         gap: 15px;
-        .unit-basics-box,.unit-basics-plan{
+
+        .unit-basics-box,
+        .unit-basics-plan {
             width: 100%;
         }
     }
@@ -1369,7 +1378,7 @@
     font-size: 14px;
     cursor: pointer;
     color: #444;
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
     height: 58px;
     text-wrap: nowrap;
 }
@@ -1378,10 +1387,33 @@
     font-size: 16px;
 }
 
+.contact-tab.left {
+    background: #25D366;
+    color: #ffffff;
+    border-color: #25D366;
+
+    &:hover {
+        background: #22c65b;
+        border-color: #22c65b;
+    }
+
+    &.active {
+        background: #1da851;
+        border-color: #1da851;
+        box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.3);
+        transform: scale(1.02);
+    }
+}
+
 .contact-tab.primary {
     background: #0071c2;
     color: #ffffff;
     border-color: #0071c2;
+
+    &:hover {
+        background: #005fa3;
+        border-color: #005fa3;
+    }
 }
 
 .contact-tab.gradient {
@@ -1390,8 +1422,9 @@
     border-color: transparent;
 }
 
-.contact-tab.active {
-    box-shadow: 0 0 0 2px rgba(0, 113, 194, 0.25);
+.contact-tab.active.primary {
+    box-shadow: 0 0 0 3px rgba(0, 113, 194, 0.3);
+    transform: scale(1.02);
 }
 
 /* حقل العنوان */

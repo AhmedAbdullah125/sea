@@ -11,6 +11,8 @@ import PlanMarq from '../components/plan/PlanMarq'
 import PlanComments from '../components/plan/PlanComments'
 import PlanRateForm from '../components/plan/PlanRateForm'
 import { useGetSettings } from '../components/global/useGetSettings'
+import PlanList from '../components/plan/PlanList'
+import PackageHotels from '../components/plan/PackageHotels'
 const Package = () => {
     const { id } = useParams();
     const [data, setData] = useState([]);
@@ -34,7 +36,6 @@ const Package = () => {
     }, []);
     const { data: settings, isLoading, isError } = useGetSettings();
 
-
     return (
         <section>
             <Header />
@@ -43,6 +44,11 @@ const Package = () => {
                     <>
                         <PlanHeader data={data} />
                         <PlanPrices data={data} settings={settings} />
+                        <PlanList data={data} />
+                        {
+                            data?.hotels?.length > 0 &&
+                            <PackageHotels data={data} />
+                        }
                         <PlanMarq data={data} />
                         {/* <PlanFaqs data={data} /> */}
                         {/* <section className="package-section">

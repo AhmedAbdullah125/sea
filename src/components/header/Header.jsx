@@ -9,15 +9,19 @@ import { motion } from "framer-motion";
 
 const Header = () => {
     const [isFixed, setIsFixed] = useState(false);
-
     useEffect(() => {
         const handleScroll = () => {
-            setIsFixed(window.scrollY > 300);
+            if (window.scrollY > 300) {
+                setIsFixed(true);
+            } else if (window.scrollY < 70) {
+                setIsFixed(false);
+            }
         };
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
     useEffect(() => {
         window.scrollTo(0, 0)
     }, []);

@@ -31,7 +31,6 @@ const RegisterSendOtp = ({ handleSendOtp }) => {
   })
   // 2. Define a submit handler.
   async function onSubmit(values) {
-    console.log("values", values);
     register(values, setLoading,handleSendOtp)
   }
   return (

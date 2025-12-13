@@ -40,7 +40,7 @@ const PlanPrices = ({ data, settings }) => {
                 >
                     <h6 className="package-head">البـــاقة !</h6>
                     <h3 className="package-title">أسعــــــار البــاقة</h3>
-                    <p className="package-text">قد تكون هذه البـــاقة ممتعةً لك !</p>
+                    <p className="package-text mb-10">قد تكون هذه البـــاقة ممتعةً لك !</p>
                 </motion.div>
                 {/* <div className="package-cont">
                     {
@@ -136,8 +136,8 @@ const PlanPrices = ({ data, settings }) => {
                                 </div>
                                 <div className="fasel"></div>
                                 <div className="ele">
-                                    <h3>{data.numberOfPerson} أشخــاص</h3>
-                                    <span>عدد الأشخــاص :</span>
+                                    <h3>عدد الأشخــاص :</h3>
+                                    <span>{data.numberOfPerson} أشخــاص</span>
                                 </div>
                             </div>
                         </div>
@@ -145,7 +145,7 @@ const PlanPrices = ({ data, settings }) => {
                             <div className="r-side">
                                 <div className="price">
                                     <span>{Number(data.cost).toFixed(3)} <span className="currency-name">{data.currencyName}</span></span>
-                                    <p>المجموع ل (1) غرفة</p>
+                                    <p>المجموع ل ({data.numberOfPerson}) شخص</p>
                                 </div>
                                 <div className="fasel"></div>
                                 <div className="pay-methods">

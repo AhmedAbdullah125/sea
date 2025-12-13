@@ -2496,7 +2496,7 @@ figure::after {
 }
 
 .package-section {
-  margin-bottom: 120px;
+  margin-bottom: 60px;
 }
 @media only screen and (max-width: 767px) {
   .package-section {
@@ -2530,7 +2530,6 @@ figure::after {
   font-size: 14px;
   color: var(--black-color);
   text-align: center;
-  margin-bottom: 65px;
 }
 
 .package-cont {
@@ -4949,7 +4948,7 @@ footer .ies a i {
 .package-detils .all-details .dates-persons {
   display: flex;
   align-items: center;
-  gap: 60px;
+  gap: 40px;
   flex-wrap: wrap;
 }
 @media screen and (max-width: 1025px) {
@@ -5251,6 +5250,21 @@ footer .ies a i {
   font-size: 20px;
 }
 
+.planList .accordion .accordionTrigger svg {
+  color: var(--white-color);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--sec-color);
+  padding: 15px;
+}
+
+.terms-row button {
+  border: 1px solid var(--main-color);
+  border-radius: 4px;
+  color: var(--main-color);
+}
+
 .add-main-cont {
   background-color: #F5F5F5;
   padding-block: 55px;
@@ -5335,13 +5349,12 @@ footer .ies a i {
   text-align: center;
 }
 .add-main-cont .house-type .typs-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
   gap: 20px;
 }
 @media screen and (max-width: 991px) {
   .add-main-cont .house-type .typs-grid {
-    grid-template-columns: repeat(2, 1fr);
+    flex-wrap: wrap;
   }
 }
 .add-main-cont .house-type .typs-grid .typs-item {
@@ -5354,6 +5367,7 @@ footer .ies a i {
   flex-direction: column;
   gap: 20px;
   align-items: center;
+  width: 100%;
 }
 .add-main-cont .house-type .typs-grid .typs-item:hover {
   background-color: var(--main-color);
@@ -5939,7 +5953,8 @@ footer .ies a i {
     flex-direction: column-reverse;
     gap: 15px;
   }
-  .unit-basics-grid .unit-basics-box, .unit-basics-grid .unit-basics-plan {
+  .unit-basics-grid .unit-basics-box,
+  .unit-basics-grid .unit-basics-plan {
     width: 100%;
   }
   .unit-basics-plan {
@@ -6523,7 +6538,7 @@ footer .ies a i {
   font-size: 14px;
   cursor: pointer;
   color: #444;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
   height: 58px;
   text-wrap: nowrap;
 }
@@ -6532,10 +6547,30 @@ footer .ies a i {
   font-size: 16px;
 }
 
+.contact-tab.left {
+  background: #25D366;
+  color: #ffffff;
+  border-color: #25D366;
+}
+.contact-tab.left:hover {
+  background: #22c65b;
+  border-color: #22c65b;
+}
+.contact-tab.left.active {
+  background: #1da851;
+  border-color: #1da851;
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.3);
+  transform: scale(1.02);
+}
+
 .contact-tab.primary {
   background: #0071c2;
   color: #ffffff;
   border-color: #0071c2;
+}
+.contact-tab.primary:hover {
+  background: #005fa3;
+  border-color: #005fa3;
 }
 
 .contact-tab.gradient {
@@ -6544,8 +6579,9 @@ footer .ies a i {
   border-color: transparent;
 }
 
-.contact-tab.active {
-  box-shadow: 0 0 0 2px rgba(0, 113, 194, 0.25);
+.contact-tab.active.primary {
+  box-shadow: 0 0 0 3px rgba(0, 113, 194, 0.3);
+  transform: scale(1.02);
 }
 
 /* حقل العنوان */

@@ -16,7 +16,6 @@ import HotelsPagination from '../hotels/HotelsPagination';
 const Activities = ({ selectedCountry, selectedCity, cityName, countryName, description }) => {
     const [page, setPage] = useState(1);
     const { data: events, isLoading } = useGetEvents(selectedCountry, selectedCity, page);
-    console.log("Events data:", events);
     return (
         <>
             {

@@ -79,7 +79,7 @@
         .dates-persons {
             display: flex;
             align-items: center;
-            gap: 60px;
+            gap: 40px;
             flex-wrap: wrap;
 
             @media screen and (max-width: 1025px) {
@@ -96,18 +96,20 @@
                 display: flex;
                 flex-direction: column;
                 gap: 15px;
+
                 @media screen and (max-width: 1025px) {
                     gap: 10px;
-                    
+
                 }
 
                 h3 {
                     font-weight: 600;
                     font-size: 24px;
                     color: $black;
+
                     @media screen and (max-width: 1025px) {
                         font-size: 16px;
-                        
+
                     }
                 }
 
@@ -135,22 +137,26 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             @media screen and (max-width: 1525px) {
                 flex-direction: column;
                 gap: 20px;
             }
+
             @media screen and (max-width: 767px) {
                 flex-direction: column;
                 gap: 20px;
                 align-items: flex-start;
             }
-            .custom-link{
+
+            .custom-link {
                 margin-bottom: 0;
                 font-size: 12px;
                 padding: 012px;
-               
+
             }
-            .custom-wa{
+
+            .custom-wa {
                 min-width: 58px;
                 padding: 0 0;
                 display: flex;
@@ -158,39 +164,47 @@
                 justify-content: center;
                 width: unset;
             }
+
             .r-side {
                 display: flex;
                 align-items: center;
                 gap: 60px;
+
                 @media screen and (max-width: 1025px) {
                     gap: 22px;
-                    
+
                 }
+
                 .fasel {
                     width: 1px;
                     height: 50px;
                     background-color: #00000033;
+
                     @media screen and (max-width: 1025px) {
                         display: none;
-                        
+
                     }
                 }
             }
-            .l-side{
+
+            .l-side {
                 display: flex;
                 align-items: center;
                 gap: 5px;
             }
-            .pay-methods{
+
+            .pay-methods {
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
-                .pay-images{
+
+                .pay-images {
                     display: flex;
                     gap: 10px;
                     align-items: center;
                     flex-wrap: wrap;
-                    img{
+
+                    img {
                         height: 57px;
                         width: auto;
                         -o-object-fit: contain;
@@ -198,21 +212,24 @@
 
                         @media screen and (max-width: 1425px) {
                             height: 35px;
-                            
+
                         }
+
                         @media screen and (max-width: 767px) {
                             height: 26px;
-                            
+
                         }
                     }
                 }
-                span{
+
+                span {
                     font-size: 12px;
                     font-weight: 500;
                     color: $main;
                 }
 
             }
+
             .price {
                 display: flex;
                 flex-direction: column;
@@ -225,18 +242,20 @@
                     font-weight: 800;
                     font-size: 24px;
                     color: $hover;
+
                     @media screen and (max-width: 1025px) {
                         font-size: 16px;
-                        
+
                     }
 
                     .currency-name {
                         font-weight: 800;
                         font-size: 12px;
                         color: $sec;
+
                         @media screen and (max-width: 1025px) {
                             font-size: 10px;
-                            
+
                         }
                     }
                 }
@@ -253,8 +272,9 @@
 
     }
 }
-.pc-feats{
-    h4{
+
+.pc-feats {
+    h4 {
         font-weight: 700;
         font-size: 32px;
         color: $main;
@@ -262,14 +282,16 @@
         margin-bottom: 20px;
         margin-top: 40px;
     }
-    h5{
+
+    h5 {
         font-weight: 700;
         font-size: 24px;
         color: $hover;
         margin-bottom: 20px;
         text-align: center;
     }
-    .fts-grid{
+
+    .fts-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         column-gap: 300px;
@@ -278,7 +300,8 @@
         min-height: 120px;
         padding: 10px;
         margin-bottom: 40px;
-        .fasel{
+
+        .fasel {
             width: 1px;
             height: 100px;
             background-color: #00000033;
@@ -287,34 +310,40 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        .grid-item{
+
+        .grid-item {
             display: flex;
             gap: 8px;
-            span{
+
+            span {
                 font-size: 14px;
                 font-weight: 500;
                 color: $black;
             }
         }
     }
-    img{
+
+    img {
         width: 20px;
         height: 20px;
         -o-object-fit: contain;
         object-fit: contain;
     }
-    .l-side{
+
+    .l-side {
         display: flex;
         align-items: center;
         gap: 6px;
         margin: 0 auto;
         width: fit-content;
-        .custom-link{
-            margin: 0 ;
+
+        .custom-link {
+            margin: 0;
             width: fit-content;
         }
     }
 }
+
 .comment {
     padding: 40px;
     border-radius: 40px;
@@ -325,66 +354,92 @@
     width: 100%;
 
     .comment-head {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
 
-      span {
-        font-weight: 700;
-        font-size: 14px;
-        color: $white;
+        span {
+            font-weight: 700;
+            font-size: 14px;
+            color: $white;
 
-      }
+        }
 
-      .first-letter {
-        width: 48px;
-        height: 48px;
-        @include flexCenter;
-        border-radius: 50%;
-        background-color: $white;
-        color: $main;
-        font-weight: 800;
-        font-size: 12px;
-      }
+        .first-letter {
+            width: 48px;
+            height: 48px;
+            @include flexCenter;
+            border-radius: 50%;
+            background-color: $white;
+            color: $main;
+            font-weight: 800;
+            font-size: 12px;
+        }
 
     }
 
     .comment-body {
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 40px;
-      text-align: justify;
-      color: $white;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 40px;
+        text-align: justify;
+        color: $white;
     }
 
-  }
-  .dets {
+}
+
+.dets {
     display: flex;
     align-items: center;
     gap: 15px;
     justify-content: space-between;
 
     .date {
-      font-weight: 700;
-      font-size: 16px;
-      color: $white;
+        font-weight: 700;
+        font-size: 16px;
+        color: $white;
     }
 
     .rating {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: $white;
-      font-weight: 800;
-      font-size: 14px;
-      text-align: right;
-      line-height: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: $white;
+        font-weight: 800;
+        font-size: 14px;
+        text-align: right;
+        line-height: 20px;
 
-      i {
-        color: #FFBE33;
-        font-size: 20px;
+        i {
+            color: #FFBE33;
+            font-size: 20px;
 
-      }
+        }
 
     }
-  }
+}
+
+
+.planList {
+    .accordion {
+        .accordionTrigger {
+            svg {
+                color: $white;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: $sec;
+                padding: 15px;
+
+            }
+        }
+    }
+}
+
+.terms-row {
+    button {
+        border: 1px solid $main;
+        border-radius: 4px;
+        color: $main;
+    }
+}
