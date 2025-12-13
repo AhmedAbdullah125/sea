@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { login } from "./login"
 import Loading from "../loading/Loading"
 
@@ -17,6 +17,8 @@ const formSchema = z.object({
 const SendOtp = ({ handleSendOtp }) => {
   const [submitMethod, setSubmitMethod] = useState("whatsapp")
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate();
+
   // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -27,7 +29,7 @@ const SendOtp = ({ handleSendOtp }) => {
   })
   // 2. Define a submit handler.
   async function onSubmit(values) {
-    login(values, setLoading, handleSendOtp)
+    login(values, setLoading, handleSendOtp, navigate)
   }
   return (
     <>
