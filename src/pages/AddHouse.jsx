@@ -12,11 +12,12 @@ import offer_d from '../../public/app/offer_d.svg'
 import offer_tr from '../../public/app/offer_tr.svg'
 import offer_m from '../../public/app/offer_m.svg'
 import AppSection from '../components/home/appSection/AppSection'
-import { useGetSettings } from '@/components/global/useGetSettings';
 import { Link } from 'react-router-dom'
+import { toast } from 'sonner'
 
 const AddHouse = () => {
-    const { data } = useGetSettings();
+    const token = sessionStorage.getItem('token');
+
     return (
         <section>
             <Header />
@@ -58,7 +59,11 @@ const AddHouse = () => {
                     <h6 className="package-head">تفاصيل ادق !</h6>
                     <h3 className="package-title">وش نقدم لك في منصة ســـي</h3>
                     <p className="package-text mb-4">أنشر وأضف مصدر دخل جديـــد !</p>
-                    <Link to={`/add-steps`} className="custom-link housing-ancor" ><span>سجل سكنك الان</span> <img src={detail4} alt="house" /></Link>
+                    <Link to={token ? "/add-steps" : "/login"} className="custom-link housing-ancor" onClick={() => {
+                        if (!token) {
+                            toast.error('يجب تسجيل الدخول أولاً');
+                        }
+                    }} ><span>سجل سكنك الان</span> <img src={detail4} alt="house" /></Link>
                     <div className="offer-cont">
                         <div className="offer-item">
                             <div className="icon-cont">

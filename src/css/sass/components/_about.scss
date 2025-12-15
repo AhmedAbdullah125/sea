@@ -1,0 +1,380 @@
+// About Section Styles
+.about-section {
+    direction: rtl;
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        align-items: center;
+
+        @media screen and (max-width: 1024px) {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+    }
+
+    // Left Side - Image
+    .about-image {
+        width: 100%;
+        border-radius: 40px;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 40px;
+        }
+
+        @media screen and (max-width: 1024px) {
+            order: 2;
+        }
+    }
+
+    // Right Side - Content
+    .about-content {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        background-color: $white;
+        padding: 40px;
+        border-radius: 40px;
+        height: 100%;
+        justify-content: center;
+
+        @media screen and (max-width: 1024px) {
+            order: 1;
+        }
+    }
+
+    // Tag at top
+    .about-tag {
+        display: inline-block;
+        background: #000;
+        color: #fff;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        width: fit-content;
+    }
+
+    .vision-tag {
+        display: inline-block;
+        background: $sec;
+        color: #fff;
+        height: 48px;
+        line-height: 48px;
+        padding: 0px 20px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        width: fit-content;
+        border-radius: 24px;
+    }
+
+    // Title
+    .about-title {
+        font-size: 48px;
+        font-weight: 700;
+        color: #1a1a1a;
+        line-height: 1.2;
+
+        .text-blue {
+            color: #016AB5;
+        }
+
+        @media screen and (max-width: 1024px) {
+            font-size: 32px;
+        }
+    }
+
+    // Profile Images Row
+    .about-profiles {
+        display: flex;
+        align-items: center;
+        gap: -10px;
+        margin: 10px 0;
+
+        .profile-circle {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            overflow: hidden;
+            position: relative;
+            margin-left: -10px;
+            background: linear-gradient(135deg, #016AB5, #A71755);
+            padding: 3px;
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+                background: #fff;
+            }
+        }
+
+        .more-circle {
+            background: linear-gradient(321.27deg, #A71755 15.9%, #016AB5 83.25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            span {
+                color: #fff;
+                font-size: 14px;
+                font-weight: 600;
+            }
+        }
+    }
+
+    // Description List
+    .about-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin: 10px 0;
+    }
+
+    .about-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+
+        img {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        p {
+            font-size: 14px;
+            color: #4a4a4a;
+            line-height: 1.6;
+            margin: 0;
+        }
+    }
+
+    // Contact Info Section
+    .about-contact {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: #4a4a4a;
+
+        i {
+            font-size: 16px;
+            color: #000;
+        }
+    }
+
+    // Button
+    .about-btn {
+        background: linear-gradient(321.27deg, #A71755 15.9%, #016AB5 83.25%);
+        color: #fff;
+        border: none;
+        border-radius: 14px;
+        height: 58px;
+        @include flexCenter;
+        padding: 0px 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(167, 23, 85, 0.3);
+        }
+
+        .i-cont {
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+
+            i {
+                font-size: 18px;
+                transform: rotate(45deg);
+                color: $hover;
+
+            }
+        }
+
+
+    }
+}
+
+// Values Section
+.values-section {
+    position: relative;
+    background: #fff;
+    direction: rtl;
+
+    .values-header {
+        h2 {
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+    }
+
+    .value-card {
+        .icon-wrapper {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .bg-shape {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                background-color: #FDF2F8; // Pink-50/100
+                border-radius: 12px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(45deg);
+                z-index: 0;
+            }
+
+            img {
+                position: relative;
+                z-index: 1;
+                // Basic filter to try and ensure brand color if icons are black. 
+                // Brand color approx #A71755
+                // If icons are already colored, this might skew them. 
+                // Given the image, the icons match the text color or are a primary color.
+                // I will skip the filter for now to avoid breaking existing colored icons.
+            }
+        }
+    }
+}
+
+// Partners Section
+.partners-section {
+    direction: rtl;
+    background-color: $white;
+    position: relative;
+    padding: 64px 0;
+
+    .partners-header {
+
+        margin-bottom: 64px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .partners-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #141416;
+
+            @media screen and (min-width: 768px) {
+                font-size: 30px;
+            }
+        }
+
+        .partners-description {
+            color: #6b7280;
+            font-size: 18px;
+        }
+    }
+
+    .partners-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+
+        @media screen and (min-width: 768px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media screen and (min-width: 1024px) {
+            grid-template-columns: repeat(5, 1fr);
+        }
+    }
+
+    .partner-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: #F8F8F8;
+        transition: transform 0.3s ease;
+        width: 100%;
+        height: 320px;
+        padding: 20px;
+
+        @media screen and (max-width: 1700px) {
+            height: 250px;
+        }
+
+        @media screen and (max-width: 1440px) {
+            height: 200px;
+        }
+
+        @media screen and (max-width: 767px) {
+            height: 150px;
+        }
+
+
+
+        &:hover {
+            transform: scale(1.02);
+        }
+
+        .partner-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            direction: ltr; // Logos usually Left-to-Right
+        }
+
+        .partner-icon {
+            width: 100%;
+            height: 100%;
+            max-width: 185px;
+            max-height: 70px;
+            object-fit: contain;
+        }
+
+        .partner-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #374151; // Gray-700
+        }
+    }
+}

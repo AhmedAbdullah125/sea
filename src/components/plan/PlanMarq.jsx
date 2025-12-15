@@ -3,13 +3,6 @@ import { motion } from "framer-motion";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 const PlanMarq = ({ data }) => {
 
-    const ReviewCard = ({ img, }) => {
-        return (
-            <div className="pay-item">
-                <LazyLoadImage src={img} alt="pay-img" />
-            </div>
-        );
-    };
     return (
         <section className="package-section">
             <div className="container">

@@ -21,7 +21,7 @@ const HeroSection = () => {
             className="min-h-[80vh] bg-[url('/app/hero.png')] bg-cover bg-center bg-no-repeat space-y-6 pb-6 flex flex-col relative lg:justify-end justify-between lg:pt-[210px]">
             <MainHeader />
             {/* Flying Airplane Animation */}
-            <motion.div
+            {/* <motion.div
               initial={{ y: "0vh", x: -50, rotate: 0, rotateY: 0, scale: 1, opacity: 0 }}
               animate={{
                 y: "-100vh",
@@ -71,7 +71,7 @@ const HeroSection = () => {
                 alt="Flying plane"
                 className="w-full h-auto object-contain"
               />
-            </motion.div>
+            </motion.div> */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

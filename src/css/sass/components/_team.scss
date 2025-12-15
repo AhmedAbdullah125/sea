@@ -1,0 +1,136 @@
+// Our Team Section Styles
+.our-team-section {
+    direction: rtl;
+
+    .team-header {
+        text-align: center;
+        margin-bottom: 60px;
+
+        @media screen and (max-width: 768px) {
+            margin-bottom: 40px;
+        }
+    }
+
+    .team-tag {
+        display: inline-block;
+        background: linear-gradient(90deg, #A71755 0%, #016AB5 100%);
+        color: #fff;
+        padding: 8px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .team-title {
+        font-size: 42px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 16px;
+        line-height: 1.3;
+
+        @media screen and (max-width: 768px) {
+            font-size: 28px;
+        }
+    }
+
+    .team-subtitle {
+        font-size: 16px;
+        color: #4a4a4a;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+
+        @media screen and (max-width: 768px) {
+            font-size: 14px;
+        }
+    }
+
+    // Team Grid
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+
+        @media screen and (max-width: 1400px) {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        @media screen and (max-width: 1200px) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media screen and (max-width: 992px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media screen and (max-width: 768px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+
+    }
+
+    // Team Card
+    .team-card {
+        background: #fff;
+        border-radius: 32px;
+        padding: 24px;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+
+            .team-card-image {
+                transform: scale(1.05);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            border-radius: 24px;
+            padding: 20px;
+        }
+    }
+
+    .team-card-image {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 24px;
+        overflow: hidden;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, rgba(1, 106, 181, 0.1), rgba(167, 23, 85, 0.1));
+        transition: transform 0.3s ease;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media screen and (max-width: 768px) {
+            border-radius: 16px;
+            margin-bottom: 12px;
+        }
+    }
+
+    .team-card-name {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.4;
+
+        @media screen and (max-width: 768px) {
+            font-size: 14px;
+        }
+    }
+
+    // Gradient Text
+    .gradient-text {
+        background: linear-gradient(90deg, #A71755 0%, #016AB5 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+}

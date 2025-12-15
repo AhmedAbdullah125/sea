@@ -122,23 +122,16 @@ const MainHeader = () => {
                                 <LoginDialog mainHeader />
                             </DropdownMenuItem> */}
                             <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
-                                <button
+                                <Link
                                     className="option-drop-link w-full"
-                                    onClick={() => {
-                                        if (token) {
-                                            navigate('/add-house');
-                                        } else {
-                                            toast.error('يجب تسجيل الدخول أولاً');
-                                            navigate('/login');
-                                        }
-                                    }}
+                                    to={"/add-house"}
                                 >
                                     <div className="flex items-center gap-3">
                                         <LazyLoadImage src={Vector1} alt="logo" loading='lazy' />
                                         <span> اضف سكنك</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-left"></i>
-                                </button>
+                                </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
                                 <NavLink className="option-drop-link " to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>

@@ -7,7 +7,7 @@ import HouseType from '../components/add-house/HouseType'
 import BuildingDetails from '../components/add-house/BuildingDetails'
 import Address from '../components/add-house/Address'
 import UnitBasics from '../components/add-house/UnitBasics'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import HouseFeatures from '../components/add-house/HouseFeatures'
 import UnitImages from '../components/add-house/UnitImages'
 import FinalDetails from '../components/add-house/FinalDetails'
@@ -16,6 +16,7 @@ import { firstStepStore } from '../components/add-house/requests/firstStepStore'
 import { secondStepStore } from '../components/add-house/requests/secondStepStore'
 import Loading from '../components/loading/Loading'
 import { thirdStepStore } from '../components/add-house/requests/thirdStepStore'
+import { toast } from 'sonner'
 
 const AddSteps = () => {
   const navigate = useNavigate();
@@ -26,7 +27,13 @@ const AddSteps = () => {
   const [loading, setLoading] = useState(false)
   const MAX_STEP = 8;
   console.log(formData);
-
+  const token = sessionStorage.getItem("token");
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+      toast.error('يجب تسجيل الدخول أولاً');
+    }
+  }, []);
   // Function to get step title based on step number
   const getStepTitle = (stepNumber) => {
     if (stepNumber >= 1 && stepNumber <= 3) {

@@ -196,11 +196,13 @@ const PublishDetails = ({ formData, setFormData, setStepDone }) => {
                                                         className="pl-10 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                         {...field}
                                                     />
-                                                    <img
-                                                        src={rial}
-                                                        alt="ريال"
-                                                        className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5"
-                                                    />
+                                                    {!!field.value && (
+                                                        <img
+                                                            src={rial}
+                                                            alt="ريال"
+                                                            className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5"
+                                                        />
+                                                    )}
                                                 </div>
                                             </FormControl>
                                             <FormMessage />
@@ -224,11 +226,13 @@ const PublishDetails = ({ formData, setFormData, setStepDone }) => {
                                                         className="pl-10 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                         {...field}
                                                     />
-                                                    <img
-                                                        src={rial}
-                                                        alt="ريال"
-                                                        className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5"
-                                                    />
+                                                    {!!field.value && (
+                                                        <img
+                                                            src={rial}
+                                                            alt="ريال"
+                                                            className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5"
+                                                        />
+                                                    )}
                                                 </div>
                                             </FormControl>
                                             <FormMessage />
@@ -253,11 +257,13 @@ const PublishDetails = ({ formData, setFormData, setStepDone }) => {
                                                         className="pl-10 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                         {...field}
                                                     />
-                                                    <img
-                                                        src={rial}
-                                                        alt="ريال"
-                                                        className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5"
-                                                    />
+                                                    {!!field.value && (
+                                                        <img
+                                                            src={rial}
+                                                            alt="ريال"
+                                                            className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5"
+                                                        />
+                                                    )}
                                                 </div>
                                             </FormControl>
                                             <FormMessage />

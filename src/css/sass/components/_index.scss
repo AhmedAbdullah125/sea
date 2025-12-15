@@ -281,54 +281,63 @@
 
 // OTP Input Styles
 .otp-field-container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-
-  .otp-input-wrapper {
-    width: 100%;
-    direction: ltr;
-  }
-
-  .otp-group {
     display: flex;
-    justify-content: center;
-    gap: 8px;
+    flex-direction: column;
+    gap: 12px;
     width: 100%;
 
-    @media screen and (max-width: 767px) {
-      gap: 6px;
-    }
-  }
-
-  .otp-slot {
-    width: 48px;
-    height: 56px;
-    border: 2px solid #E5E7EB;
-    border-radius: 12px;
-    font-size: 20px;
-    font-weight: 600;
-    color: #1F2937;
-    background-color: #F9FAFB;
-    transition: all 0.2s ease-in-out;
-
-    @media screen and (max-width: 767px) {
-      width: 40px;
-      height: 48px;
-      font-size: 18px;
-      border-radius: 10px;
+    .otp-input-wrapper {
+        width: 100%;
+        direction: ltr;
     }
 
-    &:focus-within,
-    &:focus {
-      border-color: #3B82F6;
-      background-color: #ffffff;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    .otp-group {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+
+        @media screen and (max-width: 767px) {
+            gap: 6px;
+        }
     }
 
-    &:hover {
-      border-color: #9CA3AF;
+    .otp-slot {
+        width: 48px;
+        height: 56px;
+        border: 2px solid #E5E7EB;
+        border-radius: 12px;
+        font-size: 20px;
+        font-weight: 600;
+        color: #1F2937;
+        background-color: #F9FAFB;
+        transition: all 0.2s ease-in-out;
+
+        @media screen and (max-width: 767px) {
+            width: 40px;
+            height: 48px;
+            font-size: 18px;
+            border-radius: 10px;
+        }
+
+        &:focus-within,
+        &:focus {
+            border-color: #3B82F6;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        &:hover {
+            border-color: #9CA3AF;
+        }
     }
-  }
 }
+
+// Import About Section Styles
+@import './about';
+
+// Import Team Section Styles
+@import './team';
+
+// Import Director Section Styles
+@import './director';

@@ -41,6 +41,8 @@ import Register from './pages/Register';
 import YourPlane from './pages/YourPlane';
 import ForgetPassword from './pages/ForgetPassword';
 import ResetPassword from './pages/ResetPassword';
+import About from './pages/About';
+import Tiktok from './pages/Tiktok';
 export const AppContext = createContext();
 function App() {
 	const queryClient = new QueryClient()
@@ -70,6 +72,8 @@ function App() {
 			{ path: "/forget-password", element: <ForgetPassword></ForgetPassword> },
 			{ path: "/register", element: <Register></Register> },
 			{ path: "/blogs", element: <Blogs></Blogs> },
+			{ path: "/about", element: <About></About> },
+			{ path: "/tiktok", element: <Tiktok></Tiktok> },
 			{ path: "/reset-password", element: <ResetPassword></ResetPassword> },
 			{ path: "/paymentMaintenance", element: <PaymentMaintenance></PaymentMaintenance> },
 			{ path: "/blogs/:slug", element: <SingleBlogPage></SingleBlogPage> },

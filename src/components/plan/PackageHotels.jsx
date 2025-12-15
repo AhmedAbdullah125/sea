@@ -17,7 +17,7 @@ const PackageHotels = ({ data }) => {
                     className="text-center mb-8"
                 >
                     <h6 className="package-head">فنـادق الباقـة !.</h6>
-                    <h3 className="package-title">وش الفنادق المتاحة للـــرحلـة؟</h3>
+                    <h3 className="package-title">وش الفنادق المتاحة في البــاقة؟</h3>
                     <p className="package-text">نسهل عليك لتستمتع في رحلتك !</p>
                 </motion.div>
                 <div className="grid-cont">
