@@ -68,7 +68,7 @@ const HotelPayment = ({ data }) => {
     }, [arrivalDate, departureDate]);
 
     const onSubmit = (values) => {
-        if (!sessionStorage.getItem('token')) {
+        if (!localStorage.getItem('token')) {
             toast.error('يرجى تسجيل الدخول قبل الحفظ');
             window.location.href = '/login';
             return;

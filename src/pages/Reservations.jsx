@@ -11,14 +11,14 @@ export default function Reservations() {
         //scroll to the top of page 
 
         window.scrollTo(0, 0);
-        if (!sessionStorage.getItem('token')) {
+        if (!localStorage.getItem('token')) {
             toast.error('لم يتم تسجيل الدخول')
             window.location.href = '/login';
         }
         const getData = async () => {
             try {
 
-                const response = await axios.get(`${API_BASE_URL}/user/bookings`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
+                const response = await axios.get(`${API_BASE_URL}/user/bookings`, { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } });
                 setData(response.data.data);
 
                 setLoading(false);

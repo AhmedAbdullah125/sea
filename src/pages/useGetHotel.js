@@ -3,7 +3,7 @@ import axios from "axios";
 import { API_BASE_URL } from "@/lib/apiConfig";
 import { useQuery } from "@tanstack/react-query";
 const fetchHotel = async (id) => {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const headers = {};
   if (token) headers.Authorization = `Bearer ${token}`;
   const response = await axios.get(
@@ -17,7 +17,7 @@ const fetchHotel = async (id) => {
 export const useGetHotel = (id) => {
 
   const query = useQuery({
-    queryKey: ["hotel", id ],
+    queryKey: ["hotel", id],
     queryFn: () => fetchHotel(id),
     // only run when we have lang and a country id
     // enabled: Boolean(lang) && (country !== undefined && country !== null),

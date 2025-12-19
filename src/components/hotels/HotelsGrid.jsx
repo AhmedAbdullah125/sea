@@ -144,7 +144,7 @@ const HotelsGrid = ({ isFilterOpen, mainData, mainSelectedCity, setMainSelectedC
 
                                                     onClick={
                                                         () => {
-                                                            if (sessionStorage.getItem('token')) {
+                                                            if (localStorage.getItem('token')) {
                                                                 toggleFavourates(item.id, 'Hotel');
                                                             }
                                                             else {

@@ -36,13 +36,13 @@ export default function Favourates() {
         //scroll to the top of page 
         window.scrollTo(0, 0);
         //if not login redirect to login
-        if (!sessionStorage.getItem('token')) {
+        if (!localStorage.getItem('token')) {
             toast.error('لم يتم تسجيل الدخول')
             window.location.href = '/login';
         }
         const getData = async () => {
             try {
-                const response = await axios.get(`${API_BASE_URL}/wishlist`, { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
+                const response = await axios.get(`${API_BASE_URL}/wishlist`, { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } });
                 setData(response.data.data);
                 setLoading(false);
             } catch (error) {
@@ -188,7 +188,7 @@ export default function Favourates() {
                                                     :
                                                     item.type == "rooms" ?
                                                         selectedRooms.length > 1 && item.type == "rooms" && settings ?
-                                                        <a className="btn-wa max-w-56" href={`https://wa.me/${settings.whatsapp}?text=  اريد مناقشتكم عن مقارنه بين الغرف ${selectedRooms.map(item => item).join(', ')} ${selectedPersonsNumber ? `ل ${selectedPersonsNumber} اشخاص و ${selectedChildrenNumber} اطفال` : ""} ${selectedDate && selectedDateTo ? `من تاريخ ${selectedDate} الى تاريخ ${selectedDateTo}` : ""}`}>
+                                                            <a className="btn-wa max-w-56" href={`https://wa.me/${settings.whatsapp}?text=  اريد مناقشتكم عن مقارنه بين الغرف ${selectedRooms.map(item => item).join(', ')} ${selectedPersonsNumber ? `ل ${selectedPersonsNumber} اشخاص و ${selectedChildrenNumber} اطفال` : ""} ${selectedDate && selectedDateTo ? `من تاريخ ${selectedDate} الى تاريخ ${selectedDateTo}` : ""}`}>
                                                                 <span>
                                                                     قارن الغرف المحددة
                                                                 </span>

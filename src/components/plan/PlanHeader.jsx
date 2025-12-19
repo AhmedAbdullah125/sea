@@ -104,7 +104,7 @@ const PlanHeader = ({ data }) => {
                         <button className="add-btn"
                             onClick={
                                 () => {
-                                    if (sessionStorage.getItem('token')) {
+                                    if (localStorage.getItem('token')) {
                                         if (lovedPlans.includes(data?.id)) {
                                             setLovedPlans(lovedPlans.filter(id => id !== data?.id))
                                             localStorage.setItem('lovedPlans', JSON.stringify(lovedPlans.filter(id => id !== data?.id)))

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'sonner';
 
-export const addComment = async (API_BASE_URL, payload, setLoading,trigger, setTrigger,setActiveTab) => {
+export const addComment = async (API_BASE_URL, payload, setLoading, trigger, setTrigger, setActiveTab) => {
     //getting token from session storage
 
     setLoading(true); // Set loading state
@@ -11,14 +11,14 @@ export const addComment = async (API_BASE_URL, payload, setLoading,trigger, setT
         const queryParams = { comment: payload.comment, rating: payload.rate, hotel_id: payload.id, };
         const response = await axios({
             method: 'post', url: url, data: queryParams,
-            headers: { lang: localStorage.getItem('lang') || 'en', Authorization: `Bearer ${sessionStorage.getItem('token')}`, },
+            headers: { lang: localStorage.getItem('lang') || 'en', Authorization: `Bearer ${localStorage.getItem('token')}`, },
         });
         setLoading(false); // Reset loading state
         // Get message from response        
         const message = response?.data?.message || 'Operation successful';
         if (response.data?.status === true) {
             // Success toast notification
-            toast.success(message, { });
+            toast.success(message, {});
             setTrigger(!trigger)
             setActiveTab(2)
         } else {

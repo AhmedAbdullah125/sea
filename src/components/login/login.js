@@ -23,7 +23,7 @@ export const login = async (data, setLoading, handleSendOtp, navigate) => {
             toast.success(message, {
             })
             setLoading(false); // Reset loading state
-            sessionStorage.setItem('token', response.data.data.token);
+            localStorage.setItem('token', response.data.data.token);
             navigate('/');
             window.location.reload();
         }

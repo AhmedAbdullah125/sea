@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 
 
 export const firstStepStore = async (data, setLoading, setStep, step) => {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     setLoading(true); // Set loading state    
     const formData = new FormData();
     formData.append('house_type_id', data.type);

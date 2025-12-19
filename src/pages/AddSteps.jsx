@@ -27,7 +27,7 @@ const AddSteps = () => {
   const [loading, setLoading] = useState(false)
   const MAX_STEP = 8;
   console.log(formData);
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   useEffect(() => {
     if (!token) {
       navigate("/login");

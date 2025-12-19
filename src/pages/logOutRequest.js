@@ -14,7 +14,7 @@ export const logOutRequest = async (API_BASE_URL, setLoading, navigate, toast) =
     try {
         const response = await axios.post(url, {}, {
             headers: {
-                Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
             }
         });
 
@@ -32,7 +32,7 @@ export const logOutRequest = async (API_BASE_URL, setLoading, navigate, toast) =
             });
 
             // Clear token and redirect
-            sessionStorage.removeItem('token');
+            localStorage.removeItem('token');
             location.reload();
             window.location.href = "/";
 

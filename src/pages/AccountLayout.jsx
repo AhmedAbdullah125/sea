@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 
 export default function AccountLayout() {
     //if not login redirect to login
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     useEffect(() => {
         if (!token) {
             window.location.href = '/login';

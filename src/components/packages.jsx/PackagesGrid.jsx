@@ -92,7 +92,7 @@ const PackagesGrid = ({ mainData }) => {
                                             </figure> */}
                                             <button className="fav-btn" onClick={
                                                 () => {
-                                                    if (sessionStorage.getItem('token')) {
+                                                    if (localStorage.getItem('token')) {
                                                         if (lovedPlans.includes(item.id)) {
                                                             setLovedPlans(lovedPlans.filter(id => id !== item.id))
                                                             localStorage.setItem('lovedPlans', JSON.stringify(lovedPlans.filter(id => id !== item.id)))

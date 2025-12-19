@@ -66,7 +66,7 @@ const HotelRooms = ({ data }) => {
                                                 <button
                                                     onClick={
                                                         () => {
-                                                            if (sessionStorage.getItem('token')) {
+                                                            if (localStorage.getItem('token')) {
                                                                 if (favouratesRooms.includes(room.id)) {
                                                                     setFavouratesRooms(favouratesRooms.filter(id => id !== room.id))
                                                                 }

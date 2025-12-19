@@ -1,7 +1,7 @@
 import { API_BASE_URL } from '@/lib/apiConfig';
 import axios from 'axios';
 import { toast } from 'sonner';
-export const updateProfile = async (data, setLoading) => {    
+export const updateProfile = async (data, setLoading) => {
     setLoading(true); // Set loading state
     const formData = new FormData();
     formData.append('name', data.firstName);
@@ -14,7 +14,7 @@ export const updateProfile = async (data, setLoading) => {
     const url = `${API_BASE_URL}/update-profile`; // API endpoint
     try {
         const response = await axios.post(url, formData, {
-            headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setLoading(false); // Reset loading state
 

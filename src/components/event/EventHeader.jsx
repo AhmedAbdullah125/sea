@@ -220,7 +220,7 @@ const EventHeader = ({ data }) => {
                         <button className="add-btn"
                             onClick={
                                 () => {
-                                    if (sessionStorage.getItem('token')) {
+                                    if (localStorage.getItem('token')) {
                                         if (lovedEvents.includes(Number(id))) {
                                             setLovedEvents(lovedEvents.filter(id => id !== Number(id)))
                                             localStorage.setItem('lovedEvents', JSON.stringify(lovedEvents.filter(id => id !== Number(id))))

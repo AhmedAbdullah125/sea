@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 export default function Logout() {
     //if not login redirect to login
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     useEffect(() => {
         if (!token) {
             toast.error('لم يتم تسجيل الدخول')

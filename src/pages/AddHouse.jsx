@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 
 const AddHouse = () => {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
     return (
         <section>

@@ -134,7 +134,7 @@ const HotelsTable = ({ description, selectedCountry, selectedCity, cityName, cou
                                                             onClick={(e) => {
                                                                 e.preventDefault();      // don't trigger <a> default
                                                                 e.stopPropagation();     // don't bubble to <Link>
-                                                                if (sessionStorage.getItem('token')) {
+                                                                if (localStorage.getItem('token')) {
                                                                     toggleFavourates(item?.id, 'Hotel');
                                                                 }
                                                                 else {

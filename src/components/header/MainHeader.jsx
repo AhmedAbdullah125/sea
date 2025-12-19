@@ -18,7 +18,7 @@ const MainHeader = () => {
     const navigate = useNavigate();
     const [scrolled, setScrolled] = useState(false);
     const { data, isLoading, isError } = useGetSettings();
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 50) {

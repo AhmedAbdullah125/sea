@@ -90,7 +90,7 @@ const Activities = ({ selectedCountry, selectedCity, cityName, countryName, desc
                                                                     onClick={(e) => {
                                                                         e.preventDefault();      // don't trigger <a> default
                                                                         e.stopPropagation();     // don't bubble to <Link>
-                                                                        if (sessionStorage.getItem('token')) {
+                                                                        if (localStorage.getItem('token')) {
                                                                             toggleFavourates(item?.id, 'Event');
                                                                         }
                                                                         else {

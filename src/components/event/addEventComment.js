@@ -10,14 +10,14 @@ export const addEventComment = async (API_BASE_URL, payload, setLoading) => {
         const queryParams = { comment: payload.comment, rating: payload.rate, event_id: payload.id, };
         const response = await axios({
             method: 'post', url: url, data: queryParams,
-            headers: { lang: localStorage.getItem('lang') || 'en', Authorization: `Bearer ${sessionStorage.getItem('token')}`, },
+            headers: { lang: localStorage.getItem('lang') || 'en', Authorization: `Bearer ${localStorage.getItem('token')}`, },
         });
         setLoading(false); // Reset loading state
         // Get message from response        
         const message = response?.data?.message || 'Operation successful';
         if (response.data?.status === true) {
             // Success toast notification
-            toast.success(message, { });
+            toast.success(message, {});
         } else {
             // Handle unexpected responses
             toast('Unexpected response', { style: { borderColor: "#dc3545", boxShadow: '0px 0px 10px rgba(220, 53, 69, .5)', }, });

@@ -74,7 +74,7 @@ const PackageHotels = ({ data }) => {
 
                                                 onClick={
                                                     () => {
-                                                        if (sessionStorage.getItem('token')) {
+                                                        if (localStorage.getItem('token')) {
                                                             toggleFavourates(item.id, 'Hotel');
                                                         }
                                                         else {

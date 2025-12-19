@@ -11,7 +11,7 @@ export const toggleFavourates = async (productId, type) => {
     const url = `${API_BASE_URL}/wishlist`; // API endpoint
     try {
         const response = await axios.post(url, formData, {
-            headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         // setLoading(false); // Reset loading state
         if (response.status === 200) {

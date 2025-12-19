@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"
 import { Link } from 'react-router-dom'
 const HotelHeader = ({ data }) => {
-    const token = sessionStorage.getItem('token')
+    const token = localStorage.getItem('token')
     const [images, setImages] = useState([])
     useEffect(() => {
         if (data?.vedios?.length > 0 && data?.vedios[0] !== "https://panel.seatourism.sa/storage") {
@@ -120,7 +120,7 @@ const HotelHeader = ({ data }) => {
                                 <button className="add-btn"
                                     onClick={
                                         () => {
-                                            if (sessionStorage.getItem('token')) {
+                                            if (localStorage.getItem('token')) {
                                                 toggleFavourates(data?.id, 'Hotel');
                                             }
                                             else {
