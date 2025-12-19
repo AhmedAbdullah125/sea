@@ -7,11 +7,16 @@ import users from "../../../public/app/users.svg"
 import reels from "../../../public/app/reels.svg"
 import part from "../../../public/app/part.svg"
 import { Link, useLocation } from "react-router-dom"
+import UsersProfiles from "../global/UsersProfiles"
 
 const AboutSection = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
-
+  const profiles = [
+    { image: poeple1 },
+    { image: poeple2 },
+    { image: poeple3 },
+  ]
   return (
     <motion.section
       initial={{ opacity: 0, y: 30 }}
@@ -40,20 +45,7 @@ const AboutSection = () => {
               <br />
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-blue">الشركــــــة</span>
-                <div className="about-profiles">
-                  <div className="profile-circle">
-                    <img src={poeple1} alt="Profile 1" />
-                  </div>
-                  <div className="profile-circle">
-                    <img src={poeple2} alt="Profile 2" />
-                  </div>
-                  <div className="profile-circle">
-                    <img src={poeple3} alt="Profile 3" />
-                  </div>
-                  <div className="profile-circle more-circle">
-                    <span>+4</span>
-                  </div>
-                </div>
+                <UsersProfiles data={profiles} />
               </div>
             </div>
 
@@ -79,7 +71,7 @@ const AboutSection = () => {
 
             {/* Contact Info */}
             <div className="about-contact">
-              <Link to={isHomePage ? "/about" : "/packages"} className="about-btn">
+              <Link to={isHomePage ? "/about" : "/sea-plus-offers"} className="about-btn">
                 <span>{isHomePage ? "اقــرأ المــزيد" : "إكتشف عروضنــا"}</span>
                 <div className="i-cont">
                   <i class="fa-solid fa-arrow-left"></i>

@@ -5,14 +5,25 @@
         font-family: "IBM Plex Sans Arabic", sans-serif;
     }
 
+    i {
+        font-family: "Font Awesome 6 Pro";
+    }
+
     .body-content {
         display: flex;
         align-items: center;
         margin: 130px 0;
         gap: 50px;
+
         @media (max-width: 1200px) {
             flex-direction: column;
             gap: 20px;
+        }
+    }
+
+    .tiktok-header-title {
+        @media screen and (max-width: 520px) {
+            display: none;
         }
     }
 }
@@ -20,11 +31,11 @@
 .tiktok-body-text {
     width: 100%;
     direction: rtl;
-    text-align: right;
     padding: 16px 0;
 
     &__wrap {
         width: 100%;
+
         @media (max-width: 1200px) {
             margin: 0 auto;
             display: flex;
@@ -48,10 +59,12 @@
         font-size: 14px;
         line-height: 1.2;
         box-shadow: 0 10px 25px rgba(10, 111, 181, 0.18);
+
         @media (max-width: 1200px) {
             margin-inline-start: 0;
             margin: 0 auto;
         }
+
         &-emoji {
             width: 26px;
             height: 26px;
@@ -87,6 +100,10 @@
         letter-spacing: -0.5px;
         font-size: clamp(44px, 5vw, 72px);
         line-height: 1.18;
+
+        @media screen and (max-width: 1200px) {
+            text-align: center;
+        }
     }
 
     &__desc {
@@ -95,6 +112,10 @@
         font-size: 20px;
         line-height: 2;
         max-width: 760px;
+
+        @media screen and (max-width: 1200px) {
+            text-align: center;
+        }
     }
 
     &__stats {
@@ -103,6 +124,12 @@
         align-items: center;
         gap: 18px;
         flex-wrap: wrap;
+
+        @media screen and (max-width: 911px) {
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
     }
 
     &__experts {
@@ -122,6 +149,12 @@
         &-text {
             color: #6b6b6b;
             font-weight: 500;
+        }
+
+        @media screen and (max-width: 520px) {
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
         }
     }
 
@@ -205,17 +238,41 @@
     width: 100%;
     direction: rtl;
 
+    .imgs-text {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+
+        @media screen and (max-width: 767px) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+    .price-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+
+        @media screen and (max-width: 767px) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
     &__card {
         width: 100%;
         display: grid;
         grid-template-columns: 1fr 64px;
-        
+
         overflow: hidden;
     }
 
     &__brand {
         background: #fff;
-        
+
         border-inline-start: 0;
         border-inline-end: 1px solid rgba(0, 0, 0, 0.08);
         display: flex;
@@ -235,7 +292,7 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        
+
     }
 
     &__brand-arrow {
@@ -274,6 +331,8 @@
         line-height: 1.15;
         margin-bottom: 14px;
         text-align: right;
+
+
     }
 
     &__support {
@@ -335,12 +394,12 @@
     &__discount {
         background: #0b6fb7;
         color: #fff;
-        border-radius:40px;
-        padding: 0px 18px;
+        border-radius: 40px;
+        padding: 0px 15px;
         height: 48px;
 
-        font-weight: 800;
-        font-size: 14px;
+        font-weight: 600;
+        font-size: 12px;
         display: inline-flex;
         align-items: center;
         gap: 8px;
@@ -353,7 +412,7 @@
     }
 
     &__price {
-        margin-top: 18px;
+        margin-top: 12px;
         text-align: right;
     }
 
@@ -379,7 +438,6 @@
     &__price-row {
         display: flex;
         align-items: baseline;
-        justify-content: flex-end;
         gap: 10px;
         flex-wrap: wrap;
     }
@@ -387,7 +445,7 @@
     &__price-new {
         color: #0b6fb7;
         font-weight: 500;
-        
+
         display: inline-flex;
         align-items: center;
     }
@@ -553,35 +611,43 @@
             flex-direction: row;
             justify-content: space-between;
             border-inline-end: 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            border-bottom: none;
             padding: 12px 14px;
+            transform: rotate(0deg);
+
         }
     }
 }
-.tiktok-body-title{
+
+.tiktok-body-title {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 10px;
     text-align: center;
-     @media (max-width: 520px) {
+
+    @media (max-width: 520px) {
         font-size: 14px;
     }
 }
-.tiktok-body-main-title{
+
+.tiktok-body-main-title {
     font-size: 40px;
     font-weight: 700;
     margin-bottom: 10px;
     text-align: center;
+
     @media (max-width: 520px) {
+
         font-size: 24px;
     }
 }
-.tiktok-body-text{
+
+.tiktok-body-text {
     font-size: 18px;
     font-weight: 500;
     margin-bottom: 60px;
     color: #5E5E5E;
-    text-align: center;
+
     @media (max-width: 520px) {
         font-size: 14px;
     }

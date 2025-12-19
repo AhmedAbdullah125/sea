@@ -5,7 +5,7 @@ import imgicon3 from '../../../public/app/imgIcon-2.jpeg'
 import { toggleFavourates } from '../../pages/toggleFavourates'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { motion } from "framer-motion";
-import locatioImage from '../../../public/app/location.png'
+import locatioImage from '../../../public/app/location.svg'
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"

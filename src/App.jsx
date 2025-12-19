@@ -43,6 +43,9 @@ import ForgetPassword from './pages/ForgetPassword';
 import ResetPassword from './pages/ResetPassword';
 import About from './pages/About';
 import Tiktok from './pages/Tiktok';
+import AddPackage from './pages/AddPackage';
+import WhySea from './pages/WhySea';
+import SeaPlusOffers from './pages/SeaPlusOffers';
 export const AppContext = createContext();
 function App() {
 	const queryClient = new QueryClient()
@@ -63,6 +66,7 @@ function App() {
 			{ path: "/hotels", element: <Hotels></Hotels> },
 			{ path: "/hotel/:id", element: <Hotel></Hotel> },
 			{ path: "/add-house", element: <AddHouse></AddHouse> },
+			{ path: "/add-package", element: <AddPackage></AddPackage> },
 			{ path: "/packages", element: <Packages></Packages> },
 			{ path: "/package/:id", element: <Package></Package> },
 			{ path: "/terms", element: <Terms></Terms> },
@@ -74,6 +78,8 @@ function App() {
 			{ path: "/blogs", element: <Blogs></Blogs> },
 			{ path: "/about", element: <About></About> },
 			{ path: "/tiktok", element: <Tiktok></Tiktok> },
+			{ path: "/why-sea", element: <WhySea></WhySea> },
+			{ path: "/sea-plus-offers", element: <SeaPlusOffers></SeaPlusOffers> },
 			{ path: "/reset-password", element: <ResetPassword></ResetPassword> },
 			{ path: "/paymentMaintenance", element: <PaymentMaintenance></PaymentMaintenance> },
 			{ path: "/blogs/:slug", element: <SingleBlogPage></SingleBlogPage> },

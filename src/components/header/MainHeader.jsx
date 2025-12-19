@@ -134,7 +134,7 @@ const MainHeader = () => {
                                 </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
-                                <NavLink className="option-drop-link " to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>
+                                <NavLink className="option-drop-link " to={"/add-package"}>
                                     <div className="flex items-center gap-3">
                                         <LazyLoadImage src={Vector2} alt="logo" loading='lazy' />
                                         <span> أضف بـاقتك</span>
@@ -195,7 +195,7 @@ const MainHeader = () => {
                             </button>
                         </DropdownMenuItem>
                         <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
-                            <NavLink className="option-drop-link " to={`https://wa.me/${data.whatsapp}?text=اريد مناقشتكم لإضافه باقتي`}>أضف بــاقتك</NavLink>
+                            <NavLink className="option-drop-link " to="/add-package">أضف بــاقتك</NavLink>
                         </DropdownMenuItem>
                         <DropdownMenuItem className="w-full p-0 m-0 flex items-center justify-center">
                             <NavLink className="option-drop-link " to="/packages">بـــاقات حــول العـالم</NavLink>

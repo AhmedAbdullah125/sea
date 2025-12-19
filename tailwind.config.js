@@ -7,173 +7,173 @@ const config = {
 		'./src/app/**/*.{js,ts,jsx,tsx,mdx}',
 	],
 	theme: {
-    	container: {
-    		center: true,
-    		padding: {
-    			DEFAULT: '1rem',
-    			sm: '2rem',
-    			lg: '4rem',
-    			xl: '5rem',
-    			'2xl': '6rem'
-    		},
-    		screens: {
-    			sm: '640px',
-    			md: '768px',
-    			lg: '1024px',
-    			xl: '1280px',
-    			'2xl': '1536px'
-    		}
-    	},
-    	extend: {
-    		container: {},
-    		screens: {
-    			custom: '1500px',
-    			custom2: '1700px',
-    			custom3: '1200px'
-    		},
-    		backgroundImage: {
-    			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-    			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-    			AboutHead: 'linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/aboutHead.jpeg")',
-    			SignUpHead: 'linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/signUp.jpeg")',
-    			VerificationHead: 'linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/Verification.jpg")',
-    			PaymentHead: 'linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/payment.jpeg")'
-    		},
-    		colors: {
-    			main: {
-    				blue: '#016AB5',
-    				purple: '#A71755',
-    				navy: '#091B3C',
-    				gray: '#6F6F6F'
-    			},
-    			tab: '#F2F2F2',
-    			body: '#F5F5F5',
-    			primaryColor: '#025AB4',
-    			secColor: '#1AC5BD',
-    			background: 'hsl(var(--background))',
-    			foreground: 'hsl(var(--foreground))',
-    			card: {
-    				DEFAULT: 'hsl(var(--card))',
-    				foreground: 'hsl(var(--card-foreground))'
-    			},
-    			popover: {
-    				DEFAULT: 'hsl(var(--popover))',
-    				foreground: 'hsl(var(--popover-foreground))'
-    			},
-    			primary: {
-    				DEFAULT: 'hsl(var(--primary))',
-    				foreground: 'hsl(var(--primary-foreground))'
-    			},
-    			secondary: {
-    				DEFAULT: 'hsl(var(--secondary))',
-    				foreground: 'hsl(var(--secondary-foreground))'
-    			},
-    			muted: {
-    				DEFAULT: 'hsl(var(--muted))',
-    				foreground: 'hsl(var(--muted-foreground))'
-    			},
-    			accent: {
-    				DEFAULT: 'hsl(var(--accent))',
-    				foreground: 'hsl(var(--accent-foreground))'
-    			},
-    			destructive: {
-    				DEFAULT: 'hsl(var(--destructive))',
-    				foreground: 'hsl(var(--destructive-foreground))'
-    			},
-    			border: 'hsl(var(--border))',
-    			input: 'hsl(var(--input))',
-    			ring: 'hsl(var(--ring))',
-    			chart: {
-    				'1': 'hsl(var(--chart-1))',
-    				'2': 'hsl(var(--chart-2))',
-    				'3': 'hsl(var(--chart-3))',
-    				'4': 'hsl(var(--chart-4))',
-    				'5': 'hsl(var(--chart-5))'
-    			}
-    		},
-    		boxShadow: {
-    			custom: '30px 0px 0px 0 rgba(250, 132, 67, 1)',
-    			travel: '-25px -43px 0px 0 rgba(255, 243, 237, 1)',
-    			contact: '-25px -36px 0px 0 rgba(255, 243, 237, 1)',
-    			sm: '0px 0px 30px 0 rgba(250, 132, 67, 1)',
-    			reserv: '0px 0px 30px 0 rgba(0, 0, 0, .1)'
-    		},
-    		borderRadius: {
-    			lg: 'var(--radius)',
-    			md: 'calc(var(--radius) - 2px)',
-    			sm: 'calc(var(--radius) - 4px)'
-    		},
-    		animation: {
-    			'background-position-spin': 'background-position-spin 3000ms infinite alternate',
-    			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
-    			meteor: 'meteor 5s linear infinite',
-    			marquee: 'marquee var(--duration) infinite linear',
-    			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
-    			'accordion-down': 'accordion-down 0.2s ease-out',
-    			'accordion-up': 'accordion-up 0.2s ease-out'
-    		},
-    		keyframes: {
-    			'background-position-spin': {
-    				'0%': {
-    					backgroundPosition: 'top center'
-    				},
-    				'100%': {
-    					backgroundPosition: 'bottom center'
-    				}
-    			},
-    			'border-beam': {
-    				'100%': {
-    					'offset-distance': '100%'
-    				}
-    			},
-    			meteor: {
-    				'0%': {
-    					transform: 'rotate(215deg) translateX(0)',
-    					opacity: '1'
-    				},
-    				'70%': {
-    					opacity: '1'
-    				},
-    				'100%': {
-    					transform: 'rotate(215deg) translateX(-500px)',
-    					opacity: '0'
-    				}
-    			},
-    			marquee: {
-    				from: {
-    					transform: 'translateX(0)'
-    				},
-    				to: {
-    					transform: 'translateX(calc(-100% - var(--gap)))'
-    				}
-    			},
-    			'marquee-vertical': {
-    				from: {
-    					transform: 'translateY(0)'
-    				},
-    				to: {
-    					transform: 'translateY(calc(-100% - var(--gap)))'
-    				}
-    			},
-    			'accordion-down': {
-    				from: {
-    					height: '0'
-    				},
-    				to: {
-    					height: 'var(--radix-accordion-content-height)'
-    				}
-    			},
-    			'accordion-up': {
-    				from: {
-    					height: 'var(--radix-accordion-content-height)'
-    				},
-    				to: {
-    					height: '0'
-    				}
-    			}
-    		}
-    	}
-    },
+		container: {
+			center: true,
+			padding: {
+				DEFAULT: '1rem',
+				sm: '1rem',
+				lg: '1rem',
+				xl: '1rem',
+				'2xl': '1rem'
+			},
+			screens: {
+				sm: '640px',
+				md: '768px',
+				lg: '1024px',
+				xl: '1280px',
+				'2xl': '1536px'
+			}
+		},
+		extend: {
+			container: {},
+			screens: {
+				custom: '1500px',
+				custom2: '1700px',
+				custom3: '1200px'
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+				AboutHead: 'linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/aboutHead.jpeg")',
+				SignUpHead: 'linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/signUp.jpeg")',
+				VerificationHead: 'linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/Verification.jpg")',
+				PaymentHead: 'linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/payment.jpeg")'
+			},
+			colors: {
+				main: {
+					blue: '#016AB5',
+					purple: '#A71755',
+					navy: '#091B3C',
+					gray: '#6F6F6F'
+				},
+				tab: '#F2F2F2',
+				body: '#F5F5F5',
+				primaryColor: '#025AB4',
+				secColor: '#1AC5BD',
+				background: 'hsl(var(--background))',
+				foreground: 'hsl(var(--foreground))',
+				card: {
+					DEFAULT: 'hsl(var(--card))',
+					foreground: 'hsl(var(--card-foreground))'
+				},
+				popover: {
+					DEFAULT: 'hsl(var(--popover))',
+					foreground: 'hsl(var(--popover-foreground))'
+				},
+				primary: {
+					DEFAULT: 'hsl(var(--primary))',
+					foreground: 'hsl(var(--primary-foreground))'
+				},
+				secondary: {
+					DEFAULT: 'hsl(var(--secondary))',
+					foreground: 'hsl(var(--secondary-foreground))'
+				},
+				muted: {
+					DEFAULT: 'hsl(var(--muted))',
+					foreground: 'hsl(var(--muted-foreground))'
+				},
+				accent: {
+					DEFAULT: 'hsl(var(--accent))',
+					foreground: 'hsl(var(--accent-foreground))'
+				},
+				destructive: {
+					DEFAULT: 'hsl(var(--destructive))',
+					foreground: 'hsl(var(--destructive-foreground))'
+				},
+				border: 'hsl(var(--border))',
+				input: 'hsl(var(--input))',
+				ring: 'hsl(var(--ring))',
+				chart: {
+					'1': 'hsl(var(--chart-1))',
+					'2': 'hsl(var(--chart-2))',
+					'3': 'hsl(var(--chart-3))',
+					'4': 'hsl(var(--chart-4))',
+					'5': 'hsl(var(--chart-5))'
+				}
+			},
+			boxShadow: {
+				custom: '30px 0px 0px 0 rgba(250, 132, 67, 1)',
+				travel: '-25px -43px 0px 0 rgba(255, 243, 237, 1)',
+				contact: '-25px -36px 0px 0 rgba(255, 243, 237, 1)',
+				sm: '0px 0px 30px 0 rgba(250, 132, 67, 1)',
+				reserv: '0px 0px 30px 0 rgba(0, 0, 0, .1)'
+			},
+			borderRadius: {
+				lg: 'var(--radius)',
+				md: 'calc(var(--radius) - 2px)',
+				sm: 'calc(var(--radius) - 4px)'
+			},
+			animation: {
+				'background-position-spin': 'background-position-spin 3000ms infinite alternate',
+				'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
+				meteor: 'meteor 5s linear infinite',
+				marquee: 'marquee var(--duration) infinite linear',
+				'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
+				'accordion-down': 'accordion-down 0.2s ease-out',
+				'accordion-up': 'accordion-up 0.2s ease-out'
+			},
+			keyframes: {
+				'background-position-spin': {
+					'0%': {
+						backgroundPosition: 'top center'
+					},
+					'100%': {
+						backgroundPosition: 'bottom center'
+					}
+				},
+				'border-beam': {
+					'100%': {
+						'offset-distance': '100%'
+					}
+				},
+				meteor: {
+					'0%': {
+						transform: 'rotate(215deg) translateX(0)',
+						opacity: '1'
+					},
+					'70%': {
+						opacity: '1'
+					},
+					'100%': {
+						transform: 'rotate(215deg) translateX(-500px)',
+						opacity: '0'
+					}
+				},
+				marquee: {
+					from: {
+						transform: 'translateX(0)'
+					},
+					to: {
+						transform: 'translateX(calc(-100% - var(--gap)))'
+					}
+				},
+				'marquee-vertical': {
+					from: {
+						transform: 'translateY(0)'
+					},
+					to: {
+						transform: 'translateY(calc(-100% - var(--gap)))'
+					}
+				},
+				'accordion-down': {
+					from: {
+						height: '0'
+					},
+					to: {
+						height: 'var(--radix-accordion-content-height)'
+					}
+				},
+				'accordion-up': {
+					from: {
+						height: 'var(--radix-accordion-content-height)'
+					},
+					to: {
+						height: '0'
+					}
+				}
+			}
+		}
+	},
 	plugins: [('tailwindcss-animate')],
 };
 export default config;

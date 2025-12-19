@@ -7,6 +7,7 @@ import AlertError from '../../alerts/AlertError'
 import AlertWarning from '../../alerts/AlertWarning'
 import { motion } from 'framer-motion'
 import { decode } from 'html-entities'
+import { Link } from 'react-router-dom'
 
 const AboutUS = () => {
   const { data, isLoading, isError } = useQuery({
@@ -34,7 +35,7 @@ const AboutUS = () => {
     if (!text) return ''
     return decode(decode(text))
   }
-  
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -77,6 +78,12 @@ const AboutUS = () => {
                   </svg>
                 </a>
               </div>
+              <Link to={"/why-sea"} className="about-btn w-fit my-4">
+                <span>اقــرأ المــزيد</span>
+                <div className="i-cont">
+                  <i class="fa-solid fa-arrow-left"></i>
+                </div>
+              </Link>
             </div>
           </motion.div>
           {/* grid */}

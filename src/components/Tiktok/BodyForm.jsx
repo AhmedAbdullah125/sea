@@ -53,7 +53,7 @@ export default function BodyForm() {
                     <div className="tiktok-body-form__header">
                         <div className="tiktok-body-form__hint">فريقنا جاهز يرد عليك بأسرع وقت</div>
                         <div className="tiktok-body-form__title">عنـــــــــــــــــدك استفســار !</div>
-                        <div className="flex items-center gap-1">
+                        <div className="imgs-text">
 
                             <div className="tiktok-body-form__support">
                                 <div>فريق الدعم متواجد من الأحد إلى الخميس</div>
@@ -79,7 +79,7 @@ export default function BodyForm() {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-1 justify-between">
+                    <div className="price-box">
                         <div className="tiktok-body-form__price">
                             <div className="tiktok-body-form__price-box">
                                 <div className="tiktok-body-form__price-row">

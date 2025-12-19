@@ -68,7 +68,7 @@ const Vision = () => {
 
                         {/* Contact Info */}
                         <div className="about-contact">
-                            <Link to={"/packages"} className="about-btn">
+                            <Link to={"/sea-plus-offers"} className="about-btn">
                                 <span>إكتشف عروضنــا</span>
                                 <div className="i-cont">
                                     <i class="fa-solid fa-arrow-left"></i>
