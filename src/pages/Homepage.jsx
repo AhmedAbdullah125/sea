@@ -59,17 +59,15 @@ export default function Homepage() {
                 <Footer />
 
                 {/* Daily Popup */}
-                {showPopup && (
+                {/* {showPopup && (
                     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 p-4">
                         <div
                             className="relative w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row rtl:flex-row-reverse"
                         >
-                            {/* Background Image covering entire popup */}
                             <div className="absolute inset-0 z-0">
                                 <img src={popupBG} alt="Background" className="w-full h-full object-cover opacity-1" />
                             </div>
 
-                            {/* Gradient Overlay covering entire popup */}
                             <div
                                 className="absolute inset-0 z-0"
                                 style={{
@@ -77,7 +75,6 @@ export default function Homepage() {
                                 }}
                             />
 
-                            {/* Close Button */}
                             <button
                                 onClick={handleClosePopup}
                                 className="absolute top-4 left-4 z-20 p-2 bg-white/80 rounded-full hover:bg-white transition-colors"
@@ -85,11 +82,9 @@ export default function Homepage() {
                                 <X size={24} className="text-gray-600" />
                             </button>
 
-                            {/* Logo Side */}
                             <div className="flex-1 relative min-h-[300px] flex items-center justify-center p-8 z-10">
                             </div>
 
-                            {/* Text Side */}
                             <div className="flex-1 p-8 md:p-12 flex flex-col justify-center items-start text-right z-10">
                                 <img src={seaLogo} alt="SEA Logo" className="relative z-10 w-12 md:w-24 opacity-80 mb-10" />
                                 <p className="text-[#0b5184] text-lg md:text-xl font-medium mb-8 leading-relaxed">
@@ -116,7 +111,7 @@ export default function Homepage() {
                             </div>
                         </div>
                     </div>
-                )}
+                )} */}
             </main>
             {/* </div> */}
         </div>

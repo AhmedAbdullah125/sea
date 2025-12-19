@@ -69,7 +69,7 @@ const PlanPrices = ({ data, settings }) => {
                                 <h3>{data.title}</h3>
                                 <AlertDialog className="sm:rounded-xl rounded-lg">
                                     <AlertDialogTrigger asChild >
-                                        <span className="font-bold text-sm cursor-pointer">عــرض التفــاصيل <i class="fa-solid fa-left-long text-lg"></i></span>
+                                        <span className="font-bold text-sm cursor-pointer flex items-center gap-2 text-[#027EE4]"> وصف الباقة وتفاصيلها  <i class="fa-solid fa-left-long text-lg"></i></span>
                                     </AlertDialogTrigger>
                                     <AlertDialogContent className="bg-white rounded-xl overflow-hidden">
                                         <AlertDialogHeader>

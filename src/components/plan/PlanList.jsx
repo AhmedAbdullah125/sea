@@ -56,7 +56,7 @@ const PlanList = ({ data, settings }) => {
                                                     {item.day}
                                                 </div>
                                                 <div className="col-span-4 font-medium text-right flex items-center gap-2">
-                                                    <span>{item.activities}</span>
+                                                    <span>{parse(item.activities)}</span>
                                                 </div>
                                                 <div className="col-span-5 text-sm text-right">
                                                     <span className="mt-1.5 w-1 h-1 rounded-full bg-gray-400 shrink-0"></span>

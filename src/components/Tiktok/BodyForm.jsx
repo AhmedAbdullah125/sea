@@ -127,7 +127,7 @@ export default function BodyForm() {
                                                             <span className="tiktok-body-form__select-value">
                                                                 {field.value ? format(field.value, "yyyy / MM / dd") : "مثلاً 22 / 05 / 2025..."}
                                                             </span>
-                                                           
+
                                                         </Button>
                                                     </FormControl>
                                                 </PopoverTrigger>
@@ -171,7 +171,7 @@ export default function BodyForm() {
                                                             <span className="tiktok-body-form__select-value">
                                                                 {field.value ? format(field.value, "yyyy / MM / dd") : "مثلاً 22 / 05 / 2025..."}
                                                             </span>
-                                                           
+
                                                         </Button>
                                                     </FormControl>
                                                 </PopoverTrigger>
@@ -207,7 +207,7 @@ export default function BodyForm() {
                                                 <FormControl>
                                                     <SelectTrigger className="tiktok-body-form__select">
                                                         <SelectValue placeholder="مثلاً 2 بالغين..." />
-                                                        
+
                                                     </SelectTrigger>
                                                 </FormControl>
 
@@ -241,7 +241,7 @@ export default function BodyForm() {
                                                 <FormControl>
                                                     <SelectTrigger className="tiktok-body-form__select">
                                                         <SelectValue placeholder="مثلاً فندق..." />
-                                                        
+
                                                     </SelectTrigger>
                                                 </FormControl>
 

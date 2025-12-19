@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/carousel"
 
 
-const HotelCardCarousel = ({images}) => {
+const HotelCardCarousel = ({ images }) => {
   const [api, setApi] = useState()
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
@@ -26,7 +26,7 @@ const HotelCardCarousel = ({images}) => {
     <div className="relative">
       <Carousel setApi={setApi} opts={{ loop: true }}>
         <CarouselContent className=" h-[190px] " dir="ltr">
-          {images?.map((hotel, index) => (
+          {images?.slice(0, 3).map((hotel, index) => (
             <CarouselItem key={index} className="basis-full h-full p-0" >
               < img src={hotel} alt="item" loading="lazy" className="w-full h-full object-cover" />
             </CarouselItem>

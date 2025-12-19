@@ -119,7 +119,7 @@ const HotelsGrid = ({ isFilterOpen, mainData, mainSelectedCity, setMainSelectedC
                                         >
 
                                             {
-                                                item.images.map((img, index) => (
+                                                item.images.slice(0, 3).map((img, index) => (
                                                     <SwiperSlide key={index}>
                                                         <figure>
                                                             <img src={img} alt="img" />

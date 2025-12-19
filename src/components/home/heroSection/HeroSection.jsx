@@ -89,17 +89,13 @@ const HeroSection = () => {
                       {/* احجــز بثقة. */}
                       {/* <MorphingText texts={texts} loop  /> */}
                       <div>
-                        <ReactTyped strings={[
-                          " احجــز بثقة ..",
-                          "  احـجــز بموثوقــية ..",
-                          " احجــز بأمــان ..",
-                        ]} loop typeSpeed={100} />
+                        <ReactTyped strings={[" احجــز بثقة ..", "  احـجــز بموثوقــية ..", " احجــز بأمــان ..",]} loop typeSpeed={100} />
                         <br />
                       </div>
                     </h1>
                     <p className="text-sm font-light xl:max-w-[70%] ">
-                      منصة إلكترونية أوفلاين معتمدة للحجوزات الفندقية و الباقات السياحية
-                      حول العالم والتواصل المباشر مع العملاء.
+                      <span className="font-bold text-base"> Sea</span> سـي لإدارة الوجهات السيـاحيــة <br />
+                      منـصة معتمدة لإدارة الباقات والوجهات السياحية حول العــالم
                     </p>
                   </div>
                   {/* counters */}
