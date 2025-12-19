@@ -32,7 +32,7 @@ import {
 } from '@/components/ui/select'
 import { useGetCountries } from '@/components/global/useGetCountries'
 import { useGetFilters } from '@/components/global/useGetFilters'
-
+import { getCountries, getCountryCallingCode } from "react-phone-number-input";
 // Zod validation schema
 const packageFormSchema = z.object({
     firstName: z.string().min(2, {
@@ -44,9 +44,13 @@ const packageFormSchema = z.object({
     email: z.string().email({
         message: 'يرجى إدخال بريد إلكتروني صحيح',
     }),
-    phone: z.string().regex(/^5[0-9]{8}$|^05[0-9]{8}$/, {
-        message: 'يرجى إدخال رقم جوال صحيح',
-    }),
+    phone: z
+        .string()
+        .min(1, { message: 'يرجى إدخال رقم هاتف صحيح' })
+        .regex(/^[0-9]+$/, { message: 'يرجى إدخال رقم هاتف صحيح' })
+        .min(9, { message: 'يرجى إدخال رقم هاتف صحيح' }),
+    countryCode: z
+        .string().min(1, { message: 'يرجى اختيار البلد' }),
     housingType: z.string().min(1, {
         message: 'يرجى اختيار نوع السكن',
     }),
@@ -66,10 +70,11 @@ const AddPackage = () => {
     const [loading, setLoading] = useState(false)
     const [selectedCountryCities, setSelectedCountryCities] = useState([])
     const token = localStorage.getItem("token");
+    const [showSuccess, setShowSuccess] = useState(false);
 
     // Fetch data from hooks
-    const { data: countriesData } = useGetCountries()
-    const { data: filtersData } = useGetFilters()
+    const { data: countriesData, isLoading: countriesLoading } = useGetCountries()
+    const { data: filtersData, isLoading: filtersLoading } = useGetFilters()
 
     // Map housing types from filters
     const housingTypes = useMemo(() =>
@@ -86,6 +91,7 @@ const AddPackage = () => {
             phone: '',
             housingType: '',
             country: '',
+            countryCode: '996',
             city: '',
             terms: false,
         },
@@ -117,16 +123,20 @@ const AddPackage = () => {
         // Add your API call here
         toast.success('تم إرسال البيانات بنجاح')
         setLoading(false)
+        setShowSuccess(true)
     }
     const t = { "flat": "شقق فندقية", "room": "غرفة", "hotel": "⁠فنادق بتوصية ســـي", "villa": "فلل وشاليهات ", "huts": "أكواخ خشبية", "hotel_suites": "أجنحة فندقية" }
-
+    const ccc = getCountries()
+    const ddd = getCountryCallingCode('KZ')
+    console.log(ccc)
+    console.log(ddd)
     return (
         <section>
             <Header />
             <div className="add-main-cont">
                 <div className="container">
                     {
-                        loading ? <Loading />
+                        loading || countriesLoading || filtersLoading ? <Loading />
                             :
                             <div className="add-cont">
                                 <div className="navigate">
@@ -208,20 +218,53 @@ const AddPackage = () => {
                                                     <FormField
                                                         control={form.control}
                                                         name="phone"
-                                                        className="form-field"
                                                         render={({ field }) => (
                                                             <FormItem className="form-field">
                                                                 <FormLabel>رقم الجوال *</FormLabel>
+
                                                                 <FormControl>
-                                                                    <div className="input-with-icon">
+                                                                    <div className="input-with-icon phone-with-code">
                                                                         <img src={phoneIcon} alt="phone" className="input-icon" />
-                                                                        <Input placeholder="5x xxx xx xx" {...field} />
+
+                                                                        {/* country code */}
+                                                                        <FormField
+                                                                            control={form.control}
+                                                                            name="countryCode"
+                                                                            className="form-field phone-code"
+                                                                            render={({ field: countryField }) => (
+                                                                                <Select value={countryField.value} onValueChange={countryField.onChange}>
+                                                                                    <SelectTrigger className="phone-code-trigger">
+                                                                                        <SelectValue placeholder="+966" />
+                                                                                    </SelectTrigger>
+                                                                                    <SelectContent className="select-content">
+                                                                                        {getCountries()?.map((iso2) => {
+                                                                                            const code = `+${getCountryCallingCode(iso2)}`
+                                                                                            return (
+                                                                                                <SelectItem key={iso2} value={code} className="item" style={{ direction: "ltr" }}>
+                                                                                                    {iso2} {" "}{code}
+                                                                                                </SelectItem>
+                                                                                            )
+                                                                                        })}
+                                                                                    </SelectContent>
+                                                                                </Select>
+                                                                            )}
+                                                                        />
+
+                                                                        {/* phone number */}
+                                                                        <Input
+                                                                            type="tel"
+                                                                            className="phone-number-input"
+                                                                            placeholder="5x xxx xx xx"
+                                                                            {...field}
+                                                                        />
                                                                     </div>
                                                                 </FormControl>
+
                                                                 <FormMessage />
                                                             </FormItem>
                                                         )}
                                                     />
+
                                                 </div>
 
                                                 <div className="form-row">
@@ -361,7 +404,27 @@ const AddPackage = () => {
                     }
                 </div>
             </div>
-
+            {/* البوب-أب */}
+            {showSuccess && (
+                <div className="success-overlay">
+                    <div className="success-modal">
+                        <div className="success-logo">
+                            <img src={footerLogo} alt="SEA logo" />
+                        </div>
+                        <h2>تهانينا، تم إضافة وحدتك بنجاح !</h2>
+                        <p>
+                            خلال أقل من 24 ساعة ستكون باقتك متاحة على منصتنا
+                            ليستطيع الضيوف مشاهدتها.
+                        </p>
+                        <button
+                            className="success-main-btn"
+                            onClick={() => navigate('/')}
+                        >
+                            الانتقال للرئيسية
+                        </button>
+                    </div>
+                </div>
+            )}
             <Footer />
         </section>
     );

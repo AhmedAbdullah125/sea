@@ -1,5 +1,6 @@
 import TikTokServices from "../components/Tiktok/Services"
 import TiktokBody from "../components/Tiktok/TiktokBody"
+import { TikTokFooter } from "../components/Tiktok/TikTokFooter"
 import TiktokHeader from "../components/Tiktok/TiktokHeader"
 import TikTokPayments from "../components/Tiktok/TikTokPayments"
 
@@ -10,7 +11,7 @@ const Tiktok = () => {
             <TiktokBody />
             <TikTokPayments />
             <TikTokServices />
-            {/* <Footer /> */}
+            <TikTokFooter />
         </section>
     )
 }

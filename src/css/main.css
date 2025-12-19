@@ -7060,6 +7060,17 @@ footer .ies a i {
   color: var(--white-color);
 }
 
+.phone-code-trigger {
+  position: absolute;
+  inset-inline-end: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px !important;
+  z-index: 1;
+  padding-inline-end: 10px;
+  border-inline-end: 1px solid rgba(0, 0, 0, 0.1019607843);
+}
+
 .add-main-cont {
   background-color: #F5F5F5;
   padding-block: 55px;
@@ -8916,6 +8927,106 @@ footer .ies a i {
   left: 12%;
 }
 
+.phone-field .input-of-mobile-num {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+@media screen and (max-width: 767px) {
+  .phone-field .input-of-mobile-num {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+.phone-field .input-of-mobile-num .country-select {
+  flex-shrink: 0;
+}
+@media screen and (max-width: 767px) {
+  .phone-field .input-of-mobile-num .country-select {
+    width: 100%;
+  }
+}
+.phone-field .input-of-mobile-num .country-select .country-select-trigger {
+  width: 120px;
+  height: 56px;
+  border-radius: 16px;
+  border: 1px solid #E5E7EB;
+  background: var(--white-color);
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--main-color);
+  transition: all 0.3s ease;
+}
+@media screen and (max-width: 767px) {
+  .phone-field .input-of-mobile-num .country-select .country-select-trigger {
+    width: 100%;
+  }
+}
+.phone-field .input-of-mobile-num .country-select .country-select-trigger:hover {
+  border-color: var(--main-hover);
+}
+.phone-field .input-of-mobile-num .country-select .country-select-trigger:focus {
+  border-color: var(--main-hover);
+  box-shadow: 0 0 0 3px rgba(167, 23, 85, 0.1);
+}
+.phone-field .input-of-mobile-num .country-select .code-country-slug-cont {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.phone-field .input-of-mobile-num .country-select .code-country-slug-cont .select-country-item-cont span {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--main-color);
+}
+.phone-field .input-of-mobile-num .phone-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  position: relative;
+  width: 100%;
+}
+.phone-field .input-of-mobile-num .phone-input-wrapper .input-icon {
+  position: absolute;
+  inset-inline-end: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  pointer-events: none;
+  z-index: 1;
+}
+.phone-field .input-of-mobile-num .phone-input-wrapper .phone-input {
+  width: 100%;
+  height: 56px;
+  border-radius: 16px;
+  border: 1px solid #E5E7EB;
+  background: var(--white-color);
+  padding: 0 48px 0 16px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--main-color);
+  transition: all 0.3s ease;
+}
+.phone-field .input-of-mobile-num .phone-input-wrapper .phone-input::-moz-placeholder {
+  color: #9CA3AF;
+}
+.phone-field .input-of-mobile-num .phone-input-wrapper .phone-input::placeholder {
+  color: #9CA3AF;
+}
+.phone-field .input-of-mobile-num .phone-input-wrapper .phone-input:focus {
+  border-color: var(--main-hover);
+  box-shadow: 0 0 0 3px rgba(167, 23, 85, 0.1);
+  outline: none;
+}
+.phone-field .input-of-mobile-num .phone-input-wrapper .phone-input:hover {
+  border-color: var(--main-hover);
+}
+
 .tiktok-content {
   font-family: "IBM Plex Sans Arabic", sans-serif;
 }
@@ -9504,5 +9615,76 @@ footer .ies a i {
 @media (max-width: 520px) {
   .tiktok-body-text {
     font-size: 14px;
+  }
+}
+
+.tiktok-footer {
+  direction: rtl;
+  padding: 32px 0;
+  background-color: #fff;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+.tiktok-footer .tiktok-footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+@media screen and (max-width: 767px) {
+  .tiktok-footer .tiktok-footer-content {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
+.tiktok-footer .social-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.tiktok-footer .social-links .social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #A71755 0%, #0ACFA3 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.tiktok-footer .social-links .social-icon i {
+  color: #fff;
+  font-size: 18px;
+}
+.tiktok-footer .social-links .social-icon:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(167, 23, 85, 0.3);
+}
+.tiktok-footer .footer-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: right;
+}
+.tiktok-footer .footer-text .footer-main-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1F2937;
+  margin: 0;
+}
+@media screen and (max-width: 767px) {
+  .tiktok-footer .footer-text .footer-main-text {
+    font-size: 13px;
+  }
+}
+.tiktok-footer .footer-text .footer-sub-text {
+  font-size: 12px;
+  font-weight: 400;
+  color: #6F6F6F;
+  margin: 0;
+}
+@media screen and (max-width: 767px) {
+  .tiktok-footer .footer-text .footer-sub-text {
+    font-size: 11px;
   }
 }/*# sourceMappingURL=main.css.map */

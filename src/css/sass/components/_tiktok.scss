@@ -652,3 +652,79 @@
         font-size: 14px;
     }
 }
+// TikTok Footer Styles
+.tiktok-footer {
+    direction: rtl;
+    padding: 32px 0;
+    background-color: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+    .tiktok-footer-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+
+        @media screen and (max-width: 767px) {
+            flex-direction: column-reverse;
+            align-items: flex-start;
+            gap: 20px;
+        }
+    }
+
+    .social-links {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #A71755 0%, #0ACFA3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+
+            i {
+                color: #fff;
+                font-size: 18px;
+            }
+
+            &:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 4px 12px rgba(167, 23, 85, 0.3);
+            }
+        }
+    }
+
+    .footer-text {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        text-align: right;
+
+        .footer-main-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1F2937;
+            margin: 0;
+
+            @media screen and (max-width: 767px) {
+                font-size: 13px;
+            }
+        }
+
+        .footer-sub-text {
+            font-size: 12px;
+            font-weight: 400;
+            color: #6F6F6F;
+            margin: 0;
+
+            @media screen and (max-width: 767px) {
+                font-size: 11px;
+            }
+        }
+    }
+}
