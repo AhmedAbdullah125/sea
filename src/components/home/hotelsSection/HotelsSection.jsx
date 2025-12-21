@@ -1,4 +1,4 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious,} from "@/components/ui/carousel"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, } from "@/components/ui/carousel"
 import HotelCard from './HotelCard'
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
@@ -20,12 +20,12 @@ const HotelsSection = () => {
   })
   const { data: settings, isLoading: settingsLoading } = useGetSettings();
 
-  
+
   if (isLoading || settingsLoading) return <Loader />
   if (isError) return <div className="container my-12"><AlertError>
     هناك خطاء ما
   </AlertError></div>
-  
+
 
   return (
 
@@ -41,7 +41,9 @@ const HotelsSection = () => {
             loop: true,
             direction: "rtl",
             align: "center",
-
+            autoplay: true,
+            autoplayTimeout: 1000,
+            autoplayHoverPause: true,
           }}
           className="w-full space-y-8  "
         >
@@ -63,7 +65,7 @@ const HotelsSection = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.1 }}
                   >
-                    <HotelCard hotel={hotel} data= {settings} />
+                    <HotelCard hotel={hotel} data={settings} />
                   </motion.div>
                 </CarouselItem>
               ))}

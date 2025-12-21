@@ -91,24 +91,26 @@ const AddPackage = () => {
             phone: '',
             housingType: '',
             country: '',
-            countryCode: '996',
+            countryCode: 'SA+966',
             city: '',
             terms: false,
         },
     })
-
     // Watch country to filter cities from nested cities array
     const selectedCountry = form.watch('country')
 
     // Update cities when country changes
     useEffect(() => {
+        if (!selectedCountry || !countriesData) {
+            return
+        }
         const selectedCountryCitiesData = countriesData?.find((country) => country.id === Number(selectedCountry))?.cities
         setSelectedCountryCities(selectedCountryCitiesData || [])
         // Clear city selection when country changes
         if (selectedCountry) {
             form.setValue('city', '')
         }
-    }, [selectedCountry, countriesData])
+    }, [selectedCountry, countriesData, countriesLoading])
 
     useEffect(() => {
         if (!token) {
@@ -126,10 +128,7 @@ const AddPackage = () => {
         setShowSuccess(true)
     }
     const t = { "flat": "شقق فندقية", "room": "غرفة", "hotel": "⁠فنادق بتوصية ســـي", "villa": "فلل وشاليهات ", "huts": "أكواخ خشبية", "hotel_suites": "أجنحة فندقية" }
-    const ccc = getCountries()
-    const ddd = getCountryCallingCode('KZ')
-    console.log(ccc)
-    console.log(ddd)
+
     return (
         <section>
             <Header />
@@ -237,11 +236,11 @@ const AddPackage = () => {
                                                                                         <SelectValue placeholder="+966" />
                                                                                     </SelectTrigger>
                                                                                     <SelectContent className="select-content">
-                                                                                        {getCountries()?.map((iso2) => {
-                                                                                            const code = `+${getCountryCallingCode(iso2)}`
+                                                                                        {getCountries()?.map((iso) => {
+                                                                                            const code = `+${getCountryCallingCode(iso)}`
                                                                                             return (
-                                                                                                <SelectItem key={iso2} value={code} className="item" style={{ direction: "ltr" }}>
-                                                                                                    {iso2} {" "}{code}
+                                                                                                <SelectItem key={iso + code} value={iso + code} className="item" style={{ direction: "ltr" }}>
+                                                                                                    {iso} {" "}{code}
                                                                                                 </SelectItem>
                                                                                             )
                                                                                         })}
@@ -318,11 +317,13 @@ const AddPackage = () => {
                                                                         </div>
                                                                     </FormControl>
                                                                     <SelectContent className="select-content">
-                                                                        {countriesData?.map((option) => (
-                                                                            <SelectItem key={option.id} value={String(option.id)} className="item">
-                                                                                {option.name}
-                                                                            </SelectItem>
-                                                                        ))}
+                                                                        {
+                                                                            countriesData?.length > 0 &&
+                                                                            countriesData?.map((option) => (
+                                                                                <SelectItem key={option.id} value={String(option.id)} className="item">
+                                                                                    {option.name}
+                                                                                </SelectItem>
+                                                                            ))}
                                                                     </SelectContent>
                                                                 </Select>
                                                                 <FormMessage />

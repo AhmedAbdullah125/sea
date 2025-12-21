@@ -6,9 +6,8 @@ import { NumberTicker } from "@/components/magicui/number-ticker";
 import { motion } from "framer-motion";
 import { ReactTyped } from "react-typed";
 import { useGetSettings } from '@/components/global/useGetSettings';
-import swaplane from "../../../../public/app/1.png";
 const HeroSection = () => {
-  const { data, isLoading, isError } = useGetSettings();
+  const { data, isLoading } = useGetSettings();
   return (
     <>
       {
@@ -94,8 +93,10 @@ const HeroSection = () => {
                       </div>
                     </h1>
                     <p className="text-sm font-light xl:max-w-[70%] ">
-                      <span className="font-bold text-base"> Sea</span> سـي لإدارة الوجهات السيـاحيــة <br />
-                      منـصة معتمدة لإدارة الباقات والوجهات السياحية حول العــالم
+                      سي لإدارة الوجهات السياحية <br />
+                      ريادة عربية في السياحة الذكية وخدمات السفر المتكاملة
+                      {" "}
+                      <span className="font-bold">Sea</span>
                     </p>
                   </div>
                   {/* counters */}
