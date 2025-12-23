@@ -81,7 +81,6 @@ const SingleBlogPage = () => {
             <div className='h-[50vh] rounded-[40px] overflow-hidden bg-body'>
               <img src={blog?.image} alt="blog" className='w-full h-full object-cover ' />
             </div>
-            <h3 className='font-bold xl:text-3xl md:text-2xl text-xl text-main-blue'>{blog?.title}</h3>
             <div className='leading-[3]' dangerouslySetInnerHTML={{ __html: blog?.description }} ></div>
             <BlogsSection title={lang === 'ar' ? "المــزيد من المقــالات ." : "More Blogs."} data={data} isLoading={isLoadingSingle} />
           </main>

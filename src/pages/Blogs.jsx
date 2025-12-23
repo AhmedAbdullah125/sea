@@ -68,8 +68,9 @@ const Blogs = () => {
         </motion.div>
         {/* newsletter */}
         <Newsletter lang={lang} />
+
         {/* blogs */}
-        <BlogsSection data={data} isLoading={isLoading} title={lang === 'ar' ? "المقالات الجديـــــــــــده ." : "Latest Blogs."} lang={lang} />
+        <BlogsSection data={data} isLoading={isLoading} title={lang === 'ar' ? "المقالات الجديـــــــــــدة ." : "Latest Blogs."} lang={lang} />
       </main>
       <Footer />
     </>
