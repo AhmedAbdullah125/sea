@@ -40,12 +40,13 @@ const AboutSection = () => {
             <div className="about-tag">من نحــــن</div>
 
             {/* Title */}
-            <div className="about-title">
+            <div className="about-title flex" >
               نبــــــذة عن
-              <br />
+             {" "}
               <div className="flex items-center gap-2 flex-wrap">
+                <span>{" "}</span>
                 <span className="text-blue">الشركــــــة</span>
-                <UsersProfiles data={profiles} />
+                {/* <UsersProfiles data={profiles} /> */}
               </div>
             </div>
 

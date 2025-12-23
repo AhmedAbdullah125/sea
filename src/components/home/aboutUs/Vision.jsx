@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import visionimage from "../../../../public/app/vision.png"
+import visionimage from "../../../../public/app/aboutimg.jpeg"
 import { Link } from "react-router-dom"
 
 const Vision = () => {

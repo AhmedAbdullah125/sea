@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import missionimage from "../../../../public/app/mission.png"
+import missionimage from "../../../../public/app/missionimg.jpeg"
 import { Link } from "react-router-dom"
 
 const Mission = () => {

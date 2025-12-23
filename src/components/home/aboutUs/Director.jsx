@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import director from "../../../../public/app/teamMemberImage.png"
+import director from "../../../../public/app/director2.jpeg"
 import logo from '../../../../public/app/footerLogo.svg'
 import signture from '../../../../public/app/signture.png'
 import contations from '../../../../public/app/contations.svg'

@@ -384,6 +384,72 @@
 
 
 
+.why-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    color: $white;
+
+    .r-side {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        background-color: #F9F9F91A;
+        //blur
+        backdrop-filter: blur(10px);
+        border-radius: 50px;
+        border: 1px solid #b987c4;
+        color: $white;
+
+        .icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 12px;
+            border: 1px solid #0000001A;
+            background-color: $white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+    }
+
+    .l-side {
+        display: flex;
+        gap: 26px;
+        align-items: center;
+
+        .icon {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .socials {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 50px;
+                height: 50px;
+                border-radius: 25px;
+                background-color: #FFFFFF1A;
+
+            }
+        }
+    }
+
+}
+
 .why-hero {
     background: linear-gradient(101.29deg, #016AB5 0%, #A71755 122.01%);
     padding: 64px 0;
@@ -402,71 +468,6 @@
         min-height: 650px;
     }
 
-    .why-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        flex-wrap: wrap;
-        color: $white;
-
-        .r-side {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background-color: #F9F9F91A;
-            //blur
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            border: 1px solid #b987c4;
-            color: $white;
-
-            .icon {
-                width: 32px;
-                height: 32px;
-                border-radius: 12px;
-                border: 1px solid #0000001A;
-                background-color: $white;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-            }
-        }
-
-        .l-side {
-            display: flex;
-            gap: 26px;
-            align-items: center;
-
-            .icon {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                font-size: 16px;
-                font-weight: 700;
-            }
-
-            .socials {
-                display: flex;
-                gap: 10px;
-                align-items: center;
-
-                a {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 50px;
-                    height: 50px;
-                    border-radius: 25px;
-                    background-color: #FFFFFF1A;
-
-                }
-            }
-        }
-
-    }
 
     .content {
         display: flex;

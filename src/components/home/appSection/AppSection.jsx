@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { FaGooglePlay } from "react-icons/fa";
-import { GrApple } from "react-icons/gr";
 import { motion } from 'framer-motion'
 import { API_BASE_URL } from '../../../lib/apiConfig';
 import Loading from '../../loading/Loading';
+import part from '../../../../public/app/part.svg'
 
 const AppSection = () => {
 
@@ -90,9 +89,17 @@ const AppSection = () => {
           //   </div>
 
           // </div>
-          <div className="appimage-cont">
-            <img src={data?.imageApp} alt="App Image" loading='lazy' className='w-full h-full object-contain' />
-          </div>
+          <>
+            <div className="new-heads">
+              <div className="section-new-title">تطبيــقاتنا</div>
+              <h2 className="section-new-title2">مع تطبيـــق سي الرحـــلة بتفـــرق كثيـــر !</h2>
+              <p><img src={part} alt="App Image" loading='lazy' /><span>لسنـــا مجـرد شركــة سفـر… نحن شــريك رحلتك مـن بدايتــها إلى نهايتــها.</span> </p>
+            </div>
+            <div className="appimage-cont">
+
+              <img src={data?.imageApp} alt="App Image" loading='lazy' className='w-full h-full object-contain' />
+            </div>
+          </>
       }
     </motion.section>
   )

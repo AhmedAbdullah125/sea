@@ -15,6 +15,7 @@ import popupBG from '../../public/app/popup.png';
 import seaLogo from '../../public/app/seaLogo.svg';
 import { X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Numbers from '../components/home/Numbers';
 
 export default function Homepage() {
     const [showPopup, setShowPopup] = useState(false);
@@ -53,8 +54,9 @@ export default function Homepage() {
                 <TotalHotelsSection />
                 <AboutUS />
                 <CustomerReviewsSection />
-                <AppSection />
                 <AboutSection />
+                <Numbers />
+                <AppSection />
                 {/* <Satatistics /> */}
                 <Footer />
 

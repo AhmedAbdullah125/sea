@@ -92,15 +92,13 @@ const HeroSection = () => {
                         <br />
                       </div>
                     </h1>
-                    <p className="text-sm font-light xl:max-w-[70%] ">
+                    <p className="text-lg font-light xl:max-w-[80%] ">
                       سي لإدارة الوجهات السياحية <br />
                       ريادة عربية في السياحة الذكية وخدمات السفر المتكاملة
-                      {" "}
-                      <span className="font-bold">Sea</span>
-                    </p>
+                                          </p>
                   </div>
                   {/* counters */}
-                  <div className="hidden xl:flex flex-col  justify-center items-center gap-10 ">
+                  <div className="hidden xl:flex flex-col  justify-center items-center gap-10 pe-0 md:pe-24">
                     <div >
                       <h2 className="text-5xl font-bold text-white">
                         <NumberTicker value={data?.compleated_bookings} className="text-5xl font-bold text-white" /> +</h2>

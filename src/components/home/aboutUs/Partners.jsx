@@ -1,11 +1,23 @@
 import { motion } from "framer-motion"
-import appleIcon from "../../../../public/app/appleIcon.svg"
+import part1 from "../../../../public/app/part/1.png"
+import part2 from "../../../../public/app/part/2.png"
+import part3 from "../../../../public/app/part/3.png"
+import part4 from "../../../../public/app/part/4.png"
+import part5 from "../../../../public/app/part/5.png"
+import part6 from "../../../../public/app/part/6.png"
+import part7 from "../../../../public/app/part/7.png"
+import part8 from "../../../../public/app/part/8.png"
+import part9 from "../../../../public/app/part/9.png"
+import part10 from "../../../../public/app/part/10.png"
+import part11 from "../../../../public/app/part/11.png"
+import part12 from "../../../../public/app/part/12.png"
+import part13 from "../../../../public/app/part/13.svg"
+import part14 from "../../../../public/app/part/14.png"
+import part15 from "../../../../public/app/part/15.png"
 
 const Partners = () => {
     const partners = [
-        "Android", "Google Cloud", "Hostinger", "Apple", "Adobe",
-        "Huawei", "GoDaddy", "Figma", "Microsoft", "AWS",
-        "Dell", "Microsoft Azure", "Cloudflare", "cPanel", "OVHcloud"
+        part1, part2, part3, part4, part5, part6, part7, part8, part9, part10, part11, part12, part13, part14, part15
     ];
 
     return (
@@ -33,15 +45,8 @@ const Partners = () => {
                             className="partner-card"
                         >
                             <div className="partner-content">
-                                {/* Using appleIcon for everything as requested, but maybe add text/name for clarity if user wanted exact logos? 
-                                   User said: "use AppleIcon to fallback all images". 
-                                   The image shows logos with text. 
-                                   I'll just put the icon and maybe the name if appropriate, but usually logos are standalone.
-                                   However, since I only have the apple icon, I will display the apple icon and the Name to mimic the "Brand Logo" look if the user specifically asked for "all images" to be fallback. 
-                                   Actually, usually "fallback" means if image is missing. But here I don't have images.
-                                   I will just render the Icon + Name to simulate the logo structure.
-                                */}
-                                <img src={appleIcon} alt={partner} className="partner-icon" />
+
+                                <img src={partner} alt={partner} className="partner-icon" />
                             </div>
                         </div>
                     ))}
